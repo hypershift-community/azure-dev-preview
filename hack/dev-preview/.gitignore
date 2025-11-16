@@ -1,0 +1,16 @@
+# Sensitive files - never commit
+.envrc
+.envrc.local
+.envrc.az_net_ids
+azure-credentials.json
+pull-secret.json
+serviceaccount-signer.private
+serviceaccount-signer.public
+workload-identities.json
+azure_mgmt.json
+*-kubeconfig
+.azure-net-ids
+jwks
+manifests/**
+openid-configuration
+tls/**

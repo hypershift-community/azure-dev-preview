@@ -1,0 +1,82 @@
+version: '3'
+
+tasks:
+  create:
+    desc: Create HyperShift hosted cluster on Azure
+    # deps: [azure:infra, azure:identities]  # Commented for manual testing
+    preconditions:
+      - sh: az group show --name {{.MANAGED_RG_NAME}} 2>/dev/null
+        msg: "Managed resource group {{.MANAGED_RG_NAME}} not found. Run 'task azure:infra' first."
+      - sh: test -f .azure-net-ids
+        msg: "Network IDs file .azure-net-ids not found. Run 'task azure:infra' first."
+      - sh: test -f workload-identities.json
+        msg: "workload-identities.json not found. Run 'task azure:identities' first."
+      - sh: test -f {{.AZURE_CREDS}}
+        msg: "Azure credentials file not found at {{.AZURE_CREDS}}"
+      - sh: test -f {{.PULL_SECRET}}
+        msg: "Pull secret file not found at {{.PULL_SECRET}}"
+      - sh: test -f {{.SA_TOKEN_ISSUER_PRIVATE_KEY_PATH}}
+        msg: "Service account private key not found at {{.SA_TOKEN_ISSUER_PRIVATE_KEY_PATH}}"
+    vars:
+      VNET_ID:
+        sh: grep "export VNET_ID=" .azure-net-ids | cut -d"'" -f2
+      SUBNET_ID:
+        sh: grep "export SUBNET_ID=" .azure-net-ids | cut -d"'" -f2
+      NSG_ID:
+        sh: grep "export NSG_ID=" .azure-net-ids | cut -d"'" -f2
+    cmds:
+      - echo "Creating hosted cluster {{.CLUSTER_NAME}}"
+      - echo "========================================"
+      - echo "OpenShift Details{{":"}}"
+      - echo "  Release{{":"}} {{.RELEASE_IMAGE}}"
+      - |
+        if [ -n "{{.CPO_IMAGE}}" ]; then
+          echo "  Control Plane Operator [Override]: {{.CPO_IMAGE}}"
+        fi
+      - echo "========================================"
+      - echo "Azure Details{{":"}}"
+      - echo "  Resource Group{{":"}} {{.MANAGED_RG_NAME}}"
+      - echo "  Location{{":"}} {{.LOCATION}}"
+      - echo "  Base Domain{{":"}} {{.PARENT_DNS_ZONE}}"
+      - echo "  DNS Zone RG{{":"}} {{.PERSISTENT_RG_NAME}}"
+      - echo "========================================"
+      - |
+        EXTRA_ARGS=""
+        if [ -n "{{.CPO_IMAGE}}" ]; then
+          EXTRA_ARGS="--control-plane-operator-image={{.CPO_IMAGE}}"
+        fi
+
+        hypershift create cluster azure \
+          --name {{.CLUSTER_NAME}} \
+          --namespace {{.CLUSTER_NAMESPACE}} \
+          --azure-creds {{.AZURE_CREDS}} \
+          --location {{.LOCATION}} \
+          --node-pool-replicas {{.NODE_POOL_REPLICAS}} \
+          --base-domain {{.PARENT_DNS_ZONE}} \
+          --dns-zone-rg-name {{.PERSISTENT_RG_NAME}} \
+          --pull-secret {{.PULL_SECRET}} \
+          --generate-ssh \
+          --release-image {{.RELEASE_IMAGE}} \
+          --resource-group-name {{.MANAGED_RG_NAME}} \
+          --vnet-id {{.VNET_ID}} \
+          --subnet-id {{.SUBNET_ID}} \
+          --network-security-group-id {{.NSG_ID}} \
+          --sa-token-issuer-private-key-path {{.SA_TOKEN_ISSUER_PRIVATE_KEY_PATH}} \
+          --oidc-issuer-url {{.OIDC_ISSUER_URL}} \
+          --assign-service-principal-roles \
+          --workload-identities-file ./workload-identities.json \
+          --diagnostics-storage-account-type Managed \
+          $EXTRA_ARGS
+      - echo "✓ Hosted cluster {{.CLUSTER_NAME}} created successfully"
+
+  destroy:
+    desc: Destroy HyperShift hosted cluster
+    cmds:
+      - echo "Destroying hosted cluster {{.CLUSTER_NAME}}..."
+      - |
+        hypershift destroy cluster azure \
+          --location {{.LOCATION}} \
+          --name {{.CLUSTER_NAME}} \
+          --resource-group-name {{.MANAGED_RG_NAME}} \
+          --azure-creds {{.AZURE_CREDS}}
+      - echo "✓ Hosted cluster {{.CLUSTER_NAME}} destroyed"

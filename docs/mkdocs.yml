@@ -1,6 +1,12 @@
-site_name: HyperShift
+site_name: HyperShift Azure Developer Preview
+site_url: https://hypershift-community.github.io/azure-dev-preview/
+site_description: Developer preview documentation for HyperShift on Azure
+site_author: HyperShift Community
 theme:
   name: material
+  palette:
+    scheme: slate
+    primary: custom
   features:
   - navigation.tabs
   - navigation.indexes
@@ -8,7 +14,9 @@ theme:
 plugins:
 - search
 - mermaid2:
-    version: 11.2.0
+    version: 11.4.0
+    arguments:
+      theme: 'dark'
 - glightbox:
     touchNavigation: true
     loop: false
@@ -22,11 +30,9 @@ plugins:
     auto_caption: false
     caption_position: bottom
 docs_dir: content
-repo_url: https://github.com/openshift/hypershift
+repo_url: https://github.com/hypershift-community/azure-dev-preview
 edit_uri: edit/main/docs/content
-repo_name: openshift/hypershift
-extra_javascript:
-  - https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js
+repo_name: hypershift-community/azure-dev-preview
 markdown_extensions:
 - toc:
     toc_depth: "2-3"
@@ -54,274 +60,289 @@ validation:
 extra_css:
   - custom.css
 nav:
-- Home: index.md
-- 'Getting started': getting-started.md
-- 'How-to guides':
-  - how-to/index.md
-  - how-to/feature-gates.md
-  - 'Configure OCP components':
-    - how-to/configure-ocp-components/index.md
-    - how-to/configure-ocp-components/kubeapi-server.md
-    - how-to/configure-ocp-components/custom-kas-kubeconfig.md
-  - how-to/distribute-hosted-cluster-workloads.md
-  - how-to/upgrades.md
-  - how-to/restart-control-plane-components.md
-  - how-to/pause-reconciliation.md
-  - how-to/per-hostedcluster-dashboard.md
-  - how-to/metrics-sets.md
-  - how-to/troubleshooting-general.md
-  - 'Common':
-    - how-to/common/exposing-services-from-hcp.md
-    - how-to/common/multi-arch-on-hcp.md
-    - 'Global Pull Secret': how-to/common/global-pull-secret.md
-  - 'CI':
-    - how-to/ci/checking-ci.md
-  - 'HyperShift Operator Install':
-    - how-to/install/index.md
-  - 'Disaster Recovery':
-    - how-to/disaster-recovery/index.md
-    - how-to/disaster-recovery/backup-and-restore-oadp.md
-    - how-to/disaster-recovery/backup-and-restore-oadp-1-5.md
-    - how-to/disaster-recovery/etcd-recovery.md
-  - 'Automated Machine Management':
-    - how-to/automated-machine-management/index.md
-    - how-to/automated-machine-management/scale-to-zero-dataplane.md
-    - how-to/automated-machine-management/nodepool-lifecycle.md
-    - how-to/automated-machine-management/node-tuning.md
-    - how-to/automated-machine-management/configure-machines.md
-    - how-to/automated-machine-management/performance-profiling.md
-  - 'AWS':
-    - how-to/aws/create-aws-hosted-cluster-arm-workers.md
-    - how-to/aws/create-infra-iam-separately.md
-    - how-to/aws/create-aws-hosted-cluster-multiple-zones.md
-    - how-to/aws/create-aws-hosted-cluster-autonode.md
-    - how-to/aws/deploy-aws-private-clusters.md
-    - how-to/aws/external-dns.md
-    - how-to/aws/etc-backup-restore.md
-    - how-to/aws/disaster-recovery.md
-    - how-to/aws/shared-vpc.md
-    - how-to/aws/define-custom-kube-api-name.md
-    - 'Global Pull Secret': how-to/aws/global-pull-secret.md
-    - 'Other SDN providers': how-to/aws/other-sdn-providers.md
-    - 'Troubleshooting':
-        - how-to/aws/troubleshooting/index.md
-        - how-to/aws/troubleshooting/debug-nodes.md
-        - how-to/aws/troubleshooting/troubleshooting-disaster-recovery.md
-  - 'Azure':
-    - 'Managed Azure':
-      - how-to/azure/create-azure-cluster-on-aks.md
-      - how-to/azure/create-azure-cluster-with-options.md
-      - how-to/azure/scheduler.md
-    - 'Self-managed Azure':
-      - how-to/azure/self-managed-azure-index.md
-      - how-to/azure/azure-workload-identity-setup.md
-      - how-to/azure/setup-management-cluster.md
-      - how-to/azure/create-self-managed-azure-cluster.md
-    - 'Global Pull Secret': how-to/azure/global-pull-secret.md
-    - 'Troubleshooting':
-        - how-to/azure/troubleshooting/index.md
-        - how-to/azure/troubleshooting/debug-nodes.md
-  - 'Agent':
-    - how-to/agent/create-agent-cluster.md
-    - how-to/agent/create-heterogeneous-nodepools.md
-    - 'Other SDN providers': how-to/agent/other-sdn-providers.md
-    - 'Exposing HCP Services': how-to/agent/exposing-services-from-hcp.md
-    - 'Global Pull Secret': how-to/agent/global-pull-secret.md
-  - 'Disconnected':
-    - how-to/disconnected/index.md
-    - how-to/disconnected/tls-certificates.md
-    - 'IDMS/ICSP Config for Management Cluster': how-to/disconnected/idms-icsp-for-management-clusters.md
-    - how-to/disconnected/image-content-sources.md
-    - how-to/disconnected/disconnected-workarounds.md
-    - how-to/disconnected/known-issues.md
-  - 'Kubevirt':
-    - how-to/kubevirt/create-kubevirt-cluster.md
-    - how-to/kubevirt/ingress-and-dns.md
-    - how-to/kubevirt/configuring-storage.md
-    - how-to/kubevirt/configuring-network.md
-    - how-to/kubevirt/performance-tuning.md
-    - how-to/kubevirt/external-infrastructure.md
-    - how-to/kubevirt/gpu-devices.md
-    - how-to/kubevirt/troubleshooting-kubevirt-cluster.md
-    - 'Global Pull Secret': how-to/kubevirt/global-pull-secret.md
-  - 'OpenStack':
-    - how-to/openstack/index.md
-    - how-to/openstack/prerequisites.md
-    - how-to/openstack/hostedcluster.md
-    - how-to/openstack/az.md
-    - how-to/openstack/additional-ports.md
-    - how-to/openstack/performance-tuning.md
-    - how-to/openstack/destroy.md
-    - 'Global Pull Secret': how-to/openstack/global-pull-secret.md
-  - 'None':
-    - how-to/none/create-none-cluster.md
-    - 'Exposing HCP Services': how-to/agent/exposing-services-from-hcp.md
-    - 'Global Pull Secret': how-to/none/global-pull-secret.md
-  - 'PowerVS':
-    - how-to/powervs/create-cluster-powervs.md
-    - how-to/powervs/create-infra-separately.md
-    - how-to/powervs/prerequisites-and-env-guide.md
-    - 'Global Pull Secret': how-to/powervs/global-pull-secret.md
-- 'Self-Managed Laboratories':
-  - 'MultiCluster Engine and Agent provider':
-    - labs/index.md
-    - 'IPv4':
-      - labs/IPv4/index.md
-      - 'Hypervisor':
-        - labs/IPv4/hypervisor/index.md
-        - 'Bare Metal Requisites': labs/IPv4/hypervisor/requisites.md
-        - 'Packaging': labs/IPv4/hypervisor/packaging.md
-        - 'Network Manager Dispatcher': labs/IPv4/hypervisor/network-manager-dispatcher.md
-        - 'BMC Access for Metal3': labs/IPv4/hypervisor/redfish-for-vms.md
-        - labs/IPv4/hypervisor/hypervisor-system-config.md
-      - labs/IPv4/dns.md
-      - labs/IPv4/registry.md
-      - 'Management Cluster':
-        - 'Management Cluster Provisioning': labs/IPv4/mgmt-cluster/index.md
-        - 'Networking': labs/IPv4/mgmt-cluster/network.md
-        - 'Openshift Compact IPv4': labs/IPv4/mgmt-cluster/compact-ipv4.md
-      - labs/IPv4/webserver.md
-      - 'Mirroring and Image Content Sources':
-        - labs/IPv4/mirror/index.md
-        - 'Mirroring': labs/IPv4/mirror/mirroring.md
-        - 'Image Content Policies': labs/IPv4/mirror/ICSP-IDMS.md
-      - 'Multicluster Engine':
-        - 'Multicluster Engine': labs/IPv4/mce/index.md
-        - 'ACM/MCE Deployment': labs/IPv4/mce/multicluster-engine.md
-        - 'Agent Service Config': labs/IPv4/mce/agentserviceconfig.md
-      - 'TLS Certificates': labs/IPv4/tls-certificates.md
-      - 'HostedCluster':
-        - 'Hosted Cluster Creation': labs/IPv4/hostedcluster/index.md
-        - 'Hosted Cluster Object': labs/IPv4/hostedcluster/hostedcluster.md
-        - 'Node Pools': labs/IPv4/hostedcluster/nodepool.md
-        - 'Infra Env': labs/IPv4/hostedcluster/infraenv.md
-        - 'Worker Nodes': labs/IPv4/hostedcluster/worker-nodes.md
-        - 'Bare Metal Hosts': labs/IPv4/hostedcluster/baremetalhost.md
-      - 'Finishing Deployment':
-        - labs/IPv4/watching/index.md
-        - 'Watching the Control Plane': labs/IPv4/watching/watching-cp.md
-        - 'Watching the Data Plane': labs/IPv4/watching/watching-dp.md
-    - 'IPv6':
-      - labs/IPv6/index.md
-      - 'Hypervisor':
-        - labs/IPv6/hypervisor/index.md
-        - 'Bare Metal Requisites': labs/IPv6/hypervisor/requisites.md
-        - 'Packaging': labs/IPv6/hypervisor/packaging.md
-        - 'Network Manager Dispatcher': labs/IPv6/hypervisor/network-manager-dispatcher.md
-        - 'BMC Access for Metal3': labs/IPv6/hypervisor/redfish-for-vms.md
-        - labs/IPv6/hypervisor/hypervisor-system-config.md
-      - labs/IPv6/dns.md
-      - labs/IPv6/registry.md
-      - 'Management Cluster':
-        - 'Management Cluster Provisioning': labs/IPv6/mgmt-cluster/index.md
-        - 'Networking': labs/IPv6/mgmt-cluster/network.md
-        - 'Openshift Compact IPv6': labs/IPv6/mgmt-cluster/compact-ipv6.md
-      - labs/IPv6/webserver.md
-      - 'Mirroring and Image Content Sources':
-        - labs/IPv6/mirror/index.md
-        - 'Mirroring': labs/IPv6/mirror/mirroring.md
-        - 'Image Content Policies': labs/IPv6/mirror/ICSP-IDMS.md
-      - 'Multicluster Engine':
-        - 'Multicluster Engine': labs/IPv6/mce/index.md
-        - 'ACM/MCE Deployment': labs/IPv6/mce/multicluster-engine.md
-        - 'Agent Service Config': labs/IPv6/mce/agentserviceconfig.md
-      - 'TLS Certificates': labs/IPv6/tls-certificates.md
-      - 'HostedCluster':
-        - 'Hosted Cluster Creation': labs/IPv6/hostedcluster/index.md
-        - 'Hosted Cluster Object': labs/IPv6/hostedcluster/hostedcluster.md
-        - 'Node Pools': labs/IPv6/hostedcluster/nodepool.md
-        - 'Infra Env': labs/IPv6/hostedcluster/infraenv.md
-        - 'Worker Nodes': labs/IPv6/hostedcluster/worker-nodes.md
-        - 'Bare Metal Hosts': labs/IPv6/hostedcluster/baremetalhost.md
-      - 'Finishing Deployment':
-        - labs/IPv6/watching/index.md
-        - 'Watching the Control Plane': labs/IPv6/watching/watching-cp.md
-        - 'Watching the Data Plane': labs/IPv6/watching/watching-dp.md
-    - 'Dual Stack':
-      - labs/Dual/index.md
-      - 'Hypervisor':
-        - labs/Dual/hypervisor/index.md
-        - 'Bare Metal Requisites': labs/Dual/hypervisor/requisites.md
-        - 'Packaging': labs/Dual/hypervisor/packaging.md
-        - 'Network Manager Dispatcher': labs/Dual/hypervisor/network-manager-dispatcher.md
-        - 'BMC Access for Metal3': labs/Dual/hypervisor/redfish-for-vms.md
-        - labs/Dual/hypervisor/hypervisor-system-config.md
-      - labs/Dual/dns.md
-      - labs/Dual/registry.md
-      - 'Management Cluster':
-        - 'Management Cluster Provisioning': labs/Dual/mgmt-cluster/index.md
-        - 'Networking': labs/Dual/mgmt-cluster/network.md
-        - 'Openshift Compact Dual': labs/Dual/mgmt-cluster/compact-dual.md
-      - labs/Dual/webserver.md
-      - 'Mirroring and Image Content Sources':
-        - labs/Dual/mirror/index.md
-        - 'Mirroring': labs/Dual/mirror/mirroring.md
-        - 'Image Content Policies': labs/Dual/mirror/ICSP-IDMS.md
-      - 'Multicluster Engine':
-        - 'Multicluster Engine': labs/Dual/mce/index.md
-        - 'ACM/MCE Deployment': labs/Dual/mce/multicluster-engine.md
-        - 'Agent Service Config': labs/Dual/mce/agentserviceconfig.md
-      - 'TLS Certificates': labs/Dual/tls-certificates.md
-      - 'HostedCluster':
-        - 'Hosted Cluster Creation': labs/Dual/hostedcluster/index.md
-        - 'Hosted Cluster Object': labs/Dual/hostedcluster/hostedcluster.md
-        - 'Node Pools': labs/Dual/hostedcluster/nodepool.md
-        - 'Infra Env': labs/Dual/hostedcluster/infraenv.md
-        - 'Worker Nodes': labs/Dual/hostedcluster/worker-nodes.md
-        - 'Bare Metal Hosts': labs/Dual/hostedcluster/baremetalhost.md
-      - 'Finishing Deployment':
-        - labs/Dual/watching/index.md
-        - 'Watching the Control Plane': labs/Dual/watching/watching-cp.md
-        - 'Watching the Data Plane': labs/Dual/watching/watching-dp.md
-- 'Recipes':
-  - recipes/index.md
-  - 'Common':
-    - 'Expose Data Plane Ingress via MetalLB': recipes/common/exposing-dataplane-with-metallb.md
-    - 'Replace the default CRI-O runtime': recipes/common/replace-crio-runtime.md
+- 'Home': index.md
+- 'Understanding': how-to/azure/self-managed/01-understanding.md
+- 'Planning':
+    - 'Azure Planning': how-to/azure/self-managed/02a-azure-planning.md
+    - 'Workflow & Setup': how-to/azure/self-managed/02b-workflow-planning.md
+- 'Azure Setup': how-to/azure/self-managed/03-azure-foundation.md
+- 'Management & Hosted Clusters':
+    - 'Management Cluster': how-to/azure/self-managed/04-management-cluster.md
+    - 'Create Hosted Cluster': how-to/azure/self-managed/05-hosted-cluster.md
+    - 'Day 2 Operations': how-to/azure/self-managed/06-day2-operations.md
 - 'Reference':
-  - 'Architecture':
-    - reference/architecture/index.md
-    - 'Multicluster Engine and Agent': reference/architecture/mce-and-agent.md
-    - 'Managed Azure':
-        - reference/architecture/managed-azure/secrets-csi.md
-        - reference/architecture/managed-azure/shared-ingress.md
-  - reference/api.md
-  - reference/concepts-and-personas.md
-  - reference/controller-architecture.md
-  - reference/goals-and-design-invariants.md
-  - "Infrastructure":
-    - reference/infrastructure/index.md
-    - "AWS": reference/infrastructure/aws.md
-    - "Agent": reference/infrastructure/agent.md
-  - reference/index.md
-  - reference/konnectivity.md
-  - 'Manifests':
-    - reference/manifests/index.md
-    - 'IBM Cloud':
-      - '4.9': reference/manifests/ibmcloud/4.9.md
-      - '4.10': reference/manifests/ibmcloud/4.10.md
-      - '4.11': reference/manifests/ibmcloud/4.11.md
-      - '4.12': reference/manifests/ibmcloud/4.12.md
-      - '4.13': reference/manifests/ibmcloud/4.13.md
-  - reference/multi-platform-support.md
-  - 'Openshift behaviour deviations':
-    - reference/ocp-behaviour-deviations/index.md
-    - 'Upgrade 4.17 > 4.18': reference/ocp-behaviour-deviations/upgrade-4.17-4.18.md
-  - 'Test Information/Debugging':
-    - 'ARO HCP / AKS e2e':
-      - reference/test-information-debugging/Azure/test-artifacts-directory-structure.md
-  - reference/SLOs.md
-  - reference/versioning-support.md
-- 'Contribute':
-  - contribute/index.md
-  - 'HO/CPO Release Process': contribute/release-process.md
-  - 'OCP Branching Tasks': contribute/branch-process.md
-  - 'Custom Images': contribute/custom-images.md
-  - 'Onboard a Platform': contribute/onboard-a-platform.md
-  - 'Run Tests': contribute/run-tests.md
-  - 'Develop in Cluster': contribute/develop_in_cluster.md
-  - 'Run hypershift-operator locally': contribute/run-hypershift-operator-locally.md
-  - 'CPO Overrides': contribute/cpo-overrides.md
-  - 'Contribute to docs': contribute/contribute-docs.md
-- 'Videos':
-  - videos/index.md
+    - 'Troubleshooting': how-to/azure/self-managed/07-troubleshooting.md
+    - 'Reference': how-to/azure/self-managed/08-reference.md
+
+# Future documentation sections - preserved for potential future use
+# - Home: index.md
+# - 'Getting started': getting-started.md
+# - 'How-to guides':
+#   - how-to/index.md
+#   - how-to/feature-gates.md
+#   - 'Configure OCP components':
+#     - how-to/configure-ocp-components/index.md
+#     - how-to/configure-ocp-components/kubeapi-server.md
+#     - how-to/configure-ocp-components/custom-kas-kubeconfig.md
+#   - how-to/distribute-hosted-cluster-workloads.md
+#   - how-to/upgrades.md
+#   - how-to/restart-control-plane-components.md
+#   - how-to/pause-reconciliation.md
+#   - how-to/per-hostedcluster-dashboard.md
+#   - how-to/metrics-sets.md
+#   - how-to/troubleshooting-general.md
+#   - 'Common':
+#     - how-to/common/exposing-services-from-hcp.md
+#     - how-to/common/multi-arch-on-hcp.md
+#     - 'Global Pull Secret': how-to/common/global-pull-secret.md
+#   - 'CI':
+#     - how-to/ci/checking-ci.md
+#   - 'HyperShift Operator Install':
+#     - how-to/install/index.md
+#   - 'Disaster Recovery':
+#     - how-to/disaster-recovery/index.md
+#     - how-to/disaster-recovery/backup-and-restore-oadp.md
+#     - how-to/disaster-recovery/backup-and-restore-oadp-1-5.md
+#     - how-to/disaster-recovery/etcd-recovery.md
+#   - 'Automated Machine Management':
+#     - how-to/automated-machine-management/index.md
+#     - how-to/automated-machine-management/scale-to-zero-dataplane.md
+#     - how-to/automated-machine-management/nodepool-lifecycle.md
+#     - how-to/automated-machine-management/node-tuning.md
+#     - how-to/automated-machine-management/configure-machines.md
+#     - how-to/automated-machine-management/performance-profiling.md
+#   - 'AWS':
+#     - how-to/aws/create-aws-hosted-cluster-arm-workers.md
+#     - how-to/aws/create-infra-iam-separately.md
+#     - how-to/aws/create-aws-hosted-cluster-multiple-zones.md
+#     - how-to/aws/create-aws-hosted-cluster-autonode.md
+#     - how-to/aws/deploy-aws-private-clusters.md
+#     - how-to/aws/external-dns.md
+#     - how-to/aws/etc-backup-restore.md
+#     - how-to/aws/disaster-recovery.md
+#     - how-to/aws/shared-vpc.md
+#     - how-to/aws/define-custom-kube-api-name.md
+#     - 'Global Pull Secret': how-to/aws/global-pull-secret.md
+#     - 'Other SDN providers': how-to/aws/other-sdn-providers.md
+#     - 'Troubleshooting':
+#         - how-to/aws/troubleshooting/index.md
+#         - how-to/aws/troubleshooting/debug-nodes.md
+#         - how-to/aws/troubleshooting/troubleshooting-disaster-recovery.md
+#   - 'Azure':
+#     - 'Managed Azure':
+#       - how-to/azure/create-azure-cluster-on-aks.md
+#       - how-to/azure/create-azure-cluster-with-options.md
+#       - how-to/azure/scheduler.md
+#     - 'Self-managed Azure':
+#       - how-to/azure/self-managed-azure-index.md
+#       - how-to/azure/azure-workload-identity-setup.md
+#       - how-to/azure/setup-management-cluster.md
+#       - how-to/azure/create-self-managed-azure-cluster.md
+#     - 'Global Pull Secret': how-to/azure/global-pull-secret.md
+#     - 'Troubleshooting':
+#         - how-to/azure/troubleshooting/index.md
+#         - how-to/azure/troubleshooting/debug-nodes.md
+#   - 'Agent':
+#     - how-to/agent/create-agent-cluster.md
+#     - how-to/agent/create-heterogeneous-nodepools.md
+#     - 'Other SDN providers': how-to/agent/other-sdn-providers.md
+#     - 'Exposing HCP Services': how-to/agent/exposing-services-from-hcp.md
+#     - 'Global Pull Secret': how-to/agent/global-pull-secret.md
+#   - 'Disconnected':
+#     - how-to/disconnected/index.md
+#     - how-to/disconnected/tls-certificates.md
+#     - 'IDMS/ICSP Config for Management Cluster': how-to/disconnected/idms-icsp-for-management-clusters.md
+#     - how-to/disconnected/image-content-sources.md
+#     - how-to/disconnected/disconnected-workarounds.md
+#     - how-to/disconnected/known-issues.md
+#   - 'Kubevirt':
+#     - how-to/kubevirt/create-kubevirt-cluster.md
+#     - how-to/kubevirt/ingress-and-dns.md
+#     - how-to/kubevirt/configuring-storage.md
+#     - how-to/kubevirt/configuring-network.md
+#     - how-to/kubevirt/performance-tuning.md
+#     - how-to/kubevirt/external-infrastructure.md
+#     - how-to/kubevirt/gpu-devices.md
+#     - how-to/kubevirt/troubleshooting-kubevirt-cluster.md
+#     - 'Global Pull Secret': how-to/kubevirt/global-pull-secret.md
+#   - 'OpenStack':
+#     - how-to/openstack/index.md
+#     - how-to/openstack/prerequisites.md
+#     - how-to/openstack/hostedcluster.md
+#     - how-to/openstack/az.md
+#     - how-to/openstack/additional-ports.md
+#     - how-to/openstack/performance-tuning.md
+#     - how-to/openstack/destroy.md
+#     - 'Global Pull Secret': how-to/openstack/global-pull-secret.md
+#   - 'None':
+#     - how-to/none/create-none-cluster.md
+#     - 'Exposing HCP Services': how-to/agent/exposing-services-from-hcp.md
+#     - 'Global Pull Secret': how-to/none/global-pull-secret.md
+#   - 'PowerVS':
+#     - how-to/powervs/create-cluster-powervs.md
+#     - how-to/powervs/create-infra-separately.md
+#     - how-to/powervs/prerequisites-and-env-guide.md
+#     - 'Global Pull Secret': how-to/powervs/global-pull-secret.md
+# - 'Self-Managed Laboratories':
+#   - 'MultiCluster Engine and Agent provider':
+#     - labs/index.md
+#     - 'IPv4':
+#       - labs/IPv4/index.md
+#       - 'Hypervisor':
+#         - labs/IPv4/hypervisor/index.md
+#         - 'Bare Metal Requisites': labs/IPv4/hypervisor/requisites.md
+#         - 'Packaging': labs/IPv4/hypervisor/packaging.md
+#         - 'Network Manager Dispatcher': labs/IPv4/hypervisor/network-manager-dispatcher.md
+#         - 'BMC Access for Metal3': labs/IPv4/hypervisor/redfish-for-vms.md
+#         - labs/IPv4/hypervisor/hypervisor-system-config.md
+#       - labs/IPv4/dns.md
+#       - labs/IPv4/registry.md
+#       - 'Management Cluster':
+#         - 'Management Cluster Provisioning': labs/IPv4/mgmt-cluster/index.md
+#         - 'Networking': labs/IPv4/mgmt-cluster/network.md
+#         - 'Openshift Compact IPv4': labs/IPv4/mgmt-cluster/compact-ipv4.md
+#       - labs/IPv4/webserver.md
+#       - 'Mirroring and Image Content Sources':
+#         - labs/IPv4/mirror/index.md
+#         - 'Mirroring': labs/IPv4/mirror/mirroring.md
+#         - 'Image Content Policies': labs/IPv4/mirror/ICSP-IDMS.md
+#       - 'Multicluster Engine':
+#         - 'Multicluster Engine': labs/IPv4/mce/index.md
+#         - 'ACM/MCE Deployment': labs/IPv4/mce/multicluster-engine.md
+#         - 'Agent Service Config': labs/IPv4/mce/agentserviceconfig.md
+#       - 'TLS Certificates': labs/IPv4/tls-certificates.md
+#       - 'HostedCluster':
+#         - 'Hosted Cluster Creation': labs/IPv4/hostedcluster/index.md
+#         - 'Hosted Cluster Object': labs/IPv4/hostedcluster/hostedcluster.md
+#         - 'Node Pools': labs/IPv4/hostedcluster/nodepool.md
+#         - 'Infra Env': labs/IPv4/hostedcluster/infraenv.md
+#         - 'Worker Nodes': labs/IPv4/hostedcluster/worker-nodes.md
+#         - 'Bare Metal Hosts': labs/IPv4/hostedcluster/baremetalhost.md
+#       - 'Finishing Deployment':
+#         - labs/IPv4/watching/index.md
+#         - 'Watching the Control Plane': labs/IPv4/watching/watching-cp.md
+#         - 'Watching the Data Plane': labs/IPv4/watching/watching-dp.md
+#     - 'IPv6':
+#       - labs/IPv6/index.md
+#       - 'Hypervisor':
+#         - labs/IPv6/hypervisor/index.md
+#         - 'Bare Metal Requisites': labs/IPv6/hypervisor/requisites.md
+#         - 'Packaging': labs/IPv6/hypervisor/packaging.md
+#         - 'Network Manager Dispatcher': labs/IPv6/hypervisor/network-manager-dispatcher.md
+#         - 'BMC Access for Metal3': labs/IPv6/hypervisor/redfish-for-vms.md
+#         - labs/IPv6/hypervisor/hypervisor-system-config.md
+#       - labs/IPv6/dns.md
+#       - labs/IPv6/registry.md
+#       - 'Management Cluster':
+#         - 'Management Cluster Provisioning': labs/IPv6/mgmt-cluster/index.md
+#         - 'Networking': labs/IPv6/mgmt-cluster/network.md
+#         - 'Openshift Compact IPv6': labs/IPv6/mgmt-cluster/compact-ipv6.md
+#       - labs/IPv6/webserver.md
+#       - 'Mirroring and Image Content Sources':
+#         - labs/IPv6/mirror/index.md
+#         - 'Mirroring': labs/IPv6/mirror/mirroring.md
+#         - 'Image Content Policies': labs/IPv6/mirror/ICSP-IDMS.md
+#       - 'Multicluster Engine':
+#         - 'Multicluster Engine': labs/IPv6/mce/index.md
+#         - 'ACM/MCE Deployment': labs/IPv6/mce/multicluster-engine.md
+#         - 'Agent Service Config': labs/IPv6/mce/agentserviceconfig.md
+#       - 'TLS Certificates': labs/IPv6/tls-certificates.md
+#       - 'HostedCluster':
+#         - 'Hosted Cluster Creation': labs/IPv6/hostedcluster/index.md
+#         - 'Hosted Cluster Object': labs/IPv6/hostedcluster/hostedcluster.md
+#         - 'Node Pools': labs/IPv6/hostedcluster/nodepool.md
+#         - 'Infra Env': labs/IPv6/hostedcluster/infraenv.md
+#         - 'Worker Nodes': labs/IPv6/hostedcluster/worker-nodes.md
+#         - 'Bare Metal Hosts': labs/IPv6/hostedcluster/baremetalhost.md
+#       - 'Finishing Deployment':
+#         - labs/IPv6/watching/index.md
+#         - 'Watching the Control Plane': labs/IPv6/watching/watching-cp.md
+#         - 'Watching the Data Plane': labs/IPv6/watching/watching-dp.md
+#     - 'Dual Stack':
+#       - labs/Dual/index.md
+#       - 'Hypervisor':
+#         - labs/Dual/hypervisor/index.md
+#         - 'Bare Metal Requisites': labs/Dual/hypervisor/requisites.md
+#         - 'Packaging': labs/Dual/hypervisor/packaging.md
+#         - 'Network Manager Dispatcher': labs/Dual/hypervisor/network-manager-dispatcher.md
+#         - 'BMC Access for Metal3': labs/Dual/hypervisor/redfish-for-vms.md
+#         - labs/Dual/hypervisor/hypervisor-system-config.md
+#       - labs/Dual/dns.md
+#       - labs/Dual/registry.md
+#       - 'Management Cluster':
+#         - 'Management Cluster Provisioning': labs/Dual/mgmt-cluster/index.md
+#         - 'Networking': labs/Dual/mgmt-cluster/network.md
+#         - 'Openshift Compact Dual': labs/Dual/mgmt-cluster/compact-dual.md
+#       - labs/Dual/webserver.md
+#       - 'Mirroring and Image Content Sources':
+#         - labs/Dual/mirror/index.md
+#         - 'Mirroring': labs/Dual/mirror/mirroring.md
+#         - 'Image Content Policies': labs/Dual/mirror/ICSP-IDMS.md
+#       - 'Multicluster Engine':
+#         - 'Multicluster Engine': labs/Dual/mce/index.md
+#         - 'ACM/MCE Deployment': labs/Dual/mce/multicluster-engine.md
+#         - 'Agent Service Config': labs/Dual/mce/agentserviceconfig.md
+#       - 'TLS Certificates': labs/Dual/tls-certificates.md
+#       - 'HostedCluster':
+#         - 'Hosted Cluster Creation': labs/Dual/hostedcluster/index.md
+#         - 'Hosted Cluster Object': labs/Dual/hostedcluster/hostedcluster.md
+#         - 'Node Pools': labs/Dual/hostedcluster/nodepool.md
+#         - 'Infra Env': labs/Dual/hostedcluster/infraenv.md
+#         - 'Worker Nodes': labs/Dual/hostedcluster/worker-nodes.md
+#         - 'Bare Metal Hosts': labs/Dual/hostedcluster/baremetalhost.md
+#       - 'Finishing Deployment':
+#         - labs/Dual/watching/index.md
+#         - 'Watching the Control Plane': labs/Dual/watching/watching-cp.md
+#         - 'Watching the Data Plane': labs/Dual/watching/watching-dp.md
+# - 'Recipes':
+#   - recipes/index.md
+#   - 'Common':
+#     - 'Expose Data Plane Ingress via MetalLB': recipes/common/exposing-dataplane-with-metallb.md
+#     - 'Replace the default CRI-O runtime': recipes/common/replace-crio-runtime.md
+# - 'Reference':
+#   - 'Architecture':
+#     - reference/architecture/index.md
+#     - 'Multicluster Engine and Agent': reference/architecture/mce-and-agent.md
+#     - 'Managed Azure':
+#         - reference/architecture/managed-azure/secrets-csi.md
+#         - reference/architecture/managed-azure/shared-ingress.md
+#   - reference/api.md
+#   - reference/concepts-and-personas.md
+#   - reference/controller-architecture.md
+#   - reference/goals-and-design-invariants.md
+#   - "Infrastructure":
+#     - reference/infrastructure/index.md
+#     - "AWS": reference/infrastructure/aws.md
+#     - "Agent": reference/infrastructure/agent.md
+#   - reference/index.md
+#   - reference/konnectivity.md
+#   - 'Manifests':
+#     - reference/manifests/index.md
+#     - 'IBM Cloud':
+#       - '4.9': reference/manifests/ibmcloud/4.9.md
+#       - '4.10': reference/manifests/ibmcloud/4.10.md
+#       - '4.11': reference/manifests/ibmcloud/4.11.md
+#       - '4.12': reference/manifests/ibmcloud/4.12.md
+#       - '4.13': reference/manifests/ibmcloud/4.13.md
+#   - reference/multi-platform-support.md
+#   - 'Openshift behaviour deviations':
+#     - reference/ocp-behaviour-deviations/index.md
+#     - 'Upgrade 4.17 > 4.18': reference/ocp-behaviour-deviations/upgrade-4.17-4.18.md
+#   - 'Test Information/Debugging':
+#     - 'ARO HCP / AKS e2e':
+#       - reference/test-information-debugging/Azure/test-artifacts-directory-structure.md
+#   - reference/SLOs.md
+#   - reference/versioning-support.md
+# - 'Contribute':
+#   - contribute/index.md
+#   - 'HO/CPO Release Process': contribute/release-process.md
+#   - 'OCP Branching Tasks': contribute/branch-process.md
+#   - 'Custom Images': contribute/custom-images.md
+#   - 'Onboard a Platform': contribute/onboard-a-platform.md
+#   - 'Run Tests': contribute/run-tests.md
+#   - 'Develop in Cluster': contribute/develop_in_cluster.md
+#   - 'Run hypershift-operator locally': contribute/run-hypershift-operator-locally.md
+#   - 'CPO Overrides': contribute/cpo-overrides.md
+#   - 'Contribute to docs': contribute/contribute-docs.md
+# - 'Videos':
+#   - videos/index.md

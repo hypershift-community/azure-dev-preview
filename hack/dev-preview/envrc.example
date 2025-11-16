@@ -1,0 +1,64 @@
+# ========================================
+# HyperShift Azure Dev-Preview Configuration
+# ========================================
+#
+# IMPORTANT: This file is OPTIONAL and for convenience only!
+#
+# The Taskfile automation does NOT use this file.
+# All configuration is done via Taskfile variables.
+#
+# This .envrc.example is provided for:
+# - Veterans who want to run manual CLI commands
+# - Quick reference for variable names and purposes
+#
+# To use this file:
+# 1. Copy to .envrc: cp .envrc.example .envrc
+# 2. Customize the values below
+# 3. Source when needed: source .envrc
+#
+# ========================================
+
+# === Azure Configuration ===
+export SUBSCRIPTION_ID="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"  # Your Azure subscription ID
+export TENANT_ID="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"        # Your Azure tenant ID
+export LOCATION="eastus"                                        # Azure region
+
+# === Naming ===
+export PREFIX="myprefix"                                        # Unique prefix (change this!)
+export CLUSTER_NAME="${PREFIX}-hc"                              # Computed cluster name
+
+# === Resource Groups ===
+export PERSISTENT_RG_NAME="os4-common"                          # Shared resource group
+export MANAGED_RG_NAME="${PREFIX}-managed-rg"                   # Cluster managed RG
+export VNET_RG_NAME="${PREFIX}-vnet-rg"                         # VNet RG
+export NSG_RG_NAME="${PREFIX}-nsg-rg"                           # NSG RG
+
+# === OIDC Configuration ===
+export OIDC_STORAGE_ACCOUNT_NAME="${PREFIX}oidc$(date +%s)"     # Globally unique name
+export OIDC_ISSUER_URL="https://${OIDC_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${OIDC_STORAGE_ACCOUNT_NAME}"
+export SA_TOKEN_ISSUER_PRIVATE_KEY_PATH="serviceaccount-signer.private"
+export SA_TOKEN_ISSUER_PUBLIC_KEY_PATH="serviceaccount-signer.public"
+
+# === Cluster Configuration ===
+export CLUSTER_NAMESPACE="clusters"
+export NODE_POOL_REPLICAS="2"
+
+# OpenShift release image - see ARTIFACTS.yaml for recommended version
+export RELEASE_IMAGE="quay.io/openshift-release-dev/ocp-release:4.X.Y-x86_64"
+export PARENT_DNS_ZONE="example.com"                            # Your DNS domain
+
+# === Credentials (paths to files - DO NOT COMMIT) ===
+export AZURE_CREDS="azure-credentials.json"
+export PULL_SECRET="pull-secret.json"
+
+# === Network Configuration ===
+export VNET_NAME="${PREFIX}-vnet"
+export VNET_SUBNET1="${PREFIX}-subnet-1"
+export NSG="${PREFIX}-nsg"
+
+# === Optional Overrides ===
+# Override HyperShift operator image (see ARTIFACTS.yaml for default)
+# export HYPERSHIFT_IMAGE="quay.io/myrepo/hypershift-operator:latest"
+
+# Override control plane operator (default is embedded in OCP release)
+# export CPO_IMAGE="quay.io/myrepo/hypershift:latest"

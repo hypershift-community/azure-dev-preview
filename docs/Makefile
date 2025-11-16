@@ -1,4 +1,4 @@
-RUNTIME ?= $(shell sh ../hack/utils.sh get_container_engine)
+RUNTIME ?= $(shell sh ../hack/docs/utils.sh get_container_engine)
 version := $(shell awk -f image-version.awk requirements.txt)
 VERSION ?= $(if $(MKDOCS_TAG),$(MKDOCS_TAG),$(version))
 IMG ?= quay.io/hypershift/mkdocs-material:$(VERSION)
@@ -17,10 +17,10 @@ build-containerized:
 
 .PHONY: serve-containerized
 serve-containerized:
-	$(RUNTIME) run --rm -it -p 8000:8000 \
+	$(RUNTIME) run --rm -it -p 8989:8989 \
 		-v ${PWD}:/home/docs/hypershift:Z \
 		-v hypershift-docs-site:/home/docs/hypershift/site \
-		$(IMG) serve --dev-addr 0.0.0.0:8000
+		$(IMG) serve --dev-addr 0.0.0.0:8989
 
 .PHONY: image
 image:

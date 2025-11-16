@@ -7,6 +7,9 @@
 *.dylib
 bin
 tools/bin
+release
+*.tar.gz
+.build
 
 # Test binary, build with `go test -c`
 !vendor/**/*.test

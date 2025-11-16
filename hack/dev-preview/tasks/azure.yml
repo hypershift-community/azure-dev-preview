@@ -1,0 +1,383 @@
+version: '3'
+
+vars:
+  # Identity name to JSON key mapping for workload-identities.json
+  IDENTITY_CONFIGS:
+    - {name: "{{.IMAGE_REGISTRY_MI_NAME}}", json_key: "imageRegistry"}
+    - {name: "{{.INGRESS_MI_NAME}}", json_key: "ingress"}
+    - {name: "{{.AZURE_FILE_MI_NAME}}", json_key: "file"}
+    - {name: "{{.AZURE_DISK_MI_NAME}}", json_key: "disk"}
+    - {name: "{{.NODE_POOL_MANAGEMENT_MI_NAME}}", json_key: "nodePoolManagement"}
+    - {name: "{{.CLOUD_PROVIDER_MI_NAME}}", json_key: "cloudProvider"}
+    - {name: "{{.NETWORK_MI_NAME}}", json_key: "network"}
+
+  # Federated credential configurations (14 total)
+  FEDERATED_CREDENTIAL_CONFIGS:
+    # Disk CSI Driver (3)
+    - {identity: "{{.AZURE_DISK_MI_NAME}}", name: "{{.AZURE_DISK_MI_NAME}}-fed-id-node", subject: "system:serviceaccount:openshift-cluster-csi-drivers:azure-disk-csi-driver-node-sa"}
+    - {identity: "{{.AZURE_DISK_MI_NAME}}", name: "{{.AZURE_DISK_MI_NAME}}-fed-id-operator", subject: "system:serviceaccount:openshift-cluster-csi-drivers:azure-disk-csi-driver-operator"}
+    - {identity: "{{.AZURE_DISK_MI_NAME}}", name: "{{.AZURE_DISK_MI_NAME}}-fed-id-controller", subject: "system:serviceaccount:openshift-cluster-csi-drivers:azure-disk-csi-driver-controller-sa"}
+    # File CSI Driver (3)
+    - {identity: "{{.AZURE_FILE_MI_NAME}}", name: "{{.AZURE_FILE_MI_NAME}}-fed-id-node", subject: "system:serviceaccount:openshift-cluster-csi-drivers:azure-file-csi-driver-node-sa"}
+    - {identity: "{{.AZURE_FILE_MI_NAME}}", name: "{{.AZURE_FILE_MI_NAME}}-fed-id-operator", subject: "system:serviceaccount:openshift-cluster-csi-drivers:azure-file-csi-driver-operator"}
+    - {identity: "{{.AZURE_FILE_MI_NAME}}", name: "{{.AZURE_FILE_MI_NAME}}-fed-id-controller", subject: "system:serviceaccount:openshift-cluster-csi-drivers:azure-file-csi-driver-controller-sa"}
+    # Image Registry (2)
+    - {identity: "{{.IMAGE_REGISTRY_MI_NAME}}", name: "{{.IMAGE_REGISTRY_MI_NAME}}-fed-id-registry", subject: "system:serviceaccount:openshift-image-registry:registry"}
+    - {identity: "{{.IMAGE_REGISTRY_MI_NAME}}", name: "{{.IMAGE_REGISTRY_MI_NAME}}-fed-id-operator", subject: "system:serviceaccount:openshift-image-registry:cluster-image-registry-operator"}
+    # Ingress (1)
+    - {identity: "{{.INGRESS_MI_NAME}}", name: "{{.INGRESS_MI_NAME}}-fed-id", subject: "system:serviceaccount:openshift-ingress-operator:ingress-operator"}
+    # Cloud Provider (1)
+    - {identity: "{{.CLOUD_PROVIDER_MI_NAME}}", name: "{{.CLOUD_PROVIDER_MI_NAME}}-fed-id", subject: "system:serviceaccount:kube-system:azure-cloud-provider"}
+    # Node Pool Management (1)
+    - {identity: "{{.NODE_POOL_MANAGEMENT_MI_NAME}}", name: "{{.NODE_POOL_MANAGEMENT_MI_NAME}}-fed-id", subject: "system:serviceaccount:kube-system:capi-provider"}
+    # Network (1)
+    - {identity: "{{.NETWORK_MI_NAME}}", name: "{{.NETWORK_MI_NAME}}-fed-id", subject: "system:serviceaccount:openshift-cloud-network-config-controller:cloud-network-config-controller"}
+
+tasks:
+  # === ONE-TIME SETUP (shared across all clusters) ===
+
+  oidc:
+    desc: Create Azure OIDC issuer for workload identity (one-time setup, shared)
+    preconditions:
+      - sh: test -f {{.SA_TOKEN_ISSUER_PUBLIC_KEY_PATH}}
+        msg: "Service account public key not found at {{.SA_TOKEN_ISSUER_PUBLIC_KEY_PATH}}. Run 'task prereq:keys' first."
+      - sh: test -f {{.SA_TOKEN_ISSUER_PRIVATE_KEY_PATH}}
+        msg: "Service account private key not found at {{.SA_TOKEN_ISSUER_PRIVATE_KEY_PATH}}. Run 'task prereq:keys' first."
+    status:
+      # Check if OIDC storage account already exists
+      - az storage account show --name {{.OIDC_STORAGE_ACCOUNT_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+    cmds:
+      - echo "Creating OIDC issuer (one-time setup)..."
+      - |
+        ccoctl azure create-oidc-issuer \
+          --oidc-resource-group-name {{.PERSISTENT_RG_NAME}} \
+          --tenant-id {{.TENANT_ID}} \
+          --region {{.LOCATION}} \
+          --name {{.OIDC_STORAGE_ACCOUNT_NAME}} \
+          --subscription-id {{.SUBSCRIPTION_ID}} \
+          --public-key-file {{.SA_TOKEN_ISSUER_PUBLIC_KEY_PATH}}
+      - echo "✓ OIDC issuer created at {{.OIDC_ISSUER_URL}}"
+
+  # === PER-CLUSTER PERSISTENT RESOURCES (survive cluster deletion) ===
+
+  create-managed-identity:
+    internal: true
+    requires:
+      vars: [IDENTITY_NAME]
+    cmds:
+      - |
+        az identity create \
+          --name {{.IDENTITY_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --output none
+
+  generate-workload-identities-json:
+    internal: true
+    vars:
+      IMAGE_REGISTRY_CLIENT_ID:
+        sh: az identity show --name {{.IMAGE_REGISTRY_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} --query clientId -o tsv
+      INGRESS_CLIENT_ID:
+        sh: az identity show --name {{.INGRESS_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} --query clientId -o tsv
+      FILE_CLIENT_ID:
+        sh: az identity show --name {{.AZURE_FILE_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} --query clientId -o tsv
+      DISK_CLIENT_ID:
+        sh: az identity show --name {{.AZURE_DISK_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} --query clientId -o tsv
+      NODEPOOL_MGMT_CLIENT_ID:
+        sh: az identity show --name {{.NODE_POOL_MANAGEMENT_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} --query clientId -o tsv
+      CLOUD_PROVIDER_CLIENT_ID:
+        sh: az identity show --name {{.CLOUD_PROVIDER_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} --query clientId -o tsv
+      NETWORK_CLIENT_ID:
+        sh: az identity show --name {{.NETWORK_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} --query clientId -o tsv
+    cmds:
+      - |
+        cat > workload-identities.json <<EOF
+        {
+          "imageRegistry": {
+            "clientID": "{{.IMAGE_REGISTRY_CLIENT_ID}}"
+          },
+          "ingress": {
+            "clientID": "{{.INGRESS_CLIENT_ID}}"
+          },
+          "file": {
+            "clientID": "{{.FILE_CLIENT_ID}}"
+          },
+          "disk": {
+            "clientID": "{{.DISK_CLIENT_ID}}"
+          },
+          "nodePoolManagement": {
+            "clientID": "{{.NODEPOOL_MGMT_CLIENT_ID}}"
+          },
+          "cloudProvider": {
+            "clientID": "{{.CLOUD_PROVIDER_CLIENT_ID}}"
+          },
+          "network": {
+            "clientID": "{{.NETWORK_CLIENT_ID}}"
+          }
+        }
+        EOF
+
+  identities:
+    desc: Create Azure managed identities for cluster components (per-cluster, persistent)
+    deps: [oidc]
+    status:
+      # Check if all 7 identities exist
+      - az identity show --name {{.IMAGE_REGISTRY_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+      - az identity show --name {{.INGRESS_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+      - az identity show --name {{.AZURE_FILE_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+      - az identity show --name {{.AZURE_DISK_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+      - az identity show --name {{.NODE_POOL_MANAGEMENT_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+      - az identity show --name {{.CLOUD_PROVIDER_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+      - az identity show --name {{.NETWORK_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+      - test -f workload-identities.json
+    cmds:
+      - echo "Creating 7 managed identities for {{.CLUSTER_NAME}}..."
+      - for: {var: IDENTITY_CONFIGS, as: identity}
+        task: create-managed-identity
+        vars:
+          IDENTITY_NAME: "{{.identity.name}}"
+      - task: generate-workload-identities-json
+      - echo "✓ Created 7 managed identities and workload-identities.json"
+
+  create-federated-credential:
+    internal: true
+    requires:
+      vars: [IDENTITY_NAME, CRED_NAME, SUBJECT]
+    cmds:
+      - |
+        az identity federated-credential create \
+          --name {{.CRED_NAME}} \
+          --identity-name {{.IDENTITY_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --issuer {{.OIDC_ISSUER_URL}} \
+          --subject {{.SUBJECT}} \
+          --audience openshift \
+          --output none
+
+  show-federated-creds:
+    internal: true
+    silent: true
+    cmds:
+      - echo ""
+      - echo "Federated Credentials Summary:"
+      - |
+        az identity federated-credential list \
+          --identity-name {{.AZURE_DISK_MI_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --query '[].{Identity:"{{.AZURE_DISK_MI_NAME}}", Name:name, Subject:subject}' \
+          -o table
+      - |
+        az identity federated-credential list \
+          --identity-name {{.AZURE_FILE_MI_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --query '[].{Identity:"{{.AZURE_FILE_MI_NAME}}", Name:name, Subject:subject}' \
+          -o table
+      - |
+        az identity federated-credential list \
+          --identity-name {{.IMAGE_REGISTRY_MI_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --query '[].{Identity:"{{.IMAGE_REGISTRY_MI_NAME}}", Name:name, Subject:subject}' \
+          -o table
+      - |
+        az identity federated-credential list \
+          --identity-name {{.INGRESS_MI_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --query '[].{Identity:"{{.INGRESS_MI_NAME}}", Name:name, Subject:subject}' \
+          -o table
+      - |
+        az identity federated-credential list \
+          --identity-name {{.CLOUD_PROVIDER_MI_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --query '[].{Identity:"{{.CLOUD_PROVIDER_MI_NAME}}", Name:name, Subject:subject}' \
+          -o table
+      - |
+        az identity federated-credential list \
+          --identity-name {{.NODE_POOL_MANAGEMENT_MI_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --query '[].{Identity:"{{.NODE_POOL_MANAGEMENT_MI_NAME}}", Name:name, Subject:subject}' \
+          -o table
+      - |
+        az identity federated-credential list \
+          --identity-name {{.NETWORK_MI_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --query '[].{Identity:"{{.NETWORK_MI_NAME}}", Name:name, Subject:subject}' \
+          -o table
+
+  federated-creds:
+    desc: Create federated identity credentials (per-cluster, persistent)
+    deps: [identities]
+    status:
+      # Check if federated credentials exist (sampling a few key ones)
+      - az identity federated-credential show --name {{.AZURE_DISK_MI_NAME}}-fed-id-node --identity-name {{.AZURE_DISK_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+      - az identity federated-credential show --name {{.IMAGE_REGISTRY_MI_NAME}}-fed-id-registry --identity-name {{.IMAGE_REGISTRY_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+      - az identity federated-credential show --name {{.INGRESS_MI_NAME}}-fed-id --identity-name {{.INGRESS_MI_NAME}} --resource-group {{.PERSISTENT_RG_NAME}} 2>/dev/null
+    cmds:
+      - echo "Creating 14 federated identity credentials for {{.CLUSTER_NAME}}..."
+      - for: {var: FEDERATED_CREDENTIAL_CONFIGS, as: cred}
+        task: create-federated-credential
+        vars:
+          IDENTITY_NAME: "{{.cred.identity}}"
+          CRED_NAME: "{{.cred.name}}"
+          SUBJECT: "{{.cred.subject}}"
+      - echo "✓ Created 14 federated identity credentials (3+3+2+1+1+1+1)"
+      - task: show-federated-creds
+
+  # === PER-CLUSTER TEMPORARY RESOURCES (deleted with cluster) ===
+
+  create-resource-groups:
+    internal: true
+    cmds:
+      - az group create --name {{.MANAGED_RG_NAME}} --location {{.LOCATION}} --output none
+      - az group create --name {{.VNET_RG_NAME}} --location {{.LOCATION}} --output none
+      - az group create --name {{.NSG_RG_NAME}} --location {{.LOCATION}} --output none
+
+  create-nsg:
+    internal: true
+    cmds:
+      - |
+        az network nsg create \
+          --resource-group {{.NSG_RG_NAME}} \
+          --name {{.NSG}} \
+          --output none
+
+  create-vnet:
+    internal: true
+    vars:
+      NSG_ID:
+        sh: az network nsg list --query "[?name=='{{.NSG}}'].id" -o tsv
+    cmds:
+      - |
+        az network vnet create \
+          --name {{.VNET_NAME}} \
+          --resource-group {{.VNET_RG_NAME}} \
+          --address-prefix 10.0.0.0/16 \
+          --subnet-name {{.VNET_SUBNET1}} \
+          --subnet-prefixes 10.0.0.0/24 \
+          --nsg {{.NSG_ID}} \
+          --output none
+
+  export-network-ids:
+    internal: true
+    vars:
+      VNET_ID:
+        sh: az network vnet list --query "[?name=='{{.VNET_NAME}}'].id" -o tsv
+      SUBNET_ID:
+        sh: az network vnet subnet show --vnet-name {{.VNET_NAME}} --name {{.VNET_SUBNET1}} --resource-group {{.VNET_RG_NAME}} --query id -o tsv
+      NSG_ID:
+        sh: az network nsg list --query "[?name=='{{.NSG}}'].id" -o tsv
+    cmds:
+      - |
+        cat > .azure-net-ids <<EOF
+        export VNET_ID='{{.VNET_ID}}'
+        export SUBNET_ID='{{.SUBNET_ID}}'
+        export NSG_ID='{{.NSG_ID}}'
+        EOF
+
+  infra:
+    desc: Create Azure networking infrastructure (per-cluster, temporary)
+    status:
+      # Check if infrastructure already exists
+      - az group show --name {{.VNET_RG_NAME}} 2>/dev/null
+      - az network vnet show --name {{.VNET_NAME}} --resource-group {{.VNET_RG_NAME}} 2>/dev/null
+      - test -f .azure-net-ids
+    cmds:
+      - echo "Creating Azure networking infrastructure for {{.CLUSTER_NAME}}..."
+      - task: create-resource-groups
+      - task: create-nsg
+      - task: create-vnet
+      - task: export-network-ids
+      - echo "✓ Created networking infrastructure (VNet, NSG, subnets)"
+      - echo "  Network IDs exported to .azure-net-ids"
+
+  # === DELETION TASKS ===
+
+  delete-oidc:
+    desc: Delete Azure OIDC issuer (SHARED RESOURCE - use with caution, affects all clusters)
+    cmds:
+      - echo "WARNING Deleting shared OIDC issuer - this affects ALL clusters using this issuer"
+      - |
+        ccoctl azure delete \
+          --storage-account-name {{.OIDC_STORAGE_ACCOUNT_NAME}} \
+          --region {{.LOCATION}} \
+          --oidc-resource-group-name {{.PERSISTENT_RG_NAME}} \
+          --subscription-id {{.SUBSCRIPTION_ID}} \
+          --name {{.OIDC_STORAGE_ACCOUNT_NAME}}
+      - echo "✓ Deleted OIDC issuer {{.OIDC_STORAGE_ACCOUNT_NAME}}"
+
+  delete-federated-credential:
+    internal: true
+    requires:
+      vars: [IDENTITY_NAME, CRED_NAME]
+    cmds:
+      - |
+        az identity federated-credential delete \
+          --name {{.CRED_NAME}} \
+          --identity-name {{.IDENTITY_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --yes \
+          --output none 2>/dev/null || true
+
+  delete-federated-creds:
+    desc: Delete federated identity credentials (per-cluster, persistent)
+    cmds:
+      - echo "Deleting 14 federated identity credentials for {{.CLUSTER_NAME}}..."
+      - for: {var: FEDERATED_CREDENTIAL_CONFIGS, as: cred}
+        task: delete-federated-credential
+        vars:
+          IDENTITY_NAME: "{{.cred.identity}}"
+          CRED_NAME: "{{.cred.name}}"
+      - echo "✓ Deleted 14 federated identity credentials"
+
+  delete-managed-identity:
+    internal: true
+    requires:
+      vars: [IDENTITY_NAME]
+    cmds:
+      - |
+        az identity delete \
+          --name {{.IDENTITY_NAME}} \
+          --resource-group {{.PERSISTENT_RG_NAME}} \
+          --output none 2>/dev/null || true
+
+  delete-identities:
+    desc: Delete Azure managed identities (per-cluster, persistent)
+    deps: [delete-federated-creds]
+    cmds:
+      - echo "Deleting 7 managed identities for {{.CLUSTER_NAME}}..."
+      - for: {var: IDENTITY_CONFIGS, as: identity}
+        task: delete-managed-identity
+        vars:
+          IDENTITY_NAME: "{{.identity.name}}"
+      - cmd: rm -f workload-identities.json
+        ignore_error: true
+      - echo "✓ Deleted 7 managed identities and workload-identities.json"
+
+  delete-infra:
+    desc: Delete Azure networking infrastructure (per-cluster, temporary)
+    cmds:
+      - echo "Deleting Azure networking infrastructure for {{.CLUSTER_NAME}}..."
+      - az group delete --name {{.VNET_RG_NAME}} --yes --no-wait --output none 2>/dev/null || true
+      - az group delete --name {{.NSG_RG_NAME}} --yes --no-wait --output none 2>/dev/null || true
+      - az group delete --name {{.MANAGED_RG_NAME}} --yes --no-wait --output none 2>/dev/null || true
+      - cmd: rm -f .azure-net-ids
+        ignore_error: true
+      - echo "✓ Deleted networking infrastructure (deletion in progress asynchronously)"
+      - echo "  Network IDs file removed"
+
+  # === ORCHESTRATION ===
+
+  all:
+    desc: Complete Azure setup (OIDC, identities, federated creds, infrastructure)
+    cmds:
+      - task: oidc
+      - task: identities
+      - task: federated-creds
+      - task: infra
+
+  cleanup:
+    desc: Delete all per-cluster Azure resources (identities, federated creds, infrastructure)
+    cmds:
+      - echo "Cleaning up all Azure resources for {{.CLUSTER_NAME}}..."
+      - task: delete-infra
+      - task: delete-identities
+      - echo "✓ Cleanup complete for {{.CLUSTER_NAME}}"
+      - echo "Note OIDC issuer is shared and not deleted"

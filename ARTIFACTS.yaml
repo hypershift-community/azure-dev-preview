@@ -1,0 +1,46 @@
+# HyperShift Azure Dev-Preview Release Artifacts
+# This file tracks the artifacts and compatibility information for this dev-preview release
+
+version: v0.1.69
+releaseDate: "2025-11-18"
+
+cli:
+  version: v0.1.69
+  sourceRepo: https://github.com/openshift/hypershift.git
+  sourceTag: v0.1.69
+  sourceCommit: 6e6ecadc61361e4fe359af34dcdee17df06c664e
+  binaries:
+    - platform: linux/amd64
+      filename: hypershift-linux-amd64.tar.gz
+      sha256: "" # Generated during release
+    - platform: linux/arm64
+      filename: hypershift-linux-arm64.tar.gz
+      sha256: "" # Generated during release
+    - platform: darwin/amd64
+      filename: hypershift-darwin-amd64.tar.gz
+      sha256: "" # Generated during release
+    - platform: darwin/arm64
+      filename: hypershift-darwin-arm64.tar.gz
+      sha256: "" # Generated during release
+
+operators:
+  hypershift:
+    image: quay.io/acm-d/rhtap-hypershift-operator:6e6ecadc61361e4fe359af34dcdee17df06c664e
+    description: Default HyperShift operator image (override with HYPERSHIFT_IMAGE variable)
+  controlPlane:
+    description: Control plane operator embedded in OCP release image (override with CPO_IMAGE variable)
+
+openshift:
+  version: "4.21.0-ec.2"
+  releaseImage: quay.io/openshift-release-dev/ocp-release@sha256:ab30bd09121037590423f42d56eebead1dc10306f7430678b0360f6e410e8a19
+  description: Recommended OCP release for this dev-preview version
+
+notes: |
+  This dev-preview release is based on upstream HyperShift v0.1.69.
+
+  For Azure self-managed deployments:
+  - Download CLI binaries from GitHub releases
+  - Use the recommended OCP release image above
+  - Operator images can be overridden via environment variables
+
+  See documentation at: https://hypershift-community.github.io/azure-dev-preview/

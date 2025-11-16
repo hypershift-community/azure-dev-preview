@@ -1,0 +1,43 @@
+version: '3'
+
+tasks:
+  validate:
+    desc: Validate all required environment variables and tools
+    cmds:
+      # Check required vars
+      - test -n "{{.SUBSCRIPTION_ID}}" || (echo "❌ SUBSCRIPTION_ID not set" && exit 1)
+      - test -n "{{.TENANT_ID}}" || (echo "❌ TENANT_ID not set" && exit 1)
+      - test -n "{{.PREFIX}}" || (echo "❌ PREFIX not set" && exit 1)
+      - test -n "{{.OIDC_STORAGE_ACCOUNT_NAME}}" || (echo "❌ OIDC_STORAGE_ACCOUNT_NAME not set" && exit 1)
+      - test -n "{{.RELEASE_IMAGE}}" || (echo "❌ RELEASE_IMAGE not set" && exit 1)
+      - test -n "{{.PARENT_DNS_ZONE}}" || (echo "❌ PARENT_DNS_ZONE not set" && exit 1)
+
+      # Check credential files exist
+      - test -f "{{.AZURE_CREDS}}" || (echo "❌ AZURE_CREDS file not found {{.AZURE_CREDS}}" && exit 1)
+      - test -f "{{.PULL_SECRET}}" || (echo "❌ PULL_SECRET file not found {{.PULL_SECRET}}" && exit 1)
+
+      # Check required CLIs
+      - command -v az >/dev/null || (echo "❌ az CLI not found" && exit 1)
+      - command -v ccoctl >/dev/null || (echo "❌ ccoctl not found" && exit 1)
+      - command -v hypershift >/dev/null || (echo "❌ hypershift CLI not found" && exit 1)
+      - command -v kubectl >/dev/null || (echo "❌ kubectl not found" && exit 1)
+
+      - echo "✅ All prerequisites validated"
+
+  keys:
+    desc: Generate service account token issuer key pair using ccoctl
+    status:
+      - test -f {{.SA_TOKEN_ISSUER_PRIVATE_KEY_PATH}}
+      - test -f {{.SA_TOKEN_ISSUER_PUBLIC_KEY_PATH}}
+    cmds:
+      - echo "Generating service account token issuer key pair..."
+      - ccoctl azure create-key-pair --output-dir .
+      - echo "✅ Generated RSA key pair"
+      - echo "  Private key{{":"}} {{.SA_TOKEN_ISSUER_PRIVATE_KEY_PATH}}"
+      - echo "  Public key{{":"}} {{.SA_TOKEN_ISSUER_PUBLIC_KEY_PATH}}"
+
+  all:
+    desc: Run all prerequisite tasks
+    cmds:
+      - task: validate
+      - task: keys

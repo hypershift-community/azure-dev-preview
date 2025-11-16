@@ -1,0 +1,48 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:  # Allow manual triggering
+
+permissions:
+  contents: write  # Required for gh-deploy to push to gh-pages
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git info
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          key: mkdocs-material-${{ hashFiles('docs/requirements.txt') }}
+          path: .cache
+          restore-keys: |
+            mkdocs-material-
+
+      - name: Install dependencies
+        run: pip install -r docs/requirements.txt
+
+      - name: Configure Git Credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Build and deploy documentation
+        run: |
+          cd docs
+          mkdocs gh-deploy --force --clean --verbose

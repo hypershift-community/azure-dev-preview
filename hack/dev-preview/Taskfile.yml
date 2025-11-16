@@ -1,0 +1,88 @@
+version: '3'
+
+vars:
+  # === Azure Configuration ===
+  SUBSCRIPTION_ID: '{{.SUBSCRIPTION_ID | default ""}}'  # Required: Azure subscription ID
+  TENANT_ID: '{{.TENANT_ID | default ""}}'              # Required: Azure tenant ID
+  LOCATION: '{{.LOCATION | default "eastus"}}'          # Azure region (default: eastus)
+
+  # === Naming ===
+  PREFIX: '{{.PREFIX | default ""}}'                    # Required: Unique prefix for resources
+  CLUSTER_NAME: '{{.PREFIX}}-hc'                        # Cluster name (computed from PREFIX)
+
+  # === Resource Groups ===
+  PERSISTENT_RG_NAME: '{{.PERSISTENT_RG_NAME | default "os4-common"}}'  # Shared resource group
+  MANAGED_RG_NAME: '{{.PREFIX}}-managed-rg'             # Cluster managed RG
+  VNET_RG_NAME: '{{.PREFIX}}-vnet-rg'                   # VNet resource group
+  NSG_RG_NAME: '{{.PREFIX}}-nsg-rg'                     # NSG resource group
+
+  # === OIDC Configuration ===
+  OIDC_STORAGE_ACCOUNT_NAME: '{{.OIDC_STORAGE_ACCOUNT_NAME | default ""}}'  # Required: Unique storage account name
+  OIDC_ISSUER_URL: 'https://{{.OIDC_STORAGE_ACCOUNT_NAME}}.blob.core.windows.net/{{.OIDC_STORAGE_ACCOUNT_NAME}}'
+  SA_TOKEN_ISSUER_PRIVATE_KEY_PATH: 'serviceaccount-signer.private'
+  SA_TOKEN_ISSUER_PUBLIC_KEY_PATH: 'serviceaccount-signer.public'
+
+  # === Cluster Configuration ===
+  CLUSTER_NAMESPACE: '{{.CLUSTER_NAMESPACE | default "clusters"}}'
+  NODE_POOL_REPLICAS: '{{.NODE_POOL_REPLICAS | default "2"}}'
+  RELEASE_IMAGE: '{{.RELEASE_IMAGE | default ""}}'      # Required: OCP release image
+  PARENT_DNS_ZONE: '{{.PARENT_DNS_ZONE | default ""}}'  # Required: Base DNS domain
+
+  # === Credentials (paths to files) ===
+  AZURE_CREDS: '{{.AZURE_CREDS | default "azure-credentials.json"}}'
+  PULL_SECRET: '{{.PULL_SECRET | default "pull-secret.json"}}'
+
+  # === Network Configuration ===
+  VNET_NAME: '{{.PREFIX}}-vnet'
+  VNET_SUBNET1: '{{.PREFIX}}-subnet-1'
+  NSG: '{{.PREFIX}}-nsg'
+
+  # === Workload Identity Names (computed) ===
+  AZURE_DISK_MI_NAME: '{{.CLUSTER_NAME}}-disk-csi'
+  AZURE_FILE_MI_NAME: '{{.CLUSTER_NAME}}-file-csi'
+  IMAGE_REGISTRY_MI_NAME: '{{.CLUSTER_NAME}}-image-registry'
+  INGRESS_MI_NAME: '{{.CLUSTER_NAME}}-ingress'
+  CLOUD_PROVIDER_MI_NAME: '{{.CLUSTER_NAME}}-cloud-provider'
+  NODE_POOL_MANAGEMENT_MI_NAME: '{{.CLUSTER_NAME}}-nodepool-mgmt'
+  NETWORK_MI_NAME: '{{.CLUSTER_NAME}}-network'
+
+  # === Optional ===
+  CPO_IMAGE: '{{.CPO_IMAGE | default ""}}'              # Optional: Control plane operator override
+  HYPERSHIFT_IMAGE: '{{.HYPERSHIFT_IMAGE | default ""}}'  # Optional: HyperShift operator image override
+  HYPERSHIFT_NAMESPACE: '{{.HYPERSHIFT_NAMESPACE | default "hypershift"}}'  # HyperShift operator namespace
+
+includes:
+  prereq:
+    taskfile: ./tasks/prereq.yml
+    dir: ./
+  azure:
+    taskfile: ./tasks/azure.yml
+    dir: ./
+  mgmt:
+    taskfile: ./tasks/mgmt-cluster.yml
+    dir: ./
+  cluster:
+    taskfile: ./tasks/cluster.yml
+    dir: ./
+
+tasks:
+  setup:
+    desc: Complete HyperShift cluster setup (prerequisites + Azure + mgmt cluster + hosted cluster)
+    cmds:
+      - task: prereq:all
+      - task: azure:all
+      - task: mgmt:setup
+      - task: cluster:create
+
+  setup-with-dns:
+    desc: Complete setup with External DNS (production-ready)
+    cmds:
+      - task: prereq:all
+      - task: azure:all
+      - task: mgmt:setup-with-dns
+      - task: cluster:create
+
+  validate:
+    desc: Validate environment and prerequisites
+    cmds:
+      - task: prereq:validate

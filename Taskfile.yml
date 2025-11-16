@@ -1,0 +1,128 @@
+version: '3'
+
+vars:
+  VERSION:
+    sh: cat VERSION
+  # Override with UPSTREAM_URL=file:///path for local testing
+  UPSTREAM_URL:
+    sh: echo "${UPSTREAM_URL:-https://github.com/openshift/hypershift.git}"
+  BUILD_DIR: "{{.ROOT_DIR}}/.build"
+  BIN_DIR: "{{.ROOT_DIR}}/bin"
+  RELEASE_DIR: "{{.ROOT_DIR}}/release"
+  HYPERSHIFT_DIR: "{{.BUILD_DIR}}/hypershift"
+
+tasks:
+  build:cli:
+    desc: Build hypershift CLI from upstream for all architectures
+    status:
+      - test -f {{.BIN_DIR}}/linux/amd64/hypershift
+      - test -f {{.BIN_DIR}}/linux/arm64/hypershift
+      - test -f {{.BIN_DIR}}/darwin/amd64/hypershift
+      - test -f {{.BIN_DIR}}/darwin/arm64/hypershift
+    cmds:
+      - echo "Building HyperShift CLI v{{.VERSION}}..."
+      - echo "Cloning from {{.UPSTREAM_URL}}..."
+      - rm -rf {{.HYPERSHIFT_DIR}}
+      - mkdir -p {{.BUILD_DIR}}
+      - git clone {{.UPSTREAM_URL}} {{.HYPERSHIFT_DIR}}
+      - cd {{.HYPERSHIFT_DIR}} && git checkout v{{.VERSION}}
+      - mkdir -p {{.BIN_DIR}}/linux/amd64
+      - mkdir -p {{.BIN_DIR}}/linux/arm64
+      - mkdir -p {{.BIN_DIR}}/darwin/amd64
+      - mkdir -p {{.BIN_DIR}}/darwin/arm64
+      - echo "Building linux/amd64..."
+      - cd {{.HYPERSHIFT_DIR}} && GOOS=linux GOARCH=amd64 make hypershift
+      - cp {{.HYPERSHIFT_DIR}}/bin/hypershift {{.BIN_DIR}}/linux/amd64/
+      - echo "Building linux/arm64..."
+      - cd {{.HYPERSHIFT_DIR}} && GOOS=linux GOARCH=arm64 make hypershift
+      - cp {{.HYPERSHIFT_DIR}}/bin/hypershift {{.BIN_DIR}}/linux/arm64/
+      - echo "Building darwin/amd64..."
+      - cd {{.HYPERSHIFT_DIR}} && GOOS=darwin GOARCH=amd64 make hypershift
+      - cp {{.HYPERSHIFT_DIR}}/bin/hypershift {{.BIN_DIR}}/darwin/amd64/
+      - echo "Building darwin/arm64..."
+      - cd {{.HYPERSHIFT_DIR}} && GOOS=darwin GOARCH=arm64 make hypershift
+      - cp {{.HYPERSHIFT_DIR}}/bin/hypershift {{.BIN_DIR}}/darwin/arm64/
+      - echo "Cleaning up build directory..."
+      - rm -rf {{.HYPERSHIFT_DIR}}
+      - echo "Build complete! Binaries in {{.BIN_DIR}}"
+
+  build:tarballs:
+    desc: Create tarballs for release with RELEASE-INFO.txt
+    deps: [build:cli]
+    status:
+      - test -f {{.RELEASE_DIR}}/hypershift-linux-amd64.tar.gz
+      - test -f {{.RELEASE_DIR}}/hypershift-linux-arm64.tar.gz
+      - test -f {{.RELEASE_DIR}}/hypershift-darwin-amd64.tar.gz
+      - test -f {{.RELEASE_DIR}}/hypershift-darwin-arm64.tar.gz
+    cmds:
+      - echo "Creating release tarballs with RELEASE-INFO.txt..."
+      - mkdir -p {{.RELEASE_DIR}}/stage
+      # linux/amd64
+      - cp {{.BIN_DIR}}/linux/amd64/hypershift {{.RELEASE_DIR}}/stage/
+      - |
+        cat > {{.RELEASE_DIR}}/stage/RELEASE-INFO.txt <<EOF
+        HyperShift CLI v{{.VERSION}} (linux/amd64)
+        Built from: github.com/openshift/hypershift @ v{{.VERSION}}
+
+        Release Information:
+          https://github.com/hypershift-community/azure-dev-preview/releases/tag/v{{.VERSION}}
+
+        Recommended OCP Release: 4.21.0
+        Default Operator Image: quay.io/hypershift/hypershift-operator:v{{.VERSION}}
+
+        Full artifact manifest:
+          https://github.com/hypershift-community/azure-dev-preview/releases/download/v{{.VERSION}}/ARTIFACTS.yaml
+        EOF
+      - tar -czf {{.RELEASE_DIR}}/hypershift-linux-amd64.tar.gz -C {{.RELEASE_DIR}}/stage .
+      # linux/arm64
+      - cp {{.BIN_DIR}}/linux/arm64/hypershift {{.RELEASE_DIR}}/stage/
+      - sed -i 's/(linux\/amd64)/(linux\/arm64)/' {{.RELEASE_DIR}}/stage/RELEASE-INFO.txt
+      - tar -czf {{.RELEASE_DIR}}/hypershift-linux-arm64.tar.gz -C {{.RELEASE_DIR}}/stage .
+      # darwin/amd64
+      - cp {{.BIN_DIR}}/darwin/amd64/hypershift {{.RELEASE_DIR}}/stage/
+      - sed -i 's/(linux\/arm64)/(darwin\/amd64)/' {{.RELEASE_DIR}}/stage/RELEASE-INFO.txt
+      - tar -czf {{.RELEASE_DIR}}/hypershift-darwin-amd64.tar.gz -C {{.RELEASE_DIR}}/stage .
+      # darwin/arm64
+      - cp {{.BIN_DIR}}/darwin/arm64/hypershift {{.RELEASE_DIR}}/stage/
+      - sed -i 's/(darwin\/amd64)/(darwin\/arm64)/' {{.RELEASE_DIR}}/stage/RELEASE-INFO.txt
+      - tar -czf {{.RELEASE_DIR}}/hypershift-darwin-arm64.tar.gz -C {{.RELEASE_DIR}}/stage .
+      # Cleanup
+      - rm -rf {{.RELEASE_DIR}}/stage
+      - echo "Tarballs created in {{.RELEASE_DIR}}"
+      - ls -lh {{.RELEASE_DIR}}
+
+  build:checksums:
+    desc: Generate SHA256 checksums for release tarballs
+    deps: [build:tarballs]
+    status:
+      - test -f {{.RELEASE_DIR}}/SHA256SUMS.txt
+    cmds:
+      - echo "Generating SHA256 checksums..."
+      - cd {{.RELEASE_DIR}} && sha256sum hypershift-*.tar.gz > SHA256SUMS.txt
+      - echo "Checksums generated:"
+      - cat {{.RELEASE_DIR}}/SHA256SUMS.txt
+
+  release:cli:
+    desc: Create GitHub release with CLI binaries, checksums, and artifacts manifest
+    deps: [build:checksums]
+    status:
+      - gh release view v{{.VERSION}} >/dev/null 2>&1
+    cmds:
+      - echo "Creating GitHub release v{{.VERSION}}..."
+      - |
+        gh release create v{{.VERSION}} \
+          --title "HyperShift CLI v{{.VERSION}}" \
+          --notes "HyperShift CLI binaries based on upstream openshift/hypershift v{{.VERSION}}" \
+          {{.RELEASE_DIR}}/hypershift-*.tar.gz \
+          {{.RELEASE_DIR}}/SHA256SUMS.txt \
+          ARTIFACTS.yaml
+      - echo "Release v{{.VERSION}} created successfully!"
+      - echo "View at{{":"}} https://github.com/hypershift-community/azure-dev-preview/releases/tag/v{{.VERSION}}"
+
+  clean:
+    desc: Clean all build artifacts
+    cmds:
+      - rm -rf {{.BIN_DIR}}
+      - rm -rf {{.RELEASE_DIR}}
+      - rm -rf {{.BUILD_DIR}}
+      - echo "All build artifacts cleaned"
