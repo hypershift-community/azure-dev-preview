@@ -12,13 +12,13 @@
         <meta name="author" content="HyperShift Community">
       
       
-        <link rel="canonical" href="https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/03-azure-foundation/">
+        <link rel="canonical" href="https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/02a-azure-planning/">
       
       
-        <link rel="prev" href="../02b-workflow-planning/">
+        <link rel="prev" href="../01-understanding/">
       
       
-        <link rel="next" href="../04-management-cluster/">
+        <link rel="next" href="../02b-workflow-planning/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Azure Setup - HyperShift Azure Developer Preview</title>
+        <title>Azure Planning - HyperShift Azure Developer Preview</title>
       
     
     
@@ -87,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview" class="md-skip">
+        <a href="#target-audience" class="md-skip">
           Skip to content
         </a>
       
@@ -121,7 +121,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Azure Setup
+              Azure Planning
             
           </span>
         </div>
@@ -234,11 +234,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../02a-azure-planning/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
     
@@ -254,11 +256,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../03-azure-foundation/" class="md-tabs__link">
         
   
     
@@ -401,8 +401,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -413,17 +415,20 @@
     
     
       
+        
+        
+      
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -435,7 +440,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Planning
@@ -446,10 +451,29 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../02a-azure-planning/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Azure Planning
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -459,6 +483,126 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#target-audience" class="md-nav__link">
+    <span class="md-ellipsis">
+      Target Audience
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Azure Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#management-cluster-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Management Cluster Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Configuration Files
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-planning-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Planning Decisions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Planning Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dns-management-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      DNS Management Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-group-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resource Group Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Planning
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -497,29 +641,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Azure Setup
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../03-azure-foundation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -529,195 +654,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      Overview
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-1-validate-prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 1: Validate Prerequisites
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-generate-service-account-signing-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 2: Generate Service Account Signing Keys
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-create-oidc-issuer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 3: Create OIDC Issuer
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step 3: Create OIDC Issuer">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
-    <span class="md-ellipsis">
-      What Gets Created
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#verification" class="md-nav__link">
-    <span class="md-ellipsis">
-      Verification
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-oidc-issuer-scope" class="md-nav__link">
-    <span class="md-ellipsis">
-      Understanding OIDC Issuer Scope
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Understanding OIDC Issuer Scope">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#what-its-shared-across" class="md-nav__link">
-    <span class="md-ellipsis">
-      What It's Shared Across
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#why-its-shared" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why It's Shared
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-to-create-multiple-issuers" class="md-nav__link">
-    <span class="md-ellipsis">
-      When to Create Multiple Issuers
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resource-lifecycle" class="md-nav__link">
-    <span class="md-ellipsis">
-      Resource Lifecycle
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#storage-account-name-already-taken" class="md-nav__link">
-    <span class="md-ellipsis">
-      Storage Account Name Already Taken
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#authentication-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      Authentication Errors
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#insufficient-permissions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Insufficient Permissions
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Next Steps
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -963,9 +899,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#target-audience" class="md-nav__link">
     <span class="md-ellipsis">
-      Overview
+      Target Audience
     </span>
   </a>
   
@@ -978,49 +914,31 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-1-validate-prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 1: Validate Prerequisites
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-generate-service-account-signing-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 2: Generate Service Account Signing Keys
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-create-oidc-issuer" class="md-nav__link">
-    <span class="md-ellipsis">
-      Step 3: Create OIDC Issuer
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Step 3: Create OIDC Issuer">
+    <nav class="md-nav" aria-label="Prerequisites">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
+  <a href="#azure-requirements" class="md-nav__link">
     <span class="md-ellipsis">
-      What Gets Created
+      Azure Requirements
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#verification" class="md-nav__link">
+  <a href="#management-cluster-requirements" class="md-nav__link">
     <span class="md-ellipsis">
-      Verification
+      Management Cluster Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Configuration Files
     </span>
   </a>
   
@@ -1032,88 +950,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-oidc-issuer-scope" class="md-nav__link">
+  <a href="#key-planning-decisions" class="md-nav__link">
     <span class="md-ellipsis">
-      Understanding OIDC Issuer Scope
+      Key Planning Decisions
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Understanding OIDC Issuer Scope">
+    <nav class="md-nav" aria-label="Key Planning Decisions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#what-its-shared-across" class="md-nav__link">
+  <a href="#dns-management-strategy" class="md-nav__link">
     <span class="md-ellipsis">
-      What It's Shared Across
+      DNS Management Strategy
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#why-its-shared" class="md-nav__link">
+  <a href="#resource-group-strategy" class="md-nav__link">
     <span class="md-ellipsis">
-      Why It's Shared
+      Resource Group Strategy
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#when-to-create-multiple-issuers" class="md-nav__link">
+  <a href="#network-planning" class="md-nav__link">
     <span class="md-ellipsis">
-      When to Create Multiple Issuers
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resource-lifecycle" class="md-nav__link">
-    <span class="md-ellipsis">
-      Resource Lifecycle
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#storage-account-name-already-taken" class="md-nav__link">
-    <span class="md-ellipsis">
-      Storage Account Name Already Taken
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#authentication-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      Authentication Errors
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#insufficient-permissions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Insufficient Permissions
+      Network Planning
     </span>
   </a>
   
@@ -1152,211 +1019,347 @@
   
 
 
-<h1 id="azure-foundation-setup">Azure Foundation Setup</h1>
-<p>This guide covers the one-time Azure infrastructure setup required before creating hosted clusters. These resources are <strong>shared across all hosted clusters</strong> in your environment.</p>
-<div class="admonition important">
-<p class="admonition-title">One-Time Setup</p>
-<p>This setup is performed <strong>ONCE</strong> and shared across all hosted clusters. You do NOT repeat this for each cluster.</p>
-</div>
-<h2 id="overview">Overview</h2>
-<p>The Azure foundation consists of:</p>
-<ol>
-<li><strong>Service Account Signing Keys</strong>: RSA key pair for signing service account tokens</li>
-<li><strong>OIDC Issuer</strong>: Azure Blob Storage container providing OpenID Connect endpoint</li>
-<li><strong>Persistent Resource Group</strong>: Container for shared resources</li>
-</ol>
+<h1 id="azure-planning">Azure Planning</h1>
+<p>This guide helps you understand Azure-specific requirements and make key planning decisions for your HyperShift deployment.</p>
+<h2 id="target-audience">Target Audience</h2>
+<p>This guide is designed for <strong>OpenShift administrators and SREs</strong> who are new to Azure. We assume you have:</p>
+<ul>
+<li>Strong knowledge of OpenShift/Kubernetes operations</li>
+<li>Limited or no experience with Azure infrastructure</li>
+<li>Understanding of networking, storage, and identity management concepts in Kubernetes</li>
+</ul>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>Before beginning, ensure you have:</p>
-<ul>
-<li>Azure CLI (<code>az</code>) authenticated to your subscription</li>
-<li>Cloud Credential Operator tool (<code>ccoctl</code>) installed</li>
-<li><a href="https://taskfile.dev">go-task/task</a> installed</li>
-<li>Taskfile configuration completed in <code>hack/dev-preview/Taskfile.yml</code></li>
-</ul>
-<p>Required Taskfile variables:
-<div class="highlight"><pre><span></span><code><span class="nt">SUBSCRIPTION_ID</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;your-subscription-id&#39;</span>
-<span class="nt">TENANT_ID</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;your-tenant-id&#39;</span>
-<span class="nt">LOCATION</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;eastus&#39;</span>
-<span class="nt">PERSISTENT_RG_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;hypershift-shared&#39;</span>
-<span class="nt">OIDC_STORAGE_ACCOUNT_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;unique-storage-name&#39;</span>
-</code></pre></div></p>
-<h2 id="step-1-validate-prerequisites">Step 1: Validate Prerequisites</h2>
-<p>Validate that all required tools and variables are set:</p>
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>prereq:validate
-</code></pre></div>
-<p>This checks for:
-- Required environment variables
-- Azure CLI installation and authentication
-- ccoctl installation
-- Required credential files</p>
-<h2 id="step-2-generate-service-account-signing-keys">Step 2: Generate Service Account Signing Keys</h2>
-<p>Generate the RSA key pair used to sign service account tokens for workload identity:</p>
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>prereq:keys
-</code></pre></div>
-<p><strong>What this does:</strong></p>
-<ul>
-<li>Creates <code>serviceaccount-signer.private</code> (4096-bit RSA private key)</li>
-<li>Creates <code>serviceaccount-signer.public</code> (corresponding public key)</li>
-<li>These keys are used to sign JWTs for workload identity federation</li>
-</ul>
-<p><strong>Under the hood</strong> (see <code>tasks/prereq.yml</code>):</p>
-<div class="highlight"><pre><span></span><code>ccoctl<span class="w"> </span>azure<span class="w"> </span>create-key-pair<span class="w"> </span>--output-dir<span class="w"> </span>.
-</code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="highlight"><pre><span></span><code>Generating service account token issuer key pair...
-✓ Generated RSA key pair
-  Private key: serviceaccount-signer.private
-  Public key: serviceaccount-signer.public
-</code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">Key Security</p>
-<p>The private key must be kept secure. It's used to sign service account tokens that authenticate with Azure.</p>
-<ul>
-<li>Store securely (e.g., secrets management system)</li>
-<li>Do not commit to version control</li>
-<li>Back up safely</li>
-</ul>
-</div>
-<h2 id="step-3-create-oidc-issuer">Step 3: Create OIDC Issuer</h2>
-<p>Create the Azure Blob Storage account that serves as the OIDC issuer:</p>
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>azure:oidc
-</code></pre></div>
-<p><strong>What this does:</strong></p>
-<ul>
-<li>Creates a storage account in the persistent resource group</li>
-<li>Uploads the public signing key to the storage account</li>
-<li>Configures the OIDC discovery endpoint</li>
-<li>Sets up the required blob container and files</li>
-</ul>
-<p><strong>Under the hood</strong> (see <code>tasks/azure.yml</code>):</p>
-<div class="highlight"><pre><span></span><code>ccoctl<span class="w"> </span>azure<span class="w"> </span>create-oidc-issuer<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--oidc-resource-group-name<span class="w"> </span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--tenant-id<span class="w"> </span><span class="si">${</span><span class="nv">TENANT_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--region<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--subscription-id<span class="w"> </span><span class="si">${</span><span class="nv">SUBSCRIPTION_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--public-key-file<span class="w"> </span>serviceaccount-signer.public
-</code></pre></div>
-<p><strong>Output:</strong></p>
-<div class="highlight"><pre><span></span><code>Creating OIDC issuer (one-time setup)...
-✓ OIDC issuer created at https://yourstorageaccount.blob.core.windows.net/yourstorageaccount
-</code></pre></div>
-<h3 id="what-gets-created">What Gets Created</h3>
-<p>The OIDC issuer consists of:</p>
-<ol>
-<li><strong>Azure Storage Account</strong>: Named <code>${OIDC_STORAGE_ACCOUNT_NAME}</code></li>
-<li><strong>Blob Container</strong>: Same name as storage account</li>
-<li><strong>OIDC Discovery Files</strong>:</li>
-<li><code>.well-known/openid-configuration</code>: OIDC discovery document</li>
-<li><code>openid/v1/jwks</code>: JSON Web Key Set (public keys)</li>
-</ol>
-<h3 id="verification">Verification</h3>
-<p>Verify the OIDC issuer is accessible:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Check storage account exists</span>
-az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--resource-group<span class="w"> </span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span>
-
-<span class="c1"># Test OIDC endpoint (should return JSON)</span>
-curl<span class="w"> </span>https://<span class="si">${</span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="si">}</span>.blob.core.windows.net/<span class="si">${</span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="si">}</span>/.well-known/openid-configuration
-</code></pre></div>
-<h2 id="understanding-oidc-issuer-scope">Understanding OIDC Issuer Scope</h2>
-<p>The OIDC issuer is <strong>shared infrastructure</strong>:</p>
-<h3 id="what-its-shared-across">What It's Shared Across</h3>
-<ul>
-<li>All hosted clusters using this management cluster</li>
-<li>All clusters in the same environment/region</li>
-<li>Multiple teams using the same Azure subscription</li>
-</ul>
-<h3 id="why-its-shared">Why It's Shared</h3>
-<ul>
-<li><strong>Cost efficiency</strong>: One storage account vs many</li>
-<li><strong>Simplified management</strong>: Single OIDC endpoint to manage</li>
-<li><strong>Consistency</strong>: Same authentication mechanism across clusters</li>
-</ul>
-<h3 id="when-to-create-multiple-issuers">When to Create Multiple Issuers</h3>
-<ul>
-<li>Different Azure subscriptions</li>
-<li>Compliance requirements for isolation</li>
-<li>Different security zones or environments</li>
-</ul>
-<div class="admonition tip">
-<p class="admonition-title">Production Recommendation</p>
-<p>Use one OIDC issuer per:</p>
-<ul>
-<li><strong>Environment</strong> (dev, staging, prod) - For change control</li>
-<li><strong>Security zone</strong> - For compliance requirements</li>
-<li><strong>Azure subscription</strong> - For billing separation</li>
-</ul>
-</div>
-<h2 id="resource-lifecycle">Resource Lifecycle</h2>
-<p>Understanding what happens to these resources:</p>
+<h3 id="azure-requirements">Azure Requirements</h3>
+<p>If you're new to Azure but experienced with OpenShift/Kubernetes, this section explains Azure-specific concepts you'll need.</p>
+<h4 id="azure-subscription-your-permissions">Azure Subscription &amp; Your Permissions</h4>
+<p><strong>What is an Azure Subscription?</strong></p>
+<p>An Azure subscription is the billing and access boundary for Azure resources. Think of it as the top-level container where all your Azure resources live and are billed.</p>
+<p><strong>Your Azure account needs these permissions:</strong></p>
 <table>
 <thead>
 <tr>
-<th>Resource</th>
-<th>Lifecycle</th>
-<th>Deletion</th>
+<th>Permission</th>
+<th>Why You Need It</th>
+<th>OpenShift/K8s Equivalent</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Service Account Keys</td>
-<td>One-time, manual</td>
-<td>Manual only (keep for disaster recovery)</td>
+<td><code>Contributor</code></td>
+<td>Create and manage Azure resources (VMs, networks, storage)</td>
+<td>cluster-admin for infrastructure</td>
 </tr>
 <tr>
-<td>OIDC Issuer</td>
-<td>One-time, persistent</td>
-<td>Manual via <code>task azure:delete-oidc</code></td>
+<td><code>User Access Administrator</code></td>
+<td>Assign roles to managed identities</td>
+<td>Permission to create RoleBindings</td>
 </tr>
 <tr>
-<td>Persistent Resource Group</td>
-<td>Long-lived</td>
-<td>Manual only</td>
+<td><code>Application.ReadWrite.OwnedBy</code><br/>(Microsoft Graph API)</td>
+<td>Create service principals for cluster operations</td>
+<td>Permission to create ServiceAccounts</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition danger">
-<p class="admonition-title">Deleting the OIDC Issuer</p>
-<p>Deleting the OIDC issuer will <strong>break authentication for ALL clusters</strong> using it. Only delete when:</p>
+<p><strong>How to verify your permissions:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check your subscription roles</span>
+az<span class="w"> </span>role<span class="w"> </span>assignment<span class="w"> </span>list<span class="w"> </span>--assignee<span class="w"> </span><span class="k">$(</span>az<span class="w"> </span>ad<span class="w"> </span>signed-in-user<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>id<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--scope<span class="w"> </span>/subscriptions/<span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>id<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+
+<span class="c1"># Look for &quot;Contributor&quot; and &quot;User Access Administrator&quot; in the output</span>
+</code></pre></div>
+<p><strong>Why both Contributor and User Access Administrator?</strong></p>
 <ul>
-<li>All clusters using it have been decommissioned</li>
-<li>You're performing a complete environment teardown</li>
+<li><code>Contributor</code> lets you create resources but NOT assign permissions to them</li>
+<li><code>User Access Administrator</code> lets you assign permissions (roles) to managed identities</li>
+<li>HyperShift needs both: create resources AND grant them permissions to work together</li>
 </ul>
-<p>Delete with: <code>task azure:delete-oidc</code></p>
+<h4 id="azure-resource-groups">Azure Resource Groups</h4>
+<p><strong>What is a Resource Group?</strong></p>
+<p>Similar to a Kubernetes namespace, but for Azure resources. All Azure resources must belong to exactly one resource group. Resource groups are a logical container for managing lifecycle and access control.</p>
+<p><strong>You'll need TWO types:</strong></p>
+<ol>
+<li><strong>Persistent Resource Group</strong> (e.g., <code>hypershift-shared</code>)<ul>
+<li><strong>Lifecycle</strong>: Long-lived, survives across multiple cluster deployments</li>
+<li><strong>Contains</strong>: OIDC issuer (storage account), managed identities, federated credentials, DNS zones (optional)</li>
+<li><strong>Important</strong>: Never delete this - it contains shared infrastructure</li>
+</ul>
+</li>
+<li><strong>Per-Cluster Resource Groups</strong> (created automatically by tasks)<ul>
+<li><strong>Lifecycle</strong>: Created and deleted with each hosted cluster</li>
+<li><strong>Contains</strong>: VNet, NSG, subnets, worker node VMs</li>
+<li><strong>Safe to delete</strong> when removing a cluster (using <code>task cluster:destroy</code>)</li>
+</ul>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Resource Group Analogy</p>
+<p>Think of the persistent resource group like a shared namespace for operators and the per-cluster groups like workload-specific namespaces that come and go.</p>
 </div>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<h3 id="storage-account-name-already-taken">Storage Account Name Already Taken</h3>
-<p>Storage account names are globally unique across all of Azure.</p>
-<p><strong>Error:</strong>
-<div class="highlight"><pre><span></span><code>The storage account named &#39;myoidc&#39; is already taken.
-</code></pre></div></p>
-<p><strong>Solution:</strong>
-Add a random suffix to your storage account name:
-<div class="highlight"><pre><span></span><code><span class="nt">OIDC_STORAGE_ACCOUNT_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;myoidc1234567890&#39;</span>
-</code></pre></div></p>
-<h3 id="authentication-errors">Authentication Errors</h3>
-<p><strong>Error:</strong>
-<div class="highlight"><pre><span></span><code>ERROR: Please run &#39;az login&#39; to setup account.
-</code></pre></div></p>
-<p><strong>Solution:</strong>
-<div class="highlight"><pre><span></span><code>az<span class="w"> </span>login
-az<span class="w"> </span>account<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--subscription<span class="w"> </span><span class="si">${</span><span class="nv">SUBSCRIPTION_ID</span><span class="si">}</span>
-</code></pre></div></p>
-<h3 id="insufficient-permissions">Insufficient Permissions</h3>
-<p><strong>Error:</strong>
-<div class="highlight"><pre><span></span><code>The client does not have authorization to perform action &#39;Microsoft.Storage/storageAccounts/write&#39;
-</code></pre></div></p>
-<p><strong>Solution:</strong>
-Ensure your Azure account has:
-- <code>Contributor</code> role on the subscription or resource group
-- <code>User Access Administrator</code> for managed identity operations</p>
-<h2 id="next-steps">Next Steps</h2>
-<p>With the Azure foundation in place, proceed to:</p>
+<h4 id="optional-azure-dns-zone">Optional: Azure DNS Zone</h4>
+<p><strong>What is it?</strong></p>
+<p>Azure DNS is Microsoft's DNS hosting service. A DNS zone hosts the DNS records for a specific domain (like <code>example.com</code>).</p>
+<p><strong>When do you need it?</strong></p>
 <ul>
-<li><a href="../04-management-cluster/">Management Cluster Setup</a> - Install HyperShift operator</li>
-<li>Or jump to <a href="../05-hosted-cluster/">Create Hosted Cluster</a> if your management cluster is ready</li>
+<li>Only if using External DNS for automatic DNS management (recommended for production)</li>
+<li>Not needed for development/testing - you can use Azure LoadBalancer DNS instead (e.g., <code>abc123.eastus.cloudapp.azure.com</code>)</li>
+</ul>
+<p><strong>What is "DNS zone delegation"?</strong></p>
+<p>When you create a hosted cluster with domain <code>my-cluster.azure.example.com</code>:</p>
+<ol>
+<li>The parent zone (<code>azure.example.com</code>) must already exist in Azure DNS</li>
+<li>HyperShift creates a child zone (<code>my-cluster.azure.example.com</code>) automatically</li>
+<li>"Delegation" means the parent zone's NS records point to the child zone's nameservers</li>
+<li>This allows the child zone to manage its own DNS records independently</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">DNS Delegation Example</p>
+<p>If your parent zone is <code>azure.example.com</code> in Azure DNS:</p>
+<ul>
+<li>HyperShift creates child zone: <code>my-cluster.azure.example.com</code></li>
+<li>Parent zone gets NS record: <code>my-cluster.azure.example.com</code> → <code>[child-ns1, child-ns2, ...]</code></li>
+<li>Cluster API becomes: <code>api.my-cluster.azure.example.com</code></li>
+<li>Apps become: <code>*.apps.my-cluster.azure.example.com</code></li>
+</ul>
+</div>
+<h4 id="required-tools">Required Tools</h4>
+<p>Install these tools on your workstation:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+<th>Installation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Azure CLI (<code>az</code>)</td>
+<td>Interact with Azure APIs</td>
+<td><a href="https://learn.microsoft.com/cli/azure/install-azure-cli">Install guide</a></td>
+</tr>
+<tr>
+<td><code>jq</code></td>
+<td>Parse JSON output</td>
+<td><code>brew install jq</code> or <code>apt install jq</code></td>
+</tr>
+<tr>
+<td><code>ccoctl</code></td>
+<td>Cloud Credential Operator utility for Azure identity setup</td>
+<td>Bundled with OpenShift installer or <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/">download</a></td>
+</tr>
+<tr>
+<td><code>task</code></td>
+<td>Task runner for automation scripts</td>
+<td><a href="https://taskfile.dev/installation/">Install guide</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="management-cluster-requirements">Management Cluster Requirements</h3>
+<h4 id="cluster-prerequisites">Cluster Prerequisites</h4>
+<ul>
+<li>An existing OpenShift cluster running in Azure</li>
+<li>Cluster must have:<ul>
+<li>Sufficient capacity for hosting control plane pods</li>
+<li>Network connectivity to Azure APIs</li>
+<li>Ability to create LoadBalancer services (if not using External DNS)</li>
+</ul>
+</li>
+<li>Administrative access (<code>cluster-admin</code> permissions) to the management cluster</li>
+</ul>
+<h4 id="tools">Tools</h4>
+<ul>
+<li>OpenShift CLI (<code>oc</code>)</li>
+<li>HyperShift CLI binary (<a href="https://github.com/hypershift-community/azure-dev-preview/releases">download</a>)</li>
+</ul>
+<h3 id="required-configuration-files">Required Configuration Files</h3>
+<p>Understanding which files you need to prepare versus which are generated automatically:</p>
+<h4 id="files-you-must-create">Files You Must Create</h4>
+<p>These files must be prepared before starting the deployment:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+<th>When Needed</th>
+<th>How to Get</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>azure-credentials.json</strong></td>
+<td>Service principal for cluster operations (create/destroy VMs, networks)</td>
+<td>Before creating first cluster</td>
+<td>See detailed instructions below</td>
+</tr>
+<tr>
+<td><strong>pull-secret.json</strong></td>
+<td>Red Hat pull secret for downloading OpenShift images</td>
+<td>During operator installation</td>
+<td>Download from <a href="https://console.redhat.com/openshift/downloads">cloud.redhat.com</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="files-generated-during-deployment">Files Generated During Deployment</h4>
+<p>These files are created automatically by the Taskfile automation and should not be manually edited:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+<th>Created By</th>
+<th>Used By</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>workload-identities.json</strong></td>
+<td>Managed identity client IDs for cluster components (storage, networking, etc.)</td>
+<td><code>task azure:identities</code></td>
+<td><code>task cluster:create</code></td>
+</tr>
+<tr>
+<td><strong>serviceaccount-signer.private</strong><br/><strong>serviceaccount-signer.public</strong></td>
+<td>RSA key pair for signing service account tokens</td>
+<td><code>task prereq:keys</code></td>
+<td><code>task cluster:create</code></td>
+</tr>
+<tr>
+<td><strong>.azure-net-ids</strong></td>
+<td>Network resource IDs (VNet, NSG, subnet) exported as environment variables</td>
+<td><code>task azure:infra</code></td>
+<td><code>task cluster:create</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">File Lifecycle</p>
+<ul>
+<li><strong>You create</strong>: <code>azure-credentials.json</code>, <code>pull-secret.json</code></li>
+<li><strong>Automation creates</strong>: All other files during setup</li>
+<li><strong>Don't edit</strong>: Generated files - they're overwritten on each run</li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Azure Credentials File Format</p>
+<p>The <code>azure-credentials.json</code> file should contain service principal credentials:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;subscriptionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tenantId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;clientId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;clientSecret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-service-principal-secret&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>How to create:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create service principal with required permissions</span>
+<span class="nv">SP_DETAILS</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>create-for-rbac<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">&quot;hypershift-cluster-ops&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--role<span class="w"> </span>Contributor<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--scopes<span class="w"> </span><span class="s2">&quot;/subscriptions/</span><span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>id<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span><span class="s2">&quot;</span><span class="k">)</span>
+
+<span class="c1"># Extract values and create file</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; azure-credentials.json</span>
+<span class="s">{</span>
+<span class="s">  &quot;subscriptionId&quot;: &quot;$(az account show --query id -o tsv)&quot;,</span>
+<span class="s">  &quot;tenantId&quot;: &quot;$(az account show --query tenantId -o tsv)&quot;,</span>
+<span class="s">  &quot;clientId&quot;: &quot;$(echo &quot;$SP_DETAILS&quot; | jq -r &#39;.appId&#39;)&quot;,</span>
+<span class="s">  &quot;clientSecret&quot;: &quot;$(echo &quot;$SP_DETAILS&quot; | jq -r &#39;.password&#39;)&quot;</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</code></pre></div>
+</div>
+<h2 id="key-planning-decisions">Key Planning Decisions</h2>
+<h3 id="dns-management-strategy">DNS Management Strategy</h3>
+<p>Choose how to handle DNS for your hosted clusters:</p>
+<h4 id="option-1-with-external-dns-recommended-for-production">Option 1: With External DNS (Recommended for Production)</h4>
+<p><strong>Best For</strong>: Production environments, multiple clusters, custom domains</p>
+<p><strong>Characteristics</strong>:
+- Automatic DNS record management via External DNS operator
+- Custom domain names (e.g., <code>api.my-cluster.example.com</code>)
+- Requires: DNS zones, service principal with DNS permissions, External DNS operator
+- Higher initial setup complexity, but simpler ongoing operations</p>
+<p><strong>Example DNS</strong>:
+- API Server: <code>api.my-cluster.azure.example.com</code>
+- Apps: <code>*.apps.my-cluster.azure.example.com</code></p>
+<p><strong>Decision Criteria</strong>:
+- Choose this if you need custom, branded domain names
+- Choose this if you plan to manage multiple clusters
+- Choose this if you want fully automated DNS provisioning</p>
+<h4 id="option-2-without-external-dns-simpler-for-devtest">Option 2: Without External DNS (Simpler for Dev/Test)</h4>
+<p><strong>Best For</strong>: Development, testing, proof-of-concept environments</p>
+<p><strong>Characteristics</strong>:
+- Manual DNS management or Azure-provided LoadBalancer DNS
+- API server uses Azure LoadBalancer DNS (e.g., <code>abc123.eastus.cloudapp.azure.com</code>)
+- No DNS zones or service principals needed
+- Lower initial setup complexity, but requires manual DNS work for production use</p>
+<p><strong>Example DNS</strong>:
+- API Server: <code>my-cluster-api.eastus.cloudapp.azure.com</code>
+- Apps: <code>my-cluster-apps.eastus.cloudapp.azure.com</code></p>
+<p><strong>Decision Criteria</strong>:
+- Choose this for quick testing or POC environments
+- Choose this if you don't control your DNS infrastructure
+- Choose this if you only need a single cluster temporarily</p>
+<div class="admonition tip">
+<p class="admonition-title">Recommendation</p>
+<p><strong>Start with Option 2 (Without External DNS)</strong> for your first cluster to learn the basics. Once comfortable, you can deploy production clusters with Option 1 (External DNS).</p>
+</div>
+<h3 id="resource-group-strategy">Resource Group Strategy</h3>
+<p>Plan your resource group structure to separate long-lived shared resources from cluster-specific resources:</p>
+<h4 id="persistent-resource-group">Persistent Resource Group</h4>
+<ul>
+<li><strong>Name example</strong>: <code>hypershift-shared</code>, <code>openshift-common</code></li>
+<li><strong>Lifecycle</strong>: Long-lived, not deleted when clusters are removed</li>
+<li><strong>Contains</strong>:<ul>
+<li>OIDC issuer (storage account)</li>
+<li>Managed identities (per cluster, but persistent)</li>
+<li>Federated identity credentials (per cluster, but persistent)</li>
+<li>(Optional) DNS zones</li>
+</ul>
+</li>
+</ul>
+<h4 id="per-cluster-resource-groups">Per-Cluster Resource Groups</h4>
+<ul>
+<li><strong>Name pattern</strong>: <code>&lt;prefix&gt;-vnet-rg</code>, <code>&lt;prefix&gt;-nsg-rg</code>, <code>&lt;prefix&gt;-managed-rg</code></li>
+<li><strong>Lifecycle</strong>: Created and deleted with each cluster</li>
+<li><strong>Contains</strong>:<ul>
+<li>Virtual Network (VNet)</li>
+<li>Network Security Group (NSG)</li>
+<li>Subnets</li>
+<li>Virtual Machines (worker nodes)</li>
+</ul>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Understanding Resource Persistence</p>
+<p>Managed identities and federated credentials are <strong>per-cluster but persistent</strong>. They:</p>
+<ul>
+<li>Are created once per cluster</li>
+<li>Remain after cluster deletion</li>
+<li>Allow cluster recreation without identity recreation</li>
+<li>Preserve Azure IAM role assignments</li>
+<li>Support disaster recovery scenarios</li>
+</ul>
+<p>Network infrastructure is <strong>temporary</strong> and deleted with the cluster.</p>
+</div>
+<h3 id="network-planning">Network Planning</h3>
+<h4 id="vnet-and-subnet-design">VNet and Subnet Design</h4>
+<ul>
+<li>Default: <code>/16</code> VNet with <code>/24</code> subnet</li>
+<li>Plan for sufficient IP addresses for worker nodes</li>
+<li>Consider network security group (NSG) rules for your environment</li>
+<li>Ensure network connectivity to Azure APIs and management cluster</li>
+</ul>
+<h4 id="network-security">Network Security</h4>
+<ul>
+<li>NSG rules are created automatically</li>
+<li>Review and customize based on your security requirements</li>
+<li>Consider private endpoint requirements for production</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<p>Now that you've planned your Azure infrastructure:</p>
+<ul>
+<li><a href="../02b-workflow-planning/">Workflow &amp; Repository Setup</a> - Understand how this repository works and how to configure it</li>
+<li><a href="../03-azure-foundation/">Azure Foundation Setup</a> - Set up Azure infrastructure using Taskfile automation</li>
 </ul>
 
 

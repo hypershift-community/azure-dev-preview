@@ -1,0 +1,1061 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/02b-workflow-planning/" rel="canonical"/>
+<link href="../02a-azure-planning/" rel="prev"/>
+<link href="../03-azure-foundation/" rel="next"/>
+<link href="../../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Workflow &amp; Setup - HyperShift Azure Developer Preview</title>
+<link href="../../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+<body data-md-color-accent="indigo" data-md-color-primary="custom" data-md-color-scheme="slate" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#tools-installation">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Workflow &amp; Setup
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../02a-azure-planning/">
+          
+  
+    
+  
+  Planning
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Planning
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02a-azure-planning/">
+<span class="md-ellipsis">
+    Azure Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Workflow &amp; Setup
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Workflow &amp; Setup
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tools-installation">
+<span class="md-ellipsis">
+      Tools Installation
+    </span>
+</a>
+<nav aria-label="Tools Installation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hypershift-cli">
+<span class="md-ellipsis">
+      HyperShift CLI
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-cli">
+<span class="md-ellipsis">
+      Azure CLI
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#other-required-tools">
+<span class="md-ellipsis">
+      Other Required Tools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#clone-the-repository">
+<span class="md-ellipsis">
+      Clone the Repository
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#repository-structure">
+<span class="md-ellipsis">
+      Repository Structure
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-taskfile-vs-environment-variables">
+<span class="md-ellipsis">
+      Configuration: Taskfile vs Environment Variables
+    </span>
+</a>
+<nav aria-label="Configuration: Taskfile vs Environment Variables" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#option-1-using-taskfile-variables-recommended">
+<span class="md-ellipsis">
+      Option 1: Using Taskfile Variables (Recommended)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#option-2-using-environment-variables-envrc">
+<span class="md-ellipsis">
+      Option 2: Using Environment Variables (.envrc)
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deployment-flow">
+<span class="md-ellipsis">
+      Deployment Flow
+    </span>
+</a>
+<nav aria-label="Deployment Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-by-step-breakdown">
+<span class="md-ellipsis">
+      Step-by-Step Breakdown
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#one-shot-deployment">
+<span class="md-ellipsis">
+      One-Shot Deployment
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-philosophy">
+<span class="md-ellipsis">
+      Task Philosophy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps">
+<span class="md-ellipsis">
+      Next Steps
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tools-installation">
+<span class="md-ellipsis">
+      Tools Installation
+    </span>
+</a>
+<nav aria-label="Tools Installation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hypershift-cli">
+<span class="md-ellipsis">
+      HyperShift CLI
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-cli">
+<span class="md-ellipsis">
+      Azure CLI
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#other-required-tools">
+<span class="md-ellipsis">
+      Other Required Tools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#clone-the-repository">
+<span class="md-ellipsis">
+      Clone the Repository
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#repository-structure">
+<span class="md-ellipsis">
+      Repository Structure
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-taskfile-vs-environment-variables">
+<span class="md-ellipsis">
+      Configuration: Taskfile vs Environment Variables
+    </span>
+</a>
+<nav aria-label="Configuration: Taskfile vs Environment Variables" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#option-1-using-taskfile-variables-recommended">
+<span class="md-ellipsis">
+      Option 1: Using Taskfile Variables (Recommended)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#option-2-using-environment-variables-envrc">
+<span class="md-ellipsis">
+      Option 2: Using Environment Variables (.envrc)
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deployment-flow">
+<span class="md-ellipsis">
+      Deployment Flow
+    </span>
+</a>
+<nav aria-label="Deployment Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-by-step-breakdown">
+<span class="md-ellipsis">
+      Step-by-Step Breakdown
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#one-shot-deployment">
+<span class="md-ellipsis">
+      One-Shot Deployment
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-philosophy">
+<span class="md-ellipsis">
+      Task Philosophy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps">
+<span class="md-ellipsis">
+      Next Steps
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="workflow-repository-setup">Workflow &amp; Repository Setup</h1>
+<p>This guide explains how this repository is structured, how to configure it, and the overall deployment workflow.</p>
+<h2 id="tools-installation">Tools Installation</h2>
+<p>Before you begin, install the required tools on your workstation.</p>
+<h3 id="hypershift-cli">HyperShift CLI</h3>
+<p>Download the HyperShift CLI for your platform from <a href="https://github.com/hypershift-community/azure-dev-preview/releases/latest">GitHub Releases</a>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Linux</label><label for="__tabbed_1_2">macOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># amd64</span>
+curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/hypershift-community/azure-dev-preview/releases/latest/download/hypershift-linux-amd64.tar.gz
+tar<span class="w"> </span>-xzf<span class="w"> </span>hypershift-linux-amd64.tar.gz
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>hypershift<span class="w"> </span>/usr/local/bin/hypershift
+
+<span class="c1"># arm64</span>
+curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/hypershift-community/azure-dev-preview/releases/latest/download/hypershift-linux-arm64.tar.gz
+tar<span class="w"> </span>-xzf<span class="w"> </span>hypershift-linux-arm64.tar.gz
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>hypershift<span class="w"> </span>/usr/local/bin/hypershift
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># Intel</span>
+curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/hypershift-community/azure-dev-preview/releases/latest/download/hypershift-darwin-amd64.tar.gz
+tar<span class="w"> </span>-xzf<span class="w"> </span>hypershift-darwin-amd64.tar.gz
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>hypershift<span class="w"> </span>/usr/local/bin/hypershift
+
+<span class="c1"># Apple Silicon</span>
+curl<span class="w"> </span>-LO<span class="w"> </span>https://github.com/hypershift-community/azure-dev-preview/releases/latest/download/hypershift-darwin-arm64.tar.gz
+tar<span class="w"> </span>-xzf<span class="w"> </span>hypershift-darwin-arm64.tar.gz
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>hypershift<span class="w"> </span>/usr/local/bin/hypershift
+</code></pre></div>
+</div>
+</div>
+</input></input></div>
+<p>Verify the installation:</p>
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>version
+</code></pre></div>
+<h3 id="azure-cli">Azure CLI</h3>
+<p>Install the Azure CLI for your platform:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">macOS</label><label for="__tabbed_2_2">Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>brew<span class="w"> </span>install<span class="w"> </span>azure-cli
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># Ubuntu/Debian</span>
+curl<span class="w"> </span>-sL<span class="w"> </span>https://aka.ms/InstallAzureCLIDeb<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>bash
+
+<span class="c1"># RHEL/Fedora/CentOS</span>
+sudo<span class="w"> </span>rpm<span class="w"> </span>--import<span class="w"> </span>https://packages.microsoft.com/keys/microsoft.asc
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>azure-cli
+
+<span class="c1"># Other distributions: https://learn.microsoft.com/cli/azure/install-azure-cli</span>
+</code></pre></div>
+</div>
+</div>
+</input></input></div>
+<p>Verify and authenticate:</p>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>version
+az<span class="w"> </span>login
+</code></pre></div>
+<h3 id="other-required-tools">Other Required Tools</h3>
+<p>Install the remaining tools:</p>
+<h4 id="jq-json-processor">jq (JSON processor)</h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">macOS</label><label for="__tabbed_3_2">Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>brew<span class="w"> </span>install<span class="w"> </span>jq
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># Debian/Ubuntu</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>jq
+
+<span class="c1"># RHEL/Fedora/CentOS</span>
+sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>jq
+</code></pre></div>
+</div>
+</div>
+</input></input></div>
+<h4 id="ccoctl-cloud-credential-operator-utility">ccoctl (Cloud Credential Operator utility)</h4>
+<p>Download from the <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/">OpenShift mirror</a>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"><input id="__tabbed_4_2" name="__tabbed_4" type="radio"/><div class="tabbed-labels"><label for="__tabbed_4_1">Linux</label><label for="__tabbed_4_2">macOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># Download the OpenShift client tools package which includes ccoctl</span>
+<span class="c1"># Replace VERSION with your OpenShift version (e.g., 4.21.0)</span>
+<span class="nv">VERSION</span><span class="o">=</span><span class="s2">"stable-4.21"</span>
+curl<span class="w"> </span>-LO<span class="w"> </span>https://mirror.openshift.com/pub/openshift-v4/clients/ocp/<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>/openshift-client-tools-linux-amd64.tar.gz
+tar<span class="w"> </span>-xzf<span class="w"> </span>openshift-client-tools-linux-amd64.tar.gz
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>ccoctl<span class="w"> </span>/usr/local/bin/ccoctl
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># Download the OpenShift client tools package which includes ccoctl</span>
+<span class="c1"># Replace VERSION with your OpenShift version (e.g., 4.21.0)</span>
+<span class="nv">VERSION</span><span class="o">=</span><span class="s2">"stable-4.21"</span>
+
+<span class="c1"># For Intel Macs</span>
+curl<span class="w"> </span>-LO<span class="w"> </span>https://mirror.openshift.com/pub/openshift-v4/clients/ocp/<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>/openshift-client-tools-mac-amd64.tar.gz
+tar<span class="w"> </span>-xzf<span class="w"> </span>openshift-client-tools-mac-amd64.tar.gz
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>ccoctl<span class="w"> </span>/usr/local/bin/ccoctl
+
+<span class="c1"># For Apple Silicon Macs</span>
+curl<span class="w"> </span>-LO<span class="w"> </span>https://mirror.openshift.com/pub/openshift-v4/clients/ocp/<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>/openshift-client-tools-mac-arm64.tar.gz
+tar<span class="w"> </span>-xzf<span class="w"> </span>openshift-client-tools-mac-arm64.tar.gz
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>ccoctl<span class="w"> </span>/usr/local/bin/ccoctl
+</code></pre></div>
+</div>
+</div>
+</input></div>
+<h4 id="task-task-runner">task (Task runner)</h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio"/><input id="__tabbed_5_2" name="__tabbed_5" type="radio"/><div class="tabbed-labels"><label for="__tabbed_5_1">macOS</label><label for="__tabbed_5_2">Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>brew<span class="w"> </span>install<span class="w"> </span>go-task
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>sh<span class="w"> </span>-c<span class="w"> </span><span class="s2">"</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://taskfile.dev/install.sh<span class="k">)</span><span class="s2">"</span><span class="w"> </span>--<span class="w"> </span>-b<span class="w"> </span>/usr/local/bin
+
+<span class="c1"># Or download from: https://taskfile.dev/installation/</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="oc-openshift-cli">oc (OpenShift CLI)</h4>
+<p>Download from the same OpenShift client tools package as ccoctl:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio"/><input id="__tabbed_6_2" name="__tabbed_6" type="radio"/><div class="tabbed-labels"><label for="__tabbed_6_1">Linux</label><label for="__tabbed_6_2">macOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># oc is included in the openshift-client-tools package</span>
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>oc<span class="w"> </span>/usr/local/bin/oc
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># oc is included in the openshift-client-tools package</span>
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>oc<span class="w"> </span>/usr/local/bin/oc
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Verify all tools are installed:</p>
+<div class="highlight"><pre><span></span><code>az<span class="w"> </span>version
+jq<span class="w"> </span>--version
+ccoctl<span class="w"> </span>version
+task<span class="w"> </span>--version
+oc<span class="w"> </span>version
+hypershift<span class="w"> </span>version
+</code></pre></div>
+<h3 id="clone-the-repository">Clone the Repository</h3>
+<p>Clone this repository and navigate to the working directory:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hypershift-community/azure-dev-preview.git
+<span class="nb">cd</span><span class="w"> </span>azure-dev-preview/hack/dev-preview
+</code></pre></div>
+<p>All commands in this guide should be run from the <code>hack/dev-preview</code> directory unless otherwise specified.</p>
+<h2 id="repository-structure">Repository Structure</h2>
+<p>This repository uses <strong>Taskfile automation</strong> (via <a href="https://taskfile.dev">go-task/task</a>) to simplify the deployment process. All deployment steps are automated through task commands.</p>
+<p><strong>Key directories:</strong>
+<div class="highlight"><pre><span></span><code>hypershift/
+├── hack/dev-preview/
+│   ├── Taskfile.yml           # Main configuration and task definitions
+│   ├── envrc.example          # Optional environment variable template
+│   └── tasks/                 # Task implementation files
+│       ├── azure.yml          # Azure infrastructure tasks
+│       ├── prereq.yml         # Prerequisite validation tasks
+│       ├── mgmt.yml           # Management cluster tasks
+│       └── cluster.yml        # Hosted cluster tasks
+└── bin/
+    └── hypershift              # HyperShift CLI binary
+</code></pre></div></p>
+<h2 id="configuration-taskfile-vs-environment-variables">Configuration: Taskfile vs Environment Variables</h2>
+<p>You have two options for providing configuration values to the automation:</p>
+<h3 id="option-1-using-taskfile-variables-recommended">Option 1: Using Taskfile Variables (Recommended)</h3>
+<p><strong>Best for:</strong> Most users, clear documentation, validation</p>
+<p>All configuration is defined directly in <code>hack/dev-preview/Taskfile.yml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">vars</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Azure Subscription</span>
+<span class="w">  </span><span class="nt">PREFIX</span><span class="p">:</span><span class="w"> </span><span class="s">'myorg-dev'</span>
+<span class="w">  </span><span class="nt">SUBSCRIPTION_ID</span><span class="p">:</span><span class="w"> </span><span class="s">'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+<span class="w">  </span><span class="nt">TENANT_ID</span><span class="p">:</span><span class="w"> </span><span class="s">'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+<span class="w">  </span><span class="nt">LOCATION</span><span class="p">:</span><span class="w"> </span><span class="s">'eastus'</span>
+
+<span class="w">  </span><span class="c1"># Persistent Resources</span>
+<span class="w">  </span><span class="nt">PERSISTENT_RG_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'hypershift-shared'</span>
+<span class="w">  </span><span class="nt">OIDC_STORAGE_ACCOUNT_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'myorgoidc1234567890'</span>
+
+<span class="w">  </span><span class="c1"># Cluster Configuration</span>
+<span class="w">  </span><span class="nt">CLUSTER_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'{{.PREFIX}}-hc'</span>
+
+<span class="w">  </span><span class="c1"># Credentials</span>
+<span class="w">  </span><span class="nt">AZURE_CREDS</span><span class="p">:</span><span class="w"> </span><span class="s">'azure-credentials.json'</span>
+<span class="w">  </span><span class="nt">PULL_SECRET</span><span class="p">:</span><span class="w"> </span><span class="s">'pull-secret.json'</span>
+
+<span class="w">  </span><span class="c1"># Optional: DNS Configuration (if using External DNS)</span>
+<span class="w">  </span><span class="nt">PARENT_DNS_ZONE</span><span class="p">:</span><span class="w"> </span><span class="s">'azure.example.com'</span>
+<span class="w">  </span><span class="nt">EXTERNAL_DNS_DOMAIN</span><span class="p">:</span><span class="w"> </span><span class="s">'{{.CLUSTER_NAME}}.{{.PARENT_DNS_ZONE}}'</span>
+
+<span class="w">  </span><span class="c1"># ... additional variables</span>
+</code></pre></div>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li><strong>Self-documenting</strong>: All configuration visible in one place</li>
+<li><strong>Validation</strong>: Taskfile validates required variables before execution</li>
+<li><strong>Consistency</strong>: Same values used across all tasks</li>
+<li><strong>Version control</strong>: Can commit your Taskfile.yml (excluding secrets)</li>
+</ul>
+<p><strong>How to use:</strong></p>
+<ol>
+<li>Edit <code>hack/dev-preview/Taskfile.yml</code></li>
+<li>Update the <code>vars:</code> section with your values</li>
+<li>Run tasks: <code>task azure:oidc</code>, <code>task cluster:create</code>, etc.</li>
+</ol>
+<h4 id="understanding-naming-pattern-variables">Understanding Naming Pattern Variables</h4>
+<p>The example above shows several variables that work together to create consistent naming across your deployment:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Example Value</th>
+<th>Used For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PREFIX</code></td>
+<td>Organization/environment identifier</td>
+<td><code>myorg-dev</code></td>
+<td>Prefixing all cluster-specific resources</td>
+</tr>
+<tr>
+<td><code>CLUSTER_NAME</code></td>
+<td>Hosted cluster name</td>
+<td><code>{{.PREFIX}}-hc</code> → <code>myorg-dev-hc</code></td>
+<td>HostedCluster resource name</td>
+</tr>
+<tr>
+<td><code>PERSISTENT_RG_NAME</code></td>
+<td>Persistent resource group</td>
+<td><code>hypershift-shared</code></td>
+<td>Long-lived shared resources (OIDC, identities)</td>
+</tr>
+<tr>
+<td><code>VNET_RG_NAME</code></td>
+<td>VNet resource group</td>
+<td><code>{{.PREFIX}}-vnet-rg</code> → <code>myorg-dev-vnet-rg</code></td>
+<td>Per-cluster network resources</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Naming pattern in action:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># These variables...</span>
+<span class="nv">PREFIX</span><span class="o">=</span><span class="s2">"myorg-dev"</span>
+<span class="nv">CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">-hc"</span><span class="w">           </span><span class="c1"># Evaluates to: myorg-dev-hc</span>
+<span class="nv">PERSISTENT_RG</span><span class="o">=</span><span class="s2">"hypershift-shared"</span><span class="w">     </span><span class="c1"># Shared across all clusters</span>
+<span class="nv">VNET_RG_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">-vnet-rg"</span><span class="w">      </span><span class="c1"># Evaluates to: myorg-dev-vnet-rg</span>
+</code></pre></div>
+<p><strong>Why this pattern?</strong></p>
+<ul>
+<li><strong>Consistency</strong>: All related resources share the same prefix</li>
+<li><strong>Clarity</strong>: Easy to identify which resources belong to which cluster</li>
+<li><strong>Separation</strong>: Persistent resources use static names, temporary resources use cluster-specific prefixes</li>
+<li><strong>Multiple clusters</strong>: Change <code>PREFIX</code> to deploy multiple clusters (e.g., <code>myorg-prod</code>, <code>myorg-test</code>)</li>
+</ul>
+<h3 id="option-2-using-environment-variables-envrc">Option 2: Using Environment Variables (.envrc)</h3>
+<p><strong>Best for:</strong> Users who prefer environment variables, integration with direnv</p>
+<p>An <code>envrc.example</code> file is provided as a template. You can copy it to <code>.envrc</code> and customize:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Copy the template</span>
+cp<span class="w"> </span>hack/dev-preview/envrc.example<span class="w"> </span>hack/dev-preview/.envrc
+
+<span class="c1"># Edit with your values</span>
+vim<span class="w"> </span>hack/dev-preview/.envrc
+</code></pre></div>
+<p>Example <code>.envrc</code> content:
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PREFIX</span><span class="o">=</span><span class="s2">"myorg-dev"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">SUBSCRIPTION_ID</span><span class="o">=</span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">TENANT_ID</span><span class="o">=</span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LOCATION</span><span class="o">=</span><span class="s2">"eastus"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PERSISTENT_RG_NAME</span><span class="o">=</span><span class="s2">"hypershift-shared"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="o">=</span><span class="s2">"myorgoidc1234567890"</span>
+<span class="c1"># ... additional variables</span>
+</code></pre></div></p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li><strong>Environment integration</strong>: Works with tools like <a href="https://direnv.net/">direnv</a></li>
+<li><strong>Shell independence</strong>: Can source from any shell</li>
+<li><strong>Flexibility</strong>: Override specific variables as needed</li>
+</ul>
+<p><strong>How to use:</strong></p>
+<ol>
+<li>Copy <code>envrc.example</code> to <code>.envrc</code></li>
+<li>Edit <code>.envrc</code> with your values</li>
+<li>Source it: <code>source .envrc</code> (or use direnv)</li>
+<li>Run tasks: <code>task azure:oidc</code>, <code>task cluster:create</code>, etc.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">How Taskfile Reads Variables</p>
+<p>The Taskfile will check for environment variables first, then fall back to values defined in the <code>vars:</code> section. This means:</p>
+<ul>
+<li>If you set <code>export PREFIX="my-value"</code>, it overrides <code>PREFIX: 'myorg-dev'</code> in Taskfile.yml</li>
+<li>If no environment variable exists, Taskfile uses the value from <code>vars:</code></li>
+<li><strong>Recommendation</strong>: Pick one approach and stick with it for clarity</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Don't Commit Secrets</p>
+<ul>
+<li>Never commit <code>.envrc</code> with real credentials to version control</li>
+<li>The <code>.gitignore</code> excludes <code>.envrc</code> by default</li>
+<li>Keep <code>azure-credentials.json</code> and <code>pull-secret.json</code> out of version control</li>
+</ul>
+</div>
+<h2 id="deployment-flow">Deployment Flow</h2>
+<p>Understanding the deployment sequence helps you troubleshoot and understand what each step does.</p>
+<div class="mermaid">graph TD
+    A[Prerequisites] --&gt;|task prereq:validate| B[Generate Keys]
+    B --&gt;|task prereq:keys| C[OIDC Setup]
+    C --&gt;|task azure:oidc| D[Create Identities]
+    D --&gt;|task azure:identities| E[Federated Credentials]
+    E --&gt;|task azure:federated-creds| F[Network Infrastructure]
+    F --&gt;|task azure:infra| G[Install HyperShift Operator]
+    G --&gt;|task mgmt:install| H[Create Hosted Cluster]
+    H --&gt;|task cluster:create| I[Hosted Cluster Running]
+</div>
+<h3 id="step-by-step-breakdown">Step-by-Step Breakdown</h3>
+<ol>
+<li>
+<p><strong>Validate Prerequisites</strong> (<code>task prereq:validate</code>)</p>
+<ul>
+<li>Checks all required tools are installed (az, jq, ccoctl, task, oc, hypershift)</li>
+<li>Verifies credential files exist (azure-credentials.json, pull-secret.json)</li>
+<li>Validates Azure authentication</li>
+</ul>
+</li>
+<li>
+<p><strong>Generate Signing Keys</strong> (<code>task prereq:keys</code>)</p>
+<ul>
+<li>Creates RSA key pair for service account token signing</li>
+<li>Generates <code>serviceaccount-signer.private</code> and <code>serviceaccount-signer.public</code></li>
+<li>Required for OpenShift service account authentication</li>
+</ul>
+</li>
+<li>
+<p><strong>OIDC Setup</strong> (<code>task azure:oidc</code>)</p>
+<ul>
+<li>Creates Azure Storage Account for OIDC issuer (one-time, persistent)</li>
+<li>Uploads OIDC discovery document and JWKS</li>
+<li>Enables external identity federation for workload identities</li>
+</ul>
+</li>
+<li>
+<p><strong>Create Managed Identities</strong> (<code>task azure:identities</code>)</p>
+<ul>
+<li>Creates managed identities for each cluster component (storage, networking, etc.)</li>
+<li>Assigns Azure RBAC roles (per cluster, persistent)</li>
+<li>Outputs <code>workload-identities.json</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Configure Federated Credentials</strong> (<code>task azure:federated-creds</code>)</p>
+<ul>
+<li>Links managed identities to OpenShift service accounts</li>
+<li>Establishes trust relationship via OIDC</li>
+<li>Enables credential-free Azure API access</li>
+</ul>
+</li>
+<li>
+<p><strong>Create Network Infrastructure</strong> (<code>task azure:infra</code>)</p>
+<ul>
+<li>Creates VNet, NSG, subnets (per cluster, temporary)</li>
+<li>Configures network security rules</li>
+<li>Exports network resource IDs to <code>.azure-net-ids</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Install HyperShift Operator</strong> (<code>task mgmt:install</code>)</p>
+<ul>
+<li>Deploys HyperShift operator on management cluster</li>
+<li>Configures operator with Azure credentials</li>
+<li>Optionally installs External DNS operator</li>
+</ul>
+</li>
+<li>
+<p><strong>Create Hosted Cluster</strong> (<code>task cluster:create</code>)</p>
+<ul>
+<li>Invokes <code>hypershift create cluster azure</code> with all parameters</li>
+<li>Deploys control plane pods on management cluster</li>
+<li>Provisions worker nodes as Azure VMs</li>
+<li>Creates NodePool for data plane</li>
+</ul>
+</li>
+<li>
+<p><strong>Hosted Cluster Running</strong></p>
+<ul>
+<li>Control plane pods running on management cluster</li>
+<li>Worker nodes joined and ready</li>
+<li>Cluster accessible via API and console</li>
+</ul>
+</li>
+</ol>
+<h3 id="one-shot-deployment">One-Shot Deployment</h3>
+<p>For automation or quick deployments, you can run all steps sequentially:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Full deployment (Azure infra + management cluster + hosted cluster)</span>
+task<span class="w"> </span>setup
+
+<span class="c1"># Or step-by-step:</span>
+task<span class="w"> </span>prereq:validate
+task<span class="w"> </span>prereq:keys
+task<span class="w"> </span>azure:oidc
+task<span class="w"> </span>azure:identities
+task<span class="w"> </span>azure:federated-creds
+task<span class="w"> </span>azure:infra
+task<span class="w"> </span>mgmt:install
+task<span class="w"> </span>cluster:create
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Step-by-Step vs One-Shot</p>
+<ul>
+<li><strong>Step-by-step</strong>: Recommended for learning, troubleshooting, understanding each phase</li>
+<li><strong>One-shot</strong> (<code>task setup</code>): Best for automation, repeated deployments, when familiar with the process</li>
+</ul>
+</div>
+<h2 id="task-philosophy">Task Philosophy</h2>
+<p>The Taskfile approach provides:</p>
+<ul>
+<li><strong>Idempotency</strong>: Most tasks can be re-run safely (they check if resources exist)</li>
+<li><strong>Modularity</strong>: Each task focuses on one logical phase</li>
+<li><strong>Visibility</strong>: Task output shows exactly what commands are being run</li>
+<li><strong>Under the hood</strong>: Documentation includes the actual CLI commands for educational purposes</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<p>Now that you understand how the repository works:</p>
+<ul>
+<li><a href="../03-azure-foundation/">Azure Foundation Setup</a> - Start deploying Azure infrastructure</li>
+<li><a href="../04-management-cluster/">Management Cluster Setup</a> - Install the HyperShift operator</li>
+<li><a href="../05-hosted-cluster/">Create Hosted Cluster</a> - Deploy your first hosted cluster</li>
+</ul>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({
+    theme: "dark"
+});</script><script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
