@@ -481,19 +481,22 @@
     subgraph Azure["Azure Subscription"]
         direction TB
 
-        subgraph MgmtCluster["Management Cluster (OpenShift)"]
+        subgraph MgmtCluster["Management Cluster"]
             direction LR
             Operator["HyperShift<br/>Operator"]
             ControlPlane["Hosted Cluster<br/>Control Plane<br/>(Pods)"]
         end
-
-        Workers["Worker Nodes<br/>(Azure VMs)"]
+        subgraph HostedCluster["Hosted Cluster"]
+            direction LR
+            Worker1["Worker Node<br/>(Azure VMs)"]
+            Worker2["Worker Node<br/>(Azure VMs)"]
+        end
 
         subgraph Shared["Shared Resources"]
             SharedItems["• Managed Identities<br/>• OIDC Issuer<br/>• DNS Zones (Optional)"]
         end
 
-        ControlPlane -.-&gt;|manages| Workers
+        ControlPlane -.-&gt;|manages| HostedCluster
     end
 </div>
 <h2 id="your-learning-path">Your Learning Path</h2>
