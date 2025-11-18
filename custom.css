@@ -3,3 +3,18 @@
     max-width: 90%; /* Adjust this percentage as needed */
     margin: 0 auto;
 }
+
+/* Dark mode header customization */
+[data-md-color-scheme="slate"][data-md-color-primary="custom"] .md-header {
+    background-color: rgb(20, 21, 26);
+}
+
+/* Dark mode navigation tabs */
+[data-md-color-scheme="slate"][data-md-color-primary="custom"] .md-tabs {
+    background-color: rgb(20, 21, 26);
+}
+
+/* Mermaid diagram dark theme */
+[data-md-color-scheme="slate"] .mermaid {
+    background-color: transparent !important;
+}

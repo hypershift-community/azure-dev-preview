@@ -30,7 +30,7 @@
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
     body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
-<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="slate" dir="ltr">
+<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
@@ -65,6 +65,17 @@
 </div>
 </div>
 </div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="custom" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
 <label class="md-header__button md-icon" for="__search">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
 </label>
@@ -232,17 +243,6 @@
       What is Self-Managed Azure HyperShift?
     </span>
 </a>
-<nav aria-label="What is Self-Managed Azure HyperShift?" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#official-product-name">
-<span class="md-ellipsis">
-      Official Product Name
-    </span>
-</a>
-</li>
-</ul>
-</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#architecture-overview">
@@ -444,17 +444,6 @@
       What is Self-Managed Azure HyperShift?
     </span>
 </a>
-<nav aria-label="What is Self-Managed Azure HyperShift?" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#official-product-name">
-<span class="md-ellipsis">
-      Official Product Name
-    </span>
-</a>
-</li>
-</ul>
-</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#architecture-overview">
@@ -554,23 +543,18 @@
 <p>Self-managed Azure HostedClusters are available as a Developer Preview feature in OpenShift Container Platform 4.21.</p>
 </div>
 <h2 id="what-is-self-managed-azure-hypershift">What is Self-Managed Azure HyperShift?</h2>
-<p>Self-managed Azure HyperShift enables you to deploy and manage OpenShift hosted control planes on a Kubernetes or OpenShift management cluster running in Azure. This architecture allows you to:</p>
+<p>Self-managed Azure HyperShift enables you to deploy and manage OpenShift hosted control planes on an OpenShift management cluster running in Azure. This architecture allows you to:</p>
 <ul>
 <li><strong>Reduce costs</strong>: Run multiple OpenShift control planes as pods on a shared management cluster</li>
 <li><strong>Improve density</strong>: Host dozens of control planes on the same infrastructure</li>
 <li><strong>Simplify management</strong>: Centralize control plane operations while isolating workload data planes</li>
 <li><strong>Increase flexibility</strong>: Choose your own management cluster platform and customize networking</li>
 </ul>
-<h3 id="official-product-name">Official Product Name</h3>
-<ul>
-<li><strong>Project</strong>: HyperShift (open source project)</li>
-<li><strong>Product</strong> (when generally available): Hosted Control Planes for self-managed OpenShift on Azure</li>
-</ul>
 <h2 id="architecture-overview">Architecture Overview</h2>
 <h3 id="high-level-architecture">High-Level Architecture</h3>
 <p>Self-managed Azure HyperShift deployments consist of three key layers:</p>
 <ol>
-<li><strong>Management Cluster</strong>: An existing Kubernetes or OpenShift cluster running in Azure that hosts the HyperShift operator and control plane pods for your hosted clusters</li>
+<li><strong>Management Cluster</strong>: An existing OpenShift cluster running in Azure that hosts the HyperShift operator and control plane pods for your hosted clusters</li>
 <li><strong>Control Plane</strong>: Kubernetes control plane components (API server, etcd, controllers) running as pods on the management cluster</li>
 <li><strong>Data Plane</strong>: Worker nodes running as Azure Virtual Machines in your Azure subscription, managed by the control plane</li>
 </ol>
@@ -578,7 +562,7 @@
     subgraph Azure["Azure Subscription"]
         direction TB
 
-        subgraph MgmtCluster["Management Cluster (K8s/OpenShift)"]
+        subgraph MgmtCluster["Management Cluster (OpenShift)"]
             direction LR
             Operator["HyperShift<br/>Operator"]
             ClusterACP["Cluster A<br/>Control Plane"]
@@ -599,7 +583,7 @@
 <h3 id="key-components">Key Components</h3>
 <h4 id="management-cluster">Management Cluster</h4>
 <ul>
-<li>Can be any Kubernetes cluster (including OpenShift) running in Azure</li>
+<li>Must be an OpenShift cluster running in Azure</li>
 <li>Hosts the HyperShift operator which manages the lifecycle of hosted clusters</li>
 <li>Runs control plane pods for multiple hosted clusters</li>
 <li>Must have sufficient capacity for control plane workloads</li>
@@ -754,8 +738,10 @@
 </div>
 <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
 <script src="../../../../assets/javascripts/bundle.c8b220af.min.js"></script>
-<script src="https://unpkg.com/mermaid@11.4.0/dist/mermaid.min.js"></script>
-<script>mermaid.initialize({});</script><script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({
+    theme: (JSON.parse(__md_get("__palette").index == 1)) ? 'dark' : 'neutral'
+});</script><script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(() => { lightbox.reload() });
 </script></body>
 </html>

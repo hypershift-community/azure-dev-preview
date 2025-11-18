@@ -1,24 +1,63 @@
 
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Developer preview documentation for HyperShift on Azure">
+      
+      
+        <meta name="author" content="HyperShift Community">
+      
+      
+        <link rel="canonical" href="https://hypershift-community.github.io/azure-dev-preview/reference/infrastructure/aws/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+    
+    
+      
+        <title>Aws - HyperShift Azure Developer Preview</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
 
-<html class="no-js" lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
-<meta content="HyperShift Community" name="author"/>
-<link href="https://hypershift-community.github.io/azure-dev-preview/reference/infrastructure/aws/" rel="canonical"/>
-<link href="../../../assets/images/favicon.png" rel="icon"/>
-<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
-<title>Aws - HyperShift Azure Developer Preview</title>
-<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
-<link href="../../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
-<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-<link href="../../../custom.css" rel="stylesheet"/>
-<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
- <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
     html.glightbox-open { overflow: initial; height: 100%; }
     .gslide-title { margin-top: 0px; user-select: text; }
     .gslide-desc { color: #666; user-select: text; }
@@ -28,89 +67,166 @@
     body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
     body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
     body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
-<body data-md-color-accent="indigo" data-md-color-primary="indigo" data-md-color-scheme="slate" dir="ltr">
-<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
-<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
-<label class="md-overlay" for="__drawer"></label>
-<div data-md-component="skip">
-<a class="md-skip" href="#iam">
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#iam" class="md-skip">
           Skip to content
         </a>
-</div>
-<div data-md-component="announce">
-</div>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
 <header class="md-header" data-md-component="header">
-<nav aria-label="Header" class="md-header__inner md-grid">
-<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
-</a>
-<label class="md-header__button md-icon" for="__drawer">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
-</label>
-<div class="md-header__title" data-md-component="header-title">
-<div class="md-header__ellipsis">
-<div class="md-header__topic">
-<span class="md-ellipsis">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="HyperShift Azure Developer Preview" class="md-header__button md-logo" aria-label="HyperShift Azure Developer Preview" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
             HyperShift Azure Developer Preview
           </span>
-</div>
-<div class="md-header__topic" data-md-component="header-topic">
-<span class="md-ellipsis">
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
             
               Aws
             
           </span>
-</div>
-</div>
-</div>
-<label class="md-header__button md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
-</label>
-<div class="md-search" data-md-component="search" role="dialog">
-<label class="md-search__overlay" for="__search"></label>
-<div class="md-search__inner" role="search">
-<form class="md-search__form" name="search">
-<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
-<label class="md-search__icon md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
-</label>
-<nav aria-label="Search" class="md-search__options">
-<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
-</button>
-</nav>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
 </form>
-<div class="md-search__output">
-<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
-<div class="md-search-result" data-md-component="search-result">
-<div class="md-search-result__meta">
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
             Initializing search
           </div>
-<ol class="md-search-result__list" role="presentation"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="md-header__source">
-<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
-<div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
-</div>
-<div class="md-source__repository">
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
     hypershift-community/azure-dev-preview
   </div>
 </a>
-</div>
-</nav>
+      </div>
+    
+  </nav>
+  
 </header>
-<div class="md-container" data-md-component="container">
-<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
-<div class="md-grid">
-<ul class="md-tabs__list">
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="../../..">
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
         
   
     
@@ -118,9 +234,16 @@
   Home
 
       </a>
-</li>
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="../../../how-to/azure/self-managed/01-understanding/">
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../how-to/azure/self-managed/01-understanding/" class="md-tabs__link">
         
   
     
@@ -128,9 +251,16 @@
   Understanding
 
       </a>
-</li>
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="../../../how-to/azure/self-managed/02-planning/">
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../how-to/azure/self-managed/02-planning/" class="md-tabs__link">
         
   
     
@@ -138,9 +268,16 @@
   Planning
 
       </a>
-</li>
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="../../../how-to/azure/self-managed/03-azure-foundation/">
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../how-to/azure/self-managed/03-azure-foundation/" class="md-tabs__link">
         
   
     
@@ -148,19 +285,38 @@
   Azure Setup
 
       </a>
-</li>
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="../../../how-to/azure/self-managed/04-management-cluster/">
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../how-to/azure/self-managed/04-management-cluster/" class="md-tabs__link">
           
   
     
   
-  Management &amp; Hosted Clusters
+  Management & Hosted Clusters
 
         </a>
-</li>
-<li class="md-tabs__item">
-<a class="md-tabs__link" href="../../../how-to/azure/self-managed/07-troubleshooting/">
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../how-to/azure/self-managed/07-troubleshooting/" class="md-tabs__link">
           
   
     
@@ -168,170 +324,410 @@
   Reference
 
         </a>
-</li>
-</ul>
-</div>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
 </nav>
-<main class="md-main" data-md-component="main">
-<div class="md-main__inner md-grid">
-<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
-<label class="md-nav__title" for="__drawer">
-<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
-</a>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="HyperShift Azure Developer Preview" class="md-nav__button md-logo" aria-label="HyperShift Azure Developer Preview" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
     HyperShift Azure Developer Preview
   </label>
-<div class="md-nav__source">
-<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
-<div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
-</div>
-<div class="md-source__repository">
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
     hypershift-community/azure-dev-preview
   </div>
 </a>
-</div>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../..">
-<span class="md-ellipsis">
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
     Home
     
   </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../how-to/azure/self-managed/01-understanding/">
-<span class="md-ellipsis">
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../how-to/azure/self-managed/01-understanding/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
     Understanding
     
   </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../how-to/azure/self-managed/02-planning/">
-<span class="md-ellipsis">
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../how-to/azure/self-managed/02-planning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
     Planning
     
   </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../how-to/azure/self-managed/03-azure-foundation/">
-<span class="md-ellipsis">
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../how-to/azure/self-managed/03-azure-foundation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
     Azure Setup
     
   </span>
-</a>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
-<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
-<span class="md-ellipsis">
-    Management &amp; Hosted Clusters
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Management & Hosted Clusters
     
   </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_5">
-<span class="md-nav__icon md-icon"></span>
-            Management &amp; Hosted Clusters
+  
+
+            <span class="md-nav__icon md-icon"></span>
           </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../how-to/azure/self-managed/04-management-cluster/">
-<span class="md-ellipsis">
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Management & Hosted Clusters
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../how-to/azure/self-managed/04-management-cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
     Management Cluster
     
   </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../how-to/azure/self-managed/05-hosted-cluster/">
-<span class="md-ellipsis">
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../how-to/azure/self-managed/05-hosted-cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
     Create Hosted Cluster
     
   </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../how-to/azure/self-managed/06-day2-operations/">
-<span class="md-ellipsis">
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../how-to/azure/self-managed/06-day2-operations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
     Day 2 Operations
     
   </span>
-</a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
-<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-<span class="md-ellipsis">
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
     Reference
     
   </span>
-<span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_6">
-<span class="md-nav__icon md-icon"></span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
             Reference
           </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../how-to/azure/self-managed/07-troubleshooting/">
-<span class="md-ellipsis">
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../how-to/azure/self-managed/07-troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
     Troubleshooting
     
   </span>
-</a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../../how-to/azure/self-managed/08-reference/">
-<span class="md-ellipsis">
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../how-to/azure/self-managed/08-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
     Reference
     
   </span>
-</a>
-</li>
-</ul>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
 </nav>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#iam">
-<span class="md-ellipsis">
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#iam" class="md-nav__link">
+    <span class="md-ellipsis">
       IAM
     </span>
-</a>
+  </a>
+  
 </li>
-</ul>
+      
+    </ul>
+  
 </nav>
-</div>
-</div>
-</div>
-<div class="md-content" data-md-component="content">
-<article class="md-content__inner md-typeset">
-<h1>Aws</h1>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+  <h1>Aws</h1>
+
 <p>In this section we want to dissect who creates what and what not. It contains 4 stages:</p>
 <ul>
 <li>Infra pre-required and unmanaged for hypershift operator in an arbitrary AWS account</li>
@@ -349,7 +745,7 @@
 </ul>
 </div>
 <h4 id="infra-pre-required-and-unmanaged-for-hypershift-operator-in-an-arbitrary-aws-account">Infra pre-required and unmanaged for hypershift operator in an arbitrary AWS account</h4>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">Management Cluster AWS Account</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Management Cluster AWS Account</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>
@@ -364,9 +760,9 @@
 </ul>
 </div>
 </div>
-</input></div>
+</div>
 <h4 id="infra-pre-required-and-unmanaged-in-hosted-cluster-aws-account">Infra pre-required and unmanaged in Hosted Cluster AWS account</h4>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">All access Modes</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">All access Modes</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>
@@ -391,12 +787,12 @@
 </ul>
 </div>
 </div>
-</input></div>
+</div>
 <h4 id="aws-infra-managed-by-hypershift">AWS Infra Managed by Hypershift</h4>
 <ul>
 <li><strong>Public</strong></li>
 </ul>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"><div class="tabbed-labels"><label for="__tabbed_3_1">Management Cluster AWS Account</label><label for="__tabbed_3_2">Hosted Cluster AWS account</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Management Cluster AWS Account</label><label for="__tabbed_3_2">Hosted Cluster AWS account</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>
@@ -423,11 +819,11 @@
 </ul>
 </div>
 </div>
-</input></input></div>
+</div>
 <ul>
 <li><strong>Private</strong></li>
 </ul>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"><input id="__tabbed_4_2" name="__tabbed_4" type="radio"/><div class="tabbed-labels"><label for="__tabbed_4_1">Management Cluster AWS Account</label><label for="__tabbed_4_2">Hosted Cluster AWS account</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Management Cluster AWS Account</label><label for="__tabbed_4_2">Hosted Cluster AWS account</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>
@@ -448,11 +844,11 @@
 </ul>
 </div>
 </div>
-</input></div>
+</div>
 <ul>
 <li><strong>PublicAndPrivate</strong></li>
 </ul>
-<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio"/><input id="__tabbed_5_2" name="__tabbed_5" type="radio"/><div class="tabbed-labels"><label for="__tabbed_5_1">Management Cluster AWS Account</label><label for="__tabbed_5_2">Hosted Cluster AWS account</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Management Cluster AWS Account</label><label for="__tabbed_5_2">Hosted Cluster AWS account</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>
@@ -481,7 +877,7 @@
 </div>
 </div>
 <h4 id="aws-infra-managed-by-kubernetes">AWS Infra Managed by Kubernetes</h4>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio"/><div class="tabbed-labels"><label for="__tabbed_6_1">Hosted Cluster AWS account</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">Hosted Cluster AWS account</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>
@@ -532,189 +928,189 @@
 <span class="nn">...</span>
 </code></pre></div>
 <p>And these are samples for each one of the roles Hypershift uses:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="7:8"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio"/><input id="__tabbed_7_2" name="__tabbed_7" type="radio"/><input id="__tabbed_7_3" name="__tabbed_7" type="radio"/><input id="__tabbed_7_4" name="__tabbed_7" type="radio"/><input id="__tabbed_7_5" name="__tabbed_7" type="radio"/><input id="__tabbed_7_6" name="__tabbed_7" type="radio"/><input id="__tabbed_7_7" name="__tabbed_7" type="radio"/><input id="__tabbed_7_8" name="__tabbed_7" type="radio"/><div class="tabbed-labels"><label for="__tabbed_7_1"><strong>FullPermissionSet</strong></label><label for="__tabbed_7_2"><strong>IngressARN</strong></label><label for="__tabbed_7_3"><strong>ImageRegistryARN</strong></label><label for="__tabbed_7_4"><strong>StorageARN</strong></label><label for="__tabbed_7_5"><strong>NetworkARN</strong></label><label for="__tabbed_7_6"><strong>KubeCloudControllerARN</strong></label><label for="__tabbed_7_7"><strong>NodePoolManagementARN</strong></label><label for="__tabbed_7_8"><strong>ControlPlaneOperatorARN</strong></label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:8"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><input id="__tabbed_7_3" name="__tabbed_7" type="radio" /><input id="__tabbed_7_4" name="__tabbed_7" type="radio" /><input id="__tabbed_7_5" name="__tabbed_7" type="radio" /><input id="__tabbed_7_6" name="__tabbed_7" type="radio" /><input id="__tabbed_7_7" name="__tabbed_7" type="radio" /><input id="__tabbed_7_8" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1"><strong>FullPermissionSet</strong></label><label for="__tabbed_7_2"><strong>IngressARN</strong></label><label for="__tabbed_7_3"><strong>ImageRegistryARN</strong></label><label for="__tabbed_7_4"><strong>StorageARN</strong></label><label for="__tabbed_7_5"><strong>NetworkARN</strong></label><label for="__tabbed_7_6"><strong>KubeCloudControllerARN</strong></label><label for="__tabbed_7_7"><strong>NodePoolManagementARN</strong></label><label for="__tabbed_7_8"><strong>ControlPlaneOperatorARN</strong></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Statement1"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"s3:CreateBucket"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:DeleteBucket"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:PutBucketTagging"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetBucketTagging"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:PutBucketPublicAccessBlock"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetBucketPublicAccessBlock"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:PutEncryptionConfiguration"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetEncryptionConfiguration"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:PutLifecycleConfiguration"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetLifecycleConfiguration"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetBucketLocation"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:ListBucket"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetObject"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:PutObject"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:DeleteObject"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:ListBucketMultipartUploads"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:AbortMultipartUpload"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:ListMultipartUploadParts"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeLoadBalancers"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"tag:GetResources"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"route53:ListHostedZones"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AttachVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateSnapshot"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteSnapshot"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSnapshots"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVolumes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVolumesModifications"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DetachVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstanceStatus"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstanceTypes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:UnassignPrivateIpAddresses"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AssignPrivateIpAddresses"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:UnassignIpv6Addresses"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AssignIpv6Addresses"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSubnets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeNetworkInterfaces"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeImages"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeRegions"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeRouteTables"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSecurityGroups"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSubnets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVolumes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateSecurityGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyInstanceAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AttachVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AuthorizeSecurityGroupIngress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateRoute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteRoute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteSecurityGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DetachVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:RevokeSecurityGroupIngress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVpcs"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:AddTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:AttachLoadBalancerToSubnets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:ApplySecurityGroupsToLoadBalancer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:CreateLoadBalancer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:CreateLoadBalancerPolicy"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:CreateLoadBalancerListeners"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:ConfigureHealthCheck"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DeleteLoadBalancer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DeleteLoadBalancerListeners"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeLoadBalancers"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeLoadBalancerAttributes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DetachLoadBalancerFromSubnets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DeregisterInstancesFromLoadBalancer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:ModifyLoadBalancerAttributes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:RegisterInstancesWithLoadBalancer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:SetLoadBalancerPoliciesForBackendServer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:AddTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:CreateListener"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:CreateTargetGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DeleteListener"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DeleteTargetGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeListeners"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeLoadBalancerPolicies"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeTargetGroups"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeTargetHealth"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:ModifyListener"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:ModifyTargetGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:RegisterTargets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:SetLoadBalancerPoliciesOfListener"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:CreateServiceLinkedRole"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"kms:DescribeKey"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AllocateAddress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AssociateRouteTable"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AttachInternetGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AuthorizeSecurityGroupIngress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateInternetGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateNatGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateRoute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateRouteTable"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateSecurityGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateSubnet"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteInternetGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteNatGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteRouteTable"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteSecurityGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteSubnet"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeAccountAttributes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeAddresses"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeAvailabilityZones"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeImages"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInternetGateways"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeNatGateways"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeNetworkInterfaces"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeNetworkInterfaceAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeRouteTables"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSecurityGroups"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSubnets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVpcs"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVpcAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVolumes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DetachInternetGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DisassociateRouteTable"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DisassociateAddress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyInstanceAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyNetworkInterfaceAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifySubnetAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ReleaseAddress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:RevokeSecurityGroupIngress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:RunInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:TerminateInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"tag:GetResources"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateLaunchTemplate"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateLaunchTemplateVersion"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeLaunchTemplates"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeLaunchTemplateVersions"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteLaunchTemplate"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteLaunchTemplateVersions"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateVpcEndpoint"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVpcEndpoints"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyVpcEndpoint"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteVpcEndpoints"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"route53:ListHostedZones"</span>
-<span class="w">                </span><span class="s2">"iam:GetRolePolicy"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:PassRole"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:AddRoleToInstanceProfile"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:CreateInstanceProfile"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:GetInstanceProfile"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:PutRolePolicy"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:CreateRole"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:GetRole"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:CreateOpenIDConnectProvider"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:ListOpenIDConnectProviders"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"route53:ChangeResourceRecordSets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"route53:ListResourceRecordSets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ReplaceRouteTableAssociation"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AssociateDhcpOptions"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateDhcpOptions"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeDhcpOptions"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyVpcAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateVpc"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"route53:CreateHostedZone"</span>
+<span class="w">            </span><span class="nt">&quot;Sid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Statement1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;s3:CreateBucket&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:DeleteBucket&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutBucketTagging&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetBucketTagging&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutBucketPublicAccessBlock&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetBucketPublicAccessBlock&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutEncryptionConfiguration&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetEncryptionConfiguration&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutLifecycleConfiguration&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetLifecycleConfiguration&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetBucketLocation&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:ListBucket&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetObject&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutObject&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:DeleteObject&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:ListBucketMultipartUploads&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:AbortMultipartUpload&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:ListMultipartUploadParts&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeLoadBalancers&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;tag:GetResources&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;route53:ListHostedZones&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AttachVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateSnapshot&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteSnapshot&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSnapshots&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVolumes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVolumesModifications&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DetachVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstanceStatus&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstanceTypes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:UnassignPrivateIpAddresses&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AssignPrivateIpAddresses&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:UnassignIpv6Addresses&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AssignIpv6Addresses&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSubnets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeNetworkInterfaces&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeImages&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeRegions&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeRouteTables&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSecurityGroups&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSubnets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVolumes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateSecurityGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyInstanceAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AttachVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AuthorizeSecurityGroupIngress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateRoute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteRoute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteSecurityGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DetachVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:RevokeSecurityGroupIngress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVpcs&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:AddTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:AttachLoadBalancerToSubnets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:ApplySecurityGroupsToLoadBalancer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:CreateLoadBalancer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:CreateLoadBalancerPolicy&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:CreateLoadBalancerListeners&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:ConfigureHealthCheck&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DeleteLoadBalancer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DeleteLoadBalancerListeners&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeLoadBalancers&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeLoadBalancerAttributes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DetachLoadBalancerFromSubnets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DeregisterInstancesFromLoadBalancer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:ModifyLoadBalancerAttributes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:RegisterInstancesWithLoadBalancer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:SetLoadBalancerPoliciesForBackendServer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:AddTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:CreateListener&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:CreateTargetGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DeleteListener&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DeleteTargetGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeListeners&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeLoadBalancerPolicies&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeTargetGroups&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeTargetHealth&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:ModifyListener&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:ModifyTargetGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:RegisterTargets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:SetLoadBalancerPoliciesOfListener&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:CreateServiceLinkedRole&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;kms:DescribeKey&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AllocateAddress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AssociateRouteTable&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AttachInternetGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AuthorizeSecurityGroupIngress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateInternetGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateNatGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateRoute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateRouteTable&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateSecurityGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateSubnet&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteInternetGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteNatGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteRouteTable&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteSecurityGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteSubnet&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeAccountAttributes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeAddresses&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeAvailabilityZones&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeImages&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInternetGateways&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeNatGateways&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeNetworkInterfaces&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeNetworkInterfaceAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeRouteTables&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSecurityGroups&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSubnets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVpcs&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVpcAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVolumes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DetachInternetGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DisassociateRouteTable&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DisassociateAddress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyInstanceAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyNetworkInterfaceAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifySubnetAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ReleaseAddress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:RevokeSecurityGroupIngress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:RunInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:TerminateInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;tag:GetResources&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateLaunchTemplate&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateLaunchTemplateVersion&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeLaunchTemplates&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeLaunchTemplateVersions&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteLaunchTemplate&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteLaunchTemplateVersions&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateVpcEndpoint&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVpcEndpoints&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyVpcEndpoint&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteVpcEndpoints&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;route53:ListHostedZones&quot;</span>
+<span class="w">                </span><span class="s2">&quot;iam:GetRolePolicy&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:PassRole&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:AddRoleToInstanceProfile&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:CreateInstanceProfile&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:GetInstanceProfile&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:PutRolePolicy&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:CreateRole&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:GetRole&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:CreateOpenIDConnectProvider&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:ListOpenIDConnectProviders&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;route53:ChangeResourceRecordSets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;route53:ListResourceRecordSets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ReplaceRouteTableAssociation&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AssociateDhcpOptions&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateDhcpOptions&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeDhcpOptions&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyVpcAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateVpc&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;route53:CreateHostedZone&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"*"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;*&quot;</span>
 <span class="w">            </span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
@@ -723,25 +1119,25 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeLoadBalancers"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"tag:GetResources"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"route53:ListHostedZones"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeLoadBalancers&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;tag:GetResources&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;route53:ListHostedZones&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"route53:ChangeResourceRecordSets"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;route53:ChangeResourceRecordSets&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"arn:aws:route53:::PUBLIC_ZONE_ID"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"arn:aws:route53:::PRIVATE_ZONE_ID"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;arn:aws:route53:::PUBLIC_ZONE_ID&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;arn:aws:route53:::PRIVATE_ZONE_ID&quot;</span>
 <span class="w">            </span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
@@ -750,31 +1146,31 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"s3:CreateBucket"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:DeleteBucket"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:PutBucketTagging"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetBucketTagging"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:PutBucketPublicAccessBlock"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetBucketPublicAccessBlock"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:PutEncryptionConfiguration"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetEncryptionConfiguration"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:PutLifecycleConfiguration"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetLifecycleConfiguration"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetBucketLocation"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:ListBucket"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:GetObject"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:PutObject"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:DeleteObject"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:ListBucketMultipartUploads"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:AbortMultipartUpload"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"s3:ListMultipartUploadParts"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;s3:CreateBucket&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:DeleteBucket&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutBucketTagging&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetBucketTagging&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutBucketPublicAccessBlock&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetBucketPublicAccessBlock&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutEncryptionConfiguration&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetEncryptionConfiguration&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutLifecycleConfiguration&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetLifecycleConfiguration&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetBucketLocation&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:ListBucket&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetObject&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutObject&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:DeleteObject&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:ListBucketMultipartUploads&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:AbortMultipartUpload&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:ListMultipartUploadParts&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
@@ -782,27 +1178,27 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"ec2:AttachVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateSnapshot"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteSnapshot"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSnapshots"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVolumes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVolumesModifications"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DetachVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyVolume"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AttachVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateSnapshot&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteSnapshot&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSnapshots&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVolumes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVolumesModifications&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DetachVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyVolume&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
@@ -810,22 +1206,22 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstanceStatus"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstanceTypes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:UnassignPrivateIpAddresses"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AssignPrivateIpAddresses"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:UnassignIpv6Addresses"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AssignIpv6Addresses"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSubnets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeNetworkInterfaces"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstanceStatus&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstanceTypes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:UnassignPrivateIpAddresses&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AssignPrivateIpAddresses&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:UnassignIpv6Addresses&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AssignIpv6Addresses&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSubnets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeNetworkInterfaces&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
@@ -833,67 +1229,67 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeImages"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeRegions"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeRouteTables"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSecurityGroups"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSubnets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVolumes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateSecurityGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyInstanceAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AttachVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AuthorizeSecurityGroupIngress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateRoute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteRoute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteSecurityGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DetachVolume"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:RevokeSecurityGroupIngress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVpcs"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:AddTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:AttachLoadBalancerToSubnets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:ApplySecurityGroupsToLoadBalancer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:CreateLoadBalancer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:CreateLoadBalancerPolicy"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:CreateLoadBalancerListeners"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:ConfigureHealthCheck"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DeleteLoadBalancer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DeleteLoadBalancerListeners"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeLoadBalancers"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeLoadBalancerAttributes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DetachLoadBalancerFromSubnets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DeregisterInstancesFromLoadBalancer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:ModifyLoadBalancerAttributes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:RegisterInstancesWithLoadBalancer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:SetLoadBalancerPoliciesForBackendServer"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:AddTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:CreateListener"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:CreateTargetGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DeleteListener"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DeleteTargetGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeListeners"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeLoadBalancerPolicies"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeTargetGroups"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:DescribeTargetHealth"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:ModifyListener"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:ModifyTargetGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:RegisterTargets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"elasticloadbalancing:SetLoadBalancerPoliciesOfListener"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"iam:CreateServiceLinkedRole"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"kms:DescribeKey"</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeImages&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeRegions&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeRouteTables&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSecurityGroups&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSubnets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVolumes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateSecurityGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyInstanceAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AttachVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AuthorizeSecurityGroupIngress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateRoute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteRoute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteSecurityGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DetachVolume&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:RevokeSecurityGroupIngress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVpcs&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:AddTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:AttachLoadBalancerToSubnets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:ApplySecurityGroupsToLoadBalancer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:CreateLoadBalancer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:CreateLoadBalancerPolicy&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:CreateLoadBalancerListeners&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:ConfigureHealthCheck&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DeleteLoadBalancer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DeleteLoadBalancerListeners&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeLoadBalancers&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeLoadBalancerAttributes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DetachLoadBalancerFromSubnets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DeregisterInstancesFromLoadBalancer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:ModifyLoadBalancerAttributes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:RegisterInstancesWithLoadBalancer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:SetLoadBalancerPoliciesForBackendServer&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:AddTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:CreateListener&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:CreateTargetGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DeleteListener&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DeleteTargetGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeListeners&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeLoadBalancerPolicies&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeTargetGroups&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:DescribeTargetHealth&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:ModifyListener&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:ModifyTargetGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:RegisterTargets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;elasticloadbalancing:SetLoadBalancerPoliciesOfListener&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;iam:CreateServiceLinkedRole&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;kms:DescribeKey&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"*"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;*&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
@@ -901,87 +1297,87 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"ec2:AllocateAddress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AssociateRouteTable"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AttachInternetGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:AuthorizeSecurityGroupIngress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateInternetGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateNatGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateRoute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateRouteTable"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateSecurityGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateSubnet"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteInternetGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteNatGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteRouteTable"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteSecurityGroup"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteSubnet"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeAccountAttributes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeAddresses"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeAvailabilityZones"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeImages"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeInternetGateways"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeNatGateways"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeNetworkInterfaces"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeNetworkInterfaceAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeRouteTables"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSecurityGroups"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeSubnets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVpcs"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVpcAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVolumes"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DetachInternetGateway"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DisassociateRouteTable"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DisassociateAddress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyInstanceAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyNetworkInterfaceAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifySubnetAttribute"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ReleaseAddress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:RevokeSecurityGroupIngress"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:RunInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:TerminateInstances"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"tag:GetResources"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateLaunchTemplate"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateLaunchTemplateVersion"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeLaunchTemplates"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeLaunchTemplateVersions"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteLaunchTemplate"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteLaunchTemplateVersions"</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AllocateAddress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AssociateRouteTable&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AttachInternetGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:AuthorizeSecurityGroupIngress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateInternetGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateNatGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateRoute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateRouteTable&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateSecurityGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateSubnet&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteInternetGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteNatGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteRouteTable&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteSecurityGroup&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteSubnet&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeAccountAttributes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeAddresses&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeAvailabilityZones&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeImages&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeInternetGateways&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeNatGateways&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeNetworkInterfaces&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeNetworkInterfaceAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeRouteTables&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSecurityGroups&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeSubnets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVpcs&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVpcAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVolumes&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DetachInternetGateway&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DisassociateRouteTable&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DisassociateAddress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyInstanceAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyNetworkInterfaceAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifySubnetAttribute&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ReleaseAddress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:RevokeSecurityGroupIngress&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:RunInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:TerminateInstances&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;tag:GetResources&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateLaunchTemplate&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateLaunchTemplateVersion&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeLaunchTemplates&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeLaunchTemplateVersions&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteLaunchTemplate&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteLaunchTemplateVersions&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"*"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;*&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Condition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">"StringLike"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">"iam:AWSServiceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"elasticloadbalancing.amazonaws.com"</span>
+<span class="w">            </span><span class="nt">&quot;Condition&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;StringLike&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;iam:AWSServiceName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;elasticloadbalancing.amazonaws.com&quot;</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">},</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"iam:CreateServiceLinkedRole"</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;iam:CreateServiceLinkedRole&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"arn:*:iam::*:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForElasticLoadBalancing"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;arn:*:iam::*:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForElasticLoadBalancing&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"iam:PassRole"</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;iam:PassRole&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"arn:*:iam::*:role/*-worker-role"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;arn:*:iam::*:role/*-worker-role&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
@@ -989,27 +1385,27 @@
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"ec2:CreateVpcEndpoint"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DescribeVpcEndpoints"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:ModifyVpcEndpoint"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:DeleteVpcEndpoints"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"ec2:CreateTags"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"route53:ListHostedZones"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateVpcEndpoint&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DescribeVpcEndpoints&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:ModifyVpcEndpoint&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:DeleteVpcEndpoints&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;ec2:CreateTags&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;route53:ListHostedZones&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="s2">"route53:ChangeResourceRecordSets"</span><span class="p">,</span>
-<span class="w">                </span><span class="s2">"route53:ListResourceRecordSets"</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;route53:ChangeResourceRecordSets&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;route53:ListResourceRecordSets&quot;</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:route53:::%s"</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:route53:::%s&quot;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
@@ -1017,33 +1413,59 @@
 </div>
 </div>
 </div>
-</article>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
-</div>
-</main>
-<footer class="md-footer">
-<div class="md-footer-meta md-typeset">
-<div class="md-footer-meta__inner md-grid">
-<div class="md-copyright">
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
   
   
     Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
       Material for MkDocs
     </a>
+  
 </div>
-</div>
-</div>
+      
+    </div>
+  </div>
 </footer>
-</div>
-<div class="md-dialog" data-md-component="dialog">
-<div class="md-dialog__inner md-typeset"></div>
-</div>
-<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
-<script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
-<script src="https://unpkg.com/mermaid@11.4.0/dist/mermaid.min.js"></script>
-<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(() => { lightbox.reload() });
 </script></body>
 </html>
