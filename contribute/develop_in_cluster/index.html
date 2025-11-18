@@ -1,0 +1,598 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/contribute/develop_in_cluster/" rel="canonical"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Develop HyperShift components in-cluster - HyperShift Azure Developer Preview</title>
+<link href="../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#prerequisites">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Develop HyperShift components in-cluster
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../how-to/azure/self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../how-to/azure/self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../how-to/azure/self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../how-to/azure/self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../how-to/azure/self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+<span class="md-ellipsis">
+      Prerequisites
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-and-publish-a-component">
+<span class="md-ellipsis">
+      Build and publish a component
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#launch-a-custom-hypershift-operator-image-interactively">
+<span class="md-ellipsis">
+      Launch a custom hypershift-operator image interactively
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configure-a-hostedcluster-for-iterative-control-plane-development">
+<span class="md-ellipsis">
+      Configure a HostedCluster for iterative control plane development
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#launch-a-custom-control-plane-operator-image-interactively">
+<span class="md-ellipsis">
+      Launch a custom control-plane-operator image interactively
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#launch-a-custom-ignition-server-interactively">
+<span class="md-ellipsis">
+      Launch a custom ignition-server interactively
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="how-to-develop-hypershift-components-in-cluster">How to develop HyperShift components in-cluster</h1>
+<p>Sometimes when developing HyperShift components it's useful to iterate on new
+binary builds inside the cluster itself, especially when working on functionality
+that depends on the Kubernetes or cloud environment for one reason or another.</p>
+<p>Because such in-cluster build/image/publish/redeploy development workflows can be
+very tedious and slow, the HyperShift project includes a few tools and techniques
+to help make the feedback loop as fast as possible.</p>
+<p>This guide makes use of the <a href="https://github.com/google/ko">ko</a> tool to rapidly
+build lightweight images which are then published directly into an OCP cluster's
+internal registry. This approach has the following properties which can speed up
+development:</p>
+<ul>
+<li>No local container runtime required to build images, and image builds are
+  extremely fast.</li>
+<li>Resulting images are almost as small as the Go binary being published.</li>
+<li>Images are published directly into OCP's internal image registry, so images
+  are immediately available on or near the machines that will be pulling them.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>An OCP 4.9+ cluster</li>
+<li>The <code>oc</code> CLI tool</li>
+<li>The <a href="https://github.com/google/ko">ko</a> CLI tool</li>
+</ul>
+<p>For this workflow, the OCP cluster must be configured to expose its internal
+image registry externally so the <code>ko</code> tool can publish to it.</p>
+<p>First, expose the cluster's image registry:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>patch<span class="w"> </span>configs.imageregistry.operator.openshift.io/cluster<span class="w"> </span>--patch<span class="w"> </span><span class="s1">'{"spec":{"defaultRoute":true}}'</span><span class="w"> </span>--type<span class="o">=</span>merge
+</code></pre></div>
+<p>Next, generate an authentication token for the registry and install it into the
+local Docker config file so that <code>ko</code> can push images into the registry. Be sure
+to replace <code>&lt;password&gt;</code> with your actual <code>kubeadmin</code> password.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>oc<span class="w"> </span>login<span class="w"> </span>-u<span class="w"> </span>kubeadmin<span class="w"> </span>-p<span class="w"> </span>&lt;password&gt;
+oc<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span>--to<span class="o">=</span><span class="nv">$HOME</span>/.docker/config.json<span class="w"> </span>--skip-check<span class="w"> </span>--registry<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>routes<span class="w"> </span>--namespace<span class="w"> </span>openshift-image-registry<span class="w"> </span>default-route<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.host}'</span><span class="k">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Finally, configure OCP to allow any authenticated user to pull images from the
+internal registry. This will enable HyperShift component pods to pull the custom
+images you publish.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>clusterrolebinding<span class="w"> </span>authenticated-registry-viewer<span class="w"> </span>--clusterrole<span class="w"> </span>registry-viewer<span class="w"> </span>--group<span class="w"> </span>system:authenticated
+</code></pre></div>
+<h2 id="build-and-publish-a-component">Build and publish a component</h2>
+<p>To build and publish a given component into the OCP cluster from local source,
+use the <code>publish-ocp.sh</code> script. This tool uses <code>ko</code> to build and publish
+the image, and will output to stdout a single line containing the <em>internal</em> pullspec
+suitable for use by any HyperShift component deployment.</p>
+<p>For example, to build and publishing the <code>hypershift-operator</code>, run:</p>
+<div class="highlight"><pre><span></span><code>hack/publish-ocp.sh<span class="w"> </span>./hypershift-operator
+</code></pre></div>
+<p>Here's what the output will look like:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code>2021/12/01 16:49:54 Using base gcr.io/distroless/static:nonroot for github.com/openshift/hypershift/hypershift-operator
+2021/12/01 16:49:55 Building github.com/openshift/hypershift/hypershift-operator for linux/amd64
+2021/12/01 16:50:02 Publishing default-route-openshift-image-registry.apps.dmace-7894.devcluster.openshift.com/hypershift/hypershift-operator-cd22693e35e87f2323fb625057793c02:latest
+2021/12/01 16:50:02 existing blob: sha256:250c06f7c38e52dc77e5c7586c3e40280dc7ff9bb9007c396e06d96736cf8542
+2021/12/01 16:50:02 existing blob: sha256:e8614d09b7bebabd9d8a450f44e88a8807c98a438a2ddd63146865286b132d1b
+2021/12/01 16:50:02 existing blob: sha256:cde5c5024aed9d3daaa3cd7b87fa21a66b10d2f2e8a1b9d339e2fb505cbde8c0
+2021/12/01 16:50:02 existing blob: sha256:a589e39bc5bc084dd0ec79f5492ff9dc2ac6dbbb5fb95eb200b319246a7b8207
+2021/12/01 16:50:03 default-route-openshift-image-registry.apps.dmace-7894.devcluster.openshift.com/hypershift/hypershift-operator-cd22693e35e87f2323fb625057793c02:latest: digest: sha256:20b0baf90c58a92a5e384eaa8d40cd47cc1c8cabce27bedccd7bbc2f54ca4c5b size: 953
+<span class="hll">2021/12/01 16:50:03 Published default-route-openshift-image-registry.apps.dmace-7894.devcluster.openshift.com/hypershift/hypershift-operator-cd22693e35e87f2323fb625057793c02@sha256:20b0baf90c58a92a5e384eaa8d40cd47cc1c8cabce27bedccd7bbc2f54ca4c5b
+</span><span class="hll">image-registry.openshift-image-registry.svc:5000/hypershift/hypershift-operator-cd22693e35e87f2323fb625057793c02@sha256:20b0baf90c58a92a5e384eaa8d40cd47cc1c8cabce27bedccd7bbc2f54ca4c5b
+</span></code></pre></div></td></tr></table></div>
+<p>The <code>publish-ocp.sh</code> script prints only the internal repo pullspec to stdout to
+make it easy to incorporate the script into pipelines.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice on line 9 that public pullspec of the image is
+<code>default-route-openshift-image-registry.apps.dmace-7894.devcluster.openshift.com/hypershift/hypershift-operator-cd22...</code>.
+Pods in the cluster cannot pull the image using the public repo name because the
+host's certificate is likely self-signed, which would require additional
+configuration in the cluster to enable pods to pull it.</p>
+<p>Pods must reference the <em>internal repo pullspec</em> as printed to stdout on line
+10: <code>image-registry.openshift-image-registry.svc:5000/hypershift/hypershift-operator-cd22...</code>.</p>
+</div>
+<h2 id="launch-a-custom-hypershift-operator-image-interactively">Launch a custom <code>hypershift-operator</code> image interactively</h2>
+<p>To iterate on the <code>hypershift-operator</code> binary in-cluster interactively, first
+scale down the operator's deployment:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>scale<span class="w"> </span>--replicas<span class="w"> </span><span class="m">0</span><span class="w"> </span>--namespace<span class="w"> </span>hypershift<span class="w"> </span>deployments/operator
+</code></pre></div>
+<p>Alternatively, run the HyperShift CLI <code>install</code> command with the <code>--development</code>
+flag which sets up the deployment with zero replicas:</p>
+<div class="highlight"><pre><span></span><code>go<span class="w"> </span>run<span class="w"> </span>.<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--oidc-storage-provider-s3-bucket-name<span class="o">=</span><span class="nv">$BUCKET_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--oidc-storage-provider-s3-region<span class="o">=</span><span class="nv">$BUCKET_REGION</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--oidc-storage-provider-s3-credentials<span class="o">=</span><span class="nv">$AWS_CREDS</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--development
+</code></pre></div>
+<p>Now, you can build and publish the <code>hypershift-operator</code> image and run it interactively
+in a single shot using <code>publish-ocp.sh</code> together with the <code>oc debug</code> command:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>debug<span class="w"> </span>--namespace<span class="w"> </span>hypershift<span class="w"> </span>deployments/operator<span class="w"> </span>--image<span class="w"> </span><span class="k">$(</span>hack/publish-ocp.sh<span class="w"> </span>./hypershift-operator<span class="k">)</span><span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/ko-app/hypershift-operator<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="hll"><span class="w">  </span>--oidc-storage-provider-s3-region<span class="w"> </span><span class="nv">$BUCKET_REGION</span><span class="w"> </span><span class="se">\</span>
+</span><span class="hll"><span class="w">  </span>--oidc-storage-provider-s3-bucket-name<span class="w"> </span><span class="nv">$BUCKET_NAME</span><span class="w"> </span><span class="se">\</span>
+</span><span class="w">  </span>--oidc-storage-provider-s3-credentials<span class="w"> </span>/etc/oidc-storage-provider-s3-creds/credentials<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="w"> </span>hypershift<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pod-name<span class="w"> </span>operator-debug
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure to replace <code>$BUCKET_NAME</code> and <code>$BUCKET_REGION</code> with the same values used to
+install HyperShift.</p>
+</div>
+<p>Your latest code should be deployed and logs should soon begin streaming. Just
+press <code>ctrl-c</code> to terminate and delete the pod.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a href="../custom-images/">Use custom operator images</a> to use your own registry.</p>
+</div>
+<h2 id="configure-a-hostedcluster-for-iterative-control-plane-development">Configure a HostedCluster for iterative control plane development</h2>
+<p>To iterate on control plane components which are deployed and managed in a
+<code>HostedCluster</code> control plane namespace (e.g. the <code>control-plane-operator</code>
+or <code>ignition-server</code>), it's possible to configure the <code>HostedCluster</code> resource to
+scale down individual control plane components and facilitate various development
+workflows.</p>
+<p>The <code>hypershift.openshift.io/debug-deployments</code> annotation on a <code>HostedCluster</code>
+is used to configure individual control plane components as targets for development
+and debugging. The value of the annotation is a comma-delimited list of control
+plane deployment names. Any control plane component in the list will always be
+scaled to 0, enabling developers to replace the components with their own processes
+(inside or outside the cluster) while preserving the <code>Deployment</code> resources to
+use as templates for the replacement process environments.</p>
+<p>For example, to scale the <code>control-plane-operator</code> and <code>ignition-server</code> deployments
+to 0:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>annotate<span class="w"> </span>-n<span class="w"> </span>clusters<span class="w"> </span>HostedCluster<span class="w"> </span>test-cluster<span class="w"> </span>hypershift.openshift.io/debug-deployments<span class="o">=</span>control-plane-operator,ignition-server
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Update the name of the HostedCluster to match your cluster.</p>
+</div>
+<p>This will result in a <code>HostedCluster</code> like so:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hypershift.openshift.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HostedCluster</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="hll"><span class="w">    </span><span class="nt">hypershift.openshift.io/debug-deployments</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">control-plane-operator,ignition-server</span>
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clusters</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">release</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/openshift-release-dev/ocp-release:4.9.0-x86_64</span>
+<span class="c1"># &lt;remainder of resource omitted&gt;</span>
+</code></pre></div></td></tr></table></div>
+<p>To scale back up a given component's original deployment simply remove the component's
+deployment name from the list.</p>
+<p>The <code>hypershift.openshift.io/pod-security-admission-label-override</code> annotation
+may also need to be set in order to run debug pods locally.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>annotate<span class="w"> </span>-n<span class="w"> </span>clusters<span class="w"> </span>HostedCluster<span class="w"> </span>test-cluster<span class="w"> </span>hypershift.openshift.io/pod-security-admission-label-override<span class="o">=</span>baseline
+</code></pre></div>
+<h2 id="launch-a-custom-control-plane-operator-image-interactively">Launch a custom <code>control-plane-operator</code> image interactively</h2>
+<p>To iterate on the <code>control-plane-operator</code> binary in-cluster interactively, first
+<a href="#configure-a-hostedcluster-for-iterative-control-plane-development">configure the HostedCluster</a>
+to scale down the <code>control-plane-operator</code> deployment.</p>
+<p>Now, you can build and publish the <code>control-plane-operator</code> image and run it interactively
+in a single shot using <code>publish-ocp.sh</code> together with the <code>oc debug</code> command. Be
+sure to replace <code>$NAMESPACE</code> with the namespace of the control plane that was deployed
+for the <code>HostedCluster</code>.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>debug<span class="w"> </span>--namespace<span class="w"> </span><span class="nv">$NAMESPACE</span><span class="w"> </span>deployments/control-plane-operator<span class="w"> </span>--image<span class="w"> </span><span class="k">$(</span>hack/publish-ocp.sh<span class="w"> </span>./control-plane-operator<span class="k">)</span><span class="w"> </span>--<span class="w"> </span>/ko-app/control-plane-operator<span class="w"> </span>run
+</code></pre></div>
+<p>Your latest code should be deployed and logs should soon begin streaming. Just
+press <code>ctrl-c</code> to terminate and delete the pod.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default arguments to <code>control-plane-operator run</code> should be sufficient to
+get started.</p>
+</div>
+<h2 id="launch-a-custom-ignition-server-interactively">Launch a custom <code>ignition-server</code> interactively</h2>
+<p>To iterate on the ignition server in-cluster interactively, first
+<a href="#configure-a-hostedcluster-for-iterative-control-plane-development">configure the HostedCluster</a>
+to scale down the <code>ignition-server</code> deployment.</p>
+<p>Now, you can build and publish the <code>control-plane-operator</code> image and run the
+<code>ignition-server</code> command interactively in a single shot using <code>publish-ocp.sh</code>
+together with the <code>oc debug</code> command. Be sure to replace <code>$NAMESPACE</code> with the
+namespace of the control plane that was deployed for the <code>HostedCluster</code>.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>debug<span class="w"> </span>--namespace<span class="w"> </span><span class="nv">$NAMESPACE</span><span class="w"> </span>deployments/ignition-server<span class="w"> </span>--image<span class="w"> </span><span class="k">$(</span>hack/publish-ocp.sh<span class="w"> </span>./control-plane-operator<span class="k">)</span><span class="w"> </span>--<span class="w"> </span>/ko-app/control-plane-operator<span class="w"> </span>ignition-server
+</code></pre></div>
+<p>Your latest code should be deployed and logs should soon begin streaming. Just
+press <code>ctrl-c</code> to terminate and delete the pod.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default arguments to <code>ignition-server</code> should be sufficient to
+get started.</p>
+</div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

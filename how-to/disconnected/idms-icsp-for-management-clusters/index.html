@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/disconnected/idms-icsp-for-management-clusters/" rel="canonical"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Idms icsp for management clusters - HyperShift Azure Developer Preview</title>
+<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#configuring-disconnected-hostedcontrolplanes-deployments">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Idms icsp for management clusters
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-disconnected-hostedcontrolplanes-deployments">
+<span class="md-ellipsis">
+      Configuring disconnected HostedControlPlanes deployments
+    </span>
+</a>
+<nav aria-label="Configuring disconnected HostedControlPlanes deployments" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mirroring-prerequisites-for-the-management-cluster">
+<span class="md-ellipsis">
+      Mirroring Prerequisites for the Management Cluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#preparing-the-imagesetconfiguration-file">
+<span class="md-ellipsis">
+      Preparing the ImageSetConfiguration file
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-the-mirroring-process">
+<span class="md-ellipsis">
+      Running the Mirroring Process
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#debugging-idmsicsp-propagation">
+<span class="md-ellipsis">
+      Debugging IDMS/ICSP Propagation
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#technical-implementation-details">
+<span class="md-ellipsis">
+      Technical Implementation Details
+    </span>
+</a>
+<nav aria-label="Technical Implementation Details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#general">
+<span class="md-ellipsis">
+      General
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#provider-with-openshift-image-registry-overrides">
+<span class="md-ellipsis">
+      Provider With OpenShift Image Registry Overrides
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ignition-server">
+<span class="md-ellipsis">
+      Ignition Server
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#control-plane-operator">
+<span class="md-ellipsis">
+      Control Plane Operator
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#references">
+<span class="md-ellipsis">
+      References
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1>Idms icsp for management clusters</h1>
+<h2 id="configuring-disconnected-hostedcontrolplanes-deployments">Configuring disconnected HostedControlPlanes deployments</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is mainly focused on the Management Cluster side. If you want to see how to configure the HostedCluster's ImageContentSource, please check out <a href="../image-content-sources/">this other documentation section</a>.</p>
+</div>
+<p>HostedControlPlanes operate in two main domains: the Control Plane, which is part of the Management Cluster, and the Data Plane, which resides in the worker nodes deployed by the customer.</p>
+<p>The ICSP/IDMS for the Data Plane is managed via the <code>ImageContentSources</code> API in the HostedCluster manifests and this is the only source of truth for the DataPlane. It is also possible to modify the registry files directly in the workers using the <a href="../../automated-machine-management/configure-machines/">MachineConfig</a> method, changing configurations not directly supported via the API of those ICSP/IDMS objects.</p>
+<p>For the Control Plane, ICSP/IDMS objects are managed in the Management Cluster. These objects are parsed by the Hypershift Operator and shared as <code>registry-overrides</code> with the ControlPlaneOperator. These entries will be injected into any of the deployments in the HostedControlPlane namespace as an argument.</p>
+<p>In summary, to work with disconnected registries in the HostedControlPlane, you first need to create the appropriate ICSP/IDMS in the Management Cluster. Then, to deploy disconnected workloads in the Data Plane, you need to add the desired entries into the ImageContentSources field inside the HostedCluster manifest.</p>
+<h3 id="mirroring-prerequisites-for-the-management-cluster">Mirroring Prerequisites for the Management Cluster</h3>
+<p>Deploying HostedControlPlanes in a disconnected environment involves a mirroring process that is straightforward, provided you have the necessary prerequisites:</p>
+<ol>
+<li><strong>Private Registry</strong>: Ensure a private registry is deployed and operational.</li>
+<li><strong>Credentials</strong>: Have a credentials file to pull from a public registry and push to your private registry.</li>
+<li><strong>oc-mirror Tool</strong>: Install the <code>oc-mirror</code> tool.</li>
+</ol>
+<h4 id="setting-up-the-private-registry">Setting Up the Private Registry</h4>
+<p>For the private registry, robust platforms typically use large-scale solutions like Quay or Artifactory. However, for testing or development environments, you can set up a smaller registry by following these <a href="../../../labs/IPv4/registry/">steps</a>.</p>
+<h4 id="preparing-the-credentials-file">Preparing the Credentials File</h4>
+<p>Your credentials file, typically located at <code>${HOME}/.docker/config.json</code>, must include login credentials for at least two registries:</p>
+<ul>
+<li>The public registry from which you pull images (e.g., <code>quay.io</code>).</li>
+<li>Your private registry to which you push the images.</li>
+</ul>
+<p>Refer to the official OpenShift documentation for detailed instructions on setting up the registry pull secret <a href="https://docs.openshift.com/container-platform/latest/installing/disconnected_install/installing-mirroring-installation-images.html#installation-adding-registry-pull-secret_installing-mirroring-installation-images">here</a>.</p>
+<h4 id="installing-the-oc-mirror-tool">Installing the oc-mirror Tool</h4>
+<p>Download the <code>oc-mirror</code> plugin for the <code>oc</code> CLI and place it in the correct directory. Follow the instructions in the OpenShift documentation <a href="https://docs.openshift.com/container-platform/latest/installing/disconnected_install/installing-mirroring-disconnected.html#installation-oc-mirror-installing-plugin_installing-mirroring-disconnected">here</a>.</p>
+<h3 id="preparing-the-imagesetconfiguration-file">Preparing the ImageSetConfiguration file</h3>
+<p>With the prerequisites in place, you need to prepare the <code>ImageSetConfiguration</code> file. This file specifies the OpenShift Container Platform (OCP) releases, Operator Lifecycle Manager (OLM) catalogs, and additional images you wish to mirror.</p>
+<p>Here is a sample <code>ImageSetConfiguration</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mirror.openshift.io/v1alpha2</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ImageSetConfiguration</span>
+<span class="nt">storageConfig</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">registry</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">imageURL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.sample.lab:5000/openshift/release/metadata:latest</span>
+<span class="nt">mirror</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">channels</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stable-4.14</span>
+<span class="w">      </span><span class="nt">minVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4.14.26</span>
+<span class="w">      </span><span class="nt">maxVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4.14.28</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stable-4.15</span>
+<span class="w">      </span><span class="nt">minVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4.15.13</span>
+<span class="w">      </span><span class="nt">maxVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4.15.17</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">candidate-4.16</span>
+<span class="w">      </span><span class="nt">minVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4.16.0-rc.2</span>
+<span class="w">      </span><span class="nt">maxVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4.16.0-rc.4</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
+<span class="w">  </span><span class="nt">additionalImages</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/karmab/origin-keepalived-ipfailover:latest</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.redhat.io/openshift4/ose-kube-rbac-proxy:v4.10</span>
+<span class="w">  </span><span class="nt">operators</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">catalog</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.redhat.io/redhat/redhat-operator-index:v4.15</span>
+<span class="w">    </span><span class="nt">packages</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lvms-operator</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local-storage-operator</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odf-csi-addons-operator</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">odf-operator</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mcg-operator</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocs-operator</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metallb-operator</span>
+</code></pre></div>
+<p>For a detailed explanation of each field in the <code>ImageSetConfiguration</code>, consult the <a href="https://docs.openshift.com/container-platform/4.15/installing/disconnected_install/installing-mirroring-disconnected.html#oc-mirror-creating-image-set-config_installing-mirroring-disconnected">official documentation</a>.</p>
+<h3 id="running-the-mirroring-process">Running the Mirroring Process</h3>
+<p>To start the mirroring process, execute the following command:</p>
+<div class="highlight"><pre><span></span><code>oc-mirror<span class="w"> </span>--config<span class="w"> </span>imagesetconfig.yaml<span class="w"> </span>docker://<span class="si">${</span><span class="nv">PRIVATE_REGISTRY_ADDRESS</span><span class="si">}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your private registry uses a self-signed CA or a CA not recognized by the system running the <code>oc-mirror</code> command, you can use the <code>--source-skip-tls</code> flag to bypass certificate verification.</p>
+</div>
+<p>After several minutes, the process will complete, generating output files in the current directory. The key files are <code>ImageContentSourcePolicies</code> and <code>CatalogSource</code>, which must be applied to the management cluster to enable a disconnected deployment of the HostedControlPlanes.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If you have a <code>Registry-root-url/Namespace</code> or <code>Registry-root-url</code> (E.G: ) IDMS/ICSP entry into the Management cluster for the OCP Metadata and Release images, the Hypershift operator cannot assume where the destination will be, so you need to explicitly create a IDMS/ICSP object with both entries. More info <a href="../known-issues/#idmsicsp-with-only-root-registry-are-not-propagated-to-the-registry-override-flag-under-ignition-server">here</a></p>
+<p>You must run the <code>oc-mirror</code> command twice. The first run generates a complete <code>ImageContentSourcePolicy</code> file, while the second run provides the differences between the two runs. Always maintain a backup of these files to merge them into a comprehensive <code>ImageContentSourcePolicy</code> file if needed. This backup ensures you have a complete policy file.</p>
+</div>
+<h3 id="debugging-idmsicsp-propagation">Debugging IDMS/ICSP Propagation</h3>
+<p>You can check if the entries created in the ICSP/IDMS are being propagated properly checking the deployments in the HostedControlPlane. For instance, if you check the ignition-server deployment you can see the command the pod will execute, you need to check if the <code>--registry-overrides</code> flag is followed by a series of tuples separated by comma:</p>
+<div class="highlight"><pre><span></span><code>...
+ - --registry-overrides
+ - quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:922dd705c2e05c88dc328b7ad4651d5af053851ea6a47dc52840d1abdde3926e=registry.sample.net/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:922dd705c2e05c88dc328b7ad4651d5af053851ea6a47dc52840d1abdde3926e,quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f4196370cd6348094a11d9384bae3c88a05af2fdd0ed32e919bea26943a939c2=registry.sample.net/quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:f4196370cd6348094a11d9384bae3c88a05af2fdd0ed32e919bea26943a939c2
+...
+</code></pre></div>
+<p>If that so, means the ICSP/IDMS are being propagated properly, otherwise there is some kind of problem. Please if that's the case, check the <a href="../known-issues/">known-issues section</a> for more info.</p>
+<h2 id="technical-implementation-details">Technical Implementation Details</h2>
+<h3 id="general">General</h3>
+<p>In <code>hypershift-operator/main.go</code>, the HO will look to see if its management cluster has either ICSP or IDMS capabilities. If so, it will retrieve the image registry information from the appropriate ICSP or IDMS instances and store them in a variable called <code>imageRegistryOverrides</code>. This variable is then provided to a custom release image provider called <code>ProviderWithOpenShiftImageRegistryOverrides</code>.</p>
+<h3 id="provider-with-openshift-image-registry-overrides">Provider With OpenShift Image Registry Overrides</h3>
+<p>The <code>Lookup</code> function for <code>ProviderWithOpenShiftImageRegistryOverrides</code> will use the source and mirror information in <code>imageRegistryOverrides</code> when attempting to look up release images.
+The <code>ProviderWithOpenShiftImageRegistryOverrides</code> is also provided to the <code>HostedClusterReconciler</code> as its <code>ReleaseProvider</code>. When the <code>HostedClusterReconciler</code> is reconciling, it will pass any image registry overrides to the ignition server reconciler and the CPO deployment specification.</p>
+<h3 id="ignition-server">Ignition Server</h3>
+<p>The ignition server reconciler forwards this information on to the <code>ignition-server</code> container as an environment variable called <code>OPENSHIFT_IMG_OVERRIDES</code>. <code>hypershift/ignition-server/cmd/start.go</code> retrieves this information for the <code>ReleaseProvider</code> for the <code>TokenSecretReconciler</code>. An important caveat for the ignition server, it cannot follow the ImageContentSourcePolicy or ImageDigestMirrorSet rules because there is not a runtime running inside the pod to do the transformations. So, it's necessary to do the image URL live translation to the custom registry address.</p>
+<h3 id="control-plane-operator">Control Plane Operator</h3>
+<p>The <code>HostedClusterReconciler</code> passes on the image registry override information as an environment variable in the CPO called <code>OPENSHIFT_IMG_OVERRIDES</code>. The CPO will check for the existence of this environment variable when it runs. If the variable exists, it's used to build the HostedControlPlaneReconciler's <code>releaseProvider</code>.</p>
+<h4 id="olm-catalogs">OLM Catalogs</h4>
+<p>The imageStream used for the OLM catalogs, when using the <code>management</code> (default) OLMCatalogPlacement mode, is not automatically amended with override information detected from ImageContentSourcePolicy (ICSP) on the management cluster.
+This because there is not an easy way to validate them in advance for imagestreams.
+In case the OLM catalogs got properly mirrored to an internal registry (using the original name and tag), the guest cluster owner can use the <code>hypershift.openshift.io/olm-catalogs-is-registry-overrides</code> annotation on the HostedCluster CR.
+The format is: <code>"sr1=dr1,sr2=dr2"</code> having the source registry string as a key and the destination registry string as value.
+OLM catalog image addresses, before being applied to the imagestream, are scanned for the source registry string and if found the string is replaced with the destination registry one.
+The cluster admin will also be able to bypass the whole OLM catalogs imagestream mechanism using 4 annotations (<code>hypershift.openshift.io/certified-operators-catalog-image</code>, <code>hypershift.openshift.io/community-operators-catalog-image</code>, <code>hypershift.openshift.io/redhat-marketplace-catalog-image</code>, <code>hypershift.openshift.io/redhat-operators-catalog-image</code>) on the HostedCluster CR to directly specify the address (only by digest) of the 4 images to be used for OLM operator catalogs.
+In this case the imageStream is not going to be created, and it will be up to the guest cluster owner updating the value of the annotations when the internal mirror will get refreshed to pull in operator updates.
+Please notice that if this override mechanism is required, all the 4 values for the 4 default catalog sources are needed.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.15/html/images/image-configuration">How to configure ICSP/IDMS for the Management clusters</a></li>
+<li><a href="../image-content-sources/">Hypershift ImageContentSource details</a></li>
+<li><a href="../../automated-machine-management/configure-machines/">Configuring Machines in HyperShift</a></li>
+</ul>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

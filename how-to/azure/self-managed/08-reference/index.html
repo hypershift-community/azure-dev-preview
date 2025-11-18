@@ -1,0 +1,1699 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/08-reference/" rel="canonical"/>
+<link href="../07-troubleshooting/" rel="prev"/>
+<link href="../../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Reference - HyperShift Azure Developer Preview</title>
+<link href="../../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#taskfile-command-reference">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Reference
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#taskfile-command-reference">
+<span class="md-ellipsis">
+      Taskfile Command Reference
+    </span>
+</a>
+<nav aria-label="Taskfile Command Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-and-foundation">
+<span class="md-ellipsis">
+      Prerequisites and Foundation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#per-cluster-resources">
+<span class="md-ellipsis">
+      Per-Cluster Resources
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#information-commands">
+<span class="md-ellipsis">
+      Information Commands
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hypershift-cli-reference">
+<span class="md-ellipsis">
+      HyperShift CLI Reference
+    </span>
+</a>
+<nav aria-label="HyperShift CLI Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cluster-creation">
+<span class="md-ellipsis">
+      Cluster Creation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cluster-destruction">
+<span class="md-ellipsis">
+      Cluster Destruction
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nodepool-creation">
+<span class="md-ellipsis">
+      NodePool Creation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kubeconfig-generation">
+<span class="md-ellipsis">
+      Kubeconfig Generation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#operator-installation">
+<span class="md-ellipsis">
+      Operator Installation
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-cli-quick-reference">
+<span class="md-ellipsis">
+      Azure CLI Quick Reference
+    </span>
+</a>
+<nav aria-label="Azure CLI Quick Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#identity-management">
+<span class="md-ellipsis">
+      Identity Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resource-group-management">
+<span class="md-ellipsis">
+      Resource Group Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#network-resources">
+<span class="md-ellipsis">
+      Network Resources
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage-account-oidc">
+<span class="md-ellipsis">
+      Storage Account (OIDC)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#virtual-machines">
+<span class="md-ellipsis">
+      Virtual Machines
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kubectloc-quick-reference">
+<span class="md-ellipsis">
+      kubectl/oc Quick Reference
+    </span>
+</a>
+<nav aria-label="kubectl/oc Quick Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cluster-resources">
+<span class="md-ellipsis">
+      Cluster Resources
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nodepool-resources">
+<span class="md-ellipsis">
+      NodePool Resources
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#control-plane-pods">
+<span class="md-ellipsis">
+      Control Plane Pods
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#machines">
+<span class="md-ellipsis">
+      Machines
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendices">
+<span class="md-ellipsis">
+      Appendices
+    </span>
+</a>
+<nav aria-label="Appendices" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-a-azure-permissions-reference">
+<span class="md-ellipsis">
+      Appendix A: Azure Permissions Reference
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-b-workload-identity-service-account-mapping">
+<span class="md-ellipsis">
+      Appendix B: Workload Identity Service Account Mapping
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-c-resource-group-lifecycle">
+<span class="md-ellipsis">
+      Appendix C: Resource Group Lifecycle
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-d-dns-configuration-reference">
+<span class="md-ellipsis">
+      Appendix D: DNS Configuration Reference
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-e-glossary">
+<span class="md-ellipsis">
+      Appendix E: Glossary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-f-common-azure-vm-sizes">
+<span class="md-ellipsis">
+      Appendix F: Common Azure VM Sizes
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reference-links">
+<span class="md-ellipsis">
+      Reference Links
+    </span>
+</a>
+<nav aria-label="Reference Links" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hypershift-documentation">
+<span class="md-ellipsis">
+      HyperShift Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-documentation">
+<span class="md-ellipsis">
+      Azure Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#openshift-documentation">
+<span class="md-ellipsis">
+      OpenShift Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tools-and-cli">
+<span class="md-ellipsis">
+      Tools and CLI
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#community-and-support">
+<span class="md-ellipsis">
+      Community and Support
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-start-workflow">
+<span class="md-ellipsis">
+      Quick Start Workflow
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-file-examples">
+<span class="md-ellipsis">
+      Configuration File Examples
+    </span>
+</a>
+<nav aria-label="Configuration File Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#taskfileyml-variables">
+<span class="md-ellipsis">
+      Taskfile.yml Variables
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-credentialsjson">
+<span class="md-ellipsis">
+      azure-credentials.json
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workload-identitiesjson-generated">
+<span class="md-ellipsis">
+      workload-identities.json (generated)
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#taskfile-command-reference">
+<span class="md-ellipsis">
+      Taskfile Command Reference
+    </span>
+</a>
+<nav aria-label="Taskfile Command Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites-and-foundation">
+<span class="md-ellipsis">
+      Prerequisites and Foundation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#per-cluster-resources">
+<span class="md-ellipsis">
+      Per-Cluster Resources
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#information-commands">
+<span class="md-ellipsis">
+      Information Commands
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hypershift-cli-reference">
+<span class="md-ellipsis">
+      HyperShift CLI Reference
+    </span>
+</a>
+<nav aria-label="HyperShift CLI Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cluster-creation">
+<span class="md-ellipsis">
+      Cluster Creation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cluster-destruction">
+<span class="md-ellipsis">
+      Cluster Destruction
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nodepool-creation">
+<span class="md-ellipsis">
+      NodePool Creation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kubeconfig-generation">
+<span class="md-ellipsis">
+      Kubeconfig Generation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#operator-installation">
+<span class="md-ellipsis">
+      Operator Installation
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-cli-quick-reference">
+<span class="md-ellipsis">
+      Azure CLI Quick Reference
+    </span>
+</a>
+<nav aria-label="Azure CLI Quick Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#identity-management">
+<span class="md-ellipsis">
+      Identity Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resource-group-management">
+<span class="md-ellipsis">
+      Resource Group Management
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#network-resources">
+<span class="md-ellipsis">
+      Network Resources
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage-account-oidc">
+<span class="md-ellipsis">
+      Storage Account (OIDC)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#virtual-machines">
+<span class="md-ellipsis">
+      Virtual Machines
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kubectloc-quick-reference">
+<span class="md-ellipsis">
+      kubectl/oc Quick Reference
+    </span>
+</a>
+<nav aria-label="kubectl/oc Quick Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cluster-resources">
+<span class="md-ellipsis">
+      Cluster Resources
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nodepool-resources">
+<span class="md-ellipsis">
+      NodePool Resources
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#control-plane-pods">
+<span class="md-ellipsis">
+      Control Plane Pods
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#machines">
+<span class="md-ellipsis">
+      Machines
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendices">
+<span class="md-ellipsis">
+      Appendices
+    </span>
+</a>
+<nav aria-label="Appendices" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-a-azure-permissions-reference">
+<span class="md-ellipsis">
+      Appendix A: Azure Permissions Reference
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-b-workload-identity-service-account-mapping">
+<span class="md-ellipsis">
+      Appendix B: Workload Identity Service Account Mapping
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-c-resource-group-lifecycle">
+<span class="md-ellipsis">
+      Appendix C: Resource Group Lifecycle
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-d-dns-configuration-reference">
+<span class="md-ellipsis">
+      Appendix D: DNS Configuration Reference
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-e-glossary">
+<span class="md-ellipsis">
+      Appendix E: Glossary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-f-common-azure-vm-sizes">
+<span class="md-ellipsis">
+      Appendix F: Common Azure VM Sizes
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reference-links">
+<span class="md-ellipsis">
+      Reference Links
+    </span>
+</a>
+<nav aria-label="Reference Links" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hypershift-documentation">
+<span class="md-ellipsis">
+      HyperShift Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-documentation">
+<span class="md-ellipsis">
+      Azure Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#openshift-documentation">
+<span class="md-ellipsis">
+      OpenShift Documentation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#tools-and-cli">
+<span class="md-ellipsis">
+      Tools and CLI
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#community-and-support">
+<span class="md-ellipsis">
+      Community and Support
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-start-workflow">
+<span class="md-ellipsis">
+      Quick Start Workflow
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-file-examples">
+<span class="md-ellipsis">
+      Configuration File Examples
+    </span>
+</a>
+<nav aria-label="Configuration File Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#taskfileyml-variables">
+<span class="md-ellipsis">
+      Taskfile.yml Variables
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#azure-credentialsjson">
+<span class="md-ellipsis">
+      azure-credentials.json
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workload-identitiesjson-generated">
+<span class="md-ellipsis">
+      workload-identities.json (generated)
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="reference">Reference</h1>
+<p>This page provides reference material, appendices, and quick-reference guides for HyperShift on Azure.</p>
+<h2 id="taskfile-command-reference">Taskfile Command Reference</h2>
+<h3 id="prerequisites-and-foundation">Prerequisites and Foundation</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>When to Run</th>
+<th>Lifecycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>task prereq:validate</code></td>
+<td>Validate tools and configuration</td>
+<td>Before starting</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>task prereq:keys</code></td>
+<td>Generate SA signing keys</td>
+<td>Once per environment</td>
+<td>Persistent</td>
+</tr>
+<tr>
+<td><code>task azure:oidc</code></td>
+<td>Create OIDC issuer</td>
+<td>Once per environment</td>
+<td>Persistent (shared)</td>
+</tr>
+<tr>
+<td><code>task azure:delete-oidc</code></td>
+<td>Delete OIDC issuer</td>
+<td>Environment teardown</td>
+<td>Destructive</td>
+</tr>
+</tbody>
+</table>
+<h3 id="per-cluster-resources">Per-Cluster Resources</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+<th>When to Run</th>
+<th>Lifecycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>task azure:identities</code></td>
+<td>Create managed identities (7)</td>
+<td>Once per cluster</td>
+<td>Persistent</td>
+</tr>
+<tr>
+<td><code>task azure:federated-creds</code></td>
+<td>Create federated credentials (14)</td>
+<td>Once per cluster</td>
+<td>Persistent</td>
+</tr>
+<tr>
+<td><code>task azure:infra</code></td>
+<td>Provision VNet, NSG, RGs</td>
+<td>Before cluster creation</td>
+<td>Temporary</td>
+</tr>
+<tr>
+<td><code>task cluster:create</code></td>
+<td>Deploy HostedCluster</td>
+<td>After all prerequisites</td>
+<td>Temporary</td>
+</tr>
+<tr>
+<td><code>task cluster:destroy</code></td>
+<td>Delete HostedCluster</td>
+<td>Cluster teardown</td>
+<td>Destructive</td>
+</tr>
+<tr>
+<td><code>task azure:delete-infra</code></td>
+<td>Delete VNet, NSG, RGs</td>
+<td>After cluster destroyed</td>
+<td>Destructive</td>
+</tr>
+<tr>
+<td><code>task azure:delete-federated-creds</code></td>
+<td>Delete federated credentials</td>
+<td>Permanent removal</td>
+<td>Destructive</td>
+</tr>
+<tr>
+<td><code>task azure:delete-identities</code></td>
+<td>Delete managed identities</td>
+<td>Permanent removal</td>
+<td>Destructive</td>
+</tr>
+</tbody>
+</table>
+<h3 id="information-commands">Information Commands</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>task azure:list-identities</code></td>
+<td>List managed identities for cluster</td>
+</tr>
+<tr>
+<td><code>task azure:list-federated-creds</code></td>
+<td>List federated credentials</td>
+</tr>
+<tr>
+<td><code>task --list</code></td>
+<td>Show all available tasks</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hypershift-cli-reference">HyperShift CLI Reference</h2>
+<h3 id="cluster-creation">Cluster Creation</h3>
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;cluster-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span>&lt;credentials-file&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--location<span class="w"> </span>&lt;azure-region&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-pool-replicas<span class="w"> </span>&lt;count&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--base-domain<span class="w"> </span>&lt;domain&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pull-secret<span class="w"> </span>&lt;pull-secret-file&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--release-image<span class="w"> </span>&lt;ocp-release-image&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group-name<span class="w"> </span>&lt;managed-rg&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vnet-id<span class="w"> </span>&lt;vnet-id&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subnet-id<span class="w"> </span>&lt;subnet-id&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--network-security-group-id<span class="w"> </span>&lt;nsg-id&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--sa-token-issuer-private-key-path<span class="w"> </span>&lt;private-key&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--oidc-issuer-url<span class="w"> </span>&lt;oidc-url&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--workload-identities-file<span class="w"> </span>&lt;identities-json&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--dns-zone-rg-name<span class="w"> </span>&lt;dns-rg&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--external-dns-domain<span class="w"> </span>&lt;dns-domain&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--control-plane-operator-image<span class="w"> </span>&lt;image&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--marketplace-publisher<span class="w"> </span>&lt;publisher&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--marketplace-offer<span class="w"> </span>&lt;offer&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--marketplace-sku<span class="w"> </span>&lt;sku&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--marketplace-version<span class="w"> </span>&lt;version&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--image-generation<span class="w"> </span>Gen1<span class="p">|</span>Gen2<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--assign-service-principal-roles<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--diagnostics-storage-account-type<span class="w"> </span>Managed<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--generate-ssh<span class="o">]</span>
+</code></pre></div>
+<p><strong>Key Flags</strong>:</p>
+<ul>
+<li><code>--name</code>: Cluster name (must match identity creation)</li>
+<li><code>--namespace</code>: Kubernetes namespace for HostedCluster resource</li>
+<li><code>--azure-creds</code>: Service principal credentials JSON file</li>
+<li><code>--location</code>: Azure region (e.g., eastus, westus2)</li>
+<li><code>--node-pool-replicas</code>: Initial worker node count</li>
+<li><code>--base-domain</code>: Base domain for cluster (used for ingress)</li>
+<li><code>--pull-secret</code>: OpenShift pull secret from cloud.redhat.com</li>
+<li><code>--release-image</code>: OpenShift release image URL</li>
+<li><code>--resource-group-name</code>: Azure resource group for cluster resources</li>
+<li><code>--vnet-id</code>: Full Azure resource ID of VNet</li>
+<li><code>--subnet-id</code>: Full Azure resource ID of subnet</li>
+<li><code>--network-security-group-id</code>: Full Azure resource ID of NSG</li>
+<li><code>--sa-token-issuer-private-key-path</code>: Path to SA signing private key</li>
+<li><code>--oidc-issuer-url</code>: OIDC issuer endpoint URL</li>
+<li><code>--workload-identities-file</code>: JSON file with managed identity client IDs</li>
+<li><code>--dns-zone-rg-name</code>: Resource group containing DNS zone (External DNS only)</li>
+<li><code>--external-dns-domain</code>: DNS domain for External DNS (External DNS only)</li>
+<li><code>--control-plane-operator-image</code>: Override CPO image (optional)</li>
+<li><code>--assign-service-principal-roles</code>: Auto-assign Azure roles</li>
+<li><code>--generate-ssh</code>: Generate SSH key for node access</li>
+<li><code>--diagnostics-storage-account-type</code>: Boot diagnostics storage (Managed or Disabled)</li>
+</ul>
+<h3 id="cluster-destruction">Cluster Destruction</h3>
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>destroy<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;cluster-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--location<span class="w"> </span>&lt;azure-region&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group-name<span class="w"> </span>&lt;managed-rg&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span>&lt;credentials-file&gt;
+</code></pre></div>
+<h3 id="nodepool-creation">NodePool Creation</h3>
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cluster-name<span class="w"> </span>&lt;cluster-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;nodepool-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-count<span class="w"> </span>&lt;count&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-instance-type<span class="w"> </span>&lt;vm-size&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span>&lt;credentials-file&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--marketplace-publisher<span class="w"> </span>&lt;publisher&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--marketplace-offer<span class="w"> </span>&lt;offer&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--marketplace-sku<span class="w"> </span>&lt;sku&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--marketplace-version<span class="w"> </span>&lt;version&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--image-generation<span class="w"> </span>Gen1<span class="p">|</span>Gen2<span class="o">]</span>
+</code></pre></div>
+<h3 id="kubeconfig-generation">Kubeconfig Generation</h3>
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>create<span class="w"> </span>kubeconfig<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;cluster-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&gt;<span class="w"> </span>&lt;output-file&gt;
+</code></pre></div>
+<h3 id="operator-installation">Operator Installation</h3>
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pull-secret<span class="w"> </span>&lt;pull-secret-file&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--limit-crd-install<span class="w"> </span>Azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--external-dns-provider<span class="w"> </span>azure<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--external-dns-credentials<span class="w"> </span>&lt;azure-creds&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--external-dns-domain-filter<span class="w"> </span>&lt;dns-zone&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--hypershift-image<span class="w"> </span>&lt;operator-image&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--namespace<span class="w"> </span>&lt;namespace&gt;<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>--development<span class="o">]</span>
+</code></pre></div>
+<h2 id="azure-cli-quick-reference">Azure CLI Quick Reference</h2>
+<h3 id="identity-management">Identity Management</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List managed identities</span>
+az<span class="w"> </span>identity<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span>table
+
+<span class="c1"># Show identity details</span>
+az<span class="w"> </span>identity<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;identity-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;
+
+<span class="c1"># List federated credentials</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span>&lt;identity-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span>table
+
+<span class="c1"># Show federated credential</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span>&lt;identity-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;credential-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;
+</code></pre></div>
+<h3 id="resource-group-management">Resource Group Management</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List resource groups</span>
+az<span class="w"> </span>group<span class="w"> </span>list<span class="w"> </span>--output<span class="w"> </span>table
+
+<span class="c1"># Create resource group</span>
+az<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;rg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--location<span class="w"> </span>&lt;location&gt;
+
+<span class="c1"># Delete resource group</span>
+az<span class="w"> </span>group<span class="w"> </span>delete<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;rg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--yes<span class="w"> </span><span class="o">[</span>--no-wait<span class="o">]</span>
+</code></pre></div>
+<h3 id="network-resources">Network Resources</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create VNet</span>
+az<span class="w"> </span>network<span class="w"> </span>vnet<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;vnet-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--address-prefix<span class="w"> </span>&lt;cidr&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subnet-name<span class="w"> </span>&lt;subnet-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subnet-prefixes<span class="w"> </span>&lt;subnet-cidr&gt;
+
+<span class="c1"># Create NSG</span>
+az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;nsg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;
+
+<span class="c1"># List NSG rules</span>
+az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>rule<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--nsg-name<span class="w"> </span>&lt;nsg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span>table
+</code></pre></div>
+<h3 id="storage-account-oidc">Storage Account (OIDC)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show storage account</span>
+az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;account-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;
+
+<span class="c1"># Delete storage account (OIDC issuer)</span>
+az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>delete<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;account-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;
+</code></pre></div>
+<h3 id="virtual-machines">Virtual Machines</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List VMs</span>
+az<span class="w"> </span>vm<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span>table
+
+<span class="c1"># Show VM details with power state</span>
+az<span class="w"> </span>vm<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--show-details<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--query<span class="w"> </span><span class="s2">"[].{Name:name, PowerState:powerState}"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span>table
+
+<span class="c1"># Get boot diagnostics</span>
+az<span class="w"> </span>vm<span class="w"> </span>boot-diagnostics<span class="w"> </span>get-boot-log<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>&lt;vm-name&gt;
+</code></pre></div>
+<h2 id="kubectloc-quick-reference">kubectl/oc Quick Reference</h2>
+<h3 id="cluster-resources">Cluster Resources</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List HostedClusters</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedclusters<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+
+<span class="c1"># Get HostedCluster details</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-o<span class="w"> </span>yaml
+
+<span class="c1"># Describe HostedCluster (shows events)</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>hostedcluster<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+
+<span class="c1"># Patch HostedCluster (upgrade)</span>
+kubectl<span class="w"> </span>patch<span class="w"> </span>hostedcluster/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--patch<span class="w"> </span><span class="s1">'{"spec":{"release":{"image":"&lt;new-image&gt;"}}}'</span>
+</code></pre></div>
+<h3 id="nodepool-resources">NodePool Resources</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List NodePools</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepools<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+
+<span class="c1"># Get NodePool details</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-o<span class="w"> </span>yaml
+
+<span class="c1"># Scale NodePool</span>
+kubectl<span class="w"> </span>scale<span class="w"> </span>nodepool/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>--replicas<span class="o">=</span>&lt;count&gt;
+
+<span class="c1"># Patch NodePool</span>
+kubectl<span class="w"> </span>patch<span class="w"> </span>nodepool/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--patch<span class="w"> </span><span class="s1">'{"spec":{"replicas":&lt;count&gt;}}'</span>
+
+<span class="c1"># Delete NodePool</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>nodepool/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+</code></pre></div>
+<h3 id="control-plane-pods">Control Plane Pods</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List control plane pods</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;
+
+<span class="c1"># Get pod logs</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span><span class="o">[</span>-f<span class="o">]</span>
+
+<span class="c1"># Describe pod</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;pod-name&gt;
+
+<span class="c1"># Get pod resource usage</span>
+kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;
+</code></pre></div>
+<h3 id="machines">Machines</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List machines</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;
+
+<span class="c1"># Describe machine</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>machine<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;machine-name&gt;
+
+<span class="c1"># Delete machine (triggers replacement)</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>machine<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;machine-name&gt;
+</code></pre></div>
+<h2 id="appendices">Appendices</h2>
+<h3 id="appendix-a-azure-permissions-reference">Appendix A: Azure Permissions Reference</h3>
+<h4 id="azure-administrator-permissions">Azure Administrator Permissions</h4>
+<p>Required for setting up foundation resources:</p>
+<p><strong>Subscription-Level Roles</strong>:
+- <code>Contributor</code>: Create and manage all types of Azure resources
+- <code>User Access Administrator</code>: Manage user access to Azure resources (for role assignments)</p>
+<p><strong>Microsoft Graph API Permissions</strong>:
+- <code>Application.ReadWrite.OwnedBy</code>: Create and manage service principals</p>
+<h4 id="service-principal-permissions">Service Principal Permissions</h4>
+<p>For cluster operations (<code>azure-credentials.json</code>):</p>
+<p><strong>Subscription-Level Roles</strong>:
+- <code>Contributor</code>: Manage cluster infrastructure (VMs, networking, storage)
+- <code>User Access Administrator</code>: Assign roles to managed identities</p>
+<p><strong>Alternative: Resource Group Scoped</strong>:
+- <code>Contributor</code> on specific resource groups (tighter security)
+- <code>User Access Administrator</code> on resource groups containing managed identities</p>
+<h4 id="external-dns-service-principal">External DNS Service Principal</h4>
+<p>For automatic DNS management:</p>
+<p><strong>DNS Zone Level</strong>:
+- <code>DNS Zone Contributor</code>: Manage DNS records in specific DNS zone</p>
+<h3 id="appendix-b-workload-identity-service-account-mapping">Appendix B: Workload Identity Service Account Mapping</h3>
+<p>Complete mapping of Azure managed identities to OpenShift service accounts and their purposes:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Managed Identity</th>
+<th>Service Accounts</th>
+<th>Namespace</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Disk CSI</strong></td>
+<td><code>${CLUSTER_NAME}-disk-csi</code></td>
+<td><code>azure-disk-csi-driver-node-sa</code><br/><code>azure-disk-csi-driver-operator</code><br/><code>azure-disk-csi-driver-controller-sa</code></td>
+<td><code>openshift-cluster-csi-drivers</code></td>
+<td>Provision and attach Azure Disk volumes as persistent storage</td>
+</tr>
+<tr>
+<td><strong>File CSI</strong></td>
+<td><code>${CLUSTER_NAME}-file-csi</code></td>
+<td><code>azure-file-csi-driver-node-sa</code><br/><code>azure-file-csi-driver-operator</code><br/><code>azure-file-csi-driver-controller-sa</code></td>
+<td><code>openshift-cluster-csi-drivers</code></td>
+<td>Provision and mount Azure Files as ReadWriteMany volumes</td>
+</tr>
+<tr>
+<td><strong>Image Registry</strong></td>
+<td><code>${CLUSTER_NAME}-image-registry</code></td>
+<td><code>registry</code><br/><code>cluster-image-registry-operator</code></td>
+<td><code>openshift-image-registry</code></td>
+<td>Manage image registry storage backend (Azure Blob Storage)</td>
+</tr>
+<tr>
+<td><strong>Ingress</strong></td>
+<td><code>${CLUSTER_NAME}-ingress</code></td>
+<td><code>ingress-operator</code></td>
+<td><code>openshift-ingress-operator</code></td>
+<td>Configure Azure Load Balancers for ingress traffic routing</td>
+</tr>
+<tr>
+<td><strong>Cloud Provider</strong></td>
+<td><code>${CLUSTER_NAME}-cloud-provider</code></td>
+<td><code>azure-cloud-provider</code></td>
+<td><code>openshift-cloud-controller-manager</code></td>
+<td>Integrate with Azure cloud APIs for node/volume management</td>
+</tr>
+<tr>
+<td><strong>NodePool Mgmt</strong></td>
+<td><code>${CLUSTER_NAME}-nodepool-mgmt</code></td>
+<td><code>capi-provider</code></td>
+<td>Control plane namespace</td>
+<td>Provision and manage Azure VMs for worker nodes</td>
+</tr>
+<tr>
+<td><strong>Network</strong></td>
+<td><code>${CLUSTER_NAME}-network</code></td>
+<td><code>cloud-network-config-controller</code></td>
+<td><code>openshift-cloud-network-config-controller</code></td>
+<td>Configure Azure networking components (routes, load balancer rules)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Federated Credential Pattern</strong>:</p>
+<p>Each managed identity has <strong>2 federated credentials</strong> for redundancy:
+- One for the operator service account
+- One for the controller/node service account</p>
+<p>Total: 7 managed identities × 2 federated credentials = 14 federated credentials per cluster</p>
+<h3 id="appendix-c-resource-group-lifecycle">Appendix C: Resource Group Lifecycle</h3>
+<p>Understanding what gets created and when it gets deleted:</p>
+<h4 id="persistent-resource-group">Persistent Resource Group</h4>
+<p><strong>Name</strong>: Configurable (e.g., <code>hypershift-shared</code>, <code>os4-common</code>)</p>
+<p><strong>Contents</strong>:
+- OIDC issuer (storage account)
+- Managed identities (7 per cluster, but stored centrally)
+- Federated credentials (14 per cluster)
+- DNS zones (if using External DNS)</p>
+<p><strong>Lifecycle</strong>: Long-lived, survives cluster deletion</p>
+<p><strong>Shared Across</strong>: All hosted clusters in the environment</p>
+<p><strong>Deletion</strong>: Manual only, when decommissioning entire environment</p>
+<h4 id="per-cluster-resource-groups">Per-Cluster Resource Groups</h4>
+<p><strong>Pattern</strong>: <code>${PREFIX}-&lt;type&gt;-rg</code></p>
+<p><strong>Types</strong>:
+1. <strong>Managed RG</strong> (<code>${PREFIX}-managed-rg</code>):
+   - Worker VMs
+   - Load balancers
+   - Managed disks
+   - NICs</p>
+<ol>
+<li><strong>VNet RG</strong> (<code>${PREFIX}-vnet-rg</code>):</li>
+<li>Virtual network</li>
+<li>
+<p>Subnets</p>
+</li>
+<li>
+<p><strong>NSG RG</strong> (<code>${PREFIX}-nsg-rg</code>):</p>
+</li>
+<li>Network security group</li>
+<li>NSG rules</li>
+</ol>
+<p><strong>Lifecycle</strong>: Created with cluster, deleted with cluster</p>
+<p><strong>Deletion</strong>: Via <code>task azure:delete-infra</code> or manual <code>az group delete</code></p>
+<h3 id="appendix-d-dns-configuration-reference">Appendix D: DNS Configuration Reference</h3>
+<h4 id="dns-flags-and-their-effects">DNS Flags and Their Effects</h4>
+<p><strong><code>--base-domain</code></strong> (always required):
+- Determines the ingress domain for application routes
+- Formula: <code>apps.&lt;cluster-name&gt;.&lt;base-domain&gt;</code> or <code>apps.&lt;base-domain&gt;</code>
+- Example: <code>--base-domain example.com</code> → <code>apps.mycluster.example.com</code></p>
+<p><strong><code>--external-dns-domain</code></strong> (optional, External DNS only):
+- Changes service publishing strategy from LoadBalancer to Route
+- Sets custom DNS names for control plane services
+- Formula: <code>api-&lt;cluster-name&gt;.&lt;external-dns-domain&gt;</code>
+- Example: <code>--external-dns-domain azure.example.com</code> → <code>api-mycluster.azure.example.com</code></p>
+<p><strong><code>--dns-zone-rg-name</code></strong> (required when using <code>--external-dns-domain</code>):
+- Resource group containing the Azure DNS zone
+- External DNS uses this to create DNS records
+- Example: <code>--dns-zone-rg-name hypershift-shared</code></p>
+<h4 id="service-publishing-strategies">Service Publishing Strategies</h4>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>API Server</th>
+<th>OAuth</th>
+<th>Konnectivity</th>
+<th>Ingress</th>
+<th>DNS Management</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Without External DNS</strong></td>
+<td>LoadBalancer</td>
+<td>Route</td>
+<td>Route</td>
+<td>Route</td>
+<td>Manual or Azure-provided LB DNS</td>
+</tr>
+<tr>
+<td><strong>With External DNS</strong></td>
+<td>Route</td>
+<td>Route</td>
+<td>Route</td>
+<td>Route</td>
+<td>Automatic via External DNS operator</td>
+</tr>
+</tbody>
+</table>
+<h3 id="appendix-e-glossary">Appendix E: Glossary</h3>
+<p><strong>HyperShift Terms</strong>:</p>
+<ul>
+<li><strong>HostedCluster</strong>: Custom resource representing a hosted OpenShift cluster with control plane running as pods</li>
+<li><strong>NodePool</strong>: Custom resource representing a group of worker nodes with identical configuration</li>
+<li><strong>Control Plane</strong>: Kubernetes components (API server, etcd, controllers) managing the cluster, running on management cluster</li>
+<li><strong>Data Plane</strong>: Worker nodes where application workloads run, deployed as Azure VMs</li>
+<li><strong>Management Cluster</strong>: Kubernetes/OpenShift cluster hosting HyperShift operator and control plane pods</li>
+<li><strong>HyperShift Operator</strong>: Kubernetes operator managing lifecycle of HostedClusters and NodePools</li>
+</ul>
+<p><strong>Azure Terms</strong>:</p>
+<ul>
+<li><strong>Workload Identity</strong>: Azure managed identity used by OpenShift components for Azure API authentication</li>
+<li><strong>Managed Identity</strong>: Azure AD identity without credentials, used for Azure service authentication</li>
+<li><strong>Federated Credential</strong>: Trust relationship between Azure AD and external identity provider (OIDC)</li>
+<li><strong>OIDC Issuer</strong>: OpenID Connect endpoint used for service account token validation</li>
+<li><strong>Service Principal</strong>: Azure AD application identity with credentials for programmatic access</li>
+<li><strong>Resource Group</strong>: Logical container for Azure resources with shared lifecycle</li>
+<li><strong>VNet (Virtual Network)</strong>: Isolated network in Azure for resource communication</li>
+<li><strong>NSG (Network Security Group)</strong>: Firewall rules controlling network traffic</li>
+<li><strong>Azure Blob Storage</strong>: Object storage service used for OIDC issuer hosting</li>
+</ul>
+<p><strong>OpenShift Terms</strong>:</p>
+<ul>
+<li><strong>Service Account</strong>: Kubernetes identity for pods to access cluster APIs</li>
+<li><strong>Cluster Operator</strong>: OpenShift component managing specific cluster functionality</li>
+<li><strong>Machine</strong>: Kubernetes resource representing a physical or virtual machine</li>
+<li><strong>ClusterVersion</strong>: Resource tracking OpenShift version and upgrade status</li>
+<li><strong>Pull Secret</strong>: Credentials for pulling OpenShift container images</li>
+<li><strong>Ignition</strong>: System configuration tool for initial node setup</li>
+</ul>
+<h3 id="appendix-f-common-azure-vm-sizes">Appendix F: Common Azure VM Sizes</h3>
+<p><strong>General Purpose (Dsv3-series)</strong>:
+- <code>Standard_D2s_v3</code>: 2 vCPU, 8 GB RAM - Default, balanced workloads
+- <code>Standard_D4s_v3</code>: 4 vCPU, 16 GB RAM - Medium workloads
+- <code>Standard_D8s_v3</code>: 8 vCPU, 32 GB RAM - Larger applications
+- <code>Standard_D16s_v3</code>: 16 vCPU, 64 GB RAM - High-performance apps</p>
+<p><strong>Memory Optimized (Esv3-series)</strong>:
+- <code>Standard_E2s_v3</code>: 2 vCPU, 16 GB RAM - Memory-intensive small
+- <code>Standard_E4s_v3</code>: 4 vCPU, 32 GB RAM - Databases, caching
+- <code>Standard_E8s_v3</code>: 8 vCPU, 64 GB RAM - Large databases
+- <code>Standard_E16s_v3</code>: 16 vCPU, 128 GB RAM - In-memory analytics</p>
+<p><strong>Compute Optimized (Fsv2-series)</strong>:
+- <code>Standard_F2s_v2</code>: 2 vCPU, 4 GB RAM - Batch processing
+- <code>Standard_F4s_v2</code>: 4 vCPU, 8 GB RAM - Web servers
+- <code>Standard_F8s_v2</code>: 8 vCPU, 16 GB RAM - Gaming servers
+- <code>Standard_F16s_v2</code>: 16 vCPU, 32 GB RAM - CPU-intensive workloads</p>
+<p>See <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/sizes">Azure VM sizes documentation</a> for complete list.</p>
+<h2 id="reference-links">Reference Links</h2>
+<h3 id="hypershift-documentation">HyperShift Documentation</h3>
+<ul>
+<li><a href="https://hypershift.pages.dev">HyperShift Project Home</a></li>
+<li><a href="https://github.com/openshift/hypershift">HyperShift GitHub Repository</a></li>
+<li><a href="https://github.com/openshift/hypershift/releases">HyperShift Releases</a></li>
+<li><a href="https://hypershift.pages.dev/reference/architecture/">HyperShift Architecture Documentation</a></li>
+</ul>
+<h3 id="azure-documentation">Azure Documentation</h3>
+<ul>
+<li><a href="https://azure.github.io/azure-workload-identity/docs/">Azure Workload Identity</a></li>
+<li><a href="https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/">Azure Managed Identities</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/dns/dns-zones-records">Azure DNS Zones</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/virtual-network/">Azure Virtual Networks</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/virtual-machines/sizes">Azure VM Sizes</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview">Azure Network Security Groups</a></li>
+</ul>
+<h3 id="openshift-documentation">OpenShift Documentation</h3>
+<ul>
+<li><a href="https://docs.openshift.com">OpenShift Container Platform Documentation</a></li>
+<li><a href="https://docs.openshift.com/container-platform/latest/authentication/managing_cloud_provider_credentials/about-cloud-credential-operator.html">Cloud Credential Operator</a></li>
+<li><a href="https://quay.io/repository/openshift-release-dev/ocp-release">OpenShift Release Images</a></li>
+<li><a href="https://console.redhat.com/openshift/downloads">Pull Secrets (cloud.redhat.com)</a></li>
+</ul>
+<h3 id="tools-and-cli">Tools and CLI</h3>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli">Azure CLI Installation</a></li>
+<li><a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/">OpenShift CLI (oc) Downloads</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/">kubectl Installation</a></li>
+<li><a href="https://jqlang.github.io/jq/">jq - Command-line JSON processor</a></li>
+<li><a href="https://taskfile.dev">go-task/task - Task runner</a></li>
+</ul>
+<h3 id="community-and-support">Community and Support</h3>
+<ul>
+<li><a href="https://kubernetes.slack.com/archives/C02C4LXBW0T">HyperShift Slack Channel</a> (#hypershift)</li>
+<li><a href="https://www.openshift.com/community">OpenShift Community</a></li>
+<li><a href="https://access.redhat.com">Red Hat Customer Portal</a> (for supported deployments)</li>
+</ul>
+<h2 id="quick-start-workflow">Quick Start Workflow</h2>
+<p>For quick reference, here's the complete workflow from scratch to running cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Prerequisites (once per environment)</span>
+task<span class="w"> </span>prereq:validate
+task<span class="w"> </span>prereq:keys
+task<span class="w"> </span>azure:oidc
+
+<span class="c1"># 2. Per-cluster setup</span>
+task<span class="w"> </span>azure:identities
+task<span class="w"> </span>azure:federated-creds
+task<span class="w"> </span>azure:infra
+
+<span class="c1"># 3. Create cluster</span>
+task<span class="w"> </span>cluster:create
+
+<span class="c1"># 4. Wait for cluster</span>
+kubectl<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>--for<span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Available<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--timeout<span class="o">=</span>30m
+
+<span class="c1"># 5. Access cluster</span>
+hypershift<span class="w"> </span>create<span class="w"> </span>kubeconfig<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&gt;<span class="w"> </span>kubeconfig
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>kubeconfig
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+kubectl<span class="w"> </span>get<span class="w"> </span>co
+
+<span class="c1"># 6. Cleanup (when done)</span>
+task<span class="w"> </span>cluster:destroy
+task<span class="w"> </span>azure:delete-infra
+<span class="c1"># Optionally: task azure:delete-identities (permanent)</span>
+</code></pre></div>
+<h2 id="configuration-file-examples">Configuration File Examples</h2>
+<h3 id="taskfileyml-variables">Taskfile.yml Variables</h3>
+<div class="highlight"><pre><span></span><code><span class="nt">vars</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Cluster identification</span>
+<span class="w">  </span><span class="nt">PREFIX</span><span class="p">:</span><span class="w"> </span><span class="s">'myprefix'</span>
+<span class="w">  </span><span class="nt">CLUSTER_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'${PREFIX}-hc'</span>
+<span class="w">  </span><span class="nt">CLUSTER_NAMESPACE</span><span class="p">:</span><span class="w"> </span><span class="s">'clusters'</span>
+
+<span class="w">  </span><span class="c1"># Azure configuration</span>
+<span class="w">  </span><span class="nt">SUBSCRIPTION_ID</span><span class="p">:</span><span class="w"> </span><span class="s">'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+<span class="w">  </span><span class="nt">TENANT_ID</span><span class="p">:</span><span class="w"> </span><span class="s">'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+<span class="w">  </span><span class="nt">LOCATION</span><span class="p">:</span><span class="w"> </span><span class="s">'eastus'</span>
+
+<span class="w">  </span><span class="c1"># Resource groups</span>
+<span class="w">  </span><span class="nt">PERSISTENT_RG_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'hypershift-shared'</span>
+<span class="w">  </span><span class="nt">MANAGED_RG_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'${PREFIX}-managed-rg'</span>
+<span class="w">  </span><span class="nt">VNET_RG_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'${PREFIX}-vnet-rg'</span>
+<span class="w">  </span><span class="nt">NSG_RG_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'${PREFIX}-nsg-rg'</span>
+
+<span class="w">  </span><span class="c1"># Networking</span>
+<span class="w">  </span><span class="nt">VNET_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'${PREFIX}-vnet'</span>
+<span class="w">  </span><span class="nt">VNET_SUBNET1</span><span class="p">:</span><span class="w"> </span><span class="s">'${PREFIX}-subnet-1'</span>
+<span class="w">  </span><span class="nt">NSG</span><span class="p">:</span><span class="w"> </span><span class="s">'${PREFIX}-nsg'</span>
+
+<span class="w">  </span><span class="c1"># OIDC and identities</span>
+<span class="w">  </span><span class="nt">OIDC_STORAGE_ACCOUNT_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'myoidc1234567890'</span>
+<span class="w">  </span><span class="nt">OIDC_ISSUER_URL</span><span class="p">:</span><span class="w"> </span><span class="s">'https://${OIDC_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${OIDC_STORAGE_ACCOUNT_NAME}'</span>
+<span class="w">  </span><span class="nt">SA_TOKEN_ISSUER_PRIVATE_KEY_PATH</span><span class="p">:</span><span class="w"> </span><span class="s">'serviceaccount-signer.private'</span>
+
+<span class="w">  </span><span class="c1"># DNS</span>
+<span class="w">  </span><span class="nt">PARENT_DNS_ZONE</span><span class="p">:</span><span class="w"> </span><span class="s">'example.com'</span>
+
+<span class="w">  </span><span class="c1"># OpenShift</span>
+<span class="w">  </span><span class="nt">RELEASE_IMAGE</span><span class="p">:</span><span class="w"> </span><span class="s">'quay.io/openshift-release-dev/ocp-release:4.21.0-x86_64'</span>
+<span class="w">  </span><span class="nt">NODE_POOL_REPLICAS</span><span class="p">:</span><span class="w"> </span><span class="s">'2'</span>
+
+<span class="w">  </span><span class="c1"># Credentials</span>
+<span class="w">  </span><span class="nt">AZURE_CREDS</span><span class="p">:</span><span class="w"> </span><span class="s">'azure-credentials.json'</span>
+<span class="w">  </span><span class="nt">PULL_SECRET</span><span class="p">:</span><span class="w"> </span><span class="s">'pull-secret.json'</span>
+</code></pre></div>
+<h3 id="azure-credentialsjson">azure-credentials.json</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"subscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"clientSecret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your-service-principal-secret"</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="workload-identitiesjson-generated">workload-identities.json (generated)</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"disk_csi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"file_csi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"image_registry"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"ingress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"cloud_provider"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"nodepool_mgmt"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"network"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

@@ -1,0 +1,725 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/azure/create-azure-cluster-on-aks/" rel="canonical"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Create an Azure Hosted Cluster on AKS - HyperShift Azure Developer Preview</title>
+<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#general">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Create an Azure Hosted Cluster on AKS
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#general">
+<span class="md-ellipsis">
+      General
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+<span class="md-ellipsis">
+      Prerequisites
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#automated-setup-recommended">
+<span class="md-ellipsis">
+      Automated Setup (Recommended)
+    </span>
+</a>
+<nav aria-label="Automated Setup (Recommended)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-start-with-automation-scripts">
+<span class="md-ellipsis">
+      Quick Start with Automation Scripts
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#manual-setup-step-by-step">
+<span class="md-ellipsis">
+      Manual Setup (Step-by-Step)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuration-notes">
+<span class="md-ellipsis">
+      Configuration Notes
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#manual-steps">
+<span class="md-ellipsis">
+      Manual Steps
+    </span>
+</a>
+<nav aria-label="Manual Steps" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-retrieve-user-account-details">
+<span class="md-ellipsis">
+      1. Retrieve User Account Details
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-create-service-principal-for-authentication">
+<span class="md-ellipsis">
+      2. Create Service Principal for Authentication
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-control-plane-identity-and-key-vault-setup">
+<span class="md-ellipsis">
+      3. Control Plane Identity and Key Vault Setup
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-oidc-provider-setup">
+<span class="md-ellipsis">
+      4. OIDC Provider Setup
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-data-plane-identity-configuration">
+<span class="md-ellipsis">
+      5. Data Plane Identity Configuration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#6-aks-management-cluster-creation">
+<span class="md-ellipsis">
+      6. AKS Management Cluster Creation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#7-dns-configuration-setup">
+<span class="md-ellipsis">
+      7. DNS Configuration Setup
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#8-hypershift-operator-installation">
+<span class="md-ellipsis">
+      8. HyperShift Operator Installation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#9-hosted-cluster-creation">
+<span class="md-ellipsis">
+      9. Hosted Cluster Creation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10-cleanup-and-deletion">
+<span class="md-ellipsis">
+      10. Cleanup and Deletion
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
+      Troubleshooting
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="create-an-azure-hosted-cluster-on-aks">Create an Azure Hosted Cluster on AKS</h1>
+<h2 id="general">General</h2>
+<p>This document describes how to set up an Azure Hosted Cluster on an AKS management cluster with an ExternalDNS setup. 
+Azure HostedClusters on AKS are supported from OCP 4.19.0+.</p>
+<p>This guide provides both automated script-based setup and manual step-by-step instructions. The automated scripts are located in the <a href="https://github.com/openshift/hypershift/tree/main/contrib/managed-azure">/contrib/managed-azure folder in the HyperShift repo</a> and can significantly simplify the setup process.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Azure CLI</li>
+<li>jq</li>
+<li>oc (OpenShift CLI)</li>
+<li>kubectl</li>
+<li>ccoctl tool</li>
+<li>The ccoctl tool provides various commands to assist with the creating and maintenance of cloud credentials from outside
+    a cluster. More information on the tool can be found <a href="https://github.com/openshift/cloud-credential-operator/blob/master/docs/ccoctl.md">here</a>.</li>
+</ul>
+<h2 id="automated-setup-recommended">Automated Setup (Recommended)</h2>
+<p>For the quickest setup, you can use the automated scripts. First, create your configuration:</p>
+<h3 id="quick-start-with-automation-scripts">Quick Start with Automation Scripts</h3>
+<ol>
+<li>
+<p><strong>Create your user configuration file</strong>:
+   <div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; user-vars.sh</span>
+<span class="s"># User variables.</span>
+<span class="s">export PREFIX="YOUR-management"</span>
+<span class="s">export PULL_SECRET="/path/to/pull-secret.txt"</span>
+<span class="s">export HYPERSHIFT_BINARY_PATH="/path/to/hypershift/bin/"</span>
+<span class="s">export HYPERSHIFT_IMAGE="quay.io/hypershift/hypershift-operator:latest"</span>
+<span class="s">export RELEASE_IMAGE="quay.io/openshift-release-dev/ocp-release:4.20.0-ec.3-multi"</span>
+<span class="s">export LOCATION="eastus"</span>
+<span class="s">export AZURE_CREDS="/path/to/azure-creds.json"</span>
+<span class="s"># Azure storage account names must be between 3 and 24 characters in length and may contain numbers and lowercase letters only.</span>
+<span class="s">export OIDC_ISSUER_NAME="YOURmanagement"</span>
+<span class="s">EOF</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Create Azure credentials file</strong> (see Manual Setup Step 2 below for details)</p>
+</li>
+<li>
+<p><strong>Run the complete automated setup</strong> (authentication is automatic):</p>
+</li>
+</ol>
+<p>For your <strong>first cluster</strong> (includes one-time resource setup):
+   <div class="highlight"><pre><span></span><code>../contrib/managed-azure/setup_all.sh<span class="w"> </span>--first-time
+</code></pre></div></p>
+<p>For <strong>additional clusters</strong> (reuses existing resources):
+   <div class="highlight"><pre><span></span><code>../contrib/managed-azure/setup_all.sh
+</code></pre></div></p>
+<p>View the script: <a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_all.sh">setup_all.sh</a></p>
+<div class="admonition note">
+<p class="admonition-title">Automatic Authentication</p>
+<p>The setup script automatically logs you into Azure if you're not already authenticated. No separate login step is required!</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Important: One-Time Setup Components</p>
+<p>Three scripts create resources that should be <strong>reused across multiple clusters</strong> to avoid quota issues: setup_MIv3_kv.sh (service principals and Key Vault), setup_oidc_provider.sh (OIDC issuer), and setup_dataplane_identities.sh (data plane identities). Use the <code>--first-time</code> flag only for your first cluster setup. For subsequent clusters, run the script without this flag to skip the one-time setup and reuse existing resources.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code>--first-time</code> flag automatically handles the one-time setup resources. If you need to run individual scripts for troubleshooting, you can execute them directly from the contrib/managed-azure folder. For manual Azure authentication, a <code>login.sh</code> script is also available.</p>
+</div>
+<p>The automated setup runs these scripts in sequence:</p>
+<ul>
+<li><a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_MIv3_kv.sh">setup_MIv3_kv.sh</a> - Sets up control plane identities and Key Vault</li>
+<li><a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_aks_cluster.sh">setup_aks_cluster.sh</a> - Creates the AKS management cluster  </li>
+<li><a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_external_dns.sh">setup_external_dns.sh</a> - Configures DNS zones and external DNS</li>
+<li><a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_install_ho_on_aks.sh">setup_install_ho_on_aks.sh</a> - Installs the HyperShift operator</li>
+<li><a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_oidc_provider.sh">setup_oidc_provider.sh</a> - Sets up OIDC issuer for workload identity</li>
+<li><a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_dataplane_identities.sh">setup_dataplane_identities.sh</a> - Creates data plane managed identities</li>
+<li><a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/create_basic_hosted_cluster.sh">create_basic_hosted_cluster.sh</a> - Creates the hosted cluster</li>
+</ul>
+<h2 id="manual-setup-step-by-step">Manual Setup (Step-by-Step)</h2>
+<p>If you prefer to understand each step or need to customize the process, follow these manual steps:</p>
+<h2 id="configuration-notes">Configuration Notes</h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For most users, the automated scripts handle all variable configuration automatically. The variables you need to set are defined in your <code>user-vars.sh</code> file as shown in the Quick Start section above.</p>
+<p>The <code>PARENT_DNS_ZONE</code> value may be different for different teams. Check the <code>os4-common</code> resource group associated with your subscription for pre-existing DNS zones. If there are multiple DNS zones, the parent DNS zone is typically the common suffix among them (e.g., <code>hypershift.azure.devcluster.openshift.com</code>).</p>
+</div>
+<h2 id="manual-steps">Manual Steps</h2>
+<h3 id="1-retrieve-user-account-details">1. Retrieve User Account Details</h3>
+<p><strong>Goal</strong>: Get your Azure subscription and tenant information for authentication setup.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">ACCOUNT_DETAILS</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span><span class="s1">'{subscriptionId: id, tenantId: tenantId}'</span><span class="w"> </span>-o<span class="w"> </span>json<span class="k">)</span>
+<span class="nv">SUBSCRIPTION_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ACCOUNT_DETAILS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.subscriptionId'</span><span class="k">)</span>
+<span class="nv">TENANT_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ACCOUNT_DETAILS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.tenantId'</span><span class="k">)</span>
+</code></pre></div>
+<h3 id="2-create-service-principal-for-authentication">2. Create Service Principal for Authentication</h3>
+<p><strong>Goal</strong>: Create a service principal that will be used by the HyperShift CLI to create cluster infrastructure.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">SP_DETAILS</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>create-for-rbac<span class="w"> </span>--name<span class="w"> </span><span class="s2">"</span><span class="nv">$PERSONAL_SP_NAME</span><span class="s2">"</span><span class="w"> </span>--role<span class="w"> </span>Contributor<span class="w"> </span>--scopes<span class="w"> </span><span class="s2">"/subscriptions/</span><span class="nv">$SUBSCRIPTION_ID</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>json<span class="k">)</span>
+<span class="nv">CLIENT_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SP_DETAILS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.appId'</span><span class="k">)</span>
+<span class="nv">CLIENT_SECRET</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SP_DETAILS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.password'</span><span class="k">)</span>
+
+cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; $SP_AKS_CREDS</span>
+<span class="s">{</span>
+<span class="s">  "subscriptionId": "$SUBSCRIPTION_ID",</span>
+<span class="s">  "tenantId": "$TENANT_ID",</span>
+<span class="s">  "clientId": "$CLIENT_ID",</span>
+<span class="s">  "clientSecret": "$CLIENT_SECRET"</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In order for your Hypershift cluster to create properly, the Microsoft Graph <code>Application.ReadWrite.OwnedBy</code> 
+permission must be added to your Service Principal and it also must be assigned to User Access Administrator at the 
+subscription level. </p>
+<p>In most cases, you'll need to submit a DPTP request to have this done.</p>
+</div>
+<h3 id="3-control-plane-identity-and-key-vault-setup">3. Control Plane Identity and Key Vault Setup</h3>
+<p><strong>Goal</strong>: Set up managed identities, key vault, and service principals required for the control plane components. This includes creating certificate-based authentication for various OpenShift services and storing credentials securely.</p>
+<div class="admonition warning">
+<p class="admonition-title">One-Time Setup Only (Steps 3-5)</p>
+<p>Steps 3-5 create resources that should be <strong>reused across multiple clusters</strong> to avoid Azure quota limits: service principals and Key Vault (setup_MIv3_kv.sh), OIDC issuer (setup_oidc_provider.sh), and data plane identities (setup_dataplane_identities.sh). Only run these steps once per environment. For subsequent clusters, use <code>setup_all.sh</code> without the <code>--first-time</code> flag to skip these one-time setup steps.</p>
+</div>
+<p><strong>Automated Script</strong>: <a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_MIv3_kv.sh">setup_MIv3_kv.sh</a></p>
+<p>This script handles:</p>
+<ul>
+<li>Creating managed identities for AKS cluster components</li>
+<li>Setting up Azure Key Vault with proper RBAC authorization</li>
+<li>Creating service principals for control plane services (cloud provider, disk, file, image registry, etc.)</li>
+<li>Generating and storing certificate JSON in Key Vault</li>
+<li>Creating a JSON credential file for the service principals</li>
+</ul>
+<h3 id="4-oidc-provider-setup">4. OIDC Provider Setup</h3>
+<p><strong>Goal</strong>: Create RSA keys and OIDC issuer for workload identity authentication.</p>
+<p><strong>Automated Script</strong>: <a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_oidc_provider.sh">setup_oidc_provider.sh</a></p>
+<p>This script handles:</p>
+<ul>
+<li>Creating RSA key pairs for service account token signing</li>
+<li>Setting up the OIDC issuer URL in Azure storage</li>
+<li>Configuring the issuer for workload identity federation</li>
+</ul>
+<h3 id="5-data-plane-identity-configuration">5. Data Plane Identity Configuration</h3>
+<p><strong>Goal</strong>: Create managed identities for data plane components and configure federated identity credentials for workload identity.</p>
+<p><strong>Automated Script</strong>: <a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_dataplane_identities.sh">setup_dataplane_identities.sh</a></p>
+<p>This script handles:</p>
+<ul>
+<li>Creating managed identities for Azure Disk CSI, Azure File CSI, and Image Registry</li>
+<li>Setting up federated identity credentials linking these identities to specific service accounts</li>
+<li>Generating the data plane identities configuration file</li>
+</ul>
+<h3 id="6-aks-management-cluster-creation">6. AKS Management Cluster Creation</h3>
+<p><strong>Goal</strong>: Create and configure the AKS cluster that will host the HyperShift operator and manage hosted clusters.</p>
+<p><strong>Automated Script</strong>: <a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_aks_cluster.sh">setup_aks_cluster.sh</a></p>
+<p>This script handles:</p>
+<ul>
+<li>Creating a resource group for the AKS cluster</li>
+<li>Creating managed identities for AKS cluster and kubelet</li>
+<li>Creating the AKS cluster with required features (Key Vault secrets provider, FIPS, autoscaling, etc.)</li>
+<li>Configuring kubeconfig access</li>
+<li>Setting up role assignments for the Key Vault secrets provider</li>
+</ul>
+<h3 id="7-dns-configuration-setup">7. DNS Configuration Setup</h3>
+<p><strong>Goal</strong>: Create DNS zones and configure external DNS for cluster ingress and API access.</p>
+<p><strong>Automated Script</strong>: <a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_external_dns.sh">setup_external_dns.sh</a></p>
+<p>This script handles:</p>
+<ul>
+<li>Creating a DNS zone for your cluster</li>
+<li>Configuring name server delegation to the parent DNS zone</li>
+<li>Creating a service principal for external DNS management</li>
+<li>Setting up proper DNS permissions and role assignments</li>
+</ul>
+<h3 id="8-hypershift-operator-installation">8. HyperShift Operator Installation</h3>
+<p><strong>Goal</strong>: Install the HyperShift operator on the AKS management cluster with proper external DNS and Azure integration.</p>
+<p><strong>Automated Script</strong>: <a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/setup_install_ho_on_aks.sh">setup_install_ho_on_aks.sh</a></p>
+<p>This script handles:</p>
+<ul>
+<li>Installing required CRDs (ServiceMonitors, PrometheusRules, PodMonitors, Routes)</li>
+<li>Installing the HyperShift operator with Azure-specific configuration</li>
+<li>Configuring external DNS integration</li>
+<li>Setting up managed service configuration for ARO-HCP</li>
+</ul>
+<h3 id="9-hosted-cluster-creation">9. Hosted Cluster Creation</h3>
+<p><strong>Goal</strong>: Create the actual hosted OpenShift cluster using all the previously configured infrastructure.</p>
+<p><strong>Automated Script</strong>: <a href="https://github.com/openshift/hypershift/blob/main/contrib/managed-azure/create_basic_hosted_cluster.sh">create_basic_hosted_cluster.sh</a></p>
+<p>This script handles:</p>
+<ul>
+<li>Creating the hosted cluster with all required Azure integrations</li>
+<li>Configuring networking (VNet, subnets, NSGs)</li>
+<li>Setting up marketplace image references</li>
+<li>Applying FIPS configuration and security settings</li>
+<li>Enabling workload identity and managed identity integration</li>
+</ul>
+<h3 id="10-cleanup-and-deletion">10. Cleanup and Deletion</h3>
+<h4 id="automated-cleanup-recommended">Automated Cleanup (Recommended)</h4>
+<p>If you used the automated setup scripts, you can use the corresponding deletion scripts for easy cleanup:</p>
+<p><strong>Complete Cleanup</strong> - Delete both hosted cluster and AKS management cluster:
+<div class="highlight"><pre><span></span><code>../contrib/managed-azure/delete_all.sh
+</code></pre></div></p>
+<p>This is the recommended approach as it will clean up all cluster-specific resources in the correct order:
+1. Hosted cluster and its managed resources
+2. AKS management cluster and resource group<br/>
+3. Customer VNet and NSG resource groups
+4. AKS-specific Key Vault role assignments</p>
+<p>Note: Managed identities, service principals, and Key Vault itself are preserved for reuse across multiple clusters</p>
+<p><strong>Individual Cleanup</strong> - For more granular control:</p>
+<p>Delete only the hosted cluster:
+<div class="highlight"><pre><span></span><code>../contrib/managed-azure/delete_hosted_cluster.sh
+</code></pre></div></p>
+<p>Delete only the AKS management cluster:
+<div class="highlight"><pre><span></span><code>../contrib/managed-azure/delete_aks_cluster.sh
+</code></pre></div></p>
+<h4 id="manual-deletion">Manual Deletion</h4>
+<p>You can also delete the hosted cluster manually using the hypershift CLI:
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>destroy<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+--name<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span><span class="se">\</span>
+--azure-creds<span class="w"> </span><span class="nv">$AZURE_CREDS</span><span class="w"> </span><span class="se">\</span>
+--resource-group-name<span class="w"> </span><span class="si">${</span><span class="nv">MANAGED_RG_NAME</span><span class="si">}</span>
+</code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you used the automated scripts, <code>CLUSTER_NAME</code> is set to <code>"${PREFIX}-hc"</code>, <code>AZURE_CREDS</code> matches your <code>user-vars.sh</code> configuration, and <code>MANAGED_RG_NAME</code> is <code>"${PREFIX}-managed-rg"</code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The manual deletion command only removes the hosted cluster. You'll need to manually clean up the AKS management cluster and other Azure resources created during setup.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The automated deletion scripts include safety confirmations and handle resource dependencies correctly. Some deletions may take several minutes to complete in the background.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Resource Reuse</strong>: The deletion scripts preserve managed identities, service principals, and the Key Vault itself for reuse across multiple clusters. AKS-specific role assignments are removed, but the underlying identities and vault remain for reuse.</p>
+</div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>If you encounter issues with the automated scripts:</p>
+<ol>
+<li><strong>Check prerequisites</strong>: Ensure all required tools are installed and configured</li>
+<li><strong>Verify permissions</strong>: Confirm your service principal has the required permissions</li>
+<li><strong>Review logs</strong>: The scripts use <code>set -x</code> for detailed logging</li>
+<li><strong>Partial execution</strong>: Run individual scripts directly from the contrib/managed-azure folder if you need to resume from a specific point</li>
+<li><strong>Manual verification</strong>: Use the Azure portal to verify resources were created correctly</li>
+</ol>
+<p>For additional help, reach out to #project-hypershift on Red Hat Slack.</p>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

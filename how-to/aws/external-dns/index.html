@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/aws/external-dns/" rel="canonical"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>External DNS - HyperShift Azure Developer Preview</title>
+<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#external-dns-setup">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              External DNS
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#external-dns-setup">
+<span class="md-ellipsis">
+      External-dns setup
+    </span>
+</a>
+<nav aria-label="External-dns setup" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-the-public-dns-hosted-zone">
+<span class="md-ellipsis">
+      Creating the public DNS Hosted zone
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hostedcluster-with-service-hostnames">
+<span class="md-ellipsis">
+      HostedCluster with Service Hostnames
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples-of-how-to-deploy-a-cluster-using-the-cli-and-externaldns">
+<span class="md-ellipsis">
+      Examples of how to deploy a cluster using the CLI and externalDNS
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="external-dns">External DNS</h1>
+<p>Hypershift separation between Control Plane and Data Plane enables two independent areas for DNS configuration: </p>
+<ul>
+<li>Ingress for workloads within the hosted cluster (traditionally *.apps.service-consumer-domain.com).</li>
+<li>Ingress for service endpoints within the management cluster (e.g. api / oauth endpoints via *.service-provider-domain.com).</li>
+</ul>
+<p>The input for the <code>hostedCluster.spec.dns</code> dictates the first one.
+The input for <code>hostedCluster.spec.services.routePublishingStrategy.hostname</code> dictates the second one, which we'll elaborate in this doc.</p>
+<p>Note: External DNS will only make a difference for setups with Public endpoints i.e. "Public" or "PublicAndPrivate". For a "Private" setup all endpoints will be accessible via <code>.hypershift.local</code>, which will contain CNAME records to the appropriate Private Link Endpoint Services.</p>
+<h1 id="use-service-level-dns-for-control-plane-services">Use Service-level DNS for Control Plane Services</h1>
+<p>There are four service that are exposed by a Hosted Control Plane (HCP)</p>
+<ul>
+<li><code>APIServer</code></li>
+<li><code>OAuthService</code></li>
+<li><code>Konnectivity</code></li>
+<li><code>Ignition</code></li>
+</ul>
+<p>Each of these services is exposed using a <code>servicePublishingStrategy</code> in the HostedCluster spec.</p>
+<p>By default, for <code>servicePublishingStrategy</code> types <code>LoadBalancer</code> and <code>Route</code>, the service will be published using the hostname of the LoadBalancer found in the status of the <code>Service</code> with type <code>LoadBalancer</code>, or in the <code>status.host</code> field of the <code>Route</code>.</p>
+<p>This is acceptable for Hypershift development environments.  However, when deploying Hypershift in a managed service context, this method leaks the ingress subdomain of the underlying management cluster and can limit options for management cluster lifecycling and disaster recovery.  For example, if the AWS load balancer for a service is lost for whatever reason, the DNS name of that load balancer is in the kubelet kubeconfig of each node in the guest cluster.  Restoring the cluster would involve an out-of-band update of all kubelet kubeconfigs on existing nodes.</p>
+<p>Having a DNS indirection layer on top of the <code>LoadBalancer</code> and <code>Route</code> publishing types allows a managed service operator to publish all <em>public</em> HostedCluster <code>services</code> using a service-level domain.  This allows remampping on the DNS name to a new <code>LoadBalancer</code> or <code>Route</code> and does not expose the ingress domain of the management cluster.</p>
+<h2 id="external-dns-setup">External-dns setup</h2>
+<p>Hypershift uses <a href="https://github.com/openshift/external-dns">external-dns</a> to achieve this indirection.</p>
+<p><code>external-dns</code> is optionally deployed alongside the <code>hypershift-operator</code> in the <code>hypershift</code> namespace of the management cluster. It watches the cluster for <code>Services</code> or <code>Routes</code> with the <code>external-dns.alpha.kubernetes.io/hostname</code> annotation.  This value of this annotation is used to create a DNS record pointing to the <code>Service</code> (A record) or <code>Route</code> (CNAME record).</p>
+<p><code>hypershift install</code> will create the <code>external-dns</code> deployment if the proper flags are set:</p>
+<div class="highlight"><pre><span></span><code>hypershift install --external-dns-provider=aws --external-dns-credentials=route53-aws-creds --external-dns-domain-filter=service-provider-domain.com ...
+</code></pre></div>
+<p>where <code>external-dns-provider</code> is the DNS provider that manages the service-level DNS zone, <code>external-dns-credentials</code> is the credentials file appropriate for the specified provider, and <code>external-dns-domain-filter</code> is the service-level domain.</p>
+<h3 id="creating-the-public-dns-hosted-zone">Creating the public DNS Hosted zone</h3>
+<p><strong>external-dns-domain</strong>: Should point to an external public domain (pre-created).</p>
+<p>To create this Hosted Zone, you can do it in the AWS Route53 Management console:</p>
+<ul>
+<li>Create a Hosted zone in your Management console</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/create-hosted-zone.png"><img alt="img" src="../../../images/create-hosted-zone.png"/></a></p>
+<ul>
+<li>Grab the values from the zone created to configure them (in our case) in the subzone</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/hosted-zone-created.png"><img alt="img" src="../../../images/hosted-zone-created.png"/></a></p>
+<ul>
+<li>In the main domain, create the NS record to redirect the DNS requests to that delegated zone (use the values from the previous step)</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/create-ns-record-in-domain.png"><img alt="img" src="../../../images/create-ns-record-in-domain.png"/></a></p>
+<ul>
+<li>In order to verify that all works fine, create a test entry in the new subzone and test it with a dig command</li>
+</ul>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/create-test-record-in-public-hz.png"><img alt="img" src="../../../images/create-test-record-in-public-hz.png"/></a></p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/dig-test.png"><img alt="img" src="../../../images/dig-test.png"/></a></p>
+<h2 id="hostedcluster-with-service-hostnames">HostedCluster with Service Hostnames</h2>
+<p>Create a HostedCluster that sets <code>hostname</code> for <code>LoadBalancer</code> and <code>Route</code> services:</p>
+<div class="highlight"><pre><span></span><code>hypershift create cluster aws --name=example --endpoint-access=PublicAndPrivate --external-dns-domain=service-provider-domain.com ...
+</code></pre></div>
+<blockquote>
+<p><strong>NOTE:</strong> The <strong>external-dns-domain</strong> should match the Public Hosted Zone created in the previous step</p>
+</blockquote>
+<p>The resulting HostedCluster <code>services</code> block looks like this:</p>
+<div class="highlight"><pre><span></span><code>  platform:
+    aws:
+      endpointAccess: PublicAndPrivate
+...
+  services:
+  - service: APIServer
+    servicePublishingStrategy:
+      route:
+        hostname: api-example.service-provider-domain.com
+      type: Route
+  - service: OAuthServer
+    servicePublishingStrategy:
+      route:
+        hostname: oauth-example.service-provider-domain.com
+      type: Route
+  - service: Konnectivity
+    servicePublishingStrategy:
+      type: Route
+  - service: Ignition
+    servicePublishingStrategy:
+      type: Route
+</code></pre></div>
+<p>When the <code>Services</code> and <code>Routes</code> are created by the Control Plane Operator (CPO), it will annotate them with the <code>external-dns.alpha.kubernetes.io/hostname</code> annotation. The value will be the <code>hostname</code> field in the <code>servicePublishingStrategy</code> for that type.  The CPO uses this name blindly for the service endpoints and assumes that if <code>hostname</code> is set, there is some mechanism external-dns or otherwise, that will create the DNS records.</p>
+<p>There is an interaction between the <code>spec.platform.aws.endpointAccess</code> and which services are permitted to set <code>hostname</code> when using <a href="../deploy-aws-private-clusters/">AWS Private clustering</a>.  Only <em>public</em> services can have service-level DNS indirection.  Private services use the <code>hypershift.local</code> private zone and it is not valid to set <code>hostname</code> for <code>services</code> that are private for a given <code>endpointAccess</code> type.</p>
+<p>The following table notes when it is valid to set hostname for a particular <code>service</code> and <code>endpointAccess</code> combination:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Public</th>
+<th>PublicAndPrivate</th>
+<th>Private</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APIServer</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>OAuthServer</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Konnectivity</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>Ingition</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples-of-how-to-deploy-a-cluster-using-the-cli-and-externaldns">Examples of how to deploy a cluster using the CLI and externalDNS</h2>
+<p>Having a vanilla Openshift cluster, follow this steps</p>
+<details>
+<summary>Deploy Hypershift and ExternalDNS operators with the external Public HostedZone already created</summary>
+
+- Ensure the public hosted zone already exists, in our case is `service-provider-domain.com` 
+- Hypershift Deployment command
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>&lt;PATH<span class="w"> </span>TO<span class="w"> </span>MANAGEMENT<span class="s1">'s CLUSTER'</span>s<span class="w"> </span>KUBECONFIG<span class="err">'</span>s&gt;
+<span class="nb">export</span><span class="w"> </span><span class="nv">REGION</span><span class="o">=</span>us-west-1
+<span class="nb">export</span><span class="w"> </span><span class="nv">BUCKET_NAME</span><span class="o">=</span>jparrill-hosted-us-west-1
+<span class="nb">export</span><span class="w"> </span><span class="nv">AWS_CREDS</span><span class="o">=</span>~/.aws/credentials
+
+hypershift<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--oidc-storage-provider-s3-bucket-name<span class="w"> </span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--oidc-storage-provider-s3-credentials<span class="w"> </span><span class="si">${</span><span class="nv">AWS_CREDS</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--oidc-storage-provider-s3-region<span class="w"> </span><span class="si">${</span><span class="nv">REGION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--external-dns-provider<span class="o">=</span>aws<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--external-dns-credentials<span class="o">=</span><span class="si">${</span><span class="nv">AWS_CREDS</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--external-dns-domain-filter<span class="o">=</span>service-provider-domain.com<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--private-platform<span class="w"> </span>AWS<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--aws-private-creds<span class="w"> </span><span class="si">${</span><span class="nv">AWS_CREDS</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--aws-private-region<span class="w"> </span><span class="si">${</span><span class="nv">REGION</span><span class="si">}</span>
+</code></pre></div>
+</details>
+<details>
+<summary>Deploy HostedCluster using ExternalDNS feature</summary>
+
+- Ensure the `externaldns` operator is up and the internal flags points to the desired public hosted zone
+- HostedCluster Deployment command 
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>&lt;MGMT<span class="w"> </span>Cluster<span class="w"> </span>Kubeconfig&gt;
+<span class="nb">export</span><span class="w"> </span><span class="nv">AWS_CREDS</span><span class="o">=</span>~/.aws/credentials
+<span class="nb">export</span><span class="w"> </span><span class="nv">REGION</span><span class="o">=</span>us-west-1
+
+hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>aws<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--aws-creds<span class="w"> </span><span class="si">${</span><span class="nv">AWS_CREDS</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--instance-type<span class="w"> </span>m6i.xlarge<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--region<span class="w"> </span><span class="si">${</span><span class="nv">REGION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--auto-repair<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--generate-ssh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span>jparrill-hosted<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span>clusters<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--base-domain<span class="w"> </span>service-consumer-domain.com<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-pool-replicas<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pull-secret<span class="w"> </span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/pull_secret.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--release-image<span class="w"> </span>quay.io/openshift-release-dev/ocp-release:4.12.0-ec.3-x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--external-dns-domain<span class="o">=</span>service-provider-domain.com<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--endpoint-access<span class="o">=</span>PublicAndPrivate
+</code></pre></div>
+
+Let's remark some things from this command:<br/>
+<div class="highlight"><pre><span></span><code>-<span class="w"> </span>external-dns-domain:<span class="w"> </span>Points<span class="w"> </span>to<span class="w"> </span>our<span class="w"> </span>public<span class="w"> </span>externalDNS<span class="w"> </span>hosted<span class="w"> </span>zone<span class="w"> </span>service-provider-domain.com,<span class="w"> </span>typically<span class="w"> </span><span class="k">in</span><span class="w"> </span>an<span class="w"> </span>AWS<span class="w"> </span>account<span class="w"> </span>owned<span class="w"> </span>by<span class="w"> </span>the<span class="w"> </span>service<span class="w"> </span>provider.
+-<span class="w"> </span>base-domain:<span class="w"> </span>Points<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>public<span class="w"> </span>hosted<span class="w"> </span>zone<span class="w"> </span>service-consumer-domain.com,<span class="w"> </span>typically<span class="w"> </span><span class="k">in</span><span class="w"> </span>an<span class="w"> </span>AWS<span class="w"> </span>account<span class="w"> </span>owned<span class="w"> </span>by<span class="w"> </span>the<span class="w"> </span>service<span class="w"> </span>consumer.<span class="w"> </span>
+-<span class="w"> </span>endpoint-access:<span class="w"> </span>Is<span class="w"> </span><span class="nb">set</span><span class="w"> </span>as<span class="w"> </span>PublicAndPrivate.<span class="w"> </span>ExternalDNS<span class="w"> </span>feature<span class="w"> </span>only<span class="w"> </span>could<span class="w"> </span>be<span class="w"> </span>used<span class="w"> </span>with<span class="w"> </span>Public<span class="w"> </span>and<span class="w"> </span>PublicAndPrivate<span class="w"> </span>configurations.
+</code></pre></div>
+</details>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

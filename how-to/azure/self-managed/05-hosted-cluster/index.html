@@ -1,0 +1,1400 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/05-hosted-cluster/" rel="canonical"/>
+<link href="../04-management-cluster/" rel="prev"/>
+<link href="../06-day2-operations/" rel="next"/>
+<link href="../../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Create Hosted Cluster - HyperShift Azure Developer Preview</title>
+<link href="../../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#overview">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Create Hosted Cluster
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview">
+<span class="md-ellipsis">
+      Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+<span class="md-ellipsis">
+      Prerequisites
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-a-hosted-cluster">
+<span class="md-ellipsis">
+      Creating a Hosted Cluster
+    </span>
+</a>
+<nav aria-label="Creating a Hosted Cluster" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-create-workload-identities">
+<span class="md-ellipsis">
+      Step 1: Create Workload Identities
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-provision-azure-infrastructure">
+<span class="md-ellipsis">
+      Step 2: Provision Azure Infrastructure
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-create-the-hostedcluster">
+<span class="md-ellipsis">
+      Step 3: Create the HostedCluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-verify-cluster-creation">
+<span class="md-ellipsis">
+      Step 4: Verify Cluster Creation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-access-your-cluster">
+<span class="md-ellipsis">
+      Step 5: Access Your Cluster
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#destroying-a-hosted-cluster">
+<span class="md-ellipsis">
+      Destroying a Hosted Cluster
+    </span>
+</a>
+<nav aria-label="Destroying a Hosted Cluster" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#option-1-complete-cleanup-recommended">
+<span class="md-ellipsis">
+      Option 1: Complete Cleanup (Recommended)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#option-2-delete-cluster-only-keep-infrastructure">
+<span class="md-ellipsis">
+      Option 2: Delete Cluster Only (Keep Infrastructure)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#option-3-complete-removal-including-identities">
+<span class="md-ellipsis">
+      Option 3: Complete Removal Including Identities
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#advanced-configuration">
+<span class="md-ellipsis">
+      Advanced Configuration
+    </span>
+</a>
+<nav aria-label="Advanced Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-custom-control-plane-operator-image">
+<span class="md-ellipsis">
+      Using Custom Control Plane Operator Image
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-azure-marketplace-images">
+<span class="md-ellipsis">
+      Configuring Azure Marketplace Images
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#customizing-network-configuration">
+<span class="md-ellipsis">
+      Customizing Network Configuration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-external-dns">
+<span class="md-ellipsis">
+      Using External DNS
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-nodepools">
+<span class="md-ellipsis">
+      Scaling NodePools
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting-cluster-creation">
+<span class="md-ellipsis">
+      Troubleshooting Cluster Creation
+    </span>
+</a>
+<nav aria-label="Troubleshooting Cluster Creation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cluster-stuck-in-provisioning">
+<span class="md-ellipsis">
+      Cluster Stuck in Provisioning
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#worker-nodes-not-joining">
+<span class="md-ellipsis">
+      Worker Nodes Not Joining
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workload-identity-authentication-failures">
+<span class="md-ellipsis">
+      Workload Identity Authentication Failures
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dns-resolution-issues">
+<span class="md-ellipsis">
+      DNS Resolution Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#precondition-failures">
+<span class="md-ellipsis">
+      Precondition Failures
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#understanding-cluster-components">
+<span class="md-ellipsis">
+      Understanding Cluster Components
+    </span>
+</a>
+<nav aria-label="Understanding Cluster Components" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#control-plane-architecture">
+<span class="md-ellipsis">
+      Control Plane Architecture
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-plane-architecture">
+<span class="md-ellipsis">
+      Data Plane Architecture
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workload-identity-integration">
+<span class="md-ellipsis">
+      Workload Identity Integration
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps">
+<span class="md-ellipsis">
+      Next Steps
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-reference">
+<span class="md-ellipsis">
+      Quick Reference
+    </span>
+</a>
+<nav aria-label="Quick Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#essential-commands">
+<span class="md-ellipsis">
+      Essential Commands
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-summary">
+<span class="md-ellipsis">
+      Task Summary
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview">
+<span class="md-ellipsis">
+      Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+<span class="md-ellipsis">
+      Prerequisites
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#creating-a-hosted-cluster">
+<span class="md-ellipsis">
+      Creating a Hosted Cluster
+    </span>
+</a>
+<nav aria-label="Creating a Hosted Cluster" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-create-workload-identities">
+<span class="md-ellipsis">
+      Step 1: Create Workload Identities
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-provision-azure-infrastructure">
+<span class="md-ellipsis">
+      Step 2: Provision Azure Infrastructure
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-create-the-hostedcluster">
+<span class="md-ellipsis">
+      Step 3: Create the HostedCluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-verify-cluster-creation">
+<span class="md-ellipsis">
+      Step 4: Verify Cluster Creation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-access-your-cluster">
+<span class="md-ellipsis">
+      Step 5: Access Your Cluster
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#destroying-a-hosted-cluster">
+<span class="md-ellipsis">
+      Destroying a Hosted Cluster
+    </span>
+</a>
+<nav aria-label="Destroying a Hosted Cluster" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#option-1-complete-cleanup-recommended">
+<span class="md-ellipsis">
+      Option 1: Complete Cleanup (Recommended)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#option-2-delete-cluster-only-keep-infrastructure">
+<span class="md-ellipsis">
+      Option 2: Delete Cluster Only (Keep Infrastructure)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#option-3-complete-removal-including-identities">
+<span class="md-ellipsis">
+      Option 3: Complete Removal Including Identities
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#advanced-configuration">
+<span class="md-ellipsis">
+      Advanced Configuration
+    </span>
+</a>
+<nav aria-label="Advanced Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-custom-control-plane-operator-image">
+<span class="md-ellipsis">
+      Using Custom Control Plane Operator Image
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-azure-marketplace-images">
+<span class="md-ellipsis">
+      Configuring Azure Marketplace Images
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#customizing-network-configuration">
+<span class="md-ellipsis">
+      Customizing Network Configuration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#using-external-dns">
+<span class="md-ellipsis">
+      Using External DNS
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-nodepools">
+<span class="md-ellipsis">
+      Scaling NodePools
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting-cluster-creation">
+<span class="md-ellipsis">
+      Troubleshooting Cluster Creation
+    </span>
+</a>
+<nav aria-label="Troubleshooting Cluster Creation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cluster-stuck-in-provisioning">
+<span class="md-ellipsis">
+      Cluster Stuck in Provisioning
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#worker-nodes-not-joining">
+<span class="md-ellipsis">
+      Worker Nodes Not Joining
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workload-identity-authentication-failures">
+<span class="md-ellipsis">
+      Workload Identity Authentication Failures
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dns-resolution-issues">
+<span class="md-ellipsis">
+      DNS Resolution Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#precondition-failures">
+<span class="md-ellipsis">
+      Precondition Failures
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#understanding-cluster-components">
+<span class="md-ellipsis">
+      Understanding Cluster Components
+    </span>
+</a>
+<nav aria-label="Understanding Cluster Components" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#control-plane-architecture">
+<span class="md-ellipsis">
+      Control Plane Architecture
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-plane-architecture">
+<span class="md-ellipsis">
+      Data Plane Architecture
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workload-identity-integration">
+<span class="md-ellipsis">
+      Workload Identity Integration
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps">
+<span class="md-ellipsis">
+      Next Steps
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-reference">
+<span class="md-ellipsis">
+      Quick Reference
+    </span>
+</a>
+<nav aria-label="Quick Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#essential-commands">
+<span class="md-ellipsis">
+      Essential Commands
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#task-summary">
+<span class="md-ellipsis">
+      Task Summary
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="create-and-manage-hosted-clusters">Create and Manage Hosted Clusters</h1>
+<p>This guide covers the end-to-end process of creating, accessing, and destroying HyperShift hosted clusters on Azure using Taskfile automation.</p>
+<div class="admonition note">
+<p class="admonition-title">Persona: HyperShift Administrator</p>
+<p>This phase creates your actual OpenShift hosted clusters that run application workloads.</p>
+</div>
+<h2 id="overview">Overview</h2>
+<p>Deploying a hosted cluster involves:</p>
+<ol>
+<li><strong>Workload Identity Creation</strong>: Per-cluster managed identities and federated credentials</li>
+<li><strong>Infrastructure Provisioning</strong>: Azure VNets, subnets, network security groups, and resource groups</li>
+<li><strong>HostedCluster Deployment</strong>: Control plane on management cluster, worker nodes as Azure VMs</li>
+<li><strong>Cluster Access</strong>: Generate kubeconfig and verify cluster operation</li>
+</ol>
+<p><strong>Why This Matters</strong>: This creates the actual OpenShift cluster where your applications will run. The control plane runs as pods on the management cluster, while worker nodes run as Azure VMs. The cluster uses workload identities for secure, credential-free access to Azure services.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before creating a hosted cluster, ensure:</p>
+<ul>
+<li><a href="../03-azure-foundation/">Azure Foundation Setup</a> completed (OIDC issuer, signing keys)</li>
+<li><a href="../04-management-cluster/">Management Cluster Setup</a> completed (HyperShift operator installed)</li>
+<li>Taskfile configuration completed in <code>hack/dev-preview/Taskfile.yml</code></li>
+<li>Azure credentials file created (<code>azure-credentials.json</code>)</li>
+<li>OpenShift pull secret available (<code>pull-secret.json</code>)</li>
+</ul>
+<p>Required Taskfile variables:
+<div class="highlight"><pre><span></span><code><span class="nt">PREFIX</span><span class="p">:</span><span class="w"> </span><span class="s">'myprefix'</span>
+<span class="nt">CLUSTER_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'${PREFIX}-hc'</span>
+<span class="nt">RELEASE_IMAGE</span><span class="p">:</span><span class="w"> </span><span class="s">'quay.io/openshift-release-dev/ocp-release:4.21.0-x86_64'</span>
+<span class="nt">AZURE_CREDS</span><span class="p">:</span><span class="w"> </span><span class="s">'azure-credentials.json'</span>
+<span class="nt">PULL_SECRET</span><span class="p">:</span><span class="w"> </span><span class="s">'pull-secret.json'</span>
+</code></pre></div></p>
+<h2 id="creating-a-hosted-cluster">Creating a Hosted Cluster</h2>
+<h3 id="step-1-create-workload-identities">Step 1: Create Workload Identities</h3>
+<p>Create the managed identities and federated credentials for your cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create 7 managed identities for cluster components</span>
+task<span class="w"> </span>azure:identities
+
+<span class="c1"># Create 14 federated identity credentials</span>
+task<span class="w"> </span>azure:federated-creds
+</code></pre></div>
+<p><strong>What this does</strong>:
+- Creates 7 managed identities (one per OpenShift component)
+- Creates 14 federated credentials (2 per component for redundancy)
+- Generates <code>workload-identities.json</code> file with client IDs
+- These resources persist after cluster deletion</p>
+<p><strong>Components with identities</strong>:
+- Image Registry
+- Ingress
+- Disk CSI Driver
+- File CSI Driver
+- NodePool Management
+- Cloud Provider
+- Network</p>
+<p><strong>Output</strong>:
+<div class="highlight"><pre><span></span><code>Creating 7 managed identities for cluster myprefix-hc...
+✓ Created identity: myprefix-hc-image-registry
+✓ Created identity: myprefix-hc-ingress
+...
+Creating 14 federated identity credentials...
+✓ Created federated credential for openshift-image-registry/installer
+...
+</code></pre></div></p>
+<div class="admonition important">
+<p class="admonition-title">Identity Persistence</p>
+<p>Managed identities and federated credentials are <strong>persistent</strong>. They:</p>
+<ul>
+<li>Remain after cluster deletion</li>
+<li>Allow cluster recreation without identity recreation</li>
+<li>Preserve Azure IAM role assignments</li>
+<li>Support disaster recovery scenarios</li>
+</ul>
+<p>To delete identities: <code>task azure:delete-identities</code> (only when cluster is permanently removed)</p>
+</div>
+<h3 id="step-2-provision-azure-infrastructure">Step 2: Provision Azure Infrastructure</h3>
+<p>Create the VNet, NSG, subnets, and resource groups:</p>
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>azure:infra
+</code></pre></div>
+<p><strong>What this does</strong>:
+- Creates managed resource group for cluster resources
+- Creates VNet resource group
+- Creates NSG resource group
+- Provisions VNet with <code>/16</code> address space
+- Creates subnet with <code>/24</code> address space
+- Creates and configures Network Security Group
+- Exports resource IDs to <code>.azure-net-ids</code> file</p>
+<p><strong>Under the hood</strong> (see <code>tasks/azure.yml</code>):
+<div class="highlight"><pre><span></span><code><span class="c1"># Resource group creation</span>
+az<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">MANAGED_RG_NAME</span><span class="si">}</span><span class="w"> </span>--location<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span>
+az<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">VNET_RG_NAME</span><span class="si">}</span><span class="w"> </span>--location<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span>
+az<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">NSG_RG_NAME</span><span class="si">}</span><span class="w"> </span>--location<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span>
+
+<span class="c1"># NSG creation</span>
+az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="si">${</span><span class="nv">NSG_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">NSG</span><span class="si">}</span>
+
+<span class="c1"># VNet and subnet creation</span>
+az<span class="w"> </span>network<span class="w"> </span>vnet<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">VNET_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="si">${</span><span class="nv">VNET_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--address-prefix<span class="w"> </span><span class="m">10</span>.0.0.0/16<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subnet-name<span class="w"> </span><span class="si">${</span><span class="nv">VNET_SUBNET1</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subnet-prefixes<span class="w"> </span><span class="m">10</span>.0.0.0/24<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--nsg<span class="w"> </span><span class="si">${</span><span class="nv">NSG_ID</span><span class="si">}</span>
+</code></pre></div></p>
+<p><strong>Output</strong>:
+<div class="highlight"><pre><span></span><code>Creating Azure infrastructure for cluster...
+✓ Created resource group: myprefix-managed-rg
+✓ Created resource group: myprefix-vnet-rg
+✓ Created resource group: myprefix-nsg-rg
+✓ Created NSG: myprefix-nsg
+✓ Created VNet: myprefix-vnet
+✓ Created subnet: myprefix-subnet-1
+Exported resource IDs to .azure-net-ids
+</code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">Infrastructure Lifecycle</p>
+<p>This infrastructure is <strong>temporary</strong> and deleted with the cluster. Use <code>task azure:delete-infra</code> to remove it.</p>
+</div>
+<h3 id="step-3-create-the-hostedcluster">Step 3: Create the HostedCluster</h3>
+<p>Create the hosted cluster using all the prepared resources:</p>
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>cluster:create
+</code></pre></div>
+<p><strong>What this does</strong>:
+- Validates all prerequisites (resource groups, identities, credentials)
+- Reads network resource IDs from <code>.azure-net-ids</code>
+- Reads workload identities from <code>workload-identities.json</code>
+- Invokes <code>hypershift create cluster azure</code> with all required parameters
+- Deploys control plane pods on management cluster
+- Provisions worker nodes as Azure VMs</p>
+<p><strong>Under the hood</strong> (see <code>tasks/cluster.yml</code>):
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span><span class="si">${</span><span class="nv">AZURE_CREDS</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--location<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-pool-replicas<span class="w"> </span><span class="si">${</span><span class="nv">NODE_POOL_REPLICAS</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--base-domain<span class="w"> </span><span class="si">${</span><span class="nv">PARENT_DNS_ZONE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dns-zone-rg-name<span class="w"> </span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pull-secret<span class="w"> </span><span class="si">${</span><span class="nv">PULL_SECRET</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--generate-ssh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--release-image<span class="w"> </span><span class="si">${</span><span class="nv">RELEASE_IMAGE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group-name<span class="w"> </span><span class="si">${</span><span class="nv">MANAGED_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vnet-id<span class="w"> </span><span class="si">${</span><span class="nv">VNET_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subnet-id<span class="w"> </span><span class="si">${</span><span class="nv">SUBNET_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--network-security-group-id<span class="w"> </span><span class="si">${</span><span class="nv">NSG_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--sa-token-issuer-private-key-path<span class="w"> </span><span class="si">${</span><span class="nv">SA_TOKEN_ISSUER_PRIVATE_KEY_PATH</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--oidc-issuer-url<span class="w"> </span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--assign-service-principal-roles<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--workload-identities-file<span class="w"> </span>./workload-identities.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--diagnostics-storage-account-type<span class="w"> </span>Managed
+</code></pre></div></p>
+<p><strong>Expected output</strong>:
+<div class="highlight"><pre><span></span><code>Creating hosted cluster myprefix-hc
+========================================
+OpenShift Details:
+  Release: quay.io/openshift-release-dev/ocp-release:4.21.0-x86_64
+========================================
+Azure Details:
+  Resource Group: myprefix-managed-rg
+  Location: eastus
+  Base Domain: example.com
+  DNS Zone RG: hypershift-shared
+========================================
+✓ Hosted cluster myprefix-hc created successfully
+</code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Azure Marketplace Images</p>
+<p>For OpenShift 4.20+, HyperShift automatically selects the appropriate Azure Marketplace image from the release payload. No <code>--marketplace-*</code> flags needed.</p>
+<p>For custom images or VM generation control, see <a href="#advanced-configuration">Advanced Configuration</a>.</p>
+</div>
+<h3 id="step-4-verify-cluster-creation">Step 4: Verify Cluster Creation</h3>
+<p>Monitor cluster creation progress:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check HostedCluster status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># Watch cluster become available (15-30 minutes)</span>
+kubectl<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>--for<span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Available<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--timeout<span class="o">=</span>30m
+
+<span class="c1"># Check NodePool status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># Verify control plane pods are running</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+</code></pre></div>
+<p><strong>Healthy cluster indicators</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># HostedCluster should show Available=True</span>
+NAME<span class="w">          </span>VERSION<span class="w">   </span>KUBECONFIG<span class="w">                      </span>PROGRESS<span class="w">    </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>MESSAGE
+myprefix-hc<span class="w">   </span><span class="m">4</span>.21.0<span class="w">    </span>myprefix-hc-admin-kubeconfig<span class="w">   </span>Completed<span class="w">   </span>True<span class="w">        </span>False<span class="w">         </span>The<span class="w"> </span>hosted<span class="w"> </span>cluster<span class="w"> </span>is<span class="w"> </span>available
+
+<span class="c1"># NodePool should show all replicas ready</span>
+NAME<span class="w">                 </span>CLUSTER<span class="w">       </span>DESIRED<span class="w"> </span>NODES<span class="w">   </span>CURRENT<span class="w"> </span>NODES<span class="w">   </span>AUTOSCALING<span class="w">   </span>AUTOREPAIR<span class="w">   </span>VERSION<span class="w">   </span>UPDATINGVERSION<span class="w">   </span>UPDATINGCONFIG<span class="w">   </span>MESSAGE
+myprefix-hc<span class="w">          </span>myprefix-hc<span class="w">   </span><span class="m">2</span><span class="w">               </span><span class="m">2</span><span class="w">               </span>False<span class="w">         </span>False<span class="w">        </span><span class="m">4</span>.21.0
+
+<span class="c1"># Control plane pods all Running</span>
+NAME<span class="w">                                          </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+capi-provider-5d4c6b9d8-xxxxx<span class="w">                </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>10m
+catalog-operator-6b8c9f8b7-xxxxx<span class="w">             </span><span class="m">2</span>/2<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>8m
+cluster-api-7b9c8d7f6-xxxxx<span class="w">                  </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>10m
+...
+</code></pre></div></p>
+<h3 id="step-5-access-your-cluster">Step 5: Access Your Cluster</h3>
+<p>Generate kubeconfig and access the hosted cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate kubeconfig for your cluster</span>
+hypershift<span class="w"> </span>create<span class="w"> </span>kubeconfig<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
+
+<span class="c1"># Set KUBECONFIG to access hosted cluster</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
+
+<span class="c1"># Verify cluster access</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+kubectl<span class="w"> </span>get<span class="w"> </span>clusterversion
+kubectl<span class="w"> </span>get<span class="w"> </span>co<span class="w">  </span><span class="c1"># Check cluster operators status</span>
+</code></pre></div>
+<p><strong>Expected output</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Nodes should be Ready</span>
+NAME<span class="w">                                     </span>STATUS<span class="w">   </span>ROLES<span class="w">    </span>AGE<span class="w">   </span>VERSION
+myprefix-hc-nodepool-1-xxxxx<span class="w">            </span>Ready<span class="w">    </span>worker<span class="w">   </span>5m<span class="w">    </span>v1.31.0
+myprefix-hc-nodepool-1-yyyyy<span class="w">            </span>Ready<span class="w">    </span>worker<span class="w">   </span>5m<span class="w">    </span>v1.31.0
+
+<span class="c1"># ClusterVersion should show correct version</span>
+NAME<span class="w">      </span>VERSION<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>SINCE<span class="w">   </span>STATUS
+version<span class="w">   </span><span class="m">4</span>.21.0<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>3m<span class="w">      </span>Cluster<span class="w"> </span>version<span class="w"> </span>is<span class="w"> </span><span class="m">4</span>.21.0
+
+<span class="c1"># Cluster operators should be Available</span>
+NAME<span class="w">                                       </span>VERSION<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>DEGRADED<span class="w">   </span>SINCE<span class="w">   </span>MESSAGE
+authentication<span class="w">                             </span><span class="m">4</span>.21.0<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>5m
+console<span class="w">                                    </span><span class="m">4</span>.21.0<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>3m
+...
+</code></pre></div></p>
+<div class="admonition success">
+<p class="admonition-title">Cluster Ready</p>
+<p>Your hosted cluster is now operational! You can deploy applications, configure cluster settings, and perform all standard OpenShift operations.</p>
+</div>
+<h2 id="destroying-a-hosted-cluster">Destroying a Hosted Cluster</h2>
+<p>When you're done with a cluster, clean it up to avoid unnecessary costs.</p>
+<h3 id="option-1-complete-cleanup-recommended">Option 1: Complete Cleanup (Recommended)</h3>
+<p>Delete the cluster and all temporary infrastructure:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Destroy the HostedCluster (this deletes VMs and cluster resources)</span>
+task<span class="w"> </span>cluster:destroy
+
+<span class="c1"># 2. Delete Azure infrastructure (VNet, NSG, resource groups)</span>
+task<span class="w"> </span>azure:delete-infra
+</code></pre></div>
+<p><strong>What this does</strong>:
+- Deletes HostedCluster and NodePool resources from management cluster
+- Removes worker node VMs from Azure
+- Deletes control plane pods from management cluster
+- Removes VNet, NSG, subnets, and resource groups
+- <strong>Preserves</strong>: Managed identities and federated credentials (for recreation)</p>
+<h3 id="option-2-delete-cluster-only-keep-infrastructure">Option 2: Delete Cluster Only (Keep Infrastructure)</h3>
+<p>Delete just the cluster, preserving infrastructure for quick recreation:</p>
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>cluster:destroy
+</code></pre></div>
+<p><strong>When to use</strong>: Testing scenarios where you want to quickly recreate clusters with the same network infrastructure.</p>
+<h3 id="option-3-complete-removal-including-identities">Option 3: Complete Removal Including Identities</h3>
+<p>Permanently remove all cluster-related resources including identities:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. Destroy the cluster</span>
+task<span class="w"> </span>cluster:destroy
+
+<span class="c1"># 2. Delete infrastructure</span>
+task<span class="w"> </span>azure:delete-infra
+
+<span class="c1"># 3. Delete workload identities (CAUTION: permanent)</span>
+task<span class="w"> </span>azure:delete-identities
+</code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Deleting Identities</p>
+<p>Only delete identities when the cluster is <strong>permanently removed</strong> and will never be recreated. Deleting identities:</p>
+<ul>
+<li>Removes all Azure role assignments</li>
+<li>Requires full identity recreation for new clusters with same name</li>
+<li>Cannot be undone</li>
+</ul>
+</div>
+<h2 id="advanced-configuration">Advanced Configuration</h2>
+<h3 id="using-custom-control-plane-operator-image">Using Custom Control Plane Operator Image</h3>
+<p>Override the CPO image for testing or debugging:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># In Taskfile.yml</span>
+<span class="nt">vars</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">CPO_IMAGE</span><span class="p">:</span><span class="w"> </span><span class="s">'quay.io/hypershift/hypershift:custom-tag'</span>
+</code></pre></div>
+<p>The cluster creation task automatically detects and uses the custom image.</p>
+<h3 id="configuring-azure-marketplace-images">Configuring Azure Marketplace Images</h3>
+<p><strong>For OpenShift 4.20+ (Recommended)</strong>:</p>
+<p>HyperShift auto-selects the appropriate image. No configuration needed.</p>
+<p><strong>For Custom Images</strong>:</p>
+<p>Add to your <code>hypershift create cluster azure</code> command:
+<div class="highlight"><pre><span></span><code>--marketplace-publisher<span class="w"> </span>azureopenshift<span class="w"> </span><span class="se">\</span>
+--marketplace-offer<span class="w"> </span>aro4<span class="w"> </span><span class="se">\</span>
+--marketplace-sku<span class="w"> </span>aro_421<span class="w"> </span><span class="se">\</span>
+--marketplace-version<span class="w"> </span><span class="m">421</span>.0.20250101<span class="w"> </span><span class="se">\</span>
+--image-generation<span class="w"> </span>Gen2<span class="w">  </span><span class="c1"># Gen1 or Gen2</span>
+</code></pre></div></p>
+<div class="admonition important">
+<p class="admonition-title">Marketplace Flag Requirements</p>
+<p>When specifying marketplace details, provide <strong>all four</strong> flags together.</p>
+</div>
+<h3 id="customizing-network-configuration">Customizing Network Configuration</h3>
+<p>Modify network settings in <code>Taskfile.yml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">vars</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">VNET_CIDR</span><span class="p">:</span><span class="w"> </span><span class="s">'10.0.0.0/16'</span><span class="w">          </span><span class="c1"># Default VNet CIDR</span>
+<span class="w">  </span><span class="nt">SUBNET_CIDR</span><span class="p">:</span><span class="w"> </span><span class="s">'10.0.0.0/24'</span><span class="w">         </span><span class="c1"># Default subnet CIDR</span>
+<span class="w">  </span><span class="nt">VNET_NAME</span><span class="p">:</span><span class="w"> </span><span class="s">'${PREFIX}-custom-vnet'</span><span class="w">  </span><span class="c1"># Custom VNet name</span>
+</code></pre></div>
+<p>Then regenerate infrastructure:
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>azure:delete-infra<span class="w">  </span><span class="c1"># Clean up old infrastructure</span>
+task<span class="w"> </span>azure:infra<span class="w">         </span><span class="c1"># Create with new configuration</span>
+</code></pre></div></p>
+<h3 id="using-external-dns">Using External DNS</h3>
+<p>If you configured External DNS during management cluster setup:</p>
+<p><strong>In Taskfile.yml</strong>, ensure:
+<div class="highlight"><pre><span></span><code><span class="nt">vars</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">PARENT_DNS_ZONE</span><span class="p">:</span><span class="w"> </span><span class="s">'example.com'</span>
+<span class="w">  </span><span class="c1"># External DNS will create: api.myprefix-hc.example.com</span>
+</code></pre></div></p>
+<p>The cluster creation task automatically includes DNS configuration when External DNS is available.</p>
+<h3 id="scaling-nodepools">Scaling NodePools</h3>
+<p>Scale worker nodes after cluster creation:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Scale existing NodePool</span>
+kubectl<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--replicas<span class="o">=</span><span class="m">5</span>
+
+<span class="c1"># Verify scaling</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+</code></pre></div>
+<h2 id="troubleshooting-cluster-creation">Troubleshooting Cluster Creation</h2>
+<h3 id="cluster-stuck-in-provisioning">Cluster Stuck in Provisioning</h3>
+<p><strong>Symptom</strong>: HostedCluster remains in <code>Progressing</code> state for &gt;30 minutes</p>
+<p><strong>Check</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check HostedCluster status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
+
+<span class="c1"># Check control plane pods</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># Check operator logs</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/operator
+</code></pre></div></p>
+<p><strong>Common causes</strong>:
+- Insufficient resources on management cluster
+- Image pull errors (check pull secret)
+- Azure API rate limiting
+- Network connectivity issues</p>
+<h3 id="worker-nodes-not-joining">Worker Nodes Not Joining</h3>
+<p><strong>Symptom</strong>: NodePool shows desired nodes, but nodes don't appear as Ready</p>
+<p><strong>Check</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check NodePool status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
+
+<span class="c1"># Check machine resources</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># Check Azure VMs</span>
+az<span class="w"> </span>vm<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="si">${</span><span class="nv">MANAGED_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span>table
+</code></pre></div></p>
+<p><strong>Common causes</strong>:
+- Workload identity misconfiguration
+- NSG blocking required ports
+- Ignition server unreachable
+- Azure quota limits</p>
+<h3 id="workload-identity-authentication-failures">Workload Identity Authentication Failures</h3>
+<p><strong>Symptom</strong>: Control plane pods reporting Azure authentication errors</p>
+<p><strong>Check</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify workload-identities.json exists and has valid client IDs</span>
+cat<span class="w"> </span>workload-identities.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+
+<span class="c1"># Check federated credentials in Azure</span>
+task<span class="w"> </span>azure:list-federated-creds
+
+<span class="c1"># Verify OIDC issuer is accessible</span>
+curl<span class="w"> </span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span>/.well-known/openid-configuration
+</code></pre></div></p>
+<p><strong>Solutions</strong>:
+- Recreate federated credentials: <code>task azure:delete-federated-creds &amp;&amp; task azure:federated-creds</code>
+- Verify OIDC issuer URL matches in Taskfile and Azure
+- Check that PREFIX and CLUSTER_NAME are identical to identity creation</p>
+<h3 id="dns-resolution-issues">DNS Resolution Issues</h3>
+<p><strong>For External DNS deployments</strong>:</p>
+<p><strong>Check</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check External DNS logs</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/external-dns
+
+<span class="c1"># Verify DNS records in Azure</span>
+az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </span>record-set<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--zone-name<span class="w"> </span><span class="si">${</span><span class="nv">PARENT_DNS_ZONE</span><span class="si">}</span>
+</code></pre></div></p>
+<p><strong>For deployments without External DNS</strong>:</p>
+<p>API server uses Azure LoadBalancer DNS. Get the DNS name:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>kube-apiserver
+
+<span class="c1"># Use the EXTERNAL-IP or LoadBalancer hostname</span>
+</code></pre></div></p>
+<h3 id="precondition-failures">Precondition Failures</h3>
+<p>If <code>task cluster:create</code> reports missing preconditions:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check managed resource group exists</span>
+task<span class="w"> </span>azure:infra
+
+<span class="c1"># Check workload identities file exists</span>
+task<span class="w"> </span>azure:identities
+
+<span class="c1"># Check network IDs file exists</span>
+ls<span class="w"> </span>-l<span class="w"> </span>.azure-net-ids
+
+<span class="c1"># Check credentials files</span>
+ls<span class="w"> </span>-l<span class="w"> </span><span class="si">${</span><span class="nv">AZURE_CREDS</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">PULL_SECRET</span><span class="si">}</span>
+</code></pre></div>
+<h2 id="understanding-cluster-components">Understanding Cluster Components</h2>
+<h3 id="control-plane-architecture">Control Plane Architecture</h3>
+<p>The hosted control plane consists of pods running on the management cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># View control plane namespace</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>ns<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># View control plane pods</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+</code></pre></div>
+<p><strong>Key components</strong>:
+- <strong>kube-apiserver</strong>: Cluster API endpoint
+- <strong>etcd</strong>: Control plane data store
+- <strong>kube-controller-manager</strong>: Cluster controllers
+- <strong>kube-scheduler</strong>: Pod scheduling
+- <strong>cluster-version-operator</strong>: Manages cluster version and upgrades
+- <strong>openshift-controller-manager</strong>: OpenShift-specific controllers</p>
+<h3 id="data-plane-architecture">Data Plane Architecture</h3>
+<p>Worker nodes run as standard Azure VMs:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># View VMs in Azure</span>
+az<span class="w"> </span>vm<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="si">${</span><span class="nv">MANAGED_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span>table
+
+<span class="c1"># SSH to a node (if SSH key was generated)</span>
+ssh<span class="w"> </span>-i<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-ssh-key<span class="w"> </span>core@&lt;node-ip&gt;
+</code></pre></div>
+<h3 id="workload-identity-integration">Workload Identity Integration</h3>
+<p>Each component authenticates to Azure using federated credentials:</p>
+<div class="mermaid">graph LR
+    A[Service Account Token] --&gt;|Signed by| B[SA Signing Key]
+    B --&gt;|Presented to| C[OIDC Issuer]
+    C --&gt;|Validated by| D[Azure AD]
+    D --&gt;|Grants| E[Managed Identity Token]
+    E --&gt;|Accesses| F[Azure APIs]
+</div>
+<h2 id="next-steps">Next Steps</h2>
+<p>With your hosted cluster running:</p>
+<ul>
+<li><a href="../06-day2-operations/">Day 2 Operations</a> - Upgrades, scaling, configuration</li>
+<li><a href="../07-troubleshooting/">Troubleshooting</a> - Diagnostics and common issues</li>
+<li>Deploy your applications using standard OpenShift/Kubernetes workflows</li>
+</ul>
+<h2 id="quick-reference">Quick Reference</h2>
+<h3 id="essential-commands">Essential Commands</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create cluster (full workflow)</span>
+task<span class="w"> </span>azure:identities
+task<span class="w"> </span>azure:federated-creds
+task<span class="w"> </span>azure:infra
+task<span class="w"> </span>cluster:create
+
+<span class="c1"># Access cluster</span>
+hypershift<span class="w"> </span>create<span class="w"> </span>kubeconfig<span class="w"> </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>&gt;<span class="w"> </span>kubeconfig
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>kubeconfig
+
+<span class="c1"># Check cluster status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster,nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># Destroy cluster</span>
+task<span class="w"> </span>cluster:destroy
+task<span class="w"> </span>azure:delete-infra
+</code></pre></div>
+<h3 id="task-summary">Task Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Purpose</th>
+<th>Lifecycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>task azure:identities</code></td>
+<td>Create managed identities</td>
+<td>Persistent</td>
+</tr>
+<tr>
+<td><code>task azure:federated-creds</code></td>
+<td>Create federated credentials</td>
+<td>Persistent</td>
+</tr>
+<tr>
+<td><code>task azure:infra</code></td>
+<td>Provision VNet, NSG, resource groups</td>
+<td>Temporary</td>
+</tr>
+<tr>
+<td><code>task cluster:create</code></td>
+<td>Deploy HostedCluster</td>
+<td>Temporary</td>
+</tr>
+<tr>
+<td><code>task cluster:destroy</code></td>
+<td>Delete HostedCluster</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>task azure:delete-infra</code></td>
+<td>Remove VNet, NSG, resource groups</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>task azure:delete-identities</code></td>
+<td>Remove managed identities (CAUTION)</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>task azure:delete-federated-creds</code></td>
+<td>Remove federated credentials</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({});</script><script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

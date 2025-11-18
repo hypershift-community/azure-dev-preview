@@ -1,0 +1,1223 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/06-day2-operations/" rel="canonical"/>
+<link href="../05-hosted-cluster/" rel="prev"/>
+<link href="../07-troubleshooting/" rel="next"/>
+<link href="../../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Day 2 Operations - HyperShift Azure Developer Preview</title>
+<link href="../../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#prerequisites">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Day 2 Operations
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+<span class="md-ellipsis">
+      Prerequisites
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#managing-nodepools">
+<span class="md-ellipsis">
+      Managing NodePools
+    </span>
+</a>
+<nav aria-label="Managing NodePools" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#understanding-nodepools">
+<span class="md-ellipsis">
+      Understanding NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adding-additional-nodepools">
+<span class="md-ellipsis">
+      Adding Additional NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-nodepool-marketplace-images">
+<span class="md-ellipsis">
+      Configuring NodePool Marketplace Images
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-nodepools">
+<span class="md-ellipsis">
+      Scaling NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deleting-nodepools">
+<span class="md-ellipsis">
+      Deleting NodePools
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrading-clusters">
+<span class="md-ellipsis">
+      Upgrading Clusters
+    </span>
+</a>
+<nav aria-label="Upgrading Clusters" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#understanding-hypershift-upgrades">
+<span class="md-ellipsis">
+      Understanding HyperShift Upgrades
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrading-the-control-plane">
+<span class="md-ellipsis">
+      Upgrading the Control Plane
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrading-nodepools">
+<span class="md-ellipsis">
+      Upgrading NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrade-best-practices">
+<span class="md-ellipsis">
+      Upgrade Best Practices
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-cluster-health">
+<span class="md-ellipsis">
+      Monitoring Cluster Health
+    </span>
+</a>
+<nav aria-label="Monitoring Cluster Health" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#checking-cluster-status">
+<span class="md-ellipsis">
+      Checking Cluster Status
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-health-indicators">
+<span class="md-ellipsis">
+      Key Health Indicators
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cluster-metrics-and-logging">
+<span class="md-ellipsis">
+      Cluster Metrics and Logging
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modifying-cluster-configuration">
+<span class="md-ellipsis">
+      Modifying Cluster Configuration
+    </span>
+</a>
+<nav aria-label="Modifying Cluster Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#changing-cluster-networking">
+<span class="md-ellipsis">
+      Changing Cluster Networking
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#managing-cluster-credentials">
+<span class="md-ellipsis">
+      Managing Cluster Credentials
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nodepool-advanced-configuration">
+<span class="md-ellipsis">
+      NodePool Advanced Configuration
+    </span>
+</a>
+<nav aria-label="NodePool Advanced Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-node-labels-and-taints">
+<span class="md-ellipsis">
+      Configuring Node Labels and Taints
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-root-volume-size">
+<span class="md-ellipsis">
+      Configuring Root Volume Size
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps">
+<span class="md-ellipsis">
+      Next Steps
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-reference">
+<span class="md-ellipsis">
+      Quick Reference
+    </span>
+</a>
+<nav aria-label="Quick Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-operations">
+<span class="md-ellipsis">
+      Common Operations
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+<span class="md-ellipsis">
+      Prerequisites
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#managing-nodepools">
+<span class="md-ellipsis">
+      Managing NodePools
+    </span>
+</a>
+<nav aria-label="Managing NodePools" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#understanding-nodepools">
+<span class="md-ellipsis">
+      Understanding NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adding-additional-nodepools">
+<span class="md-ellipsis">
+      Adding Additional NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-nodepool-marketplace-images">
+<span class="md-ellipsis">
+      Configuring NodePool Marketplace Images
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-nodepools">
+<span class="md-ellipsis">
+      Scaling NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deleting-nodepools">
+<span class="md-ellipsis">
+      Deleting NodePools
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrading-clusters">
+<span class="md-ellipsis">
+      Upgrading Clusters
+    </span>
+</a>
+<nav aria-label="Upgrading Clusters" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#understanding-hypershift-upgrades">
+<span class="md-ellipsis">
+      Understanding HyperShift Upgrades
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrading-the-control-plane">
+<span class="md-ellipsis">
+      Upgrading the Control Plane
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrading-nodepools">
+<span class="md-ellipsis">
+      Upgrading NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrade-best-practices">
+<span class="md-ellipsis">
+      Upgrade Best Practices
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-cluster-health">
+<span class="md-ellipsis">
+      Monitoring Cluster Health
+    </span>
+</a>
+<nav aria-label="Monitoring Cluster Health" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#checking-cluster-status">
+<span class="md-ellipsis">
+      Checking Cluster Status
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-health-indicators">
+<span class="md-ellipsis">
+      Key Health Indicators
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cluster-metrics-and-logging">
+<span class="md-ellipsis">
+      Cluster Metrics and Logging
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#modifying-cluster-configuration">
+<span class="md-ellipsis">
+      Modifying Cluster Configuration
+    </span>
+</a>
+<nav aria-label="Modifying Cluster Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#changing-cluster-networking">
+<span class="md-ellipsis">
+      Changing Cluster Networking
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#managing-cluster-credentials">
+<span class="md-ellipsis">
+      Managing Cluster Credentials
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nodepool-advanced-configuration">
+<span class="md-ellipsis">
+      NodePool Advanced Configuration
+    </span>
+</a>
+<nav aria-label="NodePool Advanced Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-node-labels-and-taints">
+<span class="md-ellipsis">
+      Configuring Node Labels and Taints
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-root-volume-size">
+<span class="md-ellipsis">
+      Configuring Root Volume Size
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps">
+<span class="md-ellipsis">
+      Next Steps
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#quick-reference">
+<span class="md-ellipsis">
+      Quick Reference
+    </span>
+</a>
+<nav aria-label="Quick Reference" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-operations">
+<span class="md-ellipsis">
+      Common Operations
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="day-2-operations">Day 2 Operations</h1>
+<p>This guide covers common operational tasks for managing HyperShift hosted clusters after initial deployment.</p>
+<div class="admonition note">
+<p class="admonition-title">Persona: HyperShift Administrator</p>
+<p>Day 2 operations are performed on running clusters to manage capacity, upgrade versions, and maintain cluster health.</p>
+</div>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>At least one HostedCluster successfully deployed</li>
+<li>kubectl/oc access to the management cluster</li>
+<li>HyperShift CLI binary available</li>
+</ul>
+<h2 id="managing-nodepools">Managing NodePools</h2>
+<p>NodePools define the worker node configuration and count for your hosted cluster. You can add, modify, scale, and delete NodePools as your workload requirements change.</p>
+<h3 id="understanding-nodepools">Understanding NodePools</h3>
+<p><strong>What is a NodePool?</strong>
+- Defines a group of worker nodes with identical configuration
+- Specifies VM size, node count, and Azure-specific settings
+- Can have multiple NodePools per cluster with different configurations
+- Each NodePool manages its own set of Azure VMs</p>
+<p><strong>Use cases for multiple NodePools</strong>:
+- Different VM sizes for different workload types (CPU vs memory optimized)
+- Separate pools for different availability zones
+- Testing new VM configurations before migrating workloads
+- Gradual node upgrades with blue/green approaches</p>
+<h3 id="adding-additional-nodepools">Adding Additional NodePools</h3>
+<p>Create a new NodePool with different configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set variables (from your Taskfile or environment)</span>
+<span class="nv">CLUSTER_NAME</span><span class="o">=</span><span class="s2">"myprefix-hc"</span>
+<span class="nv">CLUSTER_NAMESPACE</span><span class="o">=</span><span class="s2">"clusters"</span>
+<span class="nv">AZURE_CREDS</span><span class="o">=</span><span class="s2">"azure-credentials.json"</span>
+
+<span class="c1"># Create a new NodePool with larger VMs</span>
+hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cluster-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-large-workers"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-count<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-instance-type<span class="w"> </span>Standard_D8s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span><span class="si">${</span><span class="nv">AZURE_CREDS</span><span class="si">}</span>
+</code></pre></div>
+<p><strong>Common VM sizes</strong>:
+- <code>Standard_D2s_v3</code>: 2 vCPU, 8GB RAM (default, balanced)
+- <code>Standard_D4s_v3</code>: 4 vCPU, 16GB RAM (larger workloads)
+- <code>Standard_D8s_v3</code>: 8 vCPU, 32GB RAM (high-performance)
+- <code>Standard_E4s_v3</code>: 4 vCPU, 32GB RAM (memory-optimized)
+- <code>Standard_F8s_v2</code>: 8 vCPU, 16GB RAM (compute-optimized)</p>
+<p>See <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/sizes">Azure VM sizes</a> for complete list.</p>
+<p><strong>Verify NodePool creation</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check NodePool status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># Watch nodes join the cluster (switch to hosted cluster context)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-w
+</code></pre></div></p>
+<h3 id="configuring-nodepool-marketplace-images">Configuring NodePool Marketplace Images</h3>
+<p>For OpenShift 4.20+, NodePools automatically use the release payload defaults. For custom configurations:</p>
+<p><strong>Option 1: Specify VM Generation Only</strong>
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cluster-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-gen1-workers"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-count<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--image-generation<span class="w"> </span>Gen1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span><span class="si">${</span><span class="nv">AZURE_CREDS</span><span class="si">}</span>
+</code></pre></div></p>
+<p><strong>Option 2: Use Custom Marketplace Image</strong>
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cluster-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-custom-workers"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-count<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-publisher<span class="w"> </span>azureopenshift<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-offer<span class="w"> </span>aro4<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-sku<span class="w"> </span>aro_421<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-version<span class="w"> </span><span class="m">421</span>.0.20250101<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span><span class="si">${</span><span class="nv">AZURE_CREDS</span><span class="si">}</span>
+</code></pre></div></p>
+<h3 id="scaling-nodepools">Scaling NodePools</h3>
+<p>Adjust the number of worker nodes in a NodePool:</p>
+<p><strong>Scale using kubectl</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Scale to 5 replicas</span>
+kubectl<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--replicas<span class="o">=</span><span class="m">5</span>
+
+<span class="c1"># Verify scaling</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+</code></pre></div></p>
+<p><strong>Scale using patch</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Scale specific NodePool</span>
+kubectl<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-large-workers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--patch<span class="w"> </span><span class="s1">'{"spec":{"replicas":10}}'</span>
+</code></pre></div></p>
+<p><strong>Scale using edit</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Edit NodePool interactively</span>
+kubectl<span class="w"> </span>edit<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># Modify spec.replicas field and save</span>
+</code></pre></div></p>
+<p><strong>Monitor scaling progress</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Watch NodePool status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-w
+
+<span class="c1"># Watch machines being created</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-w
+
+<span class="c1"># In hosted cluster context, watch nodes joining</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-w
+</code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">Scaling Best Practices</p>
+<ul>
+<li>Scale gradually in production (add/remove 1-2 nodes at a time)</li>
+<li>Monitor cluster resource usage before scaling down</li>
+<li>Ensure workloads have PodDisruptionBudgets configured</li>
+<li>Drain nodes before scaling down to avoid disruption</li>
+</ul>
+</div>
+<h3 id="deleting-nodepools">Deleting NodePools</h3>
+<p>Remove a NodePool when no longer needed:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Delete a specific NodePool</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-large-workers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># Verify deletion</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">NodePool Deletion</p>
+<p>Deleting a NodePool:</p>
+<ul>
+<li>Immediately deletes the NodePool resource</li>
+<li>Terminates all Azure VMs in that NodePool</li>
+<li>Evicts all pods running on those nodes</li>
+<li>Cannot be undone</li>
+</ul>
+<p><strong>Before deleting</strong>:
+- Drain workloads to other nodes
+- Ensure sufficient capacity remains
+- Verify no critical workloads are pinned to specific nodes</p>
+</div>
+<h2 id="upgrading-clusters">Upgrading Clusters</h2>
+<p>Upgrade hosted clusters to new OpenShift versions by changing the release image.</p>
+<h3 id="understanding-hypershift-upgrades">Understanding HyperShift Upgrades</h3>
+<p><strong>How upgrades work</strong>:
+1. Update the HostedCluster <code>spec.release.image</code> field
+2. Control plane components upgrade first (pods on management cluster)
+3. NodePools upgrade next (worker nodes replaced or upgraded)
+4. Cluster operators coordinate the upgrade process</p>
+<p><strong>Upgrade characteristics</strong>:
+- Control plane upgrades are fast (pod restarts)
+- Worker node upgrades create new VMs and drain old ones
+- Minimal downtime with proper planning
+- Can upgrade control plane and NodePools separately</p>
+<h3 id="upgrading-the-control-plane">Upgrading the Control Plane</h3>
+<p>Update the cluster release image:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Variables</span>
+<span class="nv">CLUSTER_NAME</span><span class="o">=</span><span class="s2">"myprefix-hc"</span>
+<span class="nv">CLUSTER_NAMESPACE</span><span class="o">=</span><span class="s2">"clusters"</span>
+<span class="nv">NEW_RELEASE_IMAGE</span><span class="o">=</span><span class="s2">"quay.io/openshift-release-dev/ocp-release:4.21.1-x86_64"</span>
+
+<span class="c1"># Patch the HostedCluster</span>
+kubectl<span class="w"> </span>patch<span class="w"> </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--patch<span class="w"> </span><span class="s2">"{\"spec\":{\"release\":{\"image\":\"</span><span class="si">${</span><span class="nv">NEW_RELEASE_IMAGE</span><span class="si">}</span><span class="s2">\"}}}"</span>
+</code></pre></div>
+<p><strong>Monitor control plane upgrade</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Watch HostedCluster status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w
+
+<span class="c1"># Check control plane pod rollouts</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-w
+
+<span class="c1"># In hosted cluster context, check cluster version</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
+kubectl<span class="w"> </span>get<span class="w"> </span>clusterversion
+</code></pre></div></p>
+<p><strong>Expected progression</strong>:
+<div class="highlight"><pre><span></span><code># HostedCluster shows progressing
+NAME          VERSION   AVAILABLE   PROGRESSING   MESSAGE
+myprefix-hc   4.21.0    True        True          Upgrading to 4.21.1
+
+# After completion
+NAME          VERSION   AVAILABLE   PROGRESSING   MESSAGE
+myprefix-hc   4.21.1    True        False         The hosted cluster is available
+</code></pre></div></p>
+<h3 id="upgrading-nodepools">Upgrading NodePools</h3>
+<p>Upgrade worker nodes to match the control plane version:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Option 1: Patch the NodePool release</span>
+kubectl<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--patch<span class="w"> </span><span class="s2">"{\"spec\":{\"release\":{\"image\":\"</span><span class="si">${</span><span class="nv">NEW_RELEASE_IMAGE</span><span class="si">}</span><span class="s2">\"}}}"</span>
+
+<span class="c1"># Option 2: Edit NodePool interactively</span>
+kubectl<span class="w"> </span>edit<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+<span class="c1"># Update spec.release.image and save</span>
+</code></pre></div>
+<p><strong>Monitor NodePool upgrade</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Watch NodePool status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-w
+
+<span class="c1"># Watch machines being replaced</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-w
+
+<span class="c1"># In hosted cluster context, watch node versions</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-w
+</code></pre></div></p>
+<p><strong>Upgrade strategies</strong>:</p>
+<p><strong>Replace Strategy</strong> (default):
+- Creates new VMs with new version
+- Drains and deletes old VMs
+- Rolling replacement maintains capacity
+- Safer but slower</p>
+<p><strong>InPlace Strategy</strong>:
+- Upgrades existing VMs in place
+- Faster but requires node reboots
+- Less common in cloud environments</p>
+<h3 id="upgrade-best-practices">Upgrade Best Practices</h3>
+<div class="admonition tip">
+<p class="admonition-title">Pre-Upgrade Checklist</p>
+<p>Before upgrading:</p>
+<ul>
+<li>[ ] Review release notes for breaking changes</li>
+<li>[ ] Test upgrade in non-production cluster first</li>
+<li>[ ] Ensure cluster operators are healthy: <code>kubectl get co</code></li>
+<li>[ ] Verify sufficient capacity in management cluster</li>
+<li>[ ] Back up critical data and configurations</li>
+<li>[ ] Notify users of potential disruption</li>
+<li>[ ] Plan maintenance window if required</li>
+</ul>
+</div>
+<p><strong>Upgrade sequence</strong>:
+1. Upgrade control plane first
+2. Wait for control plane to become Available
+3. Verify all cluster operators are healthy
+4. Upgrade NodePools (one at a time in production)
+5. Verify cluster functionality</p>
+<p><strong>Rollback</strong>:
+Downgrades are not supported. If issues occur:
+- Fix issues in upgraded version
+- Or restore from backup/recreate cluster</p>
+<h2 id="monitoring-cluster-health">Monitoring Cluster Health</h2>
+<h3 id="checking-cluster-status">Checking Cluster Status</h3>
+<p><strong>From management cluster</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># HostedCluster health</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># NodePool health</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># Control plane pods</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># Control plane resource usage</span>
+kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+</code></pre></div></p>
+<p><strong>From hosted cluster</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Switch to hosted cluster</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
+
+<span class="c1"># Cluster version and available updates</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>clusterversion
+
+<span class="c1"># Cluster operators</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>co
+
+<span class="c1"># Node health</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+
+<span class="c1"># Node resource usage</span>
+kubectl<span class="w"> </span>top<span class="w"> </span>nodes
+</code></pre></div></p>
+<h3 id="key-health-indicators">Key Health Indicators</h3>
+<p><strong>Healthy HostedCluster</strong>:
+<div class="highlight"><pre><span></span><code><span class="nt">status</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Available</span>
+<span class="w">    </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">"True"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Progressing</span>
+<span class="w">    </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">"False"</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Degraded</span>
+<span class="w">    </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">"False"</span>
+</code></pre></div></p>
+<p><strong>Healthy NodePool</strong>:
+<div class="highlight"><pre><span></span><code><span class="nt">status</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">        </span><span class="c1"># Matches desired count</span>
+<span class="w">  </span><span class="nt">readyReplicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">   </span><span class="c1"># All nodes ready</span>
+<span class="w">  </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ready</span>
+<span class="w">    </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">"True"</span>
+</code></pre></div></p>
+<p><strong>Healthy Cluster Operators</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># All operators should show AVAILABLE=True, DEGRADED=False</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>co
+
+NAME<span class="w">                                       </span>VERSION<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>DEGRADED
+authentication<span class="w">                             </span><span class="m">4</span>.21.0<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False
+cloud-credential<span class="w">                           </span><span class="m">4</span>.21.0<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False
+cluster-autoscaler<span class="w">                         </span><span class="m">4</span>.21.0<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False
+...
+</code></pre></div></p>
+<h3 id="cluster-metrics-and-logging">Cluster Metrics and Logging</h3>
+<p><strong>View control plane metrics</strong> (from management cluster):
+<div class="highlight"><pre><span></span><code><span class="c1"># CPU and memory usage</span>
+kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># Node resource allocation on management cluster</span>
+kubectl<span class="w"> </span>top<span class="w"> </span>nodes
+</code></pre></div></p>
+<p><strong>View hosted cluster metrics</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Switch to hosted cluster</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
+
+<span class="c1"># Worker node metrics</span>
+kubectl<span class="w"> </span>top<span class="w"> </span>nodes
+
+<span class="c1"># Pod metrics across cluster</span>
+kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>--all-namespaces
+</code></pre></div></p>
+<p><strong>Access control plane logs</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># From management cluster</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-apiserver
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-controller-manager
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>statefulset/etcd
+</code></pre></div></p>
+<h2 id="modifying-cluster-configuration">Modifying Cluster Configuration</h2>
+<h3 id="changing-cluster-networking">Changing Cluster Networking</h3>
+<p>Update cluster network settings:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Edit HostedCluster</span>
+kubectl<span class="w"> </span>edit<span class="w"> </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># Modify spec.networking fields</span>
+<span class="c1"># Note: Some changes require cluster recreation</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Network Configuration Changes</p>
+<p>Many networking changes cannot be applied to running clusters and require recreation:</p>
+<ul>
+<li>Service network CIDR</li>
+<li>Pod network CIDR</li>
+<li>Network type (OVNKubernetes vs others)</li>
+</ul>
+<p>Changes that can be applied:
+- DNS configuration
+- Proxy settings</p>
+</div>
+<h3 id="managing-cluster-credentials">Managing Cluster Credentials</h3>
+<p><strong>Rotate kubeadmin password</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># From management cluster</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>secret<span class="w"> </span>kubeadmin<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># Controller will regenerate with new password</span>
+<span class="c1"># Retrieve new password</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>kubeadmin<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.password}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
+</code></pre></div></p>
+<p><strong>Add cluster administrators</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># From hosted cluster</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
+
+<span class="c1"># Grant cluster-admin to user</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>clusterrolebinding<span class="w"> </span>admin-user<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--clusterrole<span class="o">=</span>cluster-admin<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--user<span class="o">=</span>admin@example.com
+</code></pre></div></p>
+<h2 id="nodepool-advanced-configuration">NodePool Advanced Configuration</h2>
+<h3 id="configuring-node-labels-and-taints">Configuring Node Labels and Taints</h3>
+<p><strong>Add labels to NodePool</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--patch<span class="w"> </span><span class="s1">'{"spec":{"nodeLabels":{"workload-type":"database"}}}'</span>
+</code></pre></div></p>
+<p><strong>Add taints to NodePool</strong>:
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>edit<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># Add to spec:</span>
+spec:
+<span class="w">  </span>taints:
+<span class="w">  </span>-<span class="w"> </span>key:<span class="w"> </span>dedicated
+<span class="w">    </span>value:<span class="w"> </span>database
+<span class="w">    </span>effect:<span class="w"> </span>NoSchedule
+</code></pre></div></p>
+<p><strong>Verify labels and taints</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># From hosted cluster</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--show-labels
+kubectl<span class="w"> </span>describe<span class="w"> </span>node<span class="w"> </span>&lt;node-name&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Taints
+</code></pre></div></p>
+<h3 id="configuring-root-volume-size">Configuring Root Volume Size</h3>
+<p>Increase root volume size for NodePool VMs:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--patch<span class="w"> </span><span class="s1">'{"spec":{"platform":{"azure":{"diskSizeGB":256}}}}'</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Volume Size Changes</p>
+<ul>
+<li>Only affects new nodes created after the change</li>
+<li>Existing nodes keep their current disk size</li>
+<li>Scale down and up to replace nodes with new disk size</li>
+</ul>
+</div>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><a href="../07-troubleshooting/">Troubleshooting</a> - Diagnose and resolve common issues</li>
+<li><a href="../08-reference/">Reference</a> - CLI commands and configuration reference</li>
+</ul>
+<h2 id="quick-reference">Quick Reference</h2>
+<h3 id="common-operations">Common Operations</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add NodePool</span>
+hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cluster-name<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-new-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-count<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-instance-type<span class="w"> </span>Standard_D4s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span><span class="si">${</span><span class="nv">AZURE_CREDS</span><span class="si">}</span>
+
+<span class="c1"># Scale NodePool</span>
+kubectl<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--replicas<span class="o">=</span><span class="m">5</span>
+
+<span class="c1"># Upgrade cluster</span>
+<span class="nv">NEW_VERSION</span><span class="o">=</span><span class="s2">"quay.io/openshift-release-dev/ocp-release:4.21.1-x86_64"</span>
+kubectl<span class="w"> </span>patch<span class="w"> </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--patch<span class="w"> </span><span class="s2">"{\"spec\":{\"release\":{\"image\":\"</span><span class="si">${</span><span class="nv">NEW_VERSION</span><span class="si">}</span><span class="s2">\"}}}"</span>
+
+<span class="c1"># Delete NodePool</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-new-pool<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+
+<span class="c1"># Check cluster health</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster,nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>co<span class="w">  </span><span class="c1"># From hosted cluster context</span>
+</code></pre></div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

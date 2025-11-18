@@ -1,0 +1,708 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/kubevirt/create-kubevirt-cluster/" rel="canonical"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Create a Kubevirt cluster - HyperShift Azure Developer Preview</title>
+<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#prerequisites">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Create a Kubevirt cluster
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+<span class="md-ellipsis">
+      Prerequisites
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#installing-hypershift-operator-and-cli-tooling">
+<span class="md-ellipsis">
+      Installing HyperShift Operator and cli tooling
+    </span>
+</a>
+<nav aria-label="Installing HyperShift Operator and cli tooling" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#build-the-hypershift-and-hcp-cli">
+<span class="md-ellipsis">
+      Build the HyperShift and HCP CLI
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deploy-the-hypershift-operator">
+<span class="md-ellipsis">
+      Deploy the HyperShift Operator
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-a-hostedcluster">
+<span class="md-ellipsis">
+      Create a HostedCluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#accessing-the-hostedcluster">
+<span class="md-ellipsis">
+      Accessing the HostedCluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#influencing-vm-scheduling">
+<span class="md-ellipsis">
+      Influencing VM Scheduling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-an-existing-nodepool">
+<span class="md-ellipsis">
+      Scaling an existing NodePool
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adding-additional-nodepools">
+<span class="md-ellipsis">
+      Adding Additional NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#delete-a-hostedcluster">
+<span class="md-ellipsis">
+      Delete a HostedCluster
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="create-a-kubevirt-cluster">Create a Kubevirt cluster</h1>
+<p>Install an OCP cluster running on VMs within a management OCP cluster</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Admin access to an OpenShift cluster (version 4.14+) specified by the <code>KUBECONFIG</code> environment variable.</li>
+<li>The management OCP cluster must have wildcard dns routes enabled. <code>oc patch ingresscontroller -n openshift-ingress-operator default --type=json -p '[{ "op": "add", "path": "/spec/routeAdmission", "value": {wildcardPolicy: "WildcardsAllowed"}}]'</code></li>
+<li>The management OCP cluster must have Openshift Virtualization (4.14+) installed on it. <a href="https://docs.openshift.com/container-platform/4.12/virt/install/installing-virt-web.html">Instructions for installing Openshift Virtualization</a></li>
+<li>The Management OCP cluster must be configured with OVNKubernetes as the default pod network CNI.</li>
+<li>The Management OCP cluster must have LoadBalancer service support. <a href="https://docs.openshift.com/container-platform/4.12/networking/metallb/metallb-operator-install.html">Instructions for installing MetalLB</a></li>
+<li>The management OCP cluster must have default storage class. <a href="https://docs.openshift.com/container-platform/4.12/post_installation_configuration/storage-configuration.html">Storage Configuration Documentation</a> Example of how to set a default storage class: <code>oc patch storageclass ocs-storagecluster-ceph-rbd -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'</code></li>
+<li>The OpenShift CLI (<code>oc</code>) or Kubernetes CLI (<code>kubectl</code>).</li>
+<li>A valid <a href="https://console.redhat.com/openshift/install/platform-agnostic/user-provisioned">pull secret</a> file for the <code>quay.io/openshift-release-dev</code> repository.</li>
+<li>A network MTU of 9000 or larger on the OCP cluster hosting the KubeVirt VMs is recommended for optimal network performance. Smaller MTU settings will work, but network latency and throughput of the hosted pods will be impacted. Multiqueue should only be enabled on NodePools when the MTU is 9000 or larger.</li>
+</ul>
+<h2 id="installing-hypershift-operator-and-cli-tooling">Installing HyperShift Operator and cli tooling</h2>
+<p>Before creating a guest cluster, the hcp cli, hypershift cli, and HyperShift
+Operator must be installed.</p>
+<p>The <code>hypershift</code> cli tool is a development tool that is used to install
+developer builds of the HyperShift Operator.</p>
+<p>The <code>hcp</code> cli tool is used to manage the creation and destruction of guest
+clusters.</p>
+<h3 id="build-the-hypershift-and-hcp-cli">Build the HyperShift and HCP CLI</h3>
+<p>The command below builds latest hypershift and hcp cli tools from source and
+places the cli tool within the /usr/local/bin directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The command below is the same if you use docker.</p>
+</div>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--privileged<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="se">\</span>
+<span class="nv">$PWD</span>:/output<span class="w"> </span>docker.io/library/golang:1.20<span class="w"> </span>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="se">\</span>
+<span class="s1">'git clone https://github.com/openshift/hypershift.git &amp;&amp; \</span>
+<span class="s1">cd hypershift/ &amp;&amp; \</span>
+<span class="s1">make hypershift product-cli &amp;&amp; \</span>
+<span class="s1">mv bin/hypershift /output/hypershift &amp;&amp; \</span>
+<span class="s1">mv bin/hcp /output/hcp'</span>
+
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-o<span class="w"> </span>root<span class="w"> </span>-g<span class="w"> </span>root<span class="w"> </span><span class="nv">$PWD</span>/hypershift<span class="w"> </span>/usr/local/bin/hypershift
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-o<span class="w"> </span>root<span class="w"> </span>-g<span class="w"> </span>root<span class="w"> </span><span class="nv">$PWD</span>/hcp<span class="w"> </span>/usr/local/bin/hcp
+rm<span class="w"> </span><span class="nv">$PWD</span>/hypershift
+rm<span class="w"> </span><span class="nv">$PWD</span>/hcp
+</code></pre></div>
+<h2 id="deploy-the-hypershift-operator">Deploy the HyperShift Operator</h2>
+<p>Use the hypershift cli tool to install the HyperShift operator into the
+management cluster.</p>
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>install
+</code></pre></div>
+<p>You will see the operator running in the <code>hypershift</code> namespace:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>get<span class="w"> </span>pods
+
+NAME<span class="w">                        </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+operator-755d587f44-lrtrq<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>114s
+operator-755d587f44-qj6pz<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>114s
+</code></pre></div>
+<h2 id="create-a-hostedcluster">Create a HostedCluster</h2>
+<p>Once all the <a href="#prerequisites">prerequisites</a> are met, and the HyperShift
+operator is installed, it is now possible to create a guest cluster.</p>
+<p>Below is an example of how to create a guest cluster using environment
+variables and the <code>hcp</code> cli tool.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The --release-image flag could be used to provision the HostedCluster with a specific OpenShift Release (the hypershift operator has a support matrix of releases supported by a given version of the operator)</p>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>example
+<span class="nb">export</span><span class="w"> </span><span class="nv">PULL_SECRET</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/pull-secret"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MEM</span><span class="o">=</span><span class="s2">"6Gi"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CPU</span><span class="o">=</span><span class="s2">"2"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">WORKER_COUNT</span><span class="o">=</span><span class="s2">"2"</span>
+
+hcp<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>kubevirt<span class="w"> </span><span class="se">\</span>
+--name<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span><span class="se">\</span>
+--node-pool-replicas<span class="w"> </span><span class="nv">$WORKER_COUNT</span><span class="w"> </span><span class="se">\</span>
+--pull-secret<span class="w"> </span><span class="nv">$PULL_SECRET</span><span class="w"> </span><span class="se">\</span>
+--memory<span class="w"> </span><span class="nv">$MEM</span><span class="w"> </span><span class="se">\</span>
+--cores<span class="w"> </span><span class="nv">$CPU</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A default NodePool will be created for the cluster with 2 vm worker replicas
+per the <code>--node-pool-replicas</code> flag.</p>
+</div>
+<p>After a few moments we should see our hosted control plane pods up and running:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="nv">$CLUSTER_NAME</span><span class="w"> </span>get<span class="w"> </span>pods
+
+NAME<span class="w">                                                  </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+capi-provider-5cc7b74f47-n5gkr<span class="w">                        </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>3m
+catalog-operator-5f799567b7-fd6jw<span class="w">                     </span><span class="m">2</span>/2<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>69s
+certified-operators-catalog-784b9899f9-mrp6p<span class="w">          </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>66s
+cluster-api-6bbc867966-l4dwl<span class="w">                          </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>66s
+.
+.
+.
+redhat-operators-catalog-9d5fd4d44-z8qqk<span class="w">              </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>66s
+</code></pre></div>
+<p>A guest cluster backed by KubeVirt virtual machines typically takes around 10-15
+minutes to fully provision. The status of the guest cluster can be seen by
+viewing the corresponding HostedCluster resource. For example, the output below
+reflects what a fully provisioned HostedCluster object looks like.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>--namespace<span class="w"> </span>clusters<span class="w"> </span>hostedclusters
+
+NAME<span class="w">            </span>VERSION<span class="w">   </span>KUBECONFIG<span class="w">                       </span>PROGRESS<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>MESSAGE
+example<span class="w">         </span><span class="m">4</span>.14.0<span class="w">    </span>example-admin-kubeconfig<span class="w">         </span>Completed<span class="w">  </span>True<span class="w">        </span>False<span class="w">         </span>The<span class="w"> </span>hosted<span class="w"> </span>control<span class="w"> </span>plane<span class="w"> </span>is<span class="w"> </span>available
+</code></pre></div></td></tr></table></div>
+<h2 id="accessing-the-hostedcluster">Accessing the HostedCluster</h2>
+<p>CLI access to the guest cluster is gained by retrieving the guest cluster's
+kubeconfig. Below is an example of how to retrieve the guest cluster's
+kubeconfig using the hcp cli.</p>
+<div class="highlight"><pre><span></span><code>hcp<span class="w"> </span>create<span class="w"> </span>kubeconfig<span class="w"> </span>--name<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$CLUSTER_NAME</span>-kubeconfig
+</code></pre></div>
+<p>If we access the cluster, we will see we have two nodes.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="nv">$CLUSTER_NAME</span>-kubeconfig<span class="w"> </span>get<span class="w"> </span>nodes
+
+NAME<span class="w">                  </span>STATUS<span class="w">   </span>ROLES<span class="w">    </span>AGE<span class="w">   </span>VERSION
+example-n6prw<span class="w">         </span>Ready<span class="w">    </span>worker<span class="w">   </span>32m<span class="w">   </span>v1.27.4+18eadca
+example-nc6g4<span class="w">         </span>Ready<span class="w">    </span>worker<span class="w">   </span>32m<span class="w">   </span>v1.27.4+18eadca
+</code></pre></div>
+<p>We can also check the ClusterVersion:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="nv">$CLUSTER_NAME</span>-kubeconfig<span class="w"> </span>get<span class="w"> </span>clusterversion
+
+NAME<span class="w">      </span>VERSION<span class="w">       </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>SINCE<span class="w">   </span>STATUS
+version<span class="w">   </span><span class="m">4</span>.14.0<span class="w">        </span>True<span class="w">        </span>False<span class="w">         </span>5m39s<span class="w">   </span>Cluster<span class="w"> </span>version<span class="w"> </span>is<span class="w"> </span><span class="m">4</span>.14.0
+</code></pre></div>
+<h2 id="influencing-vm-scheduling">Influencing VM Scheduling</h2>
+<p>By default, KubeVirt VMs created by a NodePool are scheduled to any available
+node with the appropriate capacity to run the VM. A topologySpreadConstraint
+is used to try to spread VMs for a NodePool out across multiple underlying
+nodes, but in general it is possible for the VMs to be scheduled to any node
+that meets the requirements for running KubeVirt VMs.
+For availability reasons, the topologySpreadConstraint is only a soft constraint
+(<code>whenUnsatisfiable: ScheduleAnyway</code> policy) so, under certain circumstances,
+VMs for a single nodepool can “clump” together on a single node due to live migration
+to available nodes.
+The De-Scheduler can optionally be used to continuously redistribute VMs so that
+they again satisfy the topologySpreadConstraint as soon as possible.
+To achieve that behavior, the cluster-kube-descheduler-operator should be installed
+and configured with something like:
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">operator.openshift.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeDescheduler</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshift-kube-descheduler-operator</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Automatic</span>
+<span class="w">  </span><span class="nt">managementState</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Managed</span>
+<span class="w">  </span><span class="nt">deschedulingIntervalSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+<span class="w">  </span><span class="nt">profiles</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SoftTopologyAndDuplicates</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvictPodsWithPVC</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EvictPodsWithLocalStorage</span>
+<span class="w">  </span><span class="nt">profileCustomizations</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">devEnableEvictionsInBackground</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div></p>
+<p>It is possible to influence where the KubeVirt VMs within a NodePool are
+scheduled through the use of NodeSelectors. Below is an example of using a
+NodeSelector on the VMs to place the VMs only on nodes with a specific label
+through usage of the hcp command line and the --vm-node-selector argument.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CLUSTER_NAME</span><span class="o">=</span>example
+<span class="nb">export</span><span class="w"> </span><span class="nv">PULL_SECRET</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/pull-secret"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MEM</span><span class="o">=</span><span class="s2">"6Gi"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CPU</span><span class="o">=</span><span class="s2">"2"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">WORKER_COUNT</span><span class="o">=</span><span class="s2">"2"</span>
+
+hcp<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>kubevirt<span class="w"> </span><span class="se">\</span>
+--name<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span><span class="se">\</span>
+--node-pool-replicas<span class="w"> </span><span class="nv">$WORKER_COUNT</span><span class="w"> </span><span class="se">\</span>
+--pull-secret<span class="w"> </span><span class="nv">$PULL_SECRET</span><span class="w"> </span><span class="se">\</span>
+--memory<span class="w"> </span><span class="nv">$MEM</span><span class="w"> </span><span class="se">\</span>
+--cores<span class="w"> </span><span class="nv">$CPU</span><span class="w"> </span><span class="se">\</span>
+--vm-node-selector<span class="w"> </span><span class="nv">labelKey1</span><span class="o">=</span>labelVal1,labeKey2<span class="o">=</span>labelVal2
+</code></pre></div></td></tr></table></div>
+<p>In the example above, the KubeVirt VMs will only be scheduled to nodes that
+ contain the labels labelKey1=labelVal1 and labelKey2=labelVal2.</p>
+<h2 id="scaling-an-existing-nodepool">Scaling an existing NodePool</h2>
+<p>Manually scale a NodePool using the <code>oc scale</code> command:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">NODEPOOL_NAME</span><span class="o">=</span><span class="nv">$CLUSTER_NAME</span>
+<span class="nv">NODEPOOL_REPLICAS</span><span class="o">=</span><span class="m">5</span>
+
+oc<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="nv">$NODEPOOL_NAME</span><span class="w"> </span>--namespace<span class="w"> </span>clusters<span class="w"> </span>--replicas<span class="o">=</span><span class="nv">$NODEPOOL_REPLICAS</span>
+</code></pre></div></td></tr></table></div>
+<p>After a while, in our hosted cluster this is what we will see:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="nv">$CLUSTER_NAME</span>-kubeconfig<span class="w"> </span>get<span class="w"> </span>nodes
+
+NAME<span class="w">                  </span>STATUS<span class="w">   </span>ROLES<span class="w">    </span>AGE<span class="w">     </span>VERSION
+example-9jvnf<span class="w">         </span>Ready<span class="w">    </span>worker<span class="w">   </span>97s<span class="w">     </span>v1.27.4+18eadca
+example-n6prw<span class="w">         </span>Ready<span class="w">    </span>worker<span class="w">   </span>116m<span class="w">    </span>v1.27.4+18eadca
+example-nc6g4<span class="w">         </span>Ready<span class="w">    </span>worker<span class="w">   </span>117m<span class="w">    </span>v1.27.4+18eadca
+example-thp29<span class="w">         </span>Ready<span class="w">    </span>worker<span class="w">   </span>4m17s<span class="w">   </span>v1.27.4+18eadca
+example-twxns<span class="w">         </span>Ready<span class="w">    </span>worker<span class="w">   </span>88s<span class="w">     </span>v1.27.4+18eadca
+</code></pre></div>
+<h2 id="adding-additional-nodepools">Adding Additional NodePools</h2>
+<p>Create additional NodePools for a guest cluster by specifying a name, number of
+replicas, and any additional information such as memory and cpu requirements.</p>
+<p>For example, let's create a NodePool with more CPUs assigned to the VMs (4 vs 2):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">NODEPOOL_NAME</span><span class="o">=</span><span class="nv">$CLUSTER_NAME</span>-extra-cpu
+<span class="nb">export</span><span class="w"> </span><span class="nv">WORKER_COUNT</span><span class="o">=</span><span class="s2">"2"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">MEM</span><span class="o">=</span><span class="s2">"6Gi"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">CPU</span><span class="o">=</span><span class="s2">"4"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">DISK</span><span class="o">=</span><span class="s2">"16"</span>
+
+hcp<span class="w"> </span>create<span class="w"> </span>nodepool<span class="w"> </span>kubevirt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cluster-name<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span><span class="nv">$NODEPOOL_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--replicas<span class="w"> </span><span class="nv">$WORKER_COUNT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--memory<span class="w"> </span><span class="nv">$MEM</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cores<span class="w"> </span><span class="nv">$CPU</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--root-volume-size<span class="w"> </span><span class="nv">$DISK</span>
+</code></pre></div></td></tr></table></div>
+<p>Check the status of the NodePool by listing <code>nodepool</code> resources in the <code>clusters</code>
+namespace:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>nodepools<span class="w"> </span>--namespace<span class="w"> </span>clusters
+
+NAME<span class="w">                      </span>CLUSTER<span class="w">         </span>DESIRED<span class="w"> </span>NODES<span class="w">   </span>CURRENT<span class="w"> </span>NODES<span class="w">   </span>AUTOSCALING<span class="w">   </span>AUTOREPAIR<span class="w">   </span>VERSION<span class="w">   </span>UPDATINGVERSION<span class="w">   </span>UPDATINGCONFIG<span class="w">   </span>MESSAGE
+example<span class="w">                   </span>example<span class="w">         </span><span class="m">5</span><span class="w">               </span><span class="m">5</span><span class="w">               </span>False<span class="w">         </span>False<span class="w">        </span><span class="m">4</span>.14.0<span class="w">  </span>
+example-extra-cpu<span class="w">         </span>example<span class="w">         </span><span class="m">2</span><span class="w">                               </span>False<span class="w">         </span>False<span class="w">                  </span>True<span class="w">              </span>True<span class="w">             </span>Minimum<span class="w"> </span>availability<span class="w"> </span>requires<span class="w"> </span><span class="m">2</span><span class="w"> </span>replicas,<span class="w"> </span>current<span class="w"> </span><span class="m">0</span><span class="w"> </span>available
+</code></pre></div>
+<p>After a while, in our hosted cluster this is what we will see:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="nv">$CLUSTER_NAME</span>-kubeconfig<span class="w"> </span>get<span class="w"> </span>nodes
+
+NAME<span class="w">                      </span>STATUS<span class="w">   </span>ROLES<span class="w">    </span>AGE<span class="w">     </span>VERSION
+example-9jvnf<span class="w">             </span>Ready<span class="w">    </span>worker<span class="w">   </span>97s<span class="w">     </span>v1.27.4+18eadca
+example-n6prw<span class="w">             </span>Ready<span class="w">    </span>worker<span class="w">   </span>116m<span class="w">    </span>v1.27.4+18eadca
+example-nc6g4<span class="w">             </span>Ready<span class="w">    </span>worker<span class="w">   </span>117m<span class="w">    </span>v1.27.4+18eadca
+example-thp29<span class="w">             </span>Ready<span class="w">    </span>worker<span class="w">   </span>4m17s<span class="w">   </span>v1.27.4+18eadca
+example-twxns<span class="w">             </span>Ready<span class="w">    </span>worker<span class="w">   </span>88s<span class="w">     </span>v1.27.4+18eadca
+example-extra-cpu-zh9l5<span class="w">   </span>Ready<span class="w">    </span>worker<span class="w">   </span>2m6s<span class="w">    </span>v1.27.4+18eadca
+example-extra-cpu-zr8mj<span class="w">   </span>Ready<span class="w">    </span>worker<span class="w">   </span>102s<span class="w">    </span>v1.27.4+18eadca
+</code></pre></div>
+<p>And the nodepool will be in the desired state:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>nodepools<span class="w"> </span>--namespace<span class="w"> </span>clusters
+
+NAME<span class="w">                      </span>CLUSTER<span class="w">         </span>DESIRED<span class="w"> </span>NODES<span class="w">   </span>CURRENT<span class="w"> </span>NODES<span class="w">   </span>AUTOSCALING<span class="w">   </span>AUTOREPAIR<span class="w">   </span>VERSION<span class="w">   </span>UPDATINGVERSION<span class="w">   </span>UPDATINGCONFIG<span class="w">   </span>MESSAGE
+example<span class="w">                   </span>example<span class="w">         </span><span class="m">5</span><span class="w">               </span><span class="m">5</span><span class="w">               </span>False<span class="w">         </span>False<span class="w">        </span><span class="m">4</span>.14.0<span class="w">  </span>
+example-extra-cpu<span class="w">         </span>example<span class="w">         </span><span class="m">2</span><span class="w">               </span><span class="m">2</span><span class="w">               </span>False<span class="w">         </span>False<span class="w">        </span><span class="m">4</span>.14.0<span class="w">  </span>
+</code></pre></div>
+<h2 id="delete-a-hostedcluster">Delete a HostedCluster</h2>
+<p>To delete a HostedCluster:</p>
+<div class="highlight"><pre><span></span><code>hcp<span class="w"> </span>destroy<span class="w"> </span>cluster<span class="w"> </span>kubevirt<span class="w"> </span>--name<span class="w"> </span><span class="nv">$CLUSTER_NAME</span>
+</code></pre></div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

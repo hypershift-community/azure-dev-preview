@@ -1,0 +1,921 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/reference/konnectivity/" rel="canonical"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Konnectivity in HyperShift - HyperShift Azure Developer Preview</title>
+<link href="../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#what-is-konnectivity">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Konnectivity in HyperShift
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../how-to/azure/self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../how-to/azure/self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../how-to/azure/self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../how-to/azure/self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../how-to/azure/self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../how-to/azure/self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#what-is-konnectivity">
+<span class="md-ellipsis">
+      What is Konnectivity?
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reference-network-diagram">
+<span class="md-ellipsis">
+      Reference Network Diagram
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#why-is-it-needed">
+<span class="md-ellipsis">
+      Why is it needed?
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-does-konnectivity-work">
+<span class="md-ellipsis">
+      How does Konnectivity work?
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konnectivity-artifacts-in-hypershift">
+<span class="md-ellipsis">
+      Konnectivity Artifacts in HyperShift
+    </span>
+</a>
+<nav aria-label="Konnectivity Artifacts in HyperShift" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#in-the-control-plane-namespace">
+<span class="md-ellipsis">
+      In the Control Plane Namespace
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#in-the-hosted-cluster">
+<span class="md-ellipsis">
+      In the Hosted Cluster
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konnectivity-proxies-in-hypershift">
+<span class="md-ellipsis">
+      Konnectivity Proxies in HyperShift
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konnectivity-and-control-plane-aggregated-api-servers">
+<span class="md-ellipsis">
+      Konnectivity and Control Plane Aggregated API Servers
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting-konnectivity-in-hypershift-clusters">
+<span class="md-ellipsis">
+      Troubleshooting Konnectivity in HyperShift clusters
+    </span>
+</a>
+<nav aria-label="Troubleshooting Konnectivity in HyperShift clusters" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#checking-whether-konnectivity-is-functional">
+<span class="md-ellipsis">
+      Checking whether Konnectivity is functional
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#testing-the-konnectivity-server-with-curl">
+<span class="md-ellipsis">
+      Testing the Konnectivity server with curl
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#konnectivity-qa">
+<span class="md-ellipsis">
+      Konnectivity Q&amp;A
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="konnectivity-in-hypershift">Konnectivity in HyperShift</h1>
+<h2 id="what-is-konnectivity">What is Konnectivity?</h2>
+<p>The Konnectivity proxy, also known as apiserver-network-proxy, is a
+component in Kubernetes that facilitates secure network communication
+between the Kubernetes API server and cluster nodes. It allows the
+Kubernetes API server to initiate communication to worker nodes or
+kubernetes services running in the data plane.</p>
+<p>Upstream References:</p>
+<ul>
+<li><a href="https://kubernetes.io/docs/tasks/extend-kubernetes/setup-konnectivity/">Setup Konnectivity</a></li>
+<li><a href="https://github.com/kubernetes/enhancements/tree/37ab8448371a38a1d7f0fd2a12ad327215e7d138/keps/sig-api-machinery/1281-network-proxy#proposal">Proposal</a></li>
+<li><a href="https://github.com/kubernetes-sigs/apiserver-network-proxy">Reference Implementation</a></li>
+</ul>
+<h2 id="reference-network-diagram">Reference Network Diagram</h2>
+<div class="mermaid">flowchart LR
+    subgraph hosted control plane
+        subgraph kube-apiserver pod
+            kube-apiserver --&gt; konnectivity-server
+        end
+        subgraph openshift-apiserver pod
+            openshift-apiserver --&gt; konnectivity-https-proxy-oapi[konnectivity-https-proxy]
+        end
+        subgraph oauth-apiserver pod
+            oauth-apiserver --&gt; konnectivity-socks5-proxy-oauth[konnectivity-socks5-proxy]
+            oauth-apiserver --&gt; konnectivity-https-proxy-oauth[konnectivity-https-proxy]
+        end
+        subgraph cluster-network-operator pod
+            cluster-network-operator --&gt; konnectivity-socks5-proxy-cno[konnectivity-socks5-proxy]
+        end
+        subgraph ovnkube-control-plane pod
+            ovnkube-control-plane --&gt; konnectivity-socks5-proxy-ovn[konnectivity-socks5-proxy]
+        end
+        subgraph ingress-operator pod
+            ingress-operator --&gt; konnectivity-https-proxy-ingress[konnectivity-https-proxy]
+        end
+        subgraph packageserver pod
+            package-server --&gt; konnectivity-socks5-proxy-pkgsrv[konnectivity-socks5-proxy]
+        end
+        subgraph olm-operator pod
+            olm-operator --&gt; konnectivity-socks5-proxy-olm[konnectivity-socks5-proxy]
+        end
+        subgraph catalog-operator pod
+            catalog-operator --&gt; konnectivity-socks5-proxy-cat[konnectivity-socks5-proxy]
+        end
+        konnectivity-server -- HCP APIServices --&gt; konnectivity-agent-cp[konnectivity-agent]
+        konnectivity-agent-cp --&gt; openshift-apiserver
+        konnectivity-agent-cp --&gt; oauth-apiserver
+        konnectivity-agent-cp --&gt; package-server
+        konnectivity-agent-cp -.-&gt;|registration| konnectivity-server-service
+        konnectivity-https-proxy-oapi --&gt; konnectivity-server-local-service
+        konnectivity-socks5-proxy-oauth --&gt; konnectivity-server-local-service
+        konnectivity-https-proxy-oauth --&gt; konnectivity-server-local-service
+        konnectivity-socks5-proxy-cno --&gt; konnectivity-server-local-service
+        konnectivity-socks5-proxy-ovn --&gt; konnectivity-server-local-service
+        konnectivity-https-proxy-ingress --&gt; konnectivity-server-local-service
+        konnectivity-socks5-proxy-pkgsrv --&gt; konnectivity-server-local-service
+        konnectivity-socks5-proxy-olm --&gt; konnectivity-server-local-service
+        konnectivity-socks5-proxy-cat --&gt; konnectivity-server-local-service
+        konnectivity-server-local-service --&gt; konnectivity-server
+        konnectivity-server-service -..-&gt; konnectivity-server
+    end
+    subgraph guest node
+        konnectivity-server -- Default Route --&gt; konnectivity-agent-node[konnectivity-agent]
+        konnectivity-agent-node --&gt; kubelet
+        konnectivity-agent-node --&gt; guest-service-network[Guest Service Network]
+    end
+    konnectivity-agent-node --&gt; guest-machine-network[Guest Machine Network/Proxy]
+    konnectivity-agent-node -.-&gt;|registration| konnectivity-server-service
+</div>
+<h2 id="why-is-it-needed">Why is it needed?</h2>
+<p>The Kubernetes API server needs to initiate requests to the kubelet
+running in worker nodes in order to:</p>
+<ul>
+<li>Obtain logs of running pods.</li>
+<li>Execute into running pods.</li>
+<li>Port forward ports of pods or services.</li>
+</ul>
+<p>In addition, the Kubernetes APIServer needs to access services running
+in the data plane when those services are configured as either
+aggregated API services (via <code>APIService</code> resource) or webhooks (via
+<code>ValidatingWebhookConfiguration</code> or <code>MutatingWebhookConfiguration</code>
+resources).</p>
+<p>In a hosted control plane architecture, the Kubernetes API server may
+not have direct network access to worker nodes. For example, in AWS, the
+control plane runs in the provider VPC, while customer worker nodes run
+in the customer's VPC. The worker nodes are not exposed externally.
+Therefore communication initiated from the Kubernetes API server must
+rely on a tunnel established by Konnectivity to enable this
+communication.</p>
+<p>In addition to the communication initiated by the Kubernetes API server,
+in HyperShift hosted clusters, konnectivity is used via a socks or https
+proxy (added as a sidecar) by the following components:</p>
+<ul>
+<li>
+<p><strong>OpenShift APIServer</strong></p>
+<ul>
+<li>Communicates with webhook services for resources served by the OpenShift APIServer</li>
+<li>Routes ImageStream connection to remote registries through the data plane.</li>
+</ul>
+</li>
+<li>
+<p><strong>Ingress Operator</strong></p>
+<ul>
+<li>Uses konnectivity for route health checks (routes in data plane are not necessarily accessible from the control plane)</li>
+</ul>
+</li>
+<li>
+<p><strong>OAuth Server</strong></p>
+<ul>
+<li>Enables communication with identity providers that potentially are only available to the data plane network.</li>
+</ul>
+</li>
+<li>
+<p><strong>Cluster Network Operator</strong></p>
+<ul>
+<li>Performs proxy readiness requests through the data plane network</li>
+</ul>
+</li>
+<li>
+<p><strong>OVNKube Control Plane</strong></p>
+<ul>
+<li>Used to enable OVN interconnect for hosted clusters</li>
+</ul>
+</li>
+<li>
+<p><strong>OLM Operator</strong></p>
+<ul>
+<li>Used for GRPC communication with in-cluster catalogs</li>
+</ul>
+</li>
+<li>
+<p><strong>OLM Catalog Operator</strong></p>
+<ul>
+<li>Used for GRPC communication with in-cluster catalogs</li>
+</ul>
+</li>
+<li>
+<p><strong>OLM Package Server</strong></p>
+<ul>
+<li>Used for GRPC communication with in-cluster catalogs</li>
+</ul>
+</li>
+</ul>
+<p>Konnectivity is <strong>not</strong> needed for traffic initiated from worker nodes
+to the Kubernetes API server.</p>
+<h2 id="how-does-konnectivity-work">How does Konnectivity work?</h2>
+<p>Konnectivity has 2 main components:</p>
+<ul>
+<li>
+<p><strong>Konnectivity server</strong> - accepts requests from the Kube APIServer (or
+  other proxy clients) and routes them through an agent in the data
+  plane. It also accepts connections from agents in the data plane to
+  establish a tunnel.</p>
+</li>
+<li>
+<p><strong>Konnectivity agent(s)</strong> - run as pods on the worker nodes and
+  establish a connection with the Konnectivity server so that they can
+  route traffic initiated by the Kube APIServer to the appropriate
+  destination in the data plane.</p>
+</li>
+</ul>
+<p>Konnectivity agents are deployed to the data plane as a Daemonset that
+runs in every worker node. When those agents first start up, they
+establish a connection to the konnectivity server(s) (this means that
+the control plane must be accessible to the worker nodes). The
+established connection can then be used by the konnectivity server to
+tunnel requests initiated by the Kubernetes API server.</p>
+<p>In HyperShift, the Konnectivity server runs as a sidecar (container
+<code>konnectivity-server</code>) of the Kubernetes API Server. This means that
+when the control plane runs in HA mode, there are 3 instances of the
+Konnectivity server in the control plane.</p>
+<p>Konnectivity agents run as the <code>konnectivity-agent</code> Daemonset in the
+<code>kube-system</code> namespace of the hosted cluster.</p>
+<p>The konnectivity server exposes 2 endpoints:</p>
+<ul>
+<li>
+<p><strong>server endpoint</strong> - Exposed to clients of the tunnel such
+  as the Kubernetes API server, proxies running in OpenShift API
+  server, OAuth server, etc.
+  In a HyperShift control plane namespace, this is exposed via the
+  <code>konnectivity-server-local</code> service (port 8090).</p>
+</li>
+<li>
+<p><strong>cluster endpoint</strong> - Exposed to agents that establish a connection
+  to the Konnectivity server. In a HyperShift control plane namespace,
+  this is exposed via the <code>konnectivity-server</code> service (port 8091) and
+  externally via Route or NodePort.</p>
+</li>
+</ul>
+<h2 id="konnectivity-artifacts-in-hypershift">Konnectivity Artifacts in HyperShift</h2>
+<p>HyperShift requires konnectivity artifacts in both the control plane
+namespace as well as the hosted cluster.</p>
+<h3 id="in-the-control-plane-namespace">In the Control Plane Namespace</h3>
+<h4 id="deployments">Deployments</h4>
+<ul>
+<li>
+<p><strong>kube-apiserver</strong> - Runs the konnectivity-server container as a
+    sidecar.</p>
+</li>
+<li>
+<p><strong>konnectivity-agent</strong> - Runs an agent for konnectivity on the control
+    plane side (See Control Plane API services for more information)</p>
+</li>
+</ul>
+<h4 id="configmaps">ConfigMaps</h4>
+<ul>
+<li>
+<p><strong>kas-egress-selector-config</strong> - Contains the configuration that tells
+    the Kubernetes API server how and when to use konnectivity. We only
+    configure konnectivity for cluster connections. This means that the
+    Kubernetes API server will route any connection to a service or a
+    kubelet through the konnectivity server.</p>
+</li>
+<li>
+<p><strong>konnectivity-ca-bundle</strong> - Contains the self-signed CA bundle used to
+    verify connections to the Konnectivity server.</p>
+</li>
+</ul>
+<h4 id="secrets">Secrets</h4>
+<ul>
+<li>
+<p><strong>konnectivity-signer</strong> - Contains the self-signed CA for the
+    konnectivity server</p>
+</li>
+<li>
+<p><strong>konnectivity-server</strong> - Contains the serving certificate for the
+    konnectivity server endpoint (where Kube APIServer and socks5/http
+    proxies connect)</p>
+</li>
+<li>
+<p><strong>konnectivity-cluster</strong> - Contains the serving certificate for the
+    konnectivity cluster endpoint (where konnectivity agents connect)</p>
+</li>
+<li>
+<p><strong>konnectivity-client</strong> - Contains certificate and key to be used by
+    server clients (Kube APIServer and socks5/http proxies) to
+    authenticate with the konnectivity server.</p>
+</li>
+<li>
+<p><strong>konnectivity-agent</strong> - Contains certificate and key to be used by
+    agents to authenticate with the konnectivity server.</p>
+</li>
+</ul>
+<h4 id="services">Services</h4>
+<ul>
+<li>
+<p><strong>konnectivity-server</strong> - Exposes the cluster endpoint of the
+    konnectivity server. This is the service that agents use to connect
+    to the konnectivity server. It must be exposed externally so that
+    workers can reach it.</p>
+</li>
+<li>
+<p><strong>konnectivity-server-local</strong> - The endpoint where clients connect to
+    the konnectivity server to send traffic to the data plane. This
+    endpoint is only exposed to control plane components and is
+    protected via network policy from access by components outside of
+    its own control plane namespace.</p>
+</li>
+</ul>
+<h4 id="routes">Routes</h4>
+<ul>
+<li><strong>konnectivity-server</strong> - Exposes the konnectivity-server service
+    externally so that agents can connect to it.</li>
+</ul>
+<h3 id="in-the-hosted-cluster">In the Hosted Cluster</h3>
+<h4 id="daemonsets">Daemonsets</h4>
+<ul>
+<li><strong>konnectivity-agent</strong> (<code>kube-system</code> namespace) - Runs a pod in every
+    node that establishes a connection that allows clients in the
+    control plane namespace to communicate through it.</li>
+</ul>
+<h4 id="configmaps_1">ConfigMaps</h4>
+<ul>
+<li><strong>konnectivity-ca-bundle</strong> (<code>kube-system</code> namespace) - Contains trust
+    bundle that agents use to verify connections to the konnectivity
+    server.</li>
+</ul>
+<h4 id="secrets_1">Secrets</h4>
+<ul>
+<li><strong>konnectivity-agent</strong> (<code>kube-system</code> namespace) - Contains certificate
+    and key used by agents to authenticate with the konnectivity server.</li>
+</ul>
+<h2 id="konnectivity-proxies-in-hypershift">Konnectivity Proxies in HyperShift</h2>
+<p>The HyperShift code base contains 2 proxy commands that make use of the
+konnectivity tunnel to send traffic to the data plane. These are usually
+run in sidecar containers in the deployments of components that need to
+send their traffic through konnectivity.</p>
+<ul>
+<li>
+<p><strong>konnectivity-socks5-proxy</strong> - Starts a socks5 proxy that allows TCP
+    connections to endpoints accessible from the data plane. Cannot
+    route traffic through customer-supplied HTTP/S proxy. Use cases for
+    this are:</p>
+<ul>
+<li>
+<p>Traffic only destined for the data plane without the need to
+    traverse a customer-supplied proxy.</p>
+</li>
+<li>
+<p>Traffic that is not HTTP/S. For example GRPC traffic to OLM
+    catalogs, or LDAP traffic to LDAP identity providers.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>konnectivity-https-proxy</strong> - Starts a HTTP proxy that can send HTTP/S
+    traffic to endpoints accessible from the data plane. Can make use of
+    customer-supplied HTTP/S proxy to route traffic through that. Use
+    cases for this are:</p>
+<ul>
+<li>Traffic that can be sent through the data plane but must reach
+    external endpoints and must honor customer-supplied HTTP/S proxy
+    configuration. For example, openshift-apiserver traffic to
+    external registries to import ImageStreams or OAuth server
+    traffic to non-LDAP identity providers that rely on HTTP/S
+    protocol.</li>
+</ul>
+</li>
+</ul>
+<p>To summarize, there are 2 main use cases for these proxies:</p>
+<ul>
+<li>
+<p>Routing of traffic from the control plane with destination inside
+    the data plane: This is the case for services such as webhooks and
+    aggregated API servers that run in the data plane, as well as OLM
+    catalogs, or network checks. For this use case, customer-configured
+    HTTP/S proxies are not relevant, because traffic is only needed to
+    reach inside the data plane. The socks5 proxy is adequate for this.</p>
+</li>
+<li>
+<p>Routing of traffic from the control plane to destinations outside
+    the data plane but potentially only accessible from the data plane.
+    This is the case for ImageStream registries, and external identity
+    providers. For this use case, customer-configured HTTP/S proxy
+    configuration should be taken into consideration because traffic may
+    only be able to leave the data plane through those proxies. For this
+    use case, the HTTP proxy is needed.</p>
+</li>
+</ul>
+<h2 id="konnectivity-and-control-plane-aggregated-api-servers">Konnectivity and Control Plane Aggregated API Servers</h2>
+<p>For OpenShift clusters, servers such as openshift-apiserver,
+openshift-oauth-apiserver, and OLM packageserver are aggregated API
+servers that handle essential OpenShift resources such as ImageStreams,
+Users, and Groups.</p>
+<p>Because we consider these servers part of the control plane, they run in
+the control plane namespace along with the Kubernetes API server. They
+are configured via APIService resources which tell the Kubernetes API
+server how to reach them to serve up their resources. APIServices have
+the limitation of only allowing a Kubernetes Service to be configured as
+the endpoint of the APIService. This means that a Service resource must
+exist in the data plane for every APIService we want to configure for
+the HostedCluster. This Service in the data plane needs to send traffic
+to the components in the control plane.</p>
+<p>The way this is accomplished is that a Service without pod selector is
+created in the default namespace. Then a corresponding Endpoints
+resource is created in the same namespace that contains the IP of the
+service in the control plane namespace. Whenever the Kubernetes API
+Server wants to reach the aggregated API server, it ends up sending
+traffic to the service in the control plane.</p>
+<p>One problem with the way Konnectivity is configured is that when you
+configure the egress selector for the cluster to be proxied through
+Konnectivity, then all the traffic destined for services is sent through
+Konnectivity. For these services that live in the control plane
+namespace, the Konnectivity server needs to know to send traffic to the
+control plane and not the data plane.</p>
+<p>The way that the Konnectivity server can send traffic to the control
+plane and not the data plane, is that we run a Konnectivity agent pod in
+the control plane. This agent is configured with the --agent-identifiers
+flag to only route traffic destined for the control plane aggregated
+API services. This means that only traffic that is destined for those
+services will be routed to the control plane through the Konnectivity agent.</p>
+<h2 id="troubleshooting-konnectivity-in-hypershift-clusters">Troubleshooting Konnectivity in HyperShift clusters</h2>
+<h3 id="checking-whether-konnectivity-is-functional">Checking whether Konnectivity is functional</h3>
+<p>To determine whether Konnectivity is functional for a particular hosted
+cluster an easy test is to get the logs of a pod running in the hosted
+cluster. If that works, then traffic is getting routed from the
+Kubernetes API server to the kubelet running in the nodes.</p>
+<h3 id="testing-the-konnectivity-server-with-curl">Testing the Konnectivity server with curl</h3>
+<p>It is possible to use curl to send traffic through the konnectivity
+server to a node. The konnectivity server acts like a regular proxy,
+however it requires authentication via client certificate/key. Curl
+allows specifying a proxy CA, certificate and key (<code>--proxy-cacert</code>,
+<code>--proxy-cert</code>, <code>--proxy-key</code>) in addition to the certs used for the final
+endpoint. The following script shows how the appropriate certificates
+can be extracted and used to make a request to the kubelet running in a
+worker node. The konnectivity server is made available locally via the
+port-forward command. NOTE: The konnectivity server does not resolve
+names, so it can only be tested with IP addresses.</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+
+<span class="nv">workdir</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>mktemp<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span>
+<span class="nv">cp_namespace</span><span class="o">=</span><span class="s2">"CONTROL_PLANE_NAMESPACE_HERE"</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"work directory is: </span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="c1"># Get the cert/CA required to use the konnectivity server as a proxy</span>
+oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>konnectivity-client<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">cp_namespace</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{ .data.tls\.key }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span><span class="s2">/client.key"</span>
+oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>konnectivity-client<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">cp_namespace</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{ .data.tls\.crt }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span><span class="s2">/client.crt"</span>
+oc<span class="w"> </span>get<span class="w"> </span>cm<span class="w"> </span>konnectivity-ca-bundle<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">cp_namespace</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{ .data.ca\.crt }'</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span><span class="s2">/konnectivity_ca.crt"</span>
+
+<span class="c1"># Get the cert/CA required to access the kubelet endpoint</span>
+oc<span class="w"> </span>get<span class="w"> </span>cm<span class="w"> </span>kubelet-client-ca<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">cp_namespace</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{ .data.ca\.crt }'</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span>/kubelet_ca.crt
+oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>kas-kubelet-client-crt<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">cp_namespace</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{ .data.tls\.crt }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span>/kubelet_client.crt
+oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>kas-kubelet-client-crt<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">cp_namespace</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{ .data.tls\.key }'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span>/kubelet_client.key
+
+<span class="c1"># Obtain a node IP from local machines</span>
+<span class="nv">nodeip</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">cp_namespace</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.items[0].status.addresses[] | select(.type=="InternalIP") | .address'</span><span class="k">)</span><span class="s2">"</span>
+
+<span class="c1"># Forward the konnectivity server endpdoint to the local machine</span>
+oc<span class="w"> </span>port-forward<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">cp_namespace</span><span class="si">}</span><span class="w"> </span>svc/konnectivity-server-local<span class="w"> </span><span class="m">8090</span>:8090<span class="w"> </span><span class="p">&amp;</span>
+
+<span class="c1"># Allow some time for the port-forwarding to start</span>
+sleep<span class="w"> </span><span class="m">2</span>
+
+<span class="c1"># Perform the curl command with the localhost konnectivity endpoint</span>
+curl<span class="w"> </span>-x<span class="w"> </span><span class="s2">"https://127.0.0.1:8090"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--proxy-cacert<span class="w"> </span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span>/konnectivity_ca.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--proxy-cert<span class="w"> </span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span>/client.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--proxy-key<span class="w"> </span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span>/client.key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cacert<span class="w"> </span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span>/kubelet_ca.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cert<span class="w"> </span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span>/kubelet_client.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--key<span class="w"> </span><span class="si">${</span><span class="nv">workdir</span><span class="si">}</span>/kubelet_client.key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"https://</span><span class="si">${</span><span class="nv">nodeip</span><span class="si">}</span><span class="s2">:10250/metrics"</span>
+
+<span class="c1"># Kill the port-forward job</span>
+<span class="nb">kill</span><span class="w"> </span>%1
+</code></pre></div>
+<h2 id="konnectivity-qa">Konnectivity Q&amp;A</h2>
+<p><strong>Upstream allows grpc or http-connect mode for the konnectivity protocol, why does HyperShift use http-connect?</strong>
+We need to use http-connect to allow clients other than the Kubernetes
+API server to send traffic through the konnectivity server. The socks5
+and http proxies can use http-connect to establish a connection through
+konnectivity-server.</p>
+<p><strong>Upstream allows connecting to the konnectivity server via unix domain socket or via tcp port. Why does HyperShift use tcp port?</strong>
+The konnectivity server only allows one way of serving (via UDS or TCP
+port). We need to use a TCP port so we can expose it as a service to
+clients that use the socks5 and http proxies.</p>
+<p><strong>Why does Konnectivity server run as a sidecar of the Kubernetes API server and not in its own deployment?</strong>
+When running as a sidecar, the Kubernetes API server can communicate
+with the Konnectivity server very fast, since traffic happens over the
+loopback interface. It also allows the Kubernetes API server to
+communicate with a konnectivity-server as soon as it comes up.</p>
+<p><strong>How is the Konnectivity server secured in HyperShift?</strong>
+We use mTLS to authenticate connections to Konnectivity either from
+clients like Kubernetes API server or from agents. The certificates used
+for authentication are in the konnectivity-client and konnectivity-agent
+secrets in the control plane.</p>
+<p><strong>How does Konnectivity HA work?</strong>
+When a HyperShift control plane runs in HA mode, there are by default 3
+replicas of the konnectivity server (1 sidecar per kube-apiserver pod).
+Each server generates an ID when starting up and the number of total
+servers is passed as a command line argument. When an agent dials the
+konnectivity server endpoint, the server's response includes its own ID
+and the total number of servers that the agent can expect. If greater
+than one, the agent keeps dialing the konnectivity server endpoint until
+it can establish connections with the same number of unique servers
+(identified by their unique id).</p>
+<p><strong>What breaks if Konnectivity is not working?</strong>
+The first thing that breaks when Konnectivity is not working is any
+operation that requires that the Kubernetes API server access kubelets
+on nodes. This includes getting logs from pods, proxying to
+pods/services, port-forwarding and remote execution. The next thing that
+breaks is any aggregated API servers and webhooks that use data plane
+services.</p>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({});</script><script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

@@ -1,0 +1,854 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/openstack/global-pull-secret/" rel="canonical"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Global Pull Secret for Hosted Control Planes - HyperShift Azure Developer Preview</title>
+<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#overview">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Global Pull Secret for Hosted Control Planes
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview">
+<span class="md-ellipsis">
+      Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adding-your-pull-secret">
+<span class="md-ellipsis">
+      Adding your Pull Secret
+    </span>
+</a>
+<nav aria-label="Adding your Pull Secret" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-create-your-additional-pull-secret">
+<span class="md-ellipsis">
+      1. Create your additional pull secret
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-example-dockerconfigjson-format">
+<span class="md-ellipsis">
+      2. Example DockerConfigJSON format
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-apply-the-secret">
+<span class="md-ellipsis">
+      3. Apply the secret
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-verification">
+<span class="md-ellipsis">
+      4. Verification
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#how-it-works">
+<span class="md-ellipsis">
+      How it works
+    </span>
+</a>
+<nav aria-label="How it works" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#automatic-detection">
+<span class="md-ellipsis">
+      Automatic Detection
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#validation-and-merging">
+<span class="md-ellipsis">
+      Validation and Merging
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deployment-process">
+<span class="md-ellipsis">
+      Deployment Process
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#node-level-synchronization">
+<span class="md-ellipsis">
+      Node-Level Synchronization
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#automatic-cleanup">
+<span class="md-ellipsis">
+      Automatic Cleanup
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#registry-precedence-and-conflict-resolution">
+<span class="md-ellipsis">
+      Registry Precedence and Conflict Resolution
+    </span>
+</a>
+<nav aria-label="Registry Precedence and Conflict Resolution" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#merge-behavior">
+<span class="md-ellipsis">
+      Merge Behavior
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#recommended-approach">
+<span class="md-ellipsis">
+      Recommended Approach
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-merge-scenario">
+<span class="md-ellipsis">
+      Example Merge Scenario
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#implementation-details">
+<span class="md-ellipsis">
+      Implementation details
+    </span>
+</a>
+<nav aria-label="Implementation details" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#core-components">
+<span class="md-ellipsis">
+      Core Components
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#architecture-diagram">
+<span class="md-ellipsis">
+      Architecture Diagram
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-features">
+<span class="md-ellipsis">
+      Key Features
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#inplace-nodepool-handling">
+<span class="md-ellipsis">
+      InPlace NodePool Handling
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#error-handling">
+<span class="md-ellipsis">
+      Error Handling
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="global-pull-secret-for-hosted-control-planes">Global Pull Secret for Hosted Control Planes</h1>
+<h2 id="overview">Overview</h2>
+<p>The Global Pull Secret functionality enables Hosted Cluster administrators to include additional pull secrets for accessing container images from private registries without requiring assistance from the Management Cluster administrator. This feature allows you to merge your custom pull secret with the original HostedCluster pull secret, making it available to all nodes in the cluster.</p>
+<p>The implementation uses a DaemonSet approach that automatically detects when you create an <code>additional-pull-secret</code> in the <code>kube-system</code> namespace of your DataPlane (Hosted Cluster). The system then merges this secret with the original pull secret and deploys the merged result to all nodes via a DaemonSet that updates the kubelet configuration.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature is designed to work autonomously - once you create the additional pull secret, the system automatically handles the rest without requiring Management Cluster administrator intervention.</p>
+</div>
+<h2 id="adding-your-pull-secret">Adding your Pull Secret</h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>All actions described in this section must be performed on the <strong>HostedCluster's workers</strong> (DataPlane), not on the Management Cluster.</p>
+</div>
+<p>To use this functionality, follow these steps:</p>
+<h3 id="1-create-your-additional-pull-secret">1. Create your additional pull secret</h3>
+<p>Create a secret named <code>additional-pull-secret</code> in the <code>kube-system</code> namespace of your Hosted Cluster (DataPlane). The secret must contain a valid DockerConfigJSON format:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">additional-pull-secret</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube-system</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/dockerconfigjson</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">.dockerconfigjson</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;base64-encoded-docker-config-json&gt;</span>
+</code></pre></div>
+<h3 id="2-example-dockerconfigjson-format">2. Example DockerConfigJSON format</h3>
+<p>Your <code>.dockerconfigjson</code> should follow this structure:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"auths"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"registry.example.com"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"base64-encoded-credentials"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"quay.io/mycompany"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"base64-encoded-credentials"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Using Namespace-Specific Registry Entries</p>
+<p>For registries like Quay.io that support organization/namespace-specific authentication, you can specify the full path in your registry entry (e.g., <code>quay.io/mycompany</code> instead of just <code>quay.io</code>). This allows you to provide different credentials for different namespaces within the same registry, and helps avoid conflicts with existing registry entries in the original pull secret.</p>
+</div>
+<h3 id="3-apply-the-secret">3. Apply the secret</h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>additional-pull-secret.yaml
+</code></pre></div>
+<h3 id="4-verification">4. Verification</h3>
+<p>After creating the secret, the system will automatically:</p>
+<ol>
+<li>Validate the secret format</li>
+<li>Merge it with the original pull secret</li>
+<li>Deploy a DaemonSet to all nodes</li>
+<li>Update the kubelet configuration on each node</li>
+</ol>
+<p>You can verify the deployment by checking:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check if the DaemonSet is running</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>daemonset<span class="w"> </span>global-pull-secret-syncer<span class="w"> </span>-n<span class="w"> </span>kube-system
+
+<span class="c1"># Check the merged pull secret</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>global-pull-secret<span class="w"> </span>-n<span class="w"> </span>kube-system
+
+<span class="c1"># Check DaemonSet pods</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span>-l<span class="w"> </span><span class="nv">name</span><span class="o">=</span>global-pull-secret-syncer
+</code></pre></div>
+<h2 id="how-it-works">How it works</h2>
+<p>The Global Pull Secret functionality operates through a multi-component system:</p>
+<h3 id="automatic-detection">Automatic Detection</h3>
+<ul>
+<li>The Hosted Cluster Config Operator (HCCO) continuously monitors the <code>kube-system</code> namespace</li>
+<li>When it detects the creation of <code>additional-pull-secret</code>, it triggers the reconciliation process</li>
+</ul>
+<h3 id="validation-and-merging">Validation and Merging</h3>
+<ul>
+<li>The system validates that your secret contains a proper DockerConfigJSON format</li>
+<li>It retrieves the original pull secret from the HostedControlPlane</li>
+<li>Your additional pull secret is merged with the original one</li>
+<li><strong>If there are conflicting registry entries, the original pull secret takes precedence</strong> (the additional pull secret entry is ignored for conflicting registries)</li>
+<li>The system supports namespace-specific registry entries (e.g., <code>quay.io/namespace</code>) for better credential specificity</li>
+</ul>
+<h3 id="deployment-process">Deployment Process</h3>
+<ul>
+<li>A <code>global-pull-secret</code> is created in the <code>kube-system</code> namespace containing the merged result</li>
+<li>RBAC resources (ServiceAccount, Role, RoleBinding) are created for the DaemonSet in both <code>kube-system</code> and <code>openshift-config</code> namespaces</li>
+<li>We use Role and RoleBinding in both namespaces to access secrets in <code>kube-system</code> and <code>openshift-config</code> namespaces</li>
+<li>A DaemonSet named <code>global-pull-secret-syncer</code> is deployed to eligible nodes</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">NodePool InPlace Strategy Restriction</p>
+<p>The Global Pull Secret DaemonSet is <strong>not deployed</strong> to nodes that belong to NodePools using the <strong>InPlace upgrade strategy</strong>. This restriction prevents conflicts between the DaemonSet's modifications to <code>/var/lib/kubelet/config.json</code> and the Machine Config Daemon (MCD) during InPlace upgrades.</p>
+<ul>
+<li><strong>Nodes with Replace strategy</strong>: ✅ Receive Global Pull Secret DaemonSet</li>
+<li><strong>Nodes with InPlace strategy</strong>: ❌ Do not receive Global Pull Secret DaemonSet</li>
+</ul>
+<p>This ensures that MCD operations during InPlace upgrades do not fail due to unexpected changes in kubelet configuration files.</p>
+</div>
+<h3 id="node-level-synchronization">Node-Level Synchronization</h3>
+<ul>
+<li>Each DaemonSet pod runs a controller that watches the secrets under kube-system namespace</li>
+<li>When changes are detected, it updates <code>/var/lib/kubelet/config.json</code> on the node</li>
+<li>The kubelet service is restarted via DBus to apply the new configuration</li>
+<li>If the restart fails after 3 attempts, the system rolls back the file changes</li>
+</ul>
+<h3 id="automatic-cleanup">Automatic Cleanup</h3>
+<ul>
+<li>If you delete the <code>additional-pull-secret</code>, the HCCO automatically removes the <code>global-pull-secret</code> secret</li>
+<li>The system reverts to using only the original pull secret from the HostedControlPlane</li>
+<li>The DaemonSet continues running but now syncs only the original pull secret to nodes</li>
+</ul>
+<h2 id="registry-precedence-and-conflict-resolution">Registry Precedence and Conflict Resolution</h2>
+<p>The Global Pull Secret system uses a specific precedence model when merging your additional pull secret with the original one:</p>
+<h3 id="merge-behavior">Merge Behavior</h3>
+<ul>
+<li><strong>Original pull secret entries always take precedence</strong> over additional pull secret entries for the same registry</li>
+<li>If both secrets contain an entry for <code>quay.io</code>, the original pull secret's credentials will be used</li>
+<li>Your additional pull secret entries are only added if they don't conflict with existing entries</li>
+<li>Warnings are logged when conflicts are detected</li>
+</ul>
+<h3 id="recommended-approach">Recommended Approach</h3>
+<p>To avoid conflicts and ensure your credentials are used, consider these strategies:</p>
+<ol>
+<li><strong>Use namespace-specific entries</strong>: Instead of <code>quay.io</code>, use <code>quay.io/your-namespace</code></li>
+<li><strong>Target specific registries</strong>: Add entries only for registries not already in the original pull secret</li>
+<li><strong>Check existing entries</strong>: Review what registries are already configured in the HostedControlPlane</li>
+</ol>
+<h3 id="example-merge-scenario">Example Merge Scenario</h3>
+<p><strong>Original Pull Secret:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"auths"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"quay.io"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"original-credentials"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Your Additional Pull Secret:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"auths"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"quay.io"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your-credentials"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"quay.io/mycompany"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your-namespace-credentials"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Resulting Merged Pull Secret:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"auths"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"quay.io"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"original-credentials"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"quay.io/mycompany"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your-namespace-credentials"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Note how the <code>quay.io</code> entry keeps the original credentials, but <code>quay.io/mycompany</code> is added from your additional secret.</p>
+<h2 id="implementation-details">Implementation details</h2>
+<p>The implementation consists of several key components working together:</p>
+<h3 id="core-components">Core Components</h3>
+<ol>
+<li><strong>Global Pull Secret Controller</strong> (<code>globalps</code> package)</li>
+<li>Handles validation of user-provided pull secrets</li>
+<li>Manages the merging logic between original and additional pull secrets</li>
+<li>Creates and manages RBAC resources</li>
+<li>Deploys and manages the DaemonSet</li>
+<li>
+<p><strong>Node eligibility assessment</strong>: Labels nodes from InPlace NodePools and configures DaemonSet scheduling restrictions</p>
+</li>
+<li>
+<p><strong>Sync Global Pull Secret Command</strong> (<code>sync-global-pullsecret</code> package)</p>
+</li>
+<li>Runs as a DaemonSet on each node</li>
+<li>Watches for changes to the <code>global-pull-secret</code> in <code>kube-system</code> namespace</li>
+<li>Accesses the original <code>pull-secret</code> in <code>openshift-config</code> namespace</li>
+<li>Updates the kubelet configuration file</li>
+<li>
+<p>Manages kubelet service restarts via DBus</p>
+</li>
+<li>
+<p><strong>Hosted Cluster Config Operator Integration</strong></p>
+</li>
+<li>Monitors for the presence of <code>additional-pull-secret</code></li>
+<li>Orchestrates the entire process</li>
+<li>Handles cleanup when the secret is removed</li>
+</ol>
+<h3 id="architecture-diagram">Architecture Diagram</h3>
+<div class="mermaid">graph TB
+    %% User Input
+    User[User creates additional-pull-secret] --&gt; |kube-system namespace| AdditionalPS[additional-pull-secret Secret]
+
+    %% HCCO Controller
+    HCCO[Hosted Cluster Config Operator] --&gt; |Watches kube-system secrets| GlobalPSController[Global Pull Secret Controller]
+    GlobalPSController --&gt; |Validates| AdditionalPS
+    GlobalPSController --&gt; |Gets original| OriginalPS[Original pull-secret from HCP]
+
+    %% Secret Processing
+    AdditionalPS --&gt; |Validates format| ValidatePS[Validate Additional Pull Secret]
+    OriginalPS --&gt; |Extracts data| OriginalPSData[Original Pull Secret Data]
+    ValidatePS --&gt; |Extracts data| AdditionalPSData[Additional Pull Secret Data]
+
+    %% Merge Process
+    OriginalPSData --&gt; MergeSecrets[Merge Pull Secrets]
+    AdditionalPSData --&gt; MergeSecrets
+    MergeSecrets --&gt; |Creates merged JSON| GlobalPSData[Global Pull Secret Data]
+
+    %% Secret Creation
+    GlobalPSData --&gt; |Creates in kube-system| GlobalPSSecret[global-pull-secret Secret]
+
+    %% RBAC Setup
+    GlobalPSController --&gt; |Creates RBAC| RBACSetup[Setup RBAC Resources]
+    RBACSetup --&gt; ServiceAccount[global-pull-secret-syncer ServiceAccount]
+    RBACSetup --&gt; KubeSystemRole[global-pull-secret-syncer Role in kube-system]
+    RBACSetup --&gt; KubeSystemRoleBinding[global-pull-secret-syncer RoleBinding in kube-system]
+    RBACSetup --&gt; OpenshiftConfigRole[global-pull-secret-syncer Role in openshift-config]
+    RBACSetup --&gt; OpenshiftConfigRoleBinding[global-pull-secret-syncer RoleBinding in openshift-config]
+
+    %% DaemonSet Deployment
+    GlobalPSController --&gt; |Deploys DaemonSet| DaemonSet[global-pull-secret-syncer DaemonSet]
+    DaemonSet --&gt; |Runs on each node| DaemonSetPod[DaemonSet Pod]
+
+    %% DaemonSet Pod Details
+    DaemonSetPod --&gt; |Mounts host paths| HostMounts[Host Path Mounts]
+    HostMounts --&gt; KubeletPath["/var/lib/kubelet"]
+    HostMounts --&gt; DbusPath["/var/run/dbus"]
+
+    %% Container Execution
+    DaemonSetPod --&gt; |Runs command| Container[control-plane-operator Container]
+    Container --&gt; |Executes| SyncCommand[sync-global-pullsecret command]
+
+    %% Sync Process
+    SyncCommand --&gt; |Watches global-pull-secret| SyncController[Global Pull Secret Reconciler]
+    SyncController --&gt; |Reads secret| ReadGlobalPS[Read global-pull-secret]
+    SyncController --&gt; |Reads original| ReadOriginalPS[Read original pull-secret]
+
+    %% File Update Process
+    ReadGlobalPS --&gt; |Gets data| GlobalPSBytes[Global Pull Secret Bytes]
+    ReadOriginalPS --&gt; |Gets data| OriginalPSBytes[Original Pull Secret Bytes]
+
+    %% Decision Logic
+    GlobalPSBytes --&gt; |If exists| UseGlobalPS[Use Global Pull Secret]
+    OriginalPSBytes --&gt; |If not exists| UseOriginalPS[Use Original Pull Secret]
+
+    %% File Update
+    UseGlobalPS --&gt; |Updates file| UpdateKubeletConfig["Update /var/lib/kubelet/config.json"]
+    UseOriginalPS --&gt; |Updates file| UpdateKubeletConfig
+
+    %% Kubelet Restart
+    UpdateKubeletConfig --&gt; |Restarts kubelet| RestartKubelet[Restart kubelet.service via systemd]
+    RestartKubelet --&gt; |Via dbus| DbusConnection[DBus Connection]
+
+    %% Error Handling
+    UpdateKubeletConfig --&gt; |If restart fails| RollbackProcess[Rollback Process]
+    RollbackProcess --&gt; |Restore original| RestoreOriginal[Restore Original File Content]
+
+    %% Cleanup Process
+    GlobalPSController --&gt; |If additional PS deleted| CleanupProcess[Cleanup Process]
+    CleanupProcess --&gt; |Deletes global PS| DeleteGlobalPS[Delete global-pull-secret]
+    CleanupProcess --&gt; |Removes DaemonSet| RemoveDaemonSet[Remove DaemonSet]
+
+    %% Styling
+    classDef userInput fill:#e1f5fe
+    classDef controller fill:#f3e5f5
+    classDef secret fill:#e8f5e8
+    classDef process fill:#fff3e0
+    classDef daemonSet fill:#fce4ec
+    classDef fileSystem fill:#f1f8e9
+
+    class User,AdditionalPS userInput
+    class HCCO,GlobalPSController,SyncController controller
+    class OriginalPS,GlobalPSSecret,ServiceAccount,KubeSystemRole,KubeSystemRoleBinding,OpenshiftConfigRole,OpenshiftConfigRoleBinding secret
+    class ValidatePS,MergeSecrets,RBACSetup,UpdateKubeletConfig,RestartKubelet process
+    class DaemonSet,DaemonSetPod,Container daemonSet
+    class KubeletPath,DbusPath fileSystem
+</div>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Security</strong>: Only watches specific secrets in <code>kube-system</code> and <code>openshift-config</code> namespaces</li>
+<li><strong>Robustness</strong>: Includes automatic rollback in case of failures</li>
+<li><strong>Efficiency</strong></li>
+<li>Only updates when there are actual changes</li>
+<li>The globalPullSecret implementation has their own controller so it cannot interfere with the HCCO reonciliation</li>
+<li><strong>Security considerations</strong>: Uses specific RBAC for only the required resources in each namespace. The DaemonSet containers run in privileged mode due to the need to:</li>
+<li>Write to <code>/var/lib/kubelet/config.json</code> (kubelet configuration file)</li>
+<li>Connect to systemd via DBus for service management</li>
+<li>Restart kubelet.service, which requires root privileges</li>
+<li><strong>Smart node targeting</strong>: Automatically excludes nodes from InPlace NodePools to prevent MCD conflicts</li>
+</ul>
+<h3 id="inplace-nodepool-handling">InPlace NodePool Handling</h3>
+<p>To prevent conflicts with Machine Config Daemon operations, the implementation includes intelligent node targeting:</p>
+<h4 id="node-labeling-process">Node Labeling Process</h4>
+<ol>
+<li><strong>MachineSets Discovery</strong>: The controller queries the management cluster for MachineSets with InPlace-specific annotations (<code>hypershift.openshift.io/nodePoolTargetConfigVersion</code>)</li>
+<li><strong>Machine Enumeration</strong>: For each InPlace MachineSets, it lists all associated Machines</li>
+<li><strong>Node Identification</strong>: Maps Machine objects to their corresponding nodes via <code>machine.Status.NodeRef.Name</code></li>
+<li><strong>Labeling</strong>: Applies <code>hypershift.openshift.io/nodepool-inplace-strategy=true</code> label to identified nodes</li>
+</ol>
+<h4 id="daemonset-scheduling-configuration">DaemonSet Scheduling Configuration</h4>
+<p>The DaemonSet uses NodeAffinity to exclude InPlace nodes:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">affinity</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">nodeAffinity</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">requiredDuringSchedulingIgnoredDuringExecution</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">nodeSelectorTerms</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">matchExpressions</span><span class="p">:</span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hypershift.openshift.io/nodepool-inplace-strategy</span>
+<span class="w">                </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DoesNotExist</span>
+</code></pre></div>
+<p>This ensures that:
+- <strong>Nodes without the label</strong>: ✅ Are eligible for DaemonSet scheduling
+- <strong>Nodes with the label</strong> (any value): ❌ Are excluded from DaemonSet scheduling</p>
+<h4 id="conflict-prevention-benefits">Conflict Prevention Benefits</h4>
+<ul>
+<li><strong>Prevents MCD failures</strong>: Avoids conflicts when MCD expects specific kubelet configuration during InPlace upgrades</li>
+<li><strong>Maintains upgrade reliability</strong>: InPlace upgrade processes are not interrupted by Global Pull Secret modifications</li>
+<li><strong>Automatic detection</strong>: No manual intervention required - the system automatically identifies and handles InPlace nodes</li>
+</ul>
+<h3 id="error-handling">Error Handling</h3>
+<p>The system includes comprehensive error handling:</p>
+<ul>
+<li><strong>Validation errors</strong>: Invalid DockerConfigJSON format is caught early</li>
+<li><strong>Restart failures</strong>: If kubelet restart fails after 3 attempts, the file is rolled back</li>
+<li><strong>Resource cleanup</strong>: If the additional pull secret is deleted, the HCCO automatically removes the globalPullSecret</li>
+</ul>
+<p>This implementation provides a secure, autonomous solution that allows HostedCluster administrators to add private registry credentials without requiring Management Cluster administrator intervention.</p>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({});</script><script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

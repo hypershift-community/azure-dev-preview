@@ -1,0 +1,616 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/disconnected/known-issues/" rel="canonical"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Known Issues - HyperShift Azure Developer Preview</title>
+<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#olm-default-catalog-sources-in-imagepullbackoff-state">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Known Issues
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#olm-default-catalog-sources-in-imagepullbackoff-state">
+<span class="md-ellipsis">
+      OLM default catalog sources in ImagePullBackOff state
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hypershift-operator-is-failing-to-reconcile-in-disconnected-environments">
+<span class="md-ellipsis">
+      Hypershift operator is failing to reconcile in Disconnected environments
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hcp-cli-failing-to-create-an-hosted-cluster-with-failed-to-extract-release-metadata-failed-to-get-repo-setup-failed-to-create-repository-client-for">
+<span class="md-ellipsis">
+      HCP CLI failing to create an hosted cluster with `failed to extract release metadata: failed to get repo setup: failed to create repository client for
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hcp-imageregistryoverrides-information-is-extracted-only-once-on-hypershift-operator-initialization-and-never-refreshed">
+<span class="md-ellipsis">
+      HCP: imageRegistryOverrides information is extracted only once on HyperShift operator initialization and never refreshed
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hcp-hypershift-operator-on-disconnected-clusters-ignores-imagecontentsourcepolicies-when-a-imagedigestmirrorset-exist-on-the-management-cluster">
+<span class="md-ellipsis">
+      HCP: hypershift-operator on disconnected clusters ignores ImageContentSourcePolicies when a ImageDigestMirrorSet exist on the management cluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hcp-hypershift-operator-on-disconnected-clusters-ignores-registryoverrides-inspecting-the-control-plane-operator-image">
+<span class="md-ellipsis">
+      HCP: hypershift-operator on disconnected clusters ignores RegistryOverrides inspecting the control-plane-operator-image
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#kubevirt-specific-oc-mirror-does-not-mirror-the-rhcos-image-for-hypershift-kubevirt-provider-from-the-ocp-release-payload">
+<span class="md-ellipsis">
+      (KubeVirt specific) oc-mirror does not mirror the RHCOS image for HyperShift KubeVirt provider from the OCP release payload
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hcp-recycler-pods-are-not-starting-on-hostedcontrolplane-in-disconnected-environments-imagepullbackoff-on-quayioopenshiftorigin-toolslatest">
+<span class="md-ellipsis">
+      HCP: recycler pods are not starting on hostedcontrolplane in disconnected environments ( ImagePullBackOff on quay.io/openshift/origin-tools:latest )
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#hcp-imagesstreams-on-hosted-clusters-pointing-to-image-on-private-registries-are-failing-due-to-tls-verification-although-the-registry-is-correctly-trusted">
+<span class="md-ellipsis">
+      HCP: imagesStreams on hosted-clusters pointing to image on private registries are failing due to tls verification, although the registry is correctly trusted
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#idmsicsp-with-only-root-registry-are-not-propagated-to-the-registry-override-flag-under-ignition-server">
+<span class="md-ellipsis">
+      IDMS/ICSP with only root registry are not propagated to the registry-override flag under ignition server
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="known-issues">Known Issues</h1>
+<h2 id="olm-default-catalog-sources-in-imagepullbackoff-state">OLM default catalog sources in ImagePullBackOff state</h2>
+<p>When you work in a disconnected environment the OLM catalog sources will be still pointing to their original source, so all of these container images will keep it in ImagePullBackOff state even if the OLMCatalogPlacement is set to <code>Management</code> or <code>Guest</code>. From this point you have some options ahead:</p>
+<ol>
+<li>Disable those OLM default catalog sources and using the oc-mirror binary, mirror the desired images into your private registry, creating a new Custom Catalog Source.</li>
+<li>Mirror all the Container Images from all the catalog sources and apply an ImageContentSourcePolicy to request those images from the private registry.</li>
+<li>Mirror all (or part of relying on the operator pruning option, see the image pruning section in https://docs.openshift.com/container-platform/4.14/installing/disconnected_install/installing-mirroring-disconnected.html#oc-mirror-updating-registry-about_installing-mirroring-disconnected ) the Container Images from all the catalog sources to the private registry and annotate the hostedCluster object with hypershift.openshift.io/olm-catalogs-is-registry-overrides annotation to get the ImageStream used for operator catalogs on your hosted-cluster pointing to your internal registry.</li>
+</ol>
+<p>The most practical one is the first choice. To proceed with this option, you will need to follow <a href="https://docs.openshift.com/container-platform/4.14/installing/disconnected_install/installing-mirroring-disconnected.html">these instructions</a>. The process will make sure all the images get mirrored and also the ICSP will be generated properly.</p>
+<p>Additionally when you're provisioning the HostedCluster you will need to add a flag to indicate that the OLMCatalogPlacement is set to <code>Guest</code> because if that's not set, you will not be able to disable them.</p>
+<h2 id="hypershift-operator-is-failing-to-reconcile-in-disconnected-environments">Hypershift operator is failing to reconcile in Disconnected environments</h2>
+<p>If you are operating in a disconnected environment and have deployed the Hypershift operator, you may encounter an issue with the UWM telemetry writer. Essentially, it exposes Openshift deployment data in your RedHat account, but this functionality does not operate in a disconnected environments.</p>
+<p><strong>Symptoms:</strong></p>
+<ul>
+<li>The Hypershift operator appears to be running correctly in the <code>hypershift</code> namespace but even if you creates the Hosted Cluster nothing happens.</li>
+<li>There will be a couple of log entries in the Hypershift operator:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>{"level":"error","ts":"2023-12-20T15:23:01Z","msg":"Reconciler error","controller":"deployment","controllerGroup":"apps","controllerKind":"Deployment","Deployment":{"name":"operator","namespace":"hypershift"},"namespace":"hypershift","name":"operator","reconcileID":"451fde3c-eb1b-4cf0-98cb-ad0f8c6a6288","error":"cannot get telemeter client secret: Secret \"telemeter-client\" not found","stacktrace":"sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\t/hypershift/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:329\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\t/hypershift/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:266\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2.2\n\t/hypershift/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:227"}
+
+{"level":"debug","ts":"2023-12-20T15:23:01Z","logger":"events","msg":"Failed to ensure UWM telemetry remote write: cannot get telemeter client secret: Secret \"telemeter-client\" not found","type":"Warning","object":{"kind":"Deployment","namespace":"hypershift","name":"operator","uid":"c6628a3c-a597-4e32-875a-f5704da2bdbb","apiVersion":"apps/v1","resourceVersion":"4091099"},"reason":"ReconcileError"}
+</code></pre></div>
+<p><strong>Solution:</strong></p>
+<p>To resolve this issue, the solution will depend on how you deployed Hypershift:</p>
+<ul>
+<li><strong>The HO was deployed using ACM/MCE:</strong> In this case you will need to create a ConfigMap in the <code>local-cluster</code> namespace (the namespace and ConfigMap name cannot be changed) called <code>hypershift-operator-install-flags</code> with this content:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hypershift-operator-install-flags
+  namespace: local-cluster
+data:
+  installFlagsToRemove: --enable-uwm-telemetry-remote-write
+</code></pre></div>
+<ul>
+<li><strong>The HO was deployed using the Hypershift binary:</strong> In this case you will just need to remove the flag <code>--enable-uwm-telemetry-remote-write</code> from the hypershift deployment command.</li>
+</ul>
+<h2 id="hcp-cli-failing-to-create-an-hosted-cluster-with-failed-to-extract-release-metadata-failed-to-get-repo-setup-failed-to-create-repository-client-for">HCP CLI failing to create an hosted cluster with `failed to extract release metadata: failed to get repo setup: failed to create repository client for <your.internal.registry></your.internal.registry></h2>
+<p>See: <a href="https://issues.redhat.com/browse/CNV-38194">CNV-38194</a>
+Currently the HCP client is directly (client side) trying to access the OCP release image, this implies some additional requirements on client side:</p>
+<ol>
+<li>the HCP CLI client should be able to directly reach the internal mirror registry, and this could require additional configuration (a proxied access to the api server of the management server is not enough)</li>
+<li>the HCP CLI client should explicitly consume the pull secret of the internal mirror registry</li>
+<li>the HCP CLI client should explicitly consume the internal CA used to sign the TLS cert of the internal mirror registry</li>
+</ol>
+<p><strong>Workaround:</strong>
+Explicitly set <code>--network-type OVNKubernetes</code> (or other valid SDN provider if needed) when running <code>hcp create cluster</code> to skip the auto-detection of the SDN network type.</p>
+<h2 id="hcp-imageregistryoverrides-information-is-extracted-only-once-on-hypershift-operator-initialization-and-never-refreshed">HCP: imageRegistryOverrides information is extracted only once on HyperShift operator initialization and never refreshed</h2>
+<p>See: <a href="https://issues.redhat.com/browse/OCPBUGS-29110">OCPBUGS-29110</a>
+According to https://hypershift-docs.netlify.app/how-to/disconnected/automatically-initialize-registry-overrides/ , the HyperShift Operator (HO) will automatically initialize the control plane operator (CPO) with any image registry override information from any ImageContentSourcePolicy (ICSP) or any ImageDigestMirrorSet (IDMS) instances from an OpenShift management cluster.
+But due to a bug, the HyperShift Operator (HO) reads the image registry override information only during its startup and never refreshes them at runtime so ICSP and IDMS added after the initialization of the HyperShift Operator are going to get ignored.</p>
+<p><strong>Workaround:</strong>
+Each time you add or amend and ICSP or an IDMS on your management cluster, you have to explicitly kill the HyperShift Operator pods:
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>oc<span class="w"> </span>delete<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>-l<span class="w"> </span><span class="nv">name</span><span class="o">=</span>operator
+</code></pre></div></p>
+<h2 id="hcp-hypershift-operator-on-disconnected-clusters-ignores-imagecontentsourcepolicies-when-a-imagedigestmirrorset-exist-on-the-management-cluster">HCP: hypershift-operator on disconnected clusters ignores ImageContentSourcePolicies when a ImageDigestMirrorSet exist on the management cluster</h2>
+<p>See: <a href="https://issues.redhat.com/browse/OCPBUGS-29466">OCPBUGS-29466</a></p>
+<p>ICSP (deprecated) and IDMS can coexists on the management cluster but due to a bug if at least one IDMS object exists on the management cluster, the HyperShift Operator will completely ignore all the ICSP.</p>
+<p><strong>Workaround:</strong>
+If you have at least an IDMS object, explicitly convert all the ICSPs to IDMSs:
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/idms
+$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/icsp
+$<span class="w"> </span><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>imageContentSourcePolicy<span class="w"> </span>-o<span class="w"> </span>name<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>oc<span class="w"> </span>get<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span>/tmp/icsp/<span class="k">$(</span>basename<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="k">)</span>.yaml<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+$<span class="w"> </span><span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span>/tmp/icsp/*<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>oc<span class="w"> </span>adm<span class="w"> </span>migrate<span class="w"> </span>icsp<span class="w"> </span><span class="si">${</span><span class="nv">f</span><span class="si">}</span><span class="w"> </span>--dest-dir<span class="w"> </span>/tmp/idms<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+<span class="nv">$oc</span><span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>/tmp/idms<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</code></pre></div></p>
+<h2 id="hcp-hypershift-operator-on-disconnected-clusters-ignores-registryoverrides-inspecting-the-control-plane-operator-image">HCP: hypershift-operator on disconnected clusters ignores RegistryOverrides inspecting the control-plane-operator-image</h2>
+<p>See: <a href="https://issues.redhat.com/browse/OCPBUGS-29494">OCPBUGS-29494</a></p>
+<p><strong>Symptoms:</strong>
+Creating an hosted cluster with:
+hcp create cluster kubevirt --image-content-sources /home/mgmt_iscp.yaml  --additional-trust-bundle /etc/pki/ca-trust/source/anchors/registry.2.crt --name simone3 --node-pool-replicas 2 --memory 16Gi --cores 4 --root-volume-size 64 --namespace local-cluster --release-image virthost.ostest.test.metalkube.org:5000/localimages/local-release-image@sha256:66c6a46013cda0ad4e2291be3da432fdd03b4a47bf13067e0c7b91fb79eb4539 --pull-secret /tmp/.dockerconfigjson --generate-ssh</p>
+<p>on the hostedCluster object we see:
+<div class="highlight"><pre><span></span><code><span class="nt">status</span><span class="p">:</span>
+<span class="nt">conditions</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lastTransitionTime</span><span class="p">:</span><span class="w"> </span><span class="s">"2024-02-14T22:01:30Z"</span>
+<span class="w">  </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s">'failed</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">look</span><span class="nv"> </span><span class="s">up</span><span class="nv"> </span><span class="s">image</span><span class="nv"> </span><span class="s">metadata</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">registry.ci.openshift.org/ocp/4.14-2024-02-14-135111@sha256:84c74cc05250d0e51fe115274cc67ffcf0a4ac86c831b7fea97e484e646072a6:</span>
+<span class="w">  </span><span class="s">failed</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">obtain</span><span class="nv"> </span><span class="s">root</span><span class="nv"> </span><span class="s">manifest</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">registry.ci.openshift.org/ocp/4.14-2024-02-14-135111@sha256:84c74cc05250d0e51fe115274cc67ffcf0a4ac86c831b7fea97e484e646072a6:</span>
+<span class="w">  </span><span class="s">unauthorized:</span><span class="nv"> </span><span class="s">authentication</span><span class="nv"> </span><span class="s">required'</span>
+<span class="w">  </span><span class="nt">observedGeneration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">reason</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReconciliationError</span>
+<span class="w">  </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="s">"False"</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReconciliationSucceeded</span>
+</code></pre></div></p>
+<p>and in the logs of the hypershift operator:
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"level"</span><span class="p">:</span><span class="s2">"info"</span><span class="p">,</span><span class="nt">"ts"</span><span class="p">:</span><span class="s2">"2024-02-14T22:18:11Z"</span><span class="p">,</span><span class="nt">"msg"</span><span class="p">:</span><span class="s2">"registry override coincidence not found"</span><span class="p">,</span><span class="nt">"controller"</span><span class="p">:</span><span class="s2">"hostedcluster"</span><span class="p">,</span><span class="nt">"controllerGroup"</span><span class="p">:</span><span class="s2">"hypershift.openshift.io"</span><span class="p">,</span><span class="nt">"controllerKind"</span><span class="p">:</span><span class="s2">"HostedCluster"</span><span class="p">,</span><span class="nt">"HostedCluster"</span><span class="p">:{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"simone3"</span><span class="p">,</span><span class="nt">"namespace"</span><span class="p">:</span><span class="s2">"local-cluster"</span><span class="p">},</span><span class="nt">"namespace"</span><span class="p">:</span><span class="s2">"local-cluster"</span><span class="p">,</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"simone3"</span><span class="p">,</span><span class="nt">"reconcileID"</span><span class="p">:</span><span class="s2">"6d6a2479-3d54-42e3-9204-8d0ab1013745"</span><span class="p">,</span><span class="nt">"image"</span><span class="p">:</span><span class="s2">"4.14-2024-02-14-135111"</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">"level"</span><span class="p">:</span><span class="s2">"error"</span><span class="p">,</span><span class="nt">"ts"</span><span class="p">:</span><span class="s2">"2024-02-14T22:18:12Z"</span><span class="p">,</span><span class="nt">"msg"</span><span class="p">:</span><span class="s2">"Reconciler error"</span><span class="p">,</span><span class="nt">"controller"</span><span class="p">:</span><span class="s2">"hostedcluster"</span><span class="p">,</span><span class="nt">"controllerGroup"</span><span class="p">:</span><span class="s2">"hypershift.openshift.io"</span><span class="p">,</span><span class="nt">"controllerKind"</span><span class="p">:</span><span class="s2">"HostedCluster"</span><span class="p">,</span><span class="nt">"HostedCluster"</span><span class="p">:{</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"simone3"</span><span class="p">,</span><span class="nt">"namespace"</span><span class="p">:</span><span class="s2">"local-cluster"</span><span class="p">},</span><span class="nt">"namespace"</span><span class="p">:</span><span class="s2">"local-cluster"</span><span class="p">,</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"simone3"</span><span class="p">,</span><span class="nt">"reconcileID"</span><span class="p">:</span><span class="s2">"6d6a2479-3d54-42e3-9204-8d0ab1013745"</span><span class="p">,</span><span class="nt">"error"</span><span class="p">:</span><span class="s2">"failed to look up image metadata for registry.ci.openshift.org/ocp/4.14-2024-02-14-135111@sha256:84c74cc05250d0e51fe115274cc67ffcf0a4ac86c831b7fea97e484e646072a6: failed to obtain root manifest for registry.ci.openshift.org/ocp/4.14-2024-02-14-135111@sha256:84c74cc05250d0e51fe115274cc67ffcf0a4ac86c831b7fea97e484e646072a6: unauthorized: authentication required"</span><span class="p">,</span><span class="nt">"stacktrace"</span><span class="p">:</span><span class="s2">"sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).reconcileHandler\n\t/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:326\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).processNextWorkItem\n\t/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:273\nsigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2.2\n\t/remote-source/app/vendor/sigs.k8s.io/controller-runtime/pkg/internal/controller/controller.go:234"</span><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Workaround:</strong>
+Explicitly use --annotations=hypershift.openshift.io/control-plane-operator-image=<controlplaneoperatorimage> when creatng the hosted cluster.
+<div class="highlight"><pre><span></span><code><span class="c1"># this will sync with the release image used on the management cluster, replace if needed</span>
+$<span class="w"> </span><span class="nv">PAYLOADIMAGE</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>clusterversion<span class="w"> </span>version<span class="w"> </span>-ojsonpath<span class="o">=</span><span class="s1">'{.status.desired.image}'</span><span class="k">)</span>
+$<span class="w"> </span><span class="nv">HO_OPERATOR_IMAGE</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PAYLOADIMAGE</span><span class="p">//@sha256:[^ ]*/@</span><span class="se">\$</span><span class="p">(oc adm release info -a /tmp/.dockerconfigjson </span><span class="s2">"</span><span class="nv">$PAYLOADIMAGE</span><span class="s2">"</span><span class="p"> | grep hypershift | awk </span><span class="s1">'{print $2}'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+$<span class="w"> </span>hcp<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>...<span class="w"> </span>--annotations<span class="o">=</span>hypershift.openshift.io/control-plane-operator-image<span class="o">=</span><span class="si">${</span><span class="nv">HO_OPERATOR_IMAGE</span><span class="si">}</span><span class="w"> </span>...
+</code></pre></div></controlplaneoperatorimage></p>
+<h2 id="kubevirt-specific-oc-mirror-does-not-mirror-the-rhcos-image-for-hypershift-kubevirt-provider-from-the-ocp-release-payload">(KubeVirt specific) oc-mirror does not mirror the RHCOS image for HyperShift KubeVirt provider from the OCP release payload</h2>
+<p>See: <a href="https://issues.redhat.com/browse/OCPBUGS-29408">OCPBUGS-29408</a></p>
+<p><strong>Workaround:</strong>
+Explicitly mirror the RHCOS image for HyperShift KubeVirt provider.
+This snippet assumes that <code>yq-v4</code> tool is already available on the bastion host.
+<div class="highlight"><pre><span></span><code><span class="nv">mirror_registry</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>imagecontentsourcepolicy<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.items[].spec.repositoryDigestMirrors[0].mirrors[0]'</span><span class="k">)</span>
+<span class="nv">mirror_registry</span><span class="o">=</span><span class="si">${</span><span class="nv">mirror_registry</span><span class="p">%%/*</span><span class="si">}</span>
+<span class="nv">LOCALIMAGES</span><span class="o">=</span>localimages
+<span class="c1"># this will sync with the release image used on the management cluster, replace if needed</span>
+<span class="nv">PAYLOADIMAGE</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>clusterversion<span class="w"> </span>version<span class="w"> </span>-ojsonpath<span class="o">=</span><span class="s1">'{.status.desired.image}'</span><span class="k">)</span>
+oc<span class="w"> </span>image<span class="w"> </span>extract<span class="w"> </span>--file<span class="w"> </span>/release-manifests/0000_50_installer_coreos-bootimages.yaml<span class="w"> </span><span class="si">${</span><span class="nv">PAYLOADIMAGE</span><span class="si">}</span><span class="w"> </span>--confirm
+<span class="nv">RHCOS_IMAGE</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>0000_50_installer_coreos-bootimages.yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>yq<span class="w"> </span>-r<span class="w"> </span>.data.stream<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.architectures.x86_64.images.kubevirt."digest-ref"'</span><span class="k">)</span>
+<span class="nv">RHCOS_IMAGE_NO_DIGEST</span><span class="o">=</span><span class="si">${</span><span class="nv">RHCOS_IMAGE</span><span class="p">%@sha256*</span><span class="si">}</span>
+<span class="nv">RHCOS_IMAGE_NAME</span><span class="o">=</span><span class="si">${</span><span class="nv">RHCOS_IMAGE_NO_DIGEST</span><span class="p">##*/</span><span class="si">}</span>
+<span class="nv">RHCOS_IMAGE_REPO</span><span class="o">=</span><span class="si">${</span><span class="nv">RHCOS_IMAGE_NO_DIGEST</span><span class="p">%/*</span><span class="si">}</span>
+oc<span class="w"> </span>image<span class="w"> </span>mirror<span class="w"> </span><span class="si">${</span><span class="nv">RHCOS_IMAGE</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">mirror_registry</span><span class="si">}</span>/<span class="si">${</span><span class="nv">LOCALIMAGES</span><span class="si">}</span>/<span class="si">${</span><span class="nv">RHCOS_IMAGE_NAME</span><span class="si">}</span>
+</code></pre></div></p>
+<h2 id="hcp-recycler-pods-are-not-starting-on-hostedcontrolplane-in-disconnected-environments-imagepullbackoff-on-quayioopenshiftorigin-toolslatest">HCP: recycler pods are not starting on hostedcontrolplane in disconnected environments ( ImagePullBackOff on quay.io/openshift/origin-tools:latest )</h2>
+<p>See: <a href="https://issues.redhat.com/browse/OCPBUGS-31398">OCPBUGS-31398</a></p>
+<p><strong>Symptoms:</strong>
+Recycler pods are not starting on hosted control plane with ImagePullBackOff error on <code>quay.io/openshift/origin-tools:latest</code>.
+The recycler pod template in the recycler-config config map on the hostedcontrolplane namespace refers to <code>quay.io/openshift/origin-tools:latest</code>:
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>oc<span class="w"> </span>get<span class="w"> </span>cm<span class="w"> </span>-n<span class="w"> </span>clusters-guest<span class="w"> </span>recycler-config<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data["recycler-pod.yaml"]'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">"image"</span>
+image:<span class="w"> </span>quay.io/openshift/origin-tools:latest
+</code></pre></div></p>
+<p><strong>Workaround:</strong>
+Not available.
+The recycler-config configmap is continuously reconciled by the control plane operator
+pointing it back to <code>quay.io/openshift/origin-tools:latest</code> which will never be available for a disconnected cluster.</p>
+<h2 id="hcp-imagesstreams-on-hosted-clusters-pointing-to-image-on-private-registries-are-failing-due-to-tls-verification-although-the-registry-is-correctly-trusted">HCP: imagesStreams on hosted-clusters pointing to image on private registries are failing due to tls verification, although the registry is correctly trusted</h2>
+<p>See: <a href="https://issues.redhat.com/browse/OCPBUGS-31446">OCPBUGS-31446</a>
+Probably a side effect of https://issues.redhat.com/browse/RFE-3093 - imagestream to trust CA added during the installation</p>
+<p><strong>Symptoms:</strong>
+On the imageStream conditions on the the hosted cluster we see something like:
+<div class="highlight"><pre><span></span><code><span class="nt">tags</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">conditions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">generation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">      </span><span class="nt">lastTransitionTime</span><span class="p">:</span><span class="w"> </span><span class="s">"2024-03-27T12:43:56Z"</span>
+<span class="w">      </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s">'Internal</span><span class="nv"> </span><span class="s">error</span><span class="nv"> </span><span class="s">occurred:</span><span class="nv"> </span><span class="s">virthost.ostest.test.metalkube.org:5000/localimages/local-test-image:e2e-7-registry-k8s-io-e2e-test-images-busybox-1-29-4-4zE9mRvED4RQoUxQ:</span>
+<span class="w">      </span><span class="s">Get</span><span class="nv"> </span><span class="s">"https://virthost.ostest.test.metalkube.org:5000/v2/":</span><span class="nv"> </span><span class="s">tls:</span><span class="nv"> </span><span class="s">failed</span><span class="nv"> </span><span class="s">to</span>
+<span class="w">      </span><span class="s">verify</span><span class="nv"> </span><span class="s">certificate:</span><span class="nv"> </span><span class="s">x509:</span><span class="nv"> </span><span class="s">certificate</span><span class="nv"> </span><span class="s">signed</span><span class="nv"> </span><span class="s">by</span><span class="nv"> </span><span class="s">unknown</span><span class="nv"> </span><span class="s">authority'</span>
+</code></pre></div>
+although the same image can be directly consumed by a pod on the same cluster</p>
+<p><strong>Workaround:</strong>
+Patch all the image streams on the hostedcluster pointing to the internal registry setting insecure mode.
+<div class="highlight"><pre><span></span><code><span class="c1"># KUBECONFIG points to the hosted cluster</span>
+<span class="nv">IMAGESTREAMS</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>imagestreams<span class="w"> </span>-n<span class="w"> </span>openshift<span class="w"> </span>-o<span class="o">=</span>name<span class="k">)</span>
+<span class="k">for</span><span class="w"> </span>isName<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="si">${</span><span class="nv">IMAGESTREAMS</span><span class="si">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"#### Patching </span><span class="si">${</span><span class="nv">isName</span><span class="si">}</span><span class="s2"> using insecure registry"</span>
+<span class="w">  </span>oc<span class="w"> </span>patch<span class="w"> </span>-n<span class="w"> </span>openshift<span class="w"> </span><span class="si">${</span><span class="nv">isName</span><span class="si">}</span><span class="w"> </span>--type<span class="w"> </span>json<span class="w"> </span>-p<span class="w"> </span><span class="s1">'[{"op": "replace", "path": "/spec/tags/0/importPolicy/insecure", "value": true}]'</span>
+<span class="k">done</span>
+</code></pre></div></p>
+<h2 id="idmsicsp-with-only-root-registry-are-not-propagated-to-the-registry-override-flag-under-ignition-server">IDMS/ICSP with only root registry are not propagated to the registry-override flag under ignition server</h2>
+<p>See: <a href="https://issues.redhat.com/browse/OCPBUGS-33951">OCPBUGS-33951</a></p>
+<p><strong>Symptoms:</strong>
+Even having the ICSP/IDMS well set in the Management cluster and working fine in that side, the HostedControlPlane deployment is not capable of extract the metadata release from the OCP payload images. Something like this log entry will show up in the ControlPlaneOperator or HypershiftOperator pod.</p>
+<div class="highlight"><pre><span></span><code>failed to lookup release image: failed to extract release metadata: failed to get repo setup: failed to create repository client for https://registry.sample.net: Get "https://registry.sample.net/v2/": tls: failed to verify certificate: x509: certificate signed by unknown authority
+</code></pre></div>
+<p><strong>Root Cause</strong>:
+Once the ICSP/IDMS are created in the Management cluster and they are only using in the "sources" side a root registry instead of pointing a registry namespace, the image-overrides are not filled with the explicit destination OCP Metadata and Release images, so the Hypeshift operator cannot infer the exact location of the images in the private registry.</p>
+<p>This is a sample:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config.openshift.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ImageDigestMirrorSet</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image-policy</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">imageDigestMirrors</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mirrors</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.sample.net/redhat.io</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.redhat.io</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mirrors</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.sample.net/connect.redhat.com</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.connect.redhat.com</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mirrors</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.sample.net/gcr.io</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gcr.io</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mirrors</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.sample.net/docker.io</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.io</span>
+</code></pre></div>
+<p><strong>Solution:</strong>
+In order to solve the issue and perform a successful HostedControlPlane disconnected deployment you need at least to create the OCP namespaced reference in a IDMS/ICSP. A sample will look like this:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config.openshift.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ImageDigestMirrorSet</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp-release</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">imageDigestMirrors</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mirrors</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.sample.net/quay.io/openshift-release-dev/ocp-v4.0-art-dev</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/openshift-release-dev/ocp-v4.0-art-dev</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mirrors</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.sample.net/quay.io/openshift-release-dev/ocp-release</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quay.io/openshift-release-dev/ocp-release</span>
+</code></pre></div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

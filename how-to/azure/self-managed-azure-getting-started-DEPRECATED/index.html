@@ -1,0 +1,2469 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed-azure-getting-started-DEPRECATED/" rel="canonical"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>self managed azure getting started DEPRECATED - HyperShift Azure Developer Preview</title>
+<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#introduction">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              self managed azure getting started DEPRECATED
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#introduction">
+<span class="md-ellipsis">
+      Introduction
+    </span>
+</a>
+<nav aria-label="Introduction" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#what-is-self-managed-azure-hypershift">
+<span class="md-ellipsis">
+      What is Self-Managed Azure HyperShift?
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#who-is-this-guide-for">
+<span class="md-ellipsis">
+      Who is This Guide For?
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#official-product-name">
+<span class="md-ellipsis">
+      Official Product Name
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#architecture-overview">
+<span class="md-ellipsis">
+      Architecture Overview
+    </span>
+</a>
+<nav aria-label="Architecture Overview" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#high-level-architecture">
+<span class="md-ellipsis">
+      High-Level Architecture
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-components">
+<span class="md-ellipsis">
+      Key Components
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-architecture">
+<span class="md-ellipsis">
+      Security Architecture
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#prerequisites">
+<span class="md-ellipsis">
+      Prerequisites
+    </span>
+</a>
+<nav aria-label="Prerequisites" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#for-azure-administrators">
+<span class="md-ellipsis">
+      For Azure Administrators
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#for-hypershift-administrators">
+<span class="md-ellipsis">
+      For HyperShift Administrators
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#planning-your-deployment">
+<span class="md-ellipsis">
+      Planning Your Deployment
+    </span>
+</a>
+<nav aria-label="Planning Your Deployment" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#dns-management-strategy">
+<span class="md-ellipsis">
+      DNS Management Strategy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#resource-group-strategy">
+<span class="md-ellipsis">
+      Resource Group Strategy
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#network-architecture">
+<span class="md-ellipsis">
+      Network Architecture
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deployment-phases-overview">
+<span class="md-ellipsis">
+      Deployment Phases Overview
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#phase-1-azure-setup">
+<span class="md-ellipsis">
+      Phase 1: Azure Setup
+    </span>
+</a>
+<nav aria-label="Phase 1: Azure Setup" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview">
+<span class="md-ellipsis">
+      Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-create-azure-workload-identities">
+<span class="md-ellipsis">
+      Step 1: Create Azure Workload Identities
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-create-workload-identities-configuration-file">
+<span class="md-ellipsis">
+      Step 2: Create Workload Identities Configuration File
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-configure-oidc-issuer">
+<span class="md-ellipsis">
+      Step 3: Configure OIDC Issuer
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-set-up-federated-identity-credentials">
+<span class="md-ellipsis">
+      Step 4: Set Up Federated Identity Credentials
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-5-optional-dns-zone-configuration-for-external-dns">
+<span class="md-ellipsis">
+      Step 5: (Optional) DNS Zone Configuration for External DNS
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-6-optional-create-external-dns-service-principal">
+<span class="md-ellipsis">
+      Step 6: (Optional) Create External DNS Service Principal
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#phase-1-verification">
+<span class="md-ellipsis">
+      Phase 1 Verification
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#phase-1-summary">
+<span class="md-ellipsis">
+      Phase 1 Summary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#handoff-to-hypershift-administrator">
+<span class="md-ellipsis">
+      Handoff to HyperShift Administrator
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#phase-2-management-cluster-setup">
+<span class="md-ellipsis">
+      Phase 2: Management Cluster Setup
+    </span>
+</a>
+<nav aria-label="Phase 2: Management Cluster Setup" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview_1">
+<span class="md-ellipsis">
+      Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-access-your-management-cluster">
+<span class="md-ellipsis">
+      Step 1: Access Your Management Cluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-create-kubernetes-secret-for-external-dns-optional">
+<span class="md-ellipsis">
+      Step 2: Create Kubernetes Secret for External DNS (Optional)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-install-hypershift-operator">
+<span class="md-ellipsis">
+      Step 3: Install HyperShift Operator
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#phase-2-verification">
+<span class="md-ellipsis">
+      Phase 2 Verification
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#phase-3-create-your-first-hosted-cluster">
+<span class="md-ellipsis">
+      Phase 3: Create Your First Hosted Cluster
+    </span>
+</a>
+<nav aria-label="Phase 3: Create Your First Hosted Cluster" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview_2">
+<span class="md-ellipsis">
+      Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-1-prepare-cluster-specific-azure-infrastructure">
+<span class="md-ellipsis">
+      Step 1: Prepare Cluster-Specific Azure Infrastructure
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-2-create-the-hostedcluster">
+<span class="md-ellipsis">
+      Step 2: Create the HostedCluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configuring-azure-marketplace-images-optional">
+<span class="md-ellipsis">
+      Configuring Azure Marketplace Images (Optional)
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-3-verify-cluster-creation">
+<span class="md-ellipsis">
+      Step 3: Verify Cluster Creation
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#step-4-access-your-cluster">
+<span class="md-ellipsis">
+      Step 4: Access Your Cluster
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#day-2-operations">
+<span class="md-ellipsis">
+      Day 2 Operations
+    </span>
+</a>
+<nav aria-label="Day 2 Operations" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adding-additional-nodepools">
+<span class="md-ellipsis">
+      Adding Additional NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scaling-nodepools">
+<span class="md-ellipsis">
+      Scaling NodePools
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#upgrading-clusters">
+<span class="md-ellipsis">
+      Upgrading Clusters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deleting-nodepools">
+<span class="md-ellipsis">
+      Deleting NodePools
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cleanup">
+<span class="md-ellipsis">
+      Cleanup
+    </span>
+</a>
+<nav aria-label="Cleanup" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#delete-a-hosted-cluster">
+<span class="md-ellipsis">
+      Delete a Hosted Cluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#delete-shared-azure-resources">
+<span class="md-ellipsis">
+      Delete Shared Azure Resources
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#troubleshooting">
+<span class="md-ellipsis">
+      Troubleshooting
+    </span>
+</a>
+<nav aria-label="Troubleshooting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-issues">
+<span class="md-ellipsis">
+      Common Issues
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#diagnostic-commands">
+<span class="md-ellipsis">
+      Diagnostic Commands
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#getting-help">
+<span class="md-ellipsis">
+      Getting Help
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendices">
+<span class="md-ellipsis">
+      Appendices
+    </span>
+</a>
+<nav aria-label="Appendices" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-a-azure-permissions-reference">
+<span class="md-ellipsis">
+      Appendix A: Azure Permissions Reference
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-b-workload-identity-service-account-mapping">
+<span class="md-ellipsis">
+      Appendix B: Workload Identity Service Account Mapping
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-c-resource-group-lifecycle-summary">
+<span class="md-ellipsis">
+      Appendix C: Resource Group Lifecycle Summary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-d-reference-links">
+<span class="md-ellipsis">
+      Appendix D: Reference Links
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-e-glossary">
+<span class="md-ellipsis">
+      Appendix E: Glossary
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#appendix-f-dns-configuration-reference">
+<span class="md-ellipsis">
+      Appendix F: DNS Configuration Reference
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<div class="admonition warning">
+<p class="admonition-title">DEPRECATED - Documentation Restructured</p>
+<p>This documentation has been reorganized into a modular structure for better navigation and clarity.</p>
+<p><strong>Please use the new documentation:</strong></p>
+<ul>
+<li><a href="../self-managed/01-understanding/">Understanding HyperShift on Azure</a></li>
+<li><a href="../self-managed/02-planning/">Planning Your Deployment</a></li>
+<li><a href="../self-managed/03-azure-foundation/">Azure Foundation Setup</a></li>
+<li><a href="../self-managed/04-management-cluster/">Management Cluster Setup</a></li>
+<li><a href="../self-managed/05-hosted-cluster/">Create Hosted Clusters</a></li>
+<li><a href="../self-managed/06-day2-operations/">Day 2 Operations</a></li>
+<li><a href="../self-managed/07-troubleshooting/">Troubleshooting</a></li>
+<li><a href="../self-managed/08-reference/">Reference</a></li>
+</ul>
+<p>This file is kept for reference during content migration and will be removed.</p>
+</div>
+<h1 id="getting-started-with-self-managed-azure-hypershift-deprecated">Getting Started with Self-Managed Azure HyperShift (DEPRECATED)</h1>
+<div class="admonition note">
+<p class="admonition-title">Developer Preview in OCP 4.21</p>
+<p>Self-managed Azure HostedClusters are available as a Developer Preview feature in OpenShift Container Platform 4.21.</p>
+</div>
+<h2 id="introduction">Introduction</h2>
+<h3 id="what-is-self-managed-azure-hypershift">What is Self-Managed Azure HyperShift?</h3>
+<p>Self-managed Azure HyperShift enables you to deploy and manage OpenShift hosted control planes on a Kubernetes or OpenShift management cluster running in Azure. This architecture allows you to:</p>
+<ul>
+<li><strong>Reduce costs</strong>: Run multiple OpenShift control planes as pods on a shared management cluster</li>
+<li><strong>Improve density</strong>: Host dozens of control planes on the same infrastructure</li>
+<li><strong>Simplify management</strong>: Centralize control plane operations while isolating workload data planes</li>
+<li><strong>Increase flexibility</strong>: Choose your own management cluster platform and customize networking</li>
+</ul>
+<h3 id="who-is-this-guide-for">Who is This Guide For?</h3>
+<p>This guide is designed for two primary personas working together to deploy self-managed Azure HyperShift:</p>
+<ol>
+<li><strong>Azure Administrator</strong>: Responsible for Azure subscription configuration, identity and access management (IAM), DNS setup, and resource group management</li>
+<li><strong>HyperShift Administrator</strong>: Responsible for deploying and managing the management cluster, installing the HyperShift operator, and creating/managing hosted clusters</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Division of Responsibilities</p>
+<p>While some organizations may have a single person handling both roles, this guide separates tasks by persona to help you understand which parts require Azure-level permissions versus cluster-level permissions.</p>
+</div>
+<h3 id="official-product-name">Official Product Name</h3>
+<ul>
+<li><strong>Project</strong>: HyperShift (open source project)</li>
+<li><strong>Product</strong> (when generally available): Hosted Control Planes for self-managed OpenShift on Azure</li>
+</ul>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<h3 id="high-level-architecture">High-Level Architecture</h3>
+<p>Self-managed Azure HyperShift deployments consist of three key layers:</p>
+<ol>
+<li><strong>Management Cluster</strong>: An existing Kubernetes or OpenShift cluster running in Azure that hosts the HyperShift operator and control plane pods for your hosted clusters</li>
+<li><strong>Control Plane</strong>: Kubernetes control plane components (API server, etcd, controllers) running as pods on the management cluster</li>
+<li><strong>Data Plane</strong>: Worker nodes running as Azure Virtual Machines in your Azure subscription, managed by the control plane</li>
+</ol>
+<div class="mermaid">graph TB
+    subgraph Azure["Azure Subscription"]
+        direction TB
+
+        subgraph MgmtCluster["Management Cluster (K8s/OpenShift)"]
+            direction LR
+            Operator["HyperShift<br/>Operator"]
+            ClusterACP["Cluster A<br/>Control Plane"]
+            ClusterBCP["Cluster B<br/>Control Plane"]
+        end
+
+        WorkerA["Cluster A Worker Nodes<br/>(Azure VMs)"]
+        WorkerB["Cluster B Worker Nodes<br/>(Azure VMs)"]
+
+        subgraph Shared["Shared Azure Resources"]
+            SharedItems["• Workload Identities (Managed Identities)<br/>• OIDC Issuer (Blob Storage)<br/>• DNS Zones (Optional)"]
+        end
+
+        ClusterACP -.-&gt;|manages| WorkerA
+        ClusterBCP -.-&gt;|manages| WorkerB
+    end
+</div>
+<h3 id="key-components">Key Components</h3>
+<h4 id="management-cluster">Management Cluster</h4>
+<ul>
+<li>Can be any Kubernetes cluster (including OpenShift) running in Azure</li>
+<li>Hosts the HyperShift operator which manages the lifecycle of hosted clusters</li>
+<li>Runs control plane pods for multiple hosted clusters</li>
+<li>Must have sufficient capacity for control plane workloads</li>
+</ul>
+<h4 id="hosted-control-plane">Hosted Control Plane</h4>
+<ul>
+<li>Runs as a set of pods on the management cluster</li>
+<li>Includes API server, etcd, controller manager, scheduler</li>
+<li>Isolated per hosted cluster for security and multi-tenancy</li>
+<li>Communicates with worker nodes via Azure networking</li>
+</ul>
+<h4 id="worker-nodes">Worker Nodes</h4>
+<ul>
+<li>Standard Azure Virtual Machines in your subscription</li>
+<li>Join the hosted cluster via machine provisioning</li>
+<li>Run your application workloads</li>
+<li>Managed by the control plane components</li>
+</ul>
+<h4 id="authentication-identity">Authentication &amp; Identity</h4>
+<ul>
+<li>Uses <a href="https://azure.github.io/azure-workload-identity/docs/">Azure Workload Identity</a> for secure, credential-free authentication</li>
+<li>Federated identity credentials enable OpenShift service accounts to authenticate with Azure APIs</li>
+<li>Eliminates the need for long-lived service principal credentials</li>
+<li>Each OpenShift component (storage, networking, etc.) gets its own managed identity with minimal required permissions</li>
+</ul>
+<h3 id="security-architecture">Security Architecture</h3>
+<p>Self-managed Azure HyperShift implements several security best practices:</p>
+<ol>
+<li><strong>Workload Identity Federation</strong>: Uses OIDC-based authentication to eliminate long-lived credentials</li>
+<li><strong>Least Privilege Access</strong>: Each component gets its own managed identity with minimal required permissions</li>
+<li><strong>Network Isolation</strong>: Custom VNets and NSGs allow you to implement network segmentation and security policies</li>
+<li><strong>Federated Credentials</strong>: Trust relationships are scoped to specific service accounts, preventing unauthorized access</li>
+<li><strong>Control Plane Isolation</strong>: Each hosted cluster's control plane runs in isolated pods on the management cluster</li>
+</ol>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>This section outlines the prerequisites needed before beginning your deployment, organized by the responsible persona.</p>
+<h3 id="for-azure-administrators">For Azure Administrators</h3>
+<p>Before the HyperShift Administrator can begin deploying hosted clusters, the Azure Administrator must have:</p>
+<h4 id="azure-subscription-permissions">Azure Subscription &amp; Permissions</h4>
+<ul>
+<li>Active Azure subscription</li>
+<li><strong>Subscription-level roles</strong>:<ul>
+<li><code>Contributor</code> role</li>
+<li><code>User Access Administrator</code> role</li>
+</ul>
+</li>
+<li><strong>Microsoft Graph API permissions</strong>:<ul>
+<li><code>Application.ReadWrite.OwnedBy</code> permission (for creating service principals)</li>
+</ul>
+</li>
+</ul>
+<h4 id="azure-resources">Azure Resources</h4>
+<ul>
+<li>A persistent resource group for shared resources (e.g., <code>os4-common</code>)<ul>
+<li>This resource group will contain workload identities, OIDC issuer, and optionally DNS zones</li>
+<li>Should not be deleted when individual hosted clusters are removed</li>
+</ul>
+</li>
+<li>(Optional) Parent DNS zone in Azure DNS for delegating cluster DNS records<ul>
+<li>Required only if using External DNS for automatic DNS management</li>
+<li>Must allow NS record delegation for subdomain zones</li>
+</ul>
+</li>
+</ul>
+<h4 id="tools-access">Tools &amp; Access</h4>
+<ul>
+<li>Azure CLI (<code>az</code>) installed and configured with the subscription</li>
+<li><code>jq</code> command-line JSON processor</li>
+<li>Cloud Credential Operator (CCO) tool installed</li>
+<li>Access to create and manage:<ul>
+<li>Managed identities</li>
+<li>Storage accounts (for OIDC issuer)</li>
+<li>DNS zones (if using External DNS)</li>
+<li>Service principals (if using External DNS)</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Resource Reaper Warning</p>
+<p>In Red Hat development/testing environments, a periodic Azure resource "reaper" deletes untagged resources or resources not in approved resource groups. If you're in such an environment, use <code>os4-common</code> for shared resources or ensure your organization's required tags/policies are applied. If you're outside Red Hat infrastructure, use any persistent resource group name that fits your organization's naming conventions.</p>
+</div>
+<h3 id="for-hypershift-administrators">For HyperShift Administrators</h3>
+<p>The HyperShift Administrator needs:</p>
+<h4 id="management-cluster_1">Management Cluster</h4>
+<ul>
+<li>An existing Kubernetes cluster (OpenShift or upstream Kubernetes) running in Azure</li>
+<li>Cluster must have:<ul>
+<li>Sufficient capacity for hosting control plane pods</li>
+<li>Network connectivity to Azure APIs</li>
+<li>Ability to create LoadBalancer services (if not using External DNS)</li>
+</ul>
+</li>
+<li>Administrative access (<code>cluster-admin</code> permissions) to the management cluster</li>
+</ul>
+<h4 id="tools-cli">Tools &amp; CLI</h4>
+<ul>
+<li>OpenShift CLI (<code>oc</code>) or Kubernetes CLI (<code>kubectl</code>)</li>
+<li>HyperShift CLI binary (<a href="https://github.com/openshift/hypershift/releases">download</a>)</li>
+<li>Valid OpenShift pull secret from <a href="https://console.redhat.com/openshift/downloads">cloud.redhat.com</a></li>
+</ul>
+<h4 id="azure-access-credentials">Azure Access Credentials</h4>
+<ul>
+<li>Service principal credentials with appropriate permissions (provided by Azure Administrator)</li>
+<li>These credentials file will be used for cluster creation operations</li>
+</ul>
+<h4 id="configuration-files-from-azure-administrator">Configuration Files (from Azure Administrator)</h4>
+<ul>
+<li>Workload identities configuration file (<code>workload-identities.json</code>)</li>
+<li>OIDC issuer URL</li>
+<li>Service account signer private key</li>
+<li>Azure credentials file</li>
+<li>(Optional) DNS configuration details if using External DNS</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Azure Credentials File Format</p>
+<p>The <code>azure-credentials.json</code> file should contain service principal credentials in this format:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"subscriptionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"clientSecret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your-service-principal-secret"</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>How to create this file:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create service principal with required permissions</span>
+<span class="nv">SP_DETAILS</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>create-for-rbac<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"hypershift-cluster-ops"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--role<span class="w"> </span>Contributor<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--scopes<span class="w"> </span><span class="s2">"/subscriptions/</span><span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>id<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span><span class="s2">"</span><span class="k">)</span>
+
+<span class="c1"># Extract values</span>
+<span class="nv">CLIENT_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SP_DETAILS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.appId'</span><span class="k">)</span>
+<span class="nv">CLIENT_SECRET</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SP_DETAILS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.password'</span><span class="k">)</span>
+<span class="nv">TENANT_ID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>tenantId<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+<span class="nv">SUBSCRIPTION_ID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>id<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+
+<span class="c1"># Create credentials file</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; azure-credentials.json</span>
+<span class="s">{</span>
+<span class="s">  "subscriptionId": "$SUBSCRIPTION_ID",</span>
+<span class="s">  "tenantId": "$TENANT_ID",</span>
+<span class="s">  "clientId": "$CLIENT_ID",</span>
+<span class="s">  "clientSecret": "$CLIENT_SECRET"</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<p>Your Azure administrator may provide this file, or you can create it yourself if you have the necessary permissions.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Understanding the Different Credential Files</p>
+<p>This guide uses three different credential/configuration files:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+<th>Used By</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>azure-credentials.json</strong></td>
+<td>Cluster operations (create/destroy)</td>
+<td>HyperShift CLI</td>
+<td><code>{"subscriptionId", "tenantId", "clientId", "clientSecret"}</code></td>
+</tr>
+<tr>
+<td><strong>workload-identities.json</strong></td>
+<td>Cluster component authentication</td>
+<td>OpenShift components</td>
+<td><code>{"imageRegistry": {"clientID": "..."}, ...}</code></td>
+</tr>
+<tr>
+<td><strong>azure_mgmt.json</strong></td>
+<td>DNS record management (optional)</td>
+<td>External DNS operator</td>
+<td><code>{"tenantId", "subscriptionId", "resourceGroup", "aadClientId", "aadClientSecret"}</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>azure-credentials.json</strong>: Created by you or provided by Azure admin (see above)</li>
+<li><strong>workload-identities.json</strong>: Created in Phase 1, Step 2</li>
+<li><strong>azure_mgmt.json</strong>: Created in Phase 1, Step 6 (only if using External DNS)</li>
+</ul>
+</div>
+<h2 id="planning-your-deployment">Planning Your Deployment</h2>
+<p>Before beginning the installation, make several key decisions that will affect your deployment architecture.</p>
+<h3 id="dns-management-strategy">DNS Management Strategy</h3>
+<p>One of the first decisions you need to make is how to handle DNS for your hosted clusters. This choice affects both complexity and operational characteristics.</p>
+<h4 id="option-1-with-external-dns-recommended-for-production">Option 1: With External DNS (Recommended for Production)</h4>
+<p><strong>Best For</strong>: Production environments, multiple clusters, custom domains</p>
+<p><strong>Characteristics</strong>:
+- Automatic DNS record management via External DNS operator
+- Custom domain names (e.g., <code>api-cluster.example.com</code>)
+- Requires: DNS zones, service principal with DNS permissions, External DNS operator
+- <strong>Higher initial setup complexity</strong>, but simpler ongoing operations</p>
+<p><strong>Example DNS</strong>:
+- API Server: <code>api.my-cluster.azure.example.com</code>
+- Apps: <code>*.apps.my-cluster.azure.example.com</code></p>
+<p><strong>Decision Criteria</strong>:
+- Choose this if you need custom, branded domain names
+- Choose this if you plan to manage multiple clusters
+- Choose this if you want fully automated DNS provisioning</p>
+<h4 id="option-2-without-external-dns-simpler-for-devtest">Option 2: Without External DNS (Simpler for Dev/Test)</h4>
+<p><strong>Best For</strong>: Development, testing, proof-of-concept environments</p>
+<p><strong>Characteristics</strong>:
+- Manual DNS management or Azure-provided LoadBalancer DNS
+- API server uses Azure LoadBalancer DNS (e.g., <code>abc123-xyz789.eastus.cloudapp.azure.com</code>)
+- No DNS zones or service principals needed
+- <strong>Lower initial setup complexity</strong>, but requires manual DNS work for production use</p>
+<p><strong>Example DNS</strong>:
+- API Server: <code>my-cluster-abc123.eastus.cloudapp.azure.com</code>
+- Apps: <code>my-cluster-apps-xyz789.eastus.cloudapp.azure.com</code></p>
+<p><strong>Decision Criteria</strong>:
+- Choose this for quick testing or POC environments
+- Choose this if you don't control your DNS infrastructure
+- Choose this if you only need a single cluster temporarily</p>
+<div class="admonition tip">
+<p class="admonition-title">Making the Choice</p>
+<p><strong>Start with Option 2 (Without External DNS)</strong> for your first cluster to learn the basics. Once comfortable, you can deploy production clusters with Option 1 (External DNS) for better operational characteristics.</p>
+</div>
+<h3 id="resource-group-strategy">Resource Group Strategy</h3>
+<p>Plan your resource group structure to separate long-lived shared resources from cluster-specific resources:</p>
+<h4 id="persistent-resource-group">Persistent Resource Group</h4>
+<ul>
+<li><strong>Name example</strong>: <code>os4-common</code>, <code>hypershift-shared</code>, or per your organization's conventions</li>
+<li><strong>Lifecycle</strong>: Long-lived, not deleted when clusters are removed</li>
+<li><strong>Contents</strong>:<ul>
+<li>Workload identities (managed identities) - reusable across clusters</li>
+<li>OIDC issuer storage account - reusable across clusters</li>
+<li>Azure DNS zones (if using External DNS)</li>
+<li>External DNS service principal (if using External DNS)</li>
+</ul>
+</li>
+</ul>
+<h4 id="cluster-specific-resource-groups">Cluster-Specific Resource Groups</h4>
+<ul>
+<li><strong>Lifecycle</strong>: Created and destroyed with each hosted cluster</li>
+<li><strong>Contents</strong>:<ul>
+<li>Managed resource group for cluster infrastructure (automatically created by HyperShift)</li>
+<li>VNet resource group (if using custom networking)</li>
+<li>NSG resource group (if using custom networking)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Benefit</strong>: By separating shared resources, you can:
+- Reuse workload identities across multiple clusters
+- Reduce cluster creation time (no need to recreate federated credentials)
+- Simplify cleanup (delete cluster-specific groups, keep shared resources)
+- Reduce costs (one OIDC issuer serves multiple clusters)</p>
+<h3 id="network-architecture">Network Architecture</h3>
+<p>Decide on your networking approach:</p>
+<h4 id="option-1-custom-vnets-and-nsgs">Option 1: Custom VNets and NSGs</h4>
+<ul>
+<li>Full control over network topology</li>
+<li>Can integrate with existing Azure networking</li>
+<li>Specify VNet, subnet, and NSG during cluster creation</li>
+<li>Best for production environments with specific security requirements</li>
+</ul>
+<h4 id="option-2-auto-generated-networking">Option 2: Auto-Generated Networking</h4>
+<ul>
+<li>HyperShift creates VNet and networking automatically</li>
+<li>Simpler for testing and POC</li>
+<li>Less control over IP ranges and security rules</li>
+</ul>
+<h3 id="deployment-phases-overview">Deployment Phases Overview</h3>
+<p>The deployment process consists of three sequential phases:</p>
+<ol>
+<li>
+<p><strong>Phase 1: Azure Setup</strong> (Azure Administrator)</p>
+<ul>
+<li>Create workload identities (managed identities)</li>
+<li>Configure OIDC issuer</li>
+<li>Set up federated identity credentials</li>
+<li>(Optional) Create DNS zones and service principal</li>
+</ul>
+</li>
+<li>
+<p><strong>Phase 2: Management Cluster Setup</strong> (HyperShift Administrator)</p>
+<ul>
+<li>Install HyperShift operator on management cluster</li>
+<li>(Optional) Install and configure External DNS</li>
+</ul>
+</li>
+<li>
+<p><strong>Phase 3: Create Hosted Clusters</strong> (HyperShift Administrator)</p>
+<ul>
+<li>Create cluster-specific infrastructure (VNets, NSGs)</li>
+<li>Deploy hosted clusters with workload identities</li>
+<li>Verify cluster operation</li>
+</ul>
+</li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Sequential Execution Required</p>
+<p>These phases must be completed in order. You cannot skip Phase 1 or Phase 2, as each phase builds on the previous one.</p>
+</div>
+<h2 id="phase-1-azure-setup">Phase 1: Azure Setup</h2>
+<div class="admonition note">
+<p class="admonition-title">Persona: Azure Administrator</p>
+<p>This phase is typically performed by an Azure Administrator who has subscription-level permissions to create identities, storage accounts, and configure federated credentials.</p>
+</div>
+<h3 id="overview">Overview</h3>
+<p>This phase establishes the foundational security infrastructure for your hosted clusters:</p>
+<ul>
+<li><strong>Managed Identities</strong>: Creates Azure managed identities for each OpenShift component</li>
+<li><strong>OIDC Issuer</strong>: Configures an OIDC issuer in Azure Blob Storage for service account token validation</li>
+<li><strong>Federated Credentials</strong>: Establishes trust relationships between Azure Entra ID and OpenShift service accounts</li>
+</ul>
+<p><strong>Why This Matters</strong>: Without these identities and federated credentials, your hosted cluster components cannot authenticate with Azure APIs to provision storage, manage load balancers, configure networking, or perform other essential cloud operations. Using workload identities instead of traditional service principals provides better security through automatic credential rotation and follows Azure's modern authentication best practices.</p>
+<p><strong>When to Complete</strong>: This is a one-time setup that can be reused across multiple hosted clusters. Complete this before the HyperShift Administrator proceeds to Phase 2.</p>
+<h3 id="step-1-create-azure-workload-identities">Step 1: Create Azure Workload Identities</h3>
+<p>Create managed identities for each OpenShift component that needs Azure access:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set environment variables</span>
+<span class="nv">PREFIX</span><span class="o">=</span><span class="s2">"myprefix"</span><span class="w">  </span><span class="c1"># Choose a unique prefix for your cluster</span>
+<span class="nv">PERSISTENT_RG_NAME</span><span class="o">=</span><span class="s2">"os4-common"</span><span class="w">  </span><span class="c1"># Use persistent resource group</span>
+<span class="nv">LOCATION</span><span class="o">=</span><span class="s2">"eastus"</span>
+<span class="nv">CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">-hc"</span>
+<span class="nv">SUBSCRIPTION_ID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>id<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+
+<span class="c1"># Create persistent resource group (if it doesn't exist)</span>
+az<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span><span class="w"> </span>--location<span class="w"> </span><span class="nv">$LOCATION</span>
+
+<span class="c1"># Create managed identities for each component</span>
+<span class="nb">declare</span><span class="w"> </span>-A<span class="w"> </span><span class="nv">COMPONENTS</span><span class="o">=(</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">"image-registry"</span><span class="o">]=</span><span class="s2">"cluster-image-registry-operator"</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">"ingress"</span><span class="o">]=</span><span class="s2">"cluster-ingress-operator"</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">"file-csi"</span><span class="o">]=</span><span class="s2">"cluster-storage-operator-file"</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">"disk-csi"</span><span class="o">]=</span><span class="s2">"cluster-storage-operator-disk"</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">"nodepool-mgmt"</span><span class="o">]=</span><span class="s2">"cluster-api-provider-azure"</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">"cloud-provider"</span><span class="o">]=</span><span class="s2">"azure-cloud-provider"</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">"network"</span><span class="o">]=</span><span class="s2">"cluster-network-operator"</span>
+<span class="o">)</span>
+
+<span class="c1"># Create managed identities and capture client IDs</span>
+<span class="nb">declare</span><span class="w"> </span>-A<span class="w"> </span>CLIENT_IDS
+<span class="k">for</span><span class="w"> </span>component<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="p">!COMPONENTS[@]</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Creating managed identity for </span><span class="nv">$component</span><span class="s2">..."</span>
+<span class="w">    </span><span class="nv">CLIENT_ID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>identity<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">component</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--resource-group<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--query<span class="w"> </span>clientId<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+<span class="w">    </span>CLIENT_IDS<span class="o">[</span><span class="nv">$component</span><span class="o">]=</span><span class="nv">$CLIENT_ID</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Created identity </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">component</span><span class="si">}</span><span class="s2"> with client ID: </span><span class="nv">$CLIENT_ID</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div>
+<h3 id="step-2-create-workload-identities-configuration-file">Step 2: Create Workload Identities Configuration File</h3>
+<p>Create a JSON file with all the workload identity client IDs. This file will be provided to the HyperShift Administrator:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; workload-identities.json</span>
+<span class="s">{</span>
+<span class="s">  "imageRegistry": {</span>
+<span class="s">    "clientID": "${CLIENT_IDS[image-registry]}"</span>
+<span class="s">  },</span>
+<span class="s">  "ingress": {</span>
+<span class="s">    "clientID": "${CLIENT_IDS[ingress]}"</span>
+<span class="s">  },</span>
+<span class="s">  "file": {</span>
+<span class="s">    "clientID": "${CLIENT_IDS[file-csi]}"</span>
+<span class="s">  },</span>
+<span class="s">  "disk": {</span>
+<span class="s">    "clientID": "${CLIENT_IDS[disk-csi]}"</span>
+<span class="s">  },</span>
+<span class="s">  "nodePoolManagement": {</span>
+<span class="s">    "clientID": "${CLIENT_IDS[nodepool-mgmt]}"</span>
+<span class="s">  },</span>
+<span class="s">  "cloudProvider": {</span>
+<span class="s">    "clientID": "${CLIENT_IDS[cloud-provider]}"</span>
+<span class="s">  },</span>
+<span class="s">  "network": {</span>
+<span class="s">    "clientID": "${CLIENT_IDS[network]}"</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<h3 id="step-3-configure-oidc-issuer">Step 3: Configure OIDC Issuer</h3>
+<p>Use the Cloud Credential Operator (CCO) tool to create the OIDC issuer:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set OIDC issuer variables (reusing variables from previous steps)</span>
+<span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">oidc</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="s2">"</span><span class="w">  </span><span class="c1"># Must be globally unique</span>
+<span class="nv">TENANT_ID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>account<span class="w"> </span>show<span class="w"> </span>--query<span class="w"> </span>tenantId<span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+<span class="c1"># SUBSCRIPTION_ID, PERSISTENT_RG_NAME, LOCATION, and PREFIX already set from previous section</span>
+
+<span class="c1"># Create an RSA key pair and save the private and public key</span>
+ccoctl<span class="w"> </span>azure<span class="w"> </span>create-key-pair
+
+<span class="nv">SA_TOKEN_ISSUER_PRIVATE_KEY_PATH</span><span class="o">=</span><span class="s2">"serviceaccount-signer.private"</span>
+<span class="nv">SA_TOKEN_ISSUER_PUBLIC_KEY_PATH</span><span class="o">=</span><span class="s2">"serviceaccount-signer.public"</span>
+
+<span class="c1"># Create OIDC issuer using CCO tool in os4-common resource group</span>
+ccoctl<span class="w"> </span>azure<span class="w"> </span>create-oidc-issuer<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--oidc-resource-group-name<span class="w"> </span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tenant-id<span class="w"> </span><span class="si">${</span><span class="nv">TENANT_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--region<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subscription-id<span class="w"> </span><span class="si">${</span><span class="nv">SUBSCRIPTION_ID</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--public-key-file<span class="w"> </span><span class="si">${</span><span class="nv">SA_TOKEN_ISSUER_PUBLIC_KEY_PATH</span><span class="si">}</span>
+
+<span class="c1"># Set OIDC issuer URL (provide this to the HyperShift Administrator)</span>
+<span class="nv">OIDC_ISSUER_URL</span><span class="o">=</span><span class="s2">"https://</span><span class="si">${</span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="si">}</span><span class="s2">.blob.core.windows.net/</span><span class="si">${</span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"OIDC Issuer URL: </span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span>
+</code></pre></div>
+<h3 id="step-4-set-up-federated-identity-credentials">Step 4: Set Up Federated Identity Credentials</h3>
+<p>Configure federated identity credentials for each workload identity. These establish trust between Azure Entra ID and the specific service accounts in your hosted clusters:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Define workload identity names (matching those created earlier)</span>
+<span class="nv">AZURE_DISK_MI_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-disk-csi"</span>
+<span class="nv">AZURE_FILE_MI_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-file-csi"</span>
+<span class="nv">IMAGE_REGISTRY_MI_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-image-registry"</span>
+<span class="nv">INGRESS_MI_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-ingress"</span>
+<span class="nv">CLOUD_PROVIDER_MI_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-cloud-provider"</span>
+<span class="nv">NODE_POOL_MANAGEMENT_MI_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-nodepool-mgmt"</span>
+<span class="nv">NETWORK_MI_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-network"</span>
+
+<span class="c1"># Azure Disk CSI Driver federated credentials</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_DISK_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id-node"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_DISK_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:openshift-cluster-csi-drivers:azure-disk-csi-driver-node-sa<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_DISK_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id-operator"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_DISK_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:openshift-cluster-csi-drivers:azure-disk-csi-driver-operator<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_DISK_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id-controller"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_DISK_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:openshift-cluster-csi-drivers:azure-disk-csi-driver-controller-sa<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+<span class="c1"># Azure File CSI Driver federated credentials</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_FILE_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id-node"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_FILE_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:openshift-cluster-csi-drivers:azure-file-csi-driver-node-sa<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_FILE_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id-operator"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_FILE_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:openshift-cluster-csi-drivers:azure-file-csi-driver-operator<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_FILE_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id-controller"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_FILE_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:openshift-cluster-csi-drivers:azure-file-csi-driver-controller-sa<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+<span class="c1"># Image Registry federated credentials</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">IMAGE_REGISTRY_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id-registry"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">IMAGE_REGISTRY_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:openshift-image-registry:registry<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">IMAGE_REGISTRY_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id-operator"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">IMAGE_REGISTRY_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:openshift-image-registry:cluster-image-registry-operator<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+<span class="c1"># Ingress Operator federated credential</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">INGRESS_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">INGRESS_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:openshift-ingress-operator:ingress-operator<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+<span class="c1"># Cloud Provider federated credential</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLOUD_PROVIDER_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLOUD_PROVIDER_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:kube-system:azure-cloud-provider<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+<span class="c1"># Node Pool Management federated credential</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NODE_POOL_MANAGEMENT_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NODE_POOL_MANAGEMENT_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:kube-system:capi-provider<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+
+<span class="c1"># Network Operator federated credential</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NETWORK_MI_NAME</span><span class="si">}</span><span class="s2">-fed-id"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NETWORK_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--issuer<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subject<span class="w"> </span>system:serviceaccount:openshift-cloud-network-config-controller:cloud-network-config-controller<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--audience<span class="w"> </span>openshift
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Service Account Mapping</p>
+<p>Each federated identity credential maps a specific Azure managed identity to an OpenShift service account. The service accounts listed above are the default service accounts used by various OpenShift components for Azure integration. These mappings are <strong>automatically configured</strong> by HyperShift when you create a hosted cluster - you don't need to manually configure them on the cluster side.</p>
+</div>
+<h3 id="step-5-optional-dns-zone-configuration-for-external-dns">Step 5: (Optional) DNS Zone Configuration for External DNS</h3>
+<div class="admonition warning">
+<p class="admonition-title">External DNS Only</p>
+<p>This step is only required if you chose to use External DNS for automatic DNS management. If you're using the simpler approach without External DNS, skip to <a href="#phase-1-verification">Phase 1 Verification</a>.</p>
+</div>
+<p>If you're using External DNS, create DNS zones and delegate DNS records:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set DNS configuration variables</span>
+<span class="nv">EXTRN_DNS_PARENT_RG</span><span class="o">=</span><span class="s2">"myparent-dns-rg"</span><span class="w">  </span><span class="c1"># Set to your parent DNS resource group</span>
+<span class="nv">EXTRN_DNS_PARENT_ZONE</span><span class="o">=</span><span class="s2">"example.com"</span><span class="w">    </span><span class="c1"># Set to your parent DNS zone (same as base domain)</span>
+<span class="nv">EXTRN_DNS_RECORD_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">EXTRN_DNS_ZONE_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">.</span><span class="si">${</span><span class="nv">EXTRN_DNS_PARENT_ZONE</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="c1"># Create DNS zone in persistent resource group</span>
+az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </span>zone<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="nv">$EXTRN_DNS_ZONE_NAME</span>
+
+<span class="c1"># Delete existing NS record if it exists</span>
+az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </span>record-set<span class="w"> </span>ns<span class="w"> </span>delete<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="nv">$EXTRN_DNS_PARENT_RG</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--zone-name<span class="w"> </span><span class="nv">$EXTRN_DNS_PARENT_ZONE</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="nv">$EXTRN_DNS_RECORD_NAME</span><span class="w"> </span>-y
+
+<span class="c1"># Get name servers from your DNS zone</span>
+<span class="nv">name_servers</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </span>zone<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="nv">$EXTRN_DNS_ZONE_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--query<span class="w"> </span>nameServers<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span>tsv<span class="k">)</span>
+
+<span class="c1"># Create array of name servers</span>
+<span class="nv">ns_array</span><span class="o">=()</span>
+<span class="k">while</span><span class="w"> </span><span class="nv">IFS</span><span class="o">=</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>ns<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">ns_array</span><span class="o">+=(</span><span class="s2">"</span><span class="nv">$ns</span><span class="s2">"</span><span class="o">)</span>
+<span class="k">done</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="s2">"</span><span class="nv">$name_servers</span><span class="s2">"</span>
+
+<span class="c1"># Add NS records to parent zone</span>
+<span class="k">for</span><span class="w"> </span>ns<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">ns_array</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </span>record-set<span class="w"> </span>ns<span class="w"> </span>add-record<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--resource-group<span class="w"> </span><span class="nv">$EXTRN_DNS_PARENT_RG</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--zone-name<span class="w"> </span><span class="nv">$EXTRN_DNS_PARENT_ZONE</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--record-set-name<span class="w"> </span><span class="nv">$EXTRN_DNS_RECORD_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--nsdname<span class="w"> </span><span class="s2">"</span><span class="nv">$ns</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div>
+<h3 id="step-6-optional-create-external-dns-service-principal">Step 6: (Optional) Create External DNS Service Principal</h3>
+<div class="admonition warning">
+<p class="admonition-title">External DNS Only</p>
+<p>This step is only required if you're using External DNS. Skip to <a href="#phase-1-verification">Phase 1 Verification</a> if not.</p>
+</div>
+<p>Create a dedicated service principal for External DNS:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set External DNS configuration</span>
+<span class="nv">EXTERNAL_DNS_NEW_SP_NAME</span><span class="o">=</span><span class="s2">"ExternalDnsServicePrincipal"</span>
+<span class="nv">EXTERNAL_DNS_CREDS_FILE</span><span class="o">=</span><span class="s2">"azure_mgmt.json"</span>
+
+<span class="c1"># Create service principal for External DNS</span>
+<span class="nv">EXTRN_DNS_SP</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>create-for-rbac<span class="w"> </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">EXTERNAL_DNS_NEW_SP_NAME</span><span class="si">}</span><span class="k">)</span>
+<span class="nv">EXTERNAL_DNS_SP_APP_ID</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$EXTRN_DNS_SP</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.appId'</span><span class="k">)</span>
+<span class="nv">EXTERNAL_DNS_SP_PASSWORD</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$EXTRN_DNS_SP</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.password'</span><span class="k">)</span>
+
+<span class="c1"># Get DNS zone ID</span>
+<span class="nv">EXTRN_DNS_ZONE_ID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </span>zone<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">EXTRN_DNS_ZONE_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--query<span class="w"> </span><span class="s2">"id"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output<span class="w"> </span>tsv<span class="k">)</span>
+
+<span class="c1"># Assign roles to the service principal</span>
+az<span class="w"> </span>role<span class="w"> </span>assignment<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--role<span class="w"> </span><span class="s2">"Reader"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--assignee<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">EXTERNAL_DNS_SP_APP_ID</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--scope<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">EXTRN_DNS_ZONE_ID</span><span class="si">}</span><span class="s2">"</span>
+
+az<span class="w"> </span>role<span class="w"> </span>assignment<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--role<span class="w"> </span><span class="s2">"Contributor"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--assignee<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">EXTERNAL_DNS_SP_APP_ID</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--scope<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">EXTRN_DNS_ZONE_ID</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="c1"># Create Azure credentials file (provide this to HyperShift Administrator)</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;-EOF &gt; ${EXTERNAL_DNS_CREDS_FILE}</span>
+<span class="s">{</span>
+<span class="s">  "tenantId": "$(az account show --query tenantId -o tsv)",</span>
+<span class="s">  "subscriptionId": "$(az account show --query id -o tsv)",</span>
+<span class="s">  "resourceGroup": "$PERSISTENT_RG_NAME",</span>
+<span class="s">  "aadClientId": "$EXTERNAL_DNS_SP_APP_ID",</span>
+<span class="s">  "aadClientSecret": "$EXTERNAL_DNS_SP_PASSWORD"</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<h3 id="phase-1-verification">Phase 1 Verification</h3>
+<p>Verify the Azure setup:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># List created managed identities</span>
+az<span class="w"> </span>identity<span class="w"> </span>list<span class="w"> </span>--resource-group<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span><span class="w"> </span>--output<span class="w"> </span>table
+
+<span class="c1"># Verify federated credentials for one identity</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AZURE_DISK_MI_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span>
+
+<span class="c1"># Test OIDC issuer accessibility</span>
+curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">/.well-known/openid-configuration"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div>
+<h3 id="phase-1-summary">Phase 1 Summary</h3>
+<p>Save these values for use in Phase 3:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Print Phase 1 configuration summary</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">""</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"========================================="</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Phase 1 Configuration Summary"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"========================================="</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"PREFIX=</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"CLUSTER_NAME=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"PERSISTENT_RG_NAME=</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"LOCATION=</span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"OIDC_STORAGE_ACCOUNT_NAME=</span><span class="si">${</span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"OIDC_ISSUER_URL=</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"SA_TOKEN_ISSUER_PRIVATE_KEY_PATH=</span><span class="si">${</span><span class="nv">SA_TOKEN_ISSUER_PRIVATE_KEY_PATH</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">""</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Files created in current directory:"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"  ✓ workload-identities.json"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"  ✓ </span><span class="si">${</span><span class="nv">SA_TOKEN_ISSUER_PRIVATE_KEY_PATH</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"  ✓ </span><span class="si">${</span><span class="nv">SA_TOKEN_ISSUER_PUBLIC_KEY_PATH</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="c1"># If External DNS was configured</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">EXTRN_DNS_ZONE_NAME</span><span class="k">:-</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"  ✓ azure_mgmt.json"</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">""</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"DNS Configuration:"</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"EXTRN_DNS_PARENT_ZONE=</span><span class="si">${</span><span class="nv">EXTRN_DNS_PARENT_ZONE</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"EXTRN_DNS_ZONE_NAME=</span><span class="si">${</span><span class="nv">EXTRN_DNS_ZONE_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">""</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Copy these values for Phase 3!"</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"========================================="</span>
+</code></pre></div>
+<div class="admonition important">
+<p class="admonition-title">Save These Values</p>
+<p>You will need these exact values when setting up your hosted cluster in Phase 3. Copy the output above to a secure location.</p>
+</div>
+<h3 id="handoff-to-hypershift-administrator">Handoff to HyperShift Administrator</h3>
+<p>Once Phase 1 is complete, provide the following to the HyperShift Administrator:</p>
+<p><strong>Required Files:</strong>
+- <code>workload-identities.json</code> - Workload identity configuration
+- Service account signer private key (<code>serviceaccount-signer.private</code>)
+- <code>azure-credentials.json</code> - Service principal credentials for cluster operations</p>
+<p><strong>Required Information (from Phase 1 summary above):</strong>
+- <code>PREFIX</code> value (e.g., <code>myprefix</code>)
+- <code>CLUSTER_NAME</code> value (e.g., <code>myprefix-hc</code>)
+- <code>OIDC_ISSUER_URL</code> (full URL)
+- <code>OIDC_STORAGE_ACCOUNT_NAME</code> (storage account name)
+- <code>PERSISTENT_RG_NAME</code> (e.g., <code>os4-common</code>)
+- <code>LOCATION</code> (e.g., <code>eastus</code>)</p>
+<p><strong>Optional (if using External DNS):</strong>
+- <code>azure_mgmt.json</code> - External DNS service principal credentials
+- <code>EXTRN_DNS_ZONE_NAME</code> (e.g., <code>myprefix.example.com</code>)
+- <code>EXTRN_DNS_PARENT_ZONE</code> (e.g., <code>example.com</code>)</p>
+<h2 id="phase-2-management-cluster-setup">Phase 2: Management Cluster Setup</h2>
+<div class="admonition note">
+<p class="admonition-title">Persona: HyperShift Administrator</p>
+<p>This phase is typically performed by a HyperShift Administrator who has cluster-admin access to the Kubernetes/OpenShift management cluster.</p>
+</div>
+<h3 id="overview_1">Overview</h3>
+<p>This phase prepares your management cluster to host HyperShift control planes:</p>
+<ul>
+<li><strong>HyperShift Operator</strong>: Installs the HyperShift operator that manages hosted cluster lifecycles</li>
+<li><strong>External DNS</strong> (Optional): Deploys and configures External DNS for automatic DNS record management</li>
+</ul>
+<p><strong>Why This Matters</strong>: The HyperShift operator is the core component that orchestrates all hosted cluster operations. It watches for HostedCluster custom resources and provisions the corresponding control plane components.</p>
+<p><strong>When to Complete</strong>: After the Azure Administrator completes Phase 1.</p>
+<h3 id="step-1-access-your-management-cluster">Step 1: Access Your Management Cluster</h3>
+<p>Ensure you have access to your management cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify you can access the management cluster</span>
+kubectl<span class="w"> </span>cluster-info
+
+<span class="c1"># Or with oc</span>
+oc<span class="w"> </span>cluster-info
+
+<span class="c1"># Verify you have cluster-admin permissions</span>
+kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span><span class="s1">'*'</span><span class="w"> </span><span class="s1">'*'</span><span class="w">  </span><span class="c1"># Should return "yes"</span>
+</code></pre></div>
+<h3 id="step-2-create-kubernetes-secret-for-external-dns-optional">Step 2: Create Kubernetes Secret for External DNS (Optional)</h3>
+<div class="admonition warning">
+<p class="admonition-title">External DNS Only</p>
+<p>This step is only required if you're using External DNS. Skip to <a href="#step-3-install-hypershift-operator">Step 3</a> if not.</p>
+</div>
+<p>Create a Kubernetes secret for the Azure credentials:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use the EXTERNAL_DNS_CREDS_FILE from Phase 1, Step 6</span>
+<span class="nv">EXTERNAL_DNS_CREDS_FILE</span><span class="o">=</span><span class="s2">"azure_mgmt.json"</span>
+
+<span class="c1"># Create Kubernetes secret for Azure credentials</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>secret/azure-config-file<span class="w"> </span>--namespace<span class="w"> </span><span class="s2">"default"</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>azure-config-file<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="s2">"default"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--from-file<span class="w"> </span><span class="si">${</span><span class="nv">EXTERNAL_DNS_CREDS_FILE</span><span class="si">}</span>
+</code></pre></div>
+<h3 id="step-3-install-hypershift-operator">Step 3: Install HyperShift Operator</h3>
+<p>Choose the installation method based on your DNS strategy:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1">With External DNS</label><label for="__tabbed_1_2">Without External DNS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Install the HyperShift operator with External DNS configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set installation variables</span>
+<span class="nv">PULL_SECRET</span><span class="o">=</span><span class="s2">"pull-secret.json"</span>
+<span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="o">=</span><span class="s2">"./bin"</span>
+
+<span class="c1"># DNS configuration from Phase 1 (must match Phase 1 values)</span>
+<span class="nv">PREFIX</span><span class="o">=</span><span class="s2">"myprefix"</span><span class="w">  </span><span class="c1"># Must match Phase 1</span>
+<span class="nv">EXTRN_DNS_PARENT_ZONE</span><span class="o">=</span><span class="s2">"example.com"</span><span class="w">  </span><span class="c1"># Must match Phase 1, Step 5</span>
+<span class="nv">EXTRN_DNS_ZONE_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">.</span><span class="si">${</span><span class="nv">EXTRN_DNS_PARENT_ZONE</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">EXTERNAL_DNS_CREDS_FILE</span><span class="o">=</span><span class="s2">"azure_mgmt.json"</span><span class="w">  </span><span class="c1"># From Phase 1, Step 6</span>
+
+<span class="c1"># Install HyperShift operator with External DNS</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--external-dns-provider<span class="o">=</span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--external-dns-credentials<span class="w"> </span><span class="si">${</span><span class="nv">EXTERNAL_DNS_CREDS_FILE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pull-secret<span class="w"> </span><span class="si">${</span><span class="nv">PULL_SECRET</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--external-dns-domain-filter<span class="w"> </span><span class="si">${</span><span class="nv">EXTRN_DNS_ZONE_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--limit-crd-install<span class="w"> </span>Azure
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Custom HyperShift Image</p>
+<p>Add <code>--hypershift-image quay.io/hypershift/hypershift:TAG</code> if using a custom operator image.</p>
+</div>
+</div>
+<div class="tabbed-block">
+<p>Install the HyperShift operator without External DNS:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set installation variables</span>
+<span class="nv">PULL_SECRET</span><span class="o">=</span><span class="s2">"pull-secret.json"</span>
+<span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="o">=</span><span class="s2">"./bin"</span>
+
+<span class="c1"># Install HyperShift operator (no External DNS)</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pull-secret<span class="w"> </span><span class="si">${</span><span class="nv">PULL_SECRET</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--limit-crd-install<span class="w"> </span>Azure
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Custom HyperShift Image</p>
+<p>Add <code>--hypershift-image quay.io/hypershift/hypershift:TAG</code> if using a custom operator image.</p>
+</div>
+</div>
+</div>
+</input></input></div>
+<h3 id="phase-2-verification">Phase 2 Verification</h3>
+<p>Verify your installation:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1">With External DNS</label><label for="__tabbed_2_2">Without External DNS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># Check for both operator and external-dns</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>hypershift
+
+<span class="c1"># Expected output:</span>
+<span class="c1"># NAME                           READY   STATUS    RESTARTS   AGE</span>
+<span class="c1"># external-dns-xxxxx-xxxxx       1/1     Running   0          1m</span>
+<span class="c1"># operator-xxxxx-xxxxx           1/1     Running   0          1m</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># Check for operator only</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>hypershift
+
+<span class="c1"># Expected output:</span>
+<span class="c1"># NAME                     READY   STATUS    RESTARTS   AGE</span>
+<span class="c1"># operator-xxxxx-xxxxx     1/1     Running   0          1m</span>
+</code></pre></div>
+</div>
+</div>
+</input></input></div>
+<h2 id="phase-3-create-your-first-hosted-cluster">Phase 3: Create Your First Hosted Cluster</h2>
+<div class="admonition note">
+<p class="admonition-title">Persona: HyperShift Administrator</p>
+<p>This phase creates your actual OpenShift hosted clusters that run application workloads.</p>
+</div>
+<h3 id="overview_2">Overview</h3>
+<p>This phase deploys a hosted OpenShift cluster:</p>
+<ul>
+<li><strong>Infrastructure Provisioning</strong>: Creates Azure resource groups, VNets, subnets, and network security groups</li>
+<li><strong>HostedCluster Creation</strong>: Deploys the control plane on the management cluster and provisions worker nodes as Azure VMs</li>
+<li><strong>Workload Identity Integration</strong>: Automatically links the hosted cluster to the workload identities created in Phase 1</li>
+</ul>
+<p><strong>Why This Matters</strong>: This creates the actual OpenShift cluster where your applications will run. The control plane runs as pods on the management cluster, while worker nodes run as Azure VMs. The cluster uses the workload identities from Phase 1 to securely access Azure services without storing credentials.</p>
+<h3 id="step-1-prepare-cluster-specific-azure-infrastructure">Step 1: Prepare Cluster-Specific Azure Infrastructure</h3>
+<p>Create the Azure infrastructure for your hosted cluster:</p>
+<div class="admonition important">
+<p class="admonition-title">Copy Values from Phase 1 Summary</p>
+<p><strong>You MUST copy the exact values from the Phase 1 Configuration Summary output.</strong></p>
+<p>The following variables must match Phase 1:
+- <code>PREFIX</code> - Must be identical (e.g., <code>myprefix</code>)
+- <code>CLUSTER_NAME</code> - Must be identical (e.g., <code>myprefix-hc</code>)
+- <code>OIDC_STORAGE_ACCOUNT_NAME</code> - Copy exact value from Phase 1 summary
+- <code>PERSISTENT_RG_NAME</code>, <code>LOCATION</code> - Copy from Phase 1</p>
+<p>If these don't match, workload identity names will be incorrect and <strong>cluster creation will fail</strong>.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set cluster configuration variables (MUST match Phase 1 values)</span>
+<span class="nv">PREFIX</span><span class="o">=</span><span class="s2">"myprefix"</span><span class="w">  </span><span class="c1"># MUST match the PREFIX used in Phase 1</span>
+<span class="nv">CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">-hc"</span><span class="w">  </span><span class="c1"># MUST match Phase 1</span>
+<span class="nv">RELEASE_IMAGE</span><span class="o">=</span><span class="s2">"quay.io/openshift-release-dev/ocp-release:4.21.0-x86_64"</span>
+
+<span class="c1"># Resource group names for this cluster</span>
+<span class="nv">MANAGED_RG_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">-managed-rg"</span>
+<span class="nv">VNET_RG_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">-customer-vnet-rg"</span>
+<span class="nv">NSG_RG_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">-customer-nsg-rg"</span>
+<span class="nv">VNET_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">-customer-vnet"</span>
+<span class="nv">VNET_SUBNET1</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">-customer-subnet-1"</span>
+<span class="nv">NSG</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">-customer-nsg"</span>
+
+<span class="c1"># Values from Phase 1 Azure Administrator (use exact values from Phase 1 summary)</span>
+<span class="c1"># IMPORTANT: Replace the placeholder below with actual value from Phase 1 summary</span>
+<span class="c1"># Example: OIDC_STORAGE_ACCOUNT_NAME="myprefixoidc1705432123"</span>
+<span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="o">=</span><span class="s2">"&lt;paste-from-phase-1&gt;"</span><span class="w">  </span><span class="c1"># ← REPLACE THIS before proceeding!</span>
+<span class="nv">OIDC_ISSUER_URL</span><span class="o">=</span><span class="s2">"https://</span><span class="si">${</span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="si">}</span><span class="s2">.blob.core.windows.net/</span><span class="si">${</span><span class="nv">OIDC_STORAGE_ACCOUNT_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">SA_TOKEN_ISSUER_PRIVATE_KEY_PATH</span><span class="o">=</span><span class="s2">"serviceaccount-signer.private"</span><span class="w">  </span><span class="c1"># From Phase 1</span>
+<span class="nv">PERSISTENT_RG_NAME</span><span class="o">=</span><span class="s2">"os4-common"</span><span class="w">  </span><span class="c1"># From Phase 1</span>
+<span class="nv">LOCATION</span><span class="o">=</span><span class="s2">"eastus"</span><span class="w">  </span><span class="c1"># From Phase 1</span>
+
+<span class="c1"># DNS Configuration</span>
+<span class="c1"># For External DNS users: use values from Phase 1, Step 5</span>
+<span class="c1"># For non-External DNS users: set your base domain (cluster API will use Azure LB DNS)</span>
+<span class="nv">PARENT_DNS_ZONE</span><span class="o">=</span><span class="s2">"example.com"</span><span class="w">  </span><span class="c1"># Your base domain (needed by all clusters)</span>
+<span class="nv">EXTRN_DNS_ZONE_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">PREFIX</span><span class="si">}</span><span class="s2">.</span><span class="si">${</span><span class="nv">PARENT_DNS_ZONE</span><span class="si">}</span><span class="s2">"</span><span class="w">  </span><span class="c1"># For External DNS users only</span>
+
+<span class="c1"># Standard configuration</span>
+<span class="nv">CLUSTER_NAMESPACE</span><span class="o">=</span><span class="s2">"clusters"</span>
+<span class="nv">AZURE_CREDS</span><span class="o">=</span><span class="s2">"azure-credentials.json"</span>
+<span class="nv">PULL_SECRET</span><span class="o">=</span><span class="s2">"pull-secret.json"</span>
+<span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="o">=</span><span class="s2">"./bin"</span>
+
+<span class="c1"># Clean up any previous instances (optional, for testing)</span>
+az<span class="w"> </span>group<span class="w"> </span>delete<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VNET_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--yes<span class="w"> </span>--no-wait<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+az<span class="w"> </span>group<span class="w"> </span>delete<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NSG_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--yes<span class="w"> </span>--no-wait<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+
+<span class="c1"># Create managed resource group</span>
+az<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">MANAGED_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--location<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span>
+
+<span class="c1"># Create VNET &amp; NSG resource groups</span>
+az<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VNET_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--location<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span>
+az<span class="w"> </span>group<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NSG_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--location<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span>
+
+<span class="c1"># Create network security group</span>
+az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NSG_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NSG</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="c1"># Get NSG ID</span>
+<span class="nv">GetNsgID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </span>list<span class="w"> </span>--query<span class="w"> </span><span class="s2">"[?name=='</span><span class="si">${</span><span class="nv">NSG</span><span class="si">}</span><span class="s2">'].id"</span><span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+
+<span class="c1"># Create VNet with subnet</span>
+az<span class="w"> </span>network<span class="w"> </span>vnet<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VNET_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VNET_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--address-prefix<span class="w"> </span><span class="m">10</span>.0.0.0/16<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subnet-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VNET_SUBNET1</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subnet-prefixes<span class="w"> </span><span class="m">10</span>.0.0.0/24<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--nsg<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">GetNsgID</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="c1"># Get VNet and Subnet IDs</span>
+<span class="nv">GetVnetID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>network<span class="w"> </span>vnet<span class="w"> </span>list<span class="w"> </span>--query<span class="w"> </span><span class="s2">"[?name=='</span><span class="si">${</span><span class="nv">VNET_NAME</span><span class="si">}</span><span class="s2">'].id"</span><span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
+<span class="nv">GetSubnetID</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>network<span class="w"> </span>vnet<span class="w"> </span>subnet<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vnet-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VNET_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VNET_SUBNET1</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VNET_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--query<span class="w"> </span>id<span class="w"> </span>--output<span class="w"> </span>tsv<span class="k">)</span>
+</code></pre></div>
+<h3 id="step-2-create-the-hostedcluster">Step 2: Create the HostedCluster</h3>
+<div class="admonition important">
+<p class="admonition-title">Federated Identity Prerequisites</p>
+<p>Before creating the cluster, ensure that the Azure Administrator has completed all federated identity credential setup in Phase 1. The cluster creation will fail if these are not properly configured.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Azure Marketplace Images</p>
+<p>For OpenShift 4.20 and later, HyperShift automatically selects the appropriate Azure Marketplace image from the release payload. You no longer need to specify <code>--marketplace-*</code> flags unless you want to use a specific custom image. See the <a href="#configuring-azure-marketplace-images-optional">Marketplace Images</a> section for details.</p>
+</div>
+<p>Create the HostedCluster using the appropriate command for your DNS strategy:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><input id="__tabbed_3_2" name="__tabbed_3" type="radio"/><div class="tabbed-labels"><label for="__tabbed_3_1">With External DNS</label><label for="__tabbed_3_2">Without External DNS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the HostedCluster with External DNS</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAMESPACE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span><span class="nv">$AZURE_CREDS</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--location<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-pool-replicas<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--base-domain<span class="w"> </span><span class="nv">$PARENT_DNS_ZONE</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pull-secret<span class="w"> </span><span class="nv">$PULL_SECRET</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--generate-ssh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--release-image<span class="w"> </span><span class="si">${</span><span class="nv">RELEASE_IMAGE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--external-dns-domain<span class="w"> </span><span class="si">${</span><span class="nv">EXTRN_DNS_ZONE_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">MANAGED_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vnet-id<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">GetVnetID</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subnet-id<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">GetSubnetID</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--network-security-group-id<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">GetNsgID</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--sa-token-issuer-private-key-path<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">SA_TOKEN_ISSUER_PRIVATE_KEY_PATH</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--oidc-issuer-url<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dns-zone-rg-name<span class="w"> </span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--assign-service-principal-roles<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--workload-identities-file<span class="w"> </span>./workload-identities.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--diagnostics-storage-account-type<span class="w"> </span>Managed
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the HostedCluster without External DNS</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAMESPACE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span><span class="nv">$AZURE_CREDS</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--location<span class="w"> </span><span class="si">${</span><span class="nv">LOCATION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-pool-replicas<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--base-domain<span class="w"> </span><span class="nv">$PARENT_DNS_ZONE</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pull-secret<span class="w"> </span><span class="nv">$PULL_SECRET</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--generate-ssh<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--release-image<span class="w"> </span><span class="si">${</span><span class="nv">RELEASE_IMAGE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">MANAGED_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--vnet-id<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">GetVnetID</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--subnet-id<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">GetSubnetID</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--network-security-group-id<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">GetNsgID</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--sa-token-issuer-private-key-path<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">SA_TOKEN_ISSUER_PRIVATE_KEY_PATH</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--oidc-issuer-url<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--assign-service-principal-roles<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--workload-identities-file<span class="w"> </span>./workload-identities.json<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--diagnostics-storage-account-type<span class="w"> </span>Managed
+</code></pre></div>
+</div>
+</div>
+</input></div>
+<div class="admonition tip">
+<p class="admonition-title">Key Configuration Options</p>
+<ul>
+<li><code>--workload-identities-file</code>: References the workload identities configuration from Phase 1</li>
+<li><code>--assign-service-principal-roles</code>: Automatically assigns required Azure roles to workload identities</li>
+<li><code>--sa-token-issuer-private-key-path</code>: Path to the private key for service account token signing</li>
+<li><code>--oidc-issuer-url</code>: URL of the OIDC issuer created in Phase 1</li>
+<li><code>--vnet-id</code>, <code>--subnet-id</code>, <code>--network-security-group-id</code>: Custom networking infrastructure</li>
+<li><code>--dns-zone-rg-name</code>: Resource group containing the DNS zone (only with External DNS)</li>
+<li><code>--external-dns-domain</code>: DNS zone name from EXTRN_DNS_ZONE_NAME (only with External DNS)</li>
+<li><code>--diagnostics-storage-account-type Managed</code>: Use Azure managed storage for diagnostics</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Control Plane Operator Image</p>
+<p>The Control Plane Operator (CPO) image is <strong>automatically selected</strong> from the release image's "hypershift" component. You typically don't need to specify <code>--control-plane-operator-image</code> unless you're:</p>
+<ul>
+<li>Testing a custom build</li>
+<li>Using a specific CPO version for debugging</li>
+</ul>
+<p>When specified, use: <code>--control-plane-operator-image=quay.io/hypershift/hypershift:&lt;tag&gt;</code></p>
+</div>
+<h3 id="configuring-azure-marketplace-images-optional">Configuring Azure Marketplace Images (Optional)</h3>
+<p>HyperShift supports multiple approaches for configuring Azure Marketplace images for your cluster nodes. The recommended approach varies based on your OpenShift version.</p>
+<h4 id="for-openshift-420-and-later-recommended">For OpenShift 4.20 and Later (Recommended)</h4>
+<p><strong>Pattern 1: Use Release Payload Defaults (Simplest)</strong></p>
+<p>For OpenShift 4.20+, HyperShift automatically selects the appropriate Azure Marketplace image from the release payload. Simply omit all marketplace-related flags:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># No marketplace flags needed - HyperShift will auto-select the image</span>
+<span class="c1"># Gen2 VM generation is used by default</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># ... other flags from Step 2 ...</span>
+</code></pre></div>
+<p>This is the <strong>recommended approach</strong> as it ensures your nodes use the officially tested and supported image for your OpenShift version.</p>
+<p><strong>Pattern 2: Specify VM Generation Only</strong></p>
+<p>If you need to use a specific VM generation (Gen1 or Gen2):</p>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--image-generation<span class="w"> </span>Gen2<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># Or Gen1 (case-sensitive)</span>
+<span class="w">    </span><span class="c1"># ... other flags from Step 2 ...</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">VM Generation</p>
+<ul>
+<li>Valid values: <code>Gen1</code> or <code>Gen2</code> (case-sensitive)</li>
+<li>Default: <code>Gen2</code> (recommended for new clusters)</li>
+<li>Gen2 VMs offer better performance and support for newer Azure features</li>
+</ul>
+</div>
+<p><strong>Pattern 3: Use Custom Marketplace Image</strong></p>
+<p>If you need to use a specific custom marketplace image:</p>
+<div class="highlight"><pre><span></span><code><span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-publisher<span class="w"> </span>azureopenshift<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-offer<span class="w"> </span>aro4<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-sku<span class="w"> </span>aro_419<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-version<span class="w"> </span><span class="m">419</span>.6.20250523<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--image-generation<span class="w"> </span>Gen2<span class="w"> </span><span class="se">\ </span><span class="w"> </span><span class="c1"># Optional, defaults to Gen2</span>
+<span class="w">    </span><span class="c1"># ... other flags from Step 2 ...</span>
+</code></pre></div>
+<div class="admonition important">
+<p class="admonition-title">Marketplace Flag Requirements</p>
+<p>When specifying marketplace details, you must provide <strong>all four</strong> flags (<code>--marketplace-publisher</code>, <code>--marketplace-offer</code>, <code>--marketplace-sku</code>, <code>--marketplace-version</code>) together. Partial specification is not allowed.</p>
+</div>
+<h4 id="for-openshift-versions-before-420">For OpenShift Versions Before 4.20</h4>
+<p>For OpenShift versions prior to 4.20, you must explicitly specify marketplace image details (Pattern 3 above). The automatic image selection from release payload is not available.</p>
+<h3 id="step-3-verify-cluster-creation">Step 3: Verify Cluster Creation</h3>
+<p>Monitor the cluster creation process:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check HostedCluster status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span>
+
+<span class="c1"># Watch cluster become available (this may take 15-30 minutes)</span>
+kubectl<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>--for<span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Available<span class="w"> </span>hostedcluster/<span class="nv">$CLUSTER_NAME</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span><span class="w"> </span>--timeout<span class="o">=</span>30m
+
+<span class="c1"># Check NodePool status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span>
+
+<span class="c1"># Verify control plane pods are running</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+</code></pre></div>
+<h3 id="step-4-access-your-cluster">Step 4: Access Your Cluster</h3>
+<p>Once the cluster is available, generate a kubeconfig and access it:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate kubeconfig</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>create<span class="w"> </span>kubeconfig<span class="w"> </span>--name<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$CLUSTER_NAME</span>-kubeconfig
+
+<span class="c1"># Set KUBECONFIG to access your hosted cluster</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="nv">$CLUSTER_NAME</span>-kubeconfig
+
+<span class="c1"># Verify cluster access</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+kubectl<span class="w"> </span>get<span class="w"> </span>clusterversion
+kubectl<span class="w"> </span>get<span class="w"> </span>co<span class="w">  </span><span class="c1"># Check cluster operators status</span>
+</code></pre></div>
+<h2 id="day-2-operations">Day 2 Operations</h2>
+<h3 id="adding-additional-nodepools">Adding Additional NodePools</h3>
+<p>Create additional nodepools with different VM sizes or configurations:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Variables from Phase 3 (ensure these are set)</span>
+<span class="c1"># PREFIX="myprefix"</span>
+<span class="c1"># CLUSTER_NAME="${PREFIX}-hc"</span>
+<span class="c1"># CLUSTER_NAMESPACE="clusters"</span>
+<span class="c1"># AZURE_CREDS="azure-credentials.json"</span>
+<span class="c1"># HYPERSHIFT_BINARY_PATH="./bin"</span>
+
+<span class="c1"># Create a new nodepool with different VM size</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cluster-name<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--namespace<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAMESPACE</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-workers"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--node-count<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-instance-type<span class="w"> </span>Standard_D4s_v3<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span><span class="nv">$AZURE_CREDS</span>
+</code></pre></div>
+<p>You can also specify marketplace image configuration for nodepools:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Use default from release payload (OCP 4.20+)</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cluster-name<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># ... other flags ...</span>
+
+<span class="c1"># Or specify VM generation</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cluster-name<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--image-generation<span class="w"> </span>Gen1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># ... other flags ...</span>
+
+<span class="c1"># Or use custom marketplace image</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cluster-name<span class="w"> </span><span class="s2">"</span><span class="nv">$CLUSTER_NAME</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-publisher<span class="w"> </span>azureopenshift<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-offer<span class="w"> </span>aro4<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-sku<span class="w"> </span>aro_419<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--marketplace-version<span class="w"> </span><span class="m">419</span>.6.20250523<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="c1"># ... other flags ...</span>
+</code></pre></div>
+<h3 id="scaling-nodepools">Scaling NodePools</h3>
+<p>Scale existing nodepools up or down:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Scale a nodepool</span>
+kubectl<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span><span class="w"> </span>--replicas<span class="o">=</span><span class="m">5</span>
+
+<span class="c1"># Or edit the nodepool directly</span>
+kubectl<span class="w"> </span>edit<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span>
+</code></pre></div>
+<h3 id="upgrading-clusters">Upgrading Clusters</h3>
+<p>Upgrade the cluster to a new OpenShift version:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Update the release image</span>
+kubectl<span class="w"> </span>patch<span class="w"> </span>hostedcluster/<span class="nv">$CLUSTER_NAME</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--patch<span class="w"> </span><span class="s1">'{"spec":{"release":{"image":"quay.io/openshift-release-dev/ocp-release:NEW_VERSION"}}}'</span>
+
+<span class="c1"># Monitor the upgrade</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span><span class="w"> </span>-w
+</code></pre></div>
+<h3 id="deleting-nodepools">Deleting NodePools</h3>
+<p>Remove a nodepool when no longer needed:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Delete a specific nodepool</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-workers<span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span>
+</code></pre></div>
+<h2 id="cleanup">Cleanup</h2>
+<h3 id="delete-a-hosted-cluster">Delete a Hosted Cluster</h3>
+<p>To delete a hosted cluster while preserving shared Azure resources:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Variables from Phase 3 (ensure these are set)</span>
+<span class="c1"># PREFIX="myprefix"</span>
+<span class="c1"># CLUSTER_NAME="${PREFIX}-hc"</span>
+<span class="c1"># AZURE_CREDS="azure-credentials.json"</span>
+<span class="c1"># HYPERSHIFT_BINARY_PATH="./bin"</span>
+<span class="c1"># MANAGED_RG_NAME="${PREFIX}-managed-rg"</span>
+<span class="c1"># VNET_RG_NAME="${PREFIX}-customer-vnet-rg"</span>
+<span class="c1"># NSG_RG_NAME="${PREFIX}-customer-nsg-rg"</span>
+
+<span class="c1"># Delete the HostedCluster</span>
+<span class="si">${</span><span class="nv">HYPERSHIFT_BINARY_PATH</span><span class="si">}</span>/hypershift<span class="w"> </span>destroy<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--azure-creds<span class="w"> </span><span class="nv">$AZURE_CREDS</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group-name<span class="w"> </span><span class="nv">$MANAGED_RG_NAME</span>
+
+<span class="c1"># Optionally delete cluster-specific resource groups</span>
+az<span class="w"> </span>group<span class="w"> </span>delete<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">VNET_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--yes<span class="w"> </span>--no-wait
+az<span class="w"> </span>group<span class="w"> </span>delete<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NSG_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--yes<span class="w"> </span>--no-wait
+az<span class="w"> </span>group<span class="w"> </span>delete<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">MANAGED_RG_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>--yes<span class="w"> </span>--no-wait
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Shared Resources Preserved</p>
+<p>The HyperShift destroy command will clean up cluster-specific resources. Workload identities, OIDC issuer, and DNS zones in the persistent resource group (<code>$PERSISTENT_RG_NAME</code>) are preserved and can be reused for other clusters.</p>
+</div>
+<h3 id="delete-shared-azure-resources">Delete Shared Azure Resources</h3>
+<p>Only delete these if you're completely removing HyperShift from your environment:</p>
+<div class="admonition warning">
+<p class="admonition-title">Destructive Operation</p>
+<p>Only perform these steps if you're certain you want to remove all HyperShift infrastructure. This will affect all hosted clusters using these shared resources.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Variables from Phase 1 (ensure these are set)</span>
+<span class="c1"># PREFIX="myprefix"</span>
+<span class="c1"># CLUSTER_NAME="${PREFIX}-hc"</span>
+<span class="c1"># PERSISTENT_RG_NAME="os4-common"</span>
+<span class="c1"># OIDC_STORAGE_ACCOUNT_NAME="${PREFIX}oidc&lt;TIMESTAMP&gt;"</span>
+<span class="c1"># EXTRN_DNS_ZONE_NAME="${PREFIX}.${PARENT_DNS_ZONE}" (if using External DNS)</span>
+<span class="c1"># EXTERNAL_DNS_SP_APP_ID="&lt;app-id&gt;" (if using External DNS)</span>
+
+<span class="c1"># Delete all managed identities</span>
+<span class="k">for</span><span class="w"> </span>component<span class="w"> </span><span class="k">in</span><span class="w"> </span>image-registry<span class="w"> </span>ingress<span class="w"> </span>file-csi<span class="w"> </span>disk-csi<span class="w"> </span>nodepool-mgmt<span class="w"> </span>cloud-provider<span class="w"> </span>network<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>az<span class="w"> </span>identity<span class="w"> </span>delete<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">component</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--resource-group<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span>
+<span class="k">done</span>
+
+<span class="c1"># Delete OIDC issuer storage account</span>
+az<span class="w"> </span>storage<span class="w"> </span>account<span class="w"> </span>delete<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="nv">$OIDC_STORAGE_ACCOUNT_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span>
+
+<span class="c1"># Delete DNS zones (if using External DNS)</span>
+az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </span>zone<span class="w"> </span>delete<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="w"> </span><span class="nv">$EXTRN_DNS_ZONE_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span>
+
+<span class="c1"># Delete service principal (if using External DNS)</span>
+az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>delete<span class="w"> </span>--id<span class="w"> </span><span class="nv">$EXTERNAL_DNS_SP_APP_ID</span>
+
+<span class="c1"># Optionally delete the entire persistent resource group</span>
+<span class="c1"># Only do this if you're absolutely sure!</span>
+<span class="c1"># az group delete -n $PERSISTENT_RG_NAME --yes</span>
+</code></pre></div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<h4 id="cluster-creation-fails-with-authentication-errors">Cluster Creation Fails with Authentication Errors</h4>
+<p><strong>Symptom</strong>: Cluster creation fails with "failed to authenticate" or federated credential errors.</p>
+<p><strong>Cause</strong>: Federated identity credentials not properly configured in Phase 1.</p>
+<p><strong>Solution</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Variables needed: CLUSTER_NAME, PERSISTENT_RG_NAME, OIDC_ISSUER_URL from Phase 1</span>
+
+<span class="c1"># Verify federated credentials exist</span>
+az<span class="w"> </span>identity<span class="w"> </span>federated-credential<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--identity-name<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">-disk-csi"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span>
+
+<span class="c1"># Verify OIDC issuer is accessible</span>
+curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">/.well-known/openid-configuration"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</code></pre></div></p>
+<h4 id="control-plane-pods-not-starting">Control Plane Pods Not Starting</h4>
+<p><strong>Symptom</strong>: Control plane pods remain in <code>Pending</code> or <code>CrashLoopBackOff</code> state.</p>
+<p><strong>Cause</strong>: Insufficient resources on management cluster or configuration issues.</p>
+<p><strong>Solution</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Check pod events</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># Check management cluster resources</span>
+kubectl<span class="w"> </span>top<span class="w"> </span>nodes
+
+<span class="c1"># Ensure management cluster has adequate resources</span>
+<span class="c1"># Control plane typically needs: 4 CPU, 8GB RAM per hosted cluster</span>
+</code></pre></div></p>
+<h4 id="worker-nodes-not-joining-cluster">Worker Nodes Not Joining Cluster</h4>
+<p><strong>Symptom</strong>: Azure VMs created but nodes don't appear in <code>kubectl get nodes</code>.</p>
+<p><strong>Cause</strong>: Networking issues, NSG rules blocking traffic, or bootstrap problems.</p>
+<p><strong>Solution</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Variables needed: CLUSTER_NAME, CLUSTER_NAMESPACE from Phase 3</span>
+
+<span class="c1"># Check nodepool status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span>
+
+<span class="c1"># Check machine status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>machine<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># Verify NSG allows required traffic:</span>
+<span class="c1"># - Port 6443 (API server)</span>
+<span class="c1"># - Port 22623 (machine config server)</span>
+<span class="c1"># - Port 443 (ingress)</span>
+</code></pre></div></p>
+<h4 id="dns-resolution-issues">DNS Resolution Issues</h4>
+<p><strong>Symptom</strong>: Cannot access cluster API or apps via DNS.</p>
+<p><strong>Cause</strong>: DNS records not created or propagated.</p>
+<p><strong>Solution For External DNS</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Variables needed: PERSISTENT_RG_NAME, EXTRN_DNS_ZONE_NAME from Phase 1</span>
+
+<span class="c1"># Check External DNS logs</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/external-dns
+
+<span class="c1"># Verify DNS records were created</span>
+az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </span>record-set<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--resource-group<span class="w"> </span><span class="nv">$PERSISTENT_RG_NAME</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--zone-name<span class="w"> </span><span class="nv">$EXTRN_DNS_ZONE_NAME</span>
+</code></pre></div></p>
+<p><strong>Solution Without External DNS</strong>:
+<div class="highlight"><pre><span></span><code><span class="c1"># Variables needed: CLUSTER_NAME from Phase 3</span>
+
+<span class="c1"># Get LoadBalancer IP/hostname</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># Manually create DNS records or use the LoadBalancer DNS directly</span>
+</code></pre></div></p>
+<h3 id="diagnostic-commands">Diagnostic Commands</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Variables needed: CLUSTER_NAME, CLUSTER_NAMESPACE from Phase 3</span>
+
+<span class="c1"># Check overall cluster health</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span><span class="w"> </span>-o<span class="w"> </span>yaml
+
+<span class="c1"># Check hosted control plane status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>hostedcontrolplane<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># View operator logs</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/operator<span class="w"> </span>-f
+
+<span class="c1"># Check all resources for a cluster</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>all<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># Describe the hostedcluster for events and conditions</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>hostedcluster<span class="w"> </span><span class="nv">$CLUSTER_NAME</span><span class="w"> </span>-n<span class="w"> </span><span class="nv">$CLUSTER_NAMESPACE</span>
+</code></pre></div>
+<h3 id="getting-help">Getting Help</h3>
+<p>If you encounter issues not covered here:</p>
+<ol>
+<li>Check <a href="https://github.com/openshift/hypershift/issues">HyperShift GitHub Issues</a></li>
+<li>Review <a href="https://hypershift.pages.dev">HyperShift Documentation</a></li>
+<li>Consult <a href="https://azure.github.io/azure-workload-identity/docs/">Azure Workload Identity Documentation</a></li>
+<li>For supported deployments, contact Red Hat Support</li>
+</ol>
+<h2 id="appendices">Appendices</h2>
+<h3 id="appendix-a-azure-permissions-reference">Appendix A: Azure Permissions Reference</h3>
+<p>Detailed Azure permissions required for each role:</p>
+<h4 id="azure-administrator-permissions">Azure Administrator Permissions</h4>
+<ul>
+<li><strong>Subscription Level</strong>:<ul>
+<li><code>Contributor</code> - For creating resources</li>
+<li><code>User Access Administrator</code> - For assigning roles to managed identities</li>
+</ul>
+</li>
+<li><strong>Microsoft Graph API</strong>:<ul>
+<li><code>Application.ReadWrite.OwnedBy</code> - For creating service principals</li>
+</ul>
+</li>
+</ul>
+<h4 id="service-principal-permissions-for-cluster-operations">Service Principal Permissions (for cluster operations)</h4>
+<ul>
+<li><strong>Subscription Level</strong>:<ul>
+<li><code>Contributor</code> - For managing cluster infrastructure</li>
+<li><code>User Access Administrator</code> - For role assignments</li>
+</ul>
+</li>
+</ul>
+<h3 id="appendix-b-workload-identity-service-account-mapping">Appendix B: Workload Identity Service Account Mapping</h3>
+<p>Complete mapping of Azure managed identities to OpenShift service accounts:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Managed Identity</th>
+<th>Service Accounts</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Disk CSI</strong></td>
+<td><code>${CLUSTER_NAME}-disk-csi</code></td>
+<td><code>azure-disk-csi-driver-node-sa</code><br/><code>azure-disk-csi-driver-operator</code><br/><code>azure-disk-csi-driver-controller-sa</code></td>
+<td>Provision and attach Azure Disk volumes</td>
+</tr>
+<tr>
+<td><strong>File CSI</strong></td>
+<td><code>${CLUSTER_NAME}-file-csi</code></td>
+<td><code>azure-file-csi-driver-node-sa</code><br/><code>azure-file-csi-driver-operator</code><br/><code>azure-file-csi-driver-controller-sa</code></td>
+<td>Provision and mount Azure Files</td>
+</tr>
+<tr>
+<td><strong>Image Registry</strong></td>
+<td><code>${CLUSTER_NAME}-image-registry</code></td>
+<td><code>registry</code><br/><code>cluster-image-registry-operator</code></td>
+<td>Manage image registry storage</td>
+</tr>
+<tr>
+<td><strong>Ingress</strong></td>
+<td><code>${CLUSTER_NAME}-ingress</code></td>
+<td><code>ingress-operator</code></td>
+<td>Configure Azure Load Balancers for ingress</td>
+</tr>
+<tr>
+<td><strong>Cloud Provider</strong></td>
+<td><code>${CLUSTER_NAME}-cloud-provider</code></td>
+<td><code>azure-cloud-provider</code></td>
+<td>Integrate with Azure cloud APIs</td>
+</tr>
+<tr>
+<td><strong>NodePool Management</strong></td>
+<td><code>${CLUSTER_NAME}-nodepool-mgmt</code></td>
+<td><code>capi-provider</code></td>
+<td>Provision and manage Azure VMs</td>
+</tr>
+<tr>
+<td><strong>Network</strong></td>
+<td><code>${CLUSTER_NAME}-network</code></td>
+<td><code>cloud-network-config-controller</code></td>
+<td>Configure Azure networking</td>
+</tr>
+</tbody>
+</table>
+<h3 id="appendix-c-resource-group-lifecycle-summary">Appendix C: Resource Group Lifecycle Summary</h3>
+<p>Understanding resource group lifecycles:</p>
+<div class="mermaid">graph TB
+    subgraph Persistent["Persistent Resource Group (os4-common)"]
+        PersistentInfo["Lifecycle: Long-lived, survives cluster deletions<br><br>Contents:<br>• Workload Identities (7 managed identities)<br>• OIDC Issuer (storage account)<br>• DNS Zones (if External DNS)<br/>• External DNS Service Principal (if External DNS)<br/><br/>Shared across: Multiple hosted clusters"]
+    end
+
+    subgraph ClusterA["Cluster A RGs"]
+        ClusterAInfo["• Managed RG<br/>• VNet RG<br/>• NSG RG<br/><br/>Lifecycle:<br/>Cluster-bound"]
+    end
+
+    subgraph ClusterB["Cluster B RGs"]
+        ClusterBInfo["• Managed RG<br/>• VNet RG<br/>• NSG RG<br/><br/>Lifecycle:<br/>Cluster-bound"]
+    end
+
+    subgraph ClusterC["Cluster C RGs"]
+        ClusterCInfo["• Managed RG<br/>• VNet RG<br/>• NSG RG<br/><br/>Lifecycle:<br/>Cluster-bound"]
+    end
+</br></br></br></br></br></div>
+<h3 id="appendix-d-reference-links">Appendix D: Reference Links</h3>
+<p><strong>HyperShift Documentation</strong>:
+- <a href="https://hypershift.pages.dev">HyperShift Project Home</a>
+- <a href="https://github.com/openshift/hypershift">HyperShift GitHub Repository</a>
+- <a href="../../../reference/architecture/">HyperShift Architecture</a></p>
+<p><strong>Azure Documentation</strong>:
+- <a href="https://azure.github.io/azure-workload-identity/docs/">Azure Workload Identity</a>
+- <a href="https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/">Azure Managed Identities</a>
+- <a href="https://learn.microsoft.com/en-us/azure/dns/dns-zones-records">Azure DNS Zones</a>
+- <a href="https://learn.microsoft.com/en-us/azure/virtual-network/">Azure Virtual Networks</a></p>
+<p><strong>OpenShift Documentation</strong>:
+- <a href="https://docs.openshift.com">OpenShift Container Platform</a>
+- <a href="https://docs.openshift.com/container-platform/latest/authentication/managing_cloud_provider_credentials/about-cloud-credential-operator.html">Cloud Credential Operator</a></p>
+<p><strong>Tools</strong>:
+- <a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli">Azure CLI</a>
+- <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/">OpenShift CLI (oc)</a>
+- <a href="https://kubernetes.io/docs/tasks/tools/">kubectl</a>
+- <a href="https://jqlang.github.io/jq/">jq</a></p>
+<h3 id="appendix-e-glossary">Appendix E: Glossary</h3>
+<ul>
+<li><strong>HostedCluster</strong>: Custom resource representing a hosted OpenShift cluster</li>
+<li><strong>NodePool</strong>: Custom resource representing a group of worker nodes</li>
+<li><strong>Control Plane</strong>: Kubernetes components (API server, etcd, controllers) that manage the cluster</li>
+<li><strong>Data Plane</strong>: Worker nodes where application workloads run</li>
+<li><strong>Workload Identity</strong>: Azure managed identity used by OpenShift components</li>
+<li><strong>OIDC Issuer</strong>: OpenID Connect endpoint used for service account token validation</li>
+<li><strong>Federated Credential</strong>: Trust relationship between Azure Entra ID and OpenShift service accounts</li>
+<li><strong>External DNS</strong>: Kubernetes operator that automatically manages DNS records</li>
+<li><strong>Management Cluster</strong>: Kubernetes cluster that hosts HyperShift and control planes</li>
+<li><strong>Persistent Resource Group</strong>: Azure resource group containing shared, long-lived resources</li>
+</ul>
+<h3 id="appendix-f-dns-configuration-reference">Appendix F: DNS Configuration Reference</h3>
+<p>This appendix explains how the DNS-related flags affect cluster creation and operation.</p>
+<h4 id="overview_3">Overview</h4>
+<p>HyperShift uses three DNS-related configuration flags that control different aspects of DNS management:</p>
+<ol>
+<li><code>--base-domain</code> - Determines the ingress (apps) domain for application routes</li>
+<li><code>--external-dns-domain</code> - Controls control plane service publishing and DNS record creation</li>
+<li><code>--external-dns-domain-filter</code> - Restricts External DNS to a specific domain scope</li>
+</ol>
+<h4 id="flag-details">Flag Details</h4>
+<h5 id="-base-domain-cluster-creation"><code>--base-domain</code> (Cluster Creation)</h5>
+<p><strong>Used in</strong>: <code>hypershift create cluster azure</code> command</p>
+<p><strong>Purpose</strong>: Constructs the ingress domain where application routes are exposed.</p>
+<p><strong>Formula</strong>:
+<div class="highlight"><pre><span></span><code>Ingress Domain = "apps." + BaseDomain
+
+Where BaseDomain is:
+- "&lt;cluster-name&gt;.&lt;base-domain&gt;"           (default)
+- "&lt;base-domain-prefix&gt;.&lt;base-domain&gt;"     (if --base-domain-prefix is set)
+- "&lt;base-domain&gt;"                          (if --base-domain-prefix is empty)
+</code></pre></div></p>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code>--base-domain<span class="w"> </span><span class="s2">"example.com"</span>
+--name<span class="w"> </span><span class="s2">"mycluster"</span>
+
+<span class="c1"># Results in:</span>
+<span class="c1"># - BaseDomain: mycluster.example.com</span>
+<span class="c1"># - Ingress Domain: apps.mycluster.example.com</span>
+<span class="c1"># - Application routes: myapp-default.apps.mycluster.example.com</span>
+</code></pre></div></p>
+<p><strong>Requirement</strong>: <strong>Always required</strong> for all clusters (with or without External DNS)</p>
+<h5 id="-external-dns-domain-cluster-creation"><code>--external-dns-domain</code> (Cluster Creation)</h5>
+<p><strong>Used in</strong>: <code>hypershift create cluster azure</code> command</p>
+<p><strong>Purpose</strong>: Changes service publishing strategy and sets control plane hostnames.</p>
+<p><strong>Effect on Service Publishing</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>API Server</th>
+<th>OAuth</th>
+<th>Konnectivity</th>
+<th>Ingress</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Without</strong> <code>--external-dns-domain</code></td>
+<td>LoadBalancer</td>
+<td>Route</td>
+<td>Route</td>
+<td>Route</td>
+<td>Azure creates LoadBalancer with Azure-provided DNS (e.g., <code>*.eastus.cloudapp.azure.com</code>)</td>
+</tr>
+<tr>
+<td><strong>With</strong> <code>--external-dns-domain</code></td>
+<td>Route</td>
+<td>Route</td>
+<td>Route</td>
+<td>Route</td>
+<td>External DNS creates DNS records in your managed zone</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Hostnames Created</strong> (when set):
+<div class="highlight"><pre><span></span><code>API Server:    api-&lt;cluster-name&gt;.&lt;external-dns-domain&gt;
+OAuth Server:  oauth-&lt;cluster-name&gt;.&lt;external-dns-domain&gt;
+Konnectivity:  konnectivity-&lt;cluster-name&gt;.&lt;external-dns-domain&gt;
+Ignition:      ignition-&lt;cluster-name&gt;.&lt;external-dns-domain&gt;
+</code></pre></div></p>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code>--external-dns-domain<span class="w"> </span><span class="s2">"myprefix.example.com"</span>
+--name<span class="w"> </span><span class="s2">"mycluster"</span>
+
+<span class="c1"># Results in:</span>
+<span class="c1"># - API Server: api-mycluster.myprefix.example.com</span>
+<span class="c1"># - OAuth Server: oauth-mycluster.myprefix.example.com</span>
+<span class="c1"># - Publishing: All services use Route (not LoadBalancer)</span>
+</code></pre></div></p>
+<p><strong>Requirement</strong>: <strong>Optional</strong> - only needed when using External DNS for automatic DNS management</p>
+<h5 id="-external-dns-domain-filter-hypershift-operator-install"><code>--external-dns-domain-filter</code> (HyperShift Operator Install)</h5>
+<p><strong>Used in</strong>: <code>hypershift install</code> command</p>
+<p><strong>Purpose</strong>: Restricts External DNS to only manage DNS records within a specific domain.</p>
+<p><strong>Effect</strong>: Passed to the External DNS deployment as the <code>--domain-filter</code> argument. External DNS will:
+- <strong>Create</strong> DNS records for services/routes matching this domain
+- <strong>Ignore</strong> any services/routes outside this domain</p>
+<p><strong>Example</strong>:
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--external-dns-provider<span class="o">=</span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--external-dns-domain-filter<span class="w"> </span><span class="s2">"myprefix.example.com"</span>
+
+<span class="c1"># Results in:</span>
+<span class="c1"># - External DNS only manages *.myprefix.example.com records</span>
+<span class="c1"># - Services outside this domain are ignored</span>
+<span class="c1"># - Prevents accidental DNS record creation in other zones</span>
+</code></pre></div></p>
+<p><strong>Requirement</strong>: <strong>Required</strong> when using <code>--external-dns-provider</code></p>
+<h4 id="typical-configuration-patterns">Typical Configuration Patterns</h4>
+<h5 id="pattern-1-with-external-dns-production">Pattern 1: With External DNS (Production)</h5>
+<p><strong>Operator Install</strong>:
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--external-dns-provider<span class="o">=</span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--external-dns-domain-filter<span class="w"> </span><span class="s2">"myprefix.example.com"</span>
+</code></pre></div></p>
+<p><strong>Cluster Creation</strong>:
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-domain<span class="w"> </span><span class="s2">"example.com"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--external-dns-domain<span class="w"> </span><span class="s2">"myprefix.example.com"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span><span class="s2">"mycluster"</span>
+</code></pre></div></p>
+<p><strong>Resulting DNS Records</strong> (created automatically by External DNS):
+<div class="highlight"><pre><span></span><code>Control Plane (in myprefix.example.com zone):
+  api-mycluster.myprefix.example.com
+  oauth-mycluster.myprefix.example.com
+  konnectivity-mycluster.myprefix.example.com
+  ignition-mycluster.myprefix.example.com
+
+Applications (in example.com zone):
+  *.apps.mycluster.example.com
+</code></pre></div></p>
+<h5 id="pattern-2-without-external-dns-devtest">Pattern 2: Without External DNS (Dev/Test)</h5>
+<p><strong>Operator Install</strong>:
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>install
+<span class="c1"># No --external-dns-* flags</span>
+</code></pre></div></p>
+<p><strong>Cluster Creation</strong>:
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>azure<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-domain<span class="w"> </span><span class="s2">"example.com"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span><span class="s2">"mycluster"</span>
+<span class="c1"># No --external-dns-domain flag</span>
+</code></pre></div></p>
+<p><strong>Resulting Configuration</strong>:
+<div class="highlight"><pre><span></span><code>Control Plane (Azure LoadBalancer DNS):
+  API Server: mycluster-abc123.eastus.cloudapp.azure.com
+
+Applications (requires manual DNS or wildcard):
+  *.apps.mycluster.example.com (must configure manually)
+</code></pre></div></p>
+<h4 id="relationship-between-flags">Relationship Between Flags</h4>
+<div class="mermaid">graph TB
+    subgraph "HyperShift Operator Level"
+        EDFilter["--external-dns-domain-filter<br/>(e.g., myprefix.example.com)"]
+    end
+
+    subgraph "Cluster Level"
+        BaseDomain["--base-domain<br/>(e.g., example.com)"]
+        EDDomain["--external-dns-domain<br/>(e.g., myprefix.example.com)"]
+    end
+
+    subgraph "Results"
+        Apps["Apps Domain:<br/>apps.mycluster.example.com"]
+        API["API Domain:<br/>api-mycluster.myprefix.example.com"]
+        Publishing["Service Publishing:<br/>Route vs LoadBalancer"]
+    end
+
+    BaseDomain --&gt; Apps
+    EDDomain --&gt; API
+    EDDomain --&gt; Publishing
+    EDFilter -.-&gt;|restricts| API
+
+    style EDFilter fill:#e1f5ff
+    style EDDomain fill:#e1f5ff
+    style BaseDomain fill:#fff4e1
+</div>
+<h4 id="key-insights">Key Insights</h4>
+<ol>
+<li>
+<p><strong><code>--base-domain</code> is always required</strong>: Both External DNS and non-External DNS deployments need this for application routes</p>
+</li>
+<li>
+<p><strong><code>--external-dns-domain</code> changes publishing strategy</strong>: When set, the API server switches from LoadBalancer to Route, enabling DNS-based access instead of Azure LoadBalancer IPs</p>
+</li>
+<li>
+<p><strong>Domain hierarchy should match</strong>: Typically, <code>--external-dns-domain</code> is a subdomain of <code>--base-domain</code>:
+   <div class="highlight"><pre><span></span><code>--base-domain "example.com"
+--external-dns-domain "myprefix.example.com"
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Filter must match domain</strong>: The <code>--external-dns-domain-filter</code> in the operator install should match the <code>--external-dns-domain</code> used in cluster creation</p>
+</li>
+<li>
+<p><strong>External DNS scope</strong>: External DNS only manages records for:</p>
+</li>
+<li>Control plane services (when <code>--external-dns-domain</code> is set)</li>
+<li>Application routes with publishing type Route</li>
+<li>Only within the domain specified by <code>--external-dns-domain-filter</code></li>
+</ol>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({});</script><script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

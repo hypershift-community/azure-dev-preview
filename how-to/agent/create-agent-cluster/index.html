@@ -1,0 +1,1114 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/agent/create-agent-cluster/" rel="canonical"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Create an Agent cluster - HyperShift Azure Developer Preview</title>
+<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#overview">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Create an Agent cluster
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#overview">
+<span class="md-ellipsis">
+      Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#install-hypershift-operator">
+<span class="md-ellipsis">
+      Install HyperShift Operator
+    </span>
+</a>
+<nav aria-label="Install HyperShift Operator" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#method-1-build-the-hypershift-cli">
+<span class="md-ellipsis">
+      Method 1 - Build the HyperShift CLI
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#method-2-extract-hypershift-cli-from-the-operator-image">
+<span class="md-ellipsis">
+      Method 2 - Extract HyperShift CLI from the Operator Image
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#deploy-the-hypershift-operator">
+<span class="md-ellipsis">
+      Deploy the HyperShift Operator
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#install-assisted-service-and-hive-operators">
+<span class="md-ellipsis">
+      Install Assisted Service and Hive Operators
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configure-agent-service">
+<span class="md-ellipsis">
+      Configure Agent Service
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#configure-dns">
+<span class="md-ellipsis">
+      Configure DNS
+    </span>
+</a>
+<nav aria-label="Configure DNS" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#example-dns-config">
+<span class="md-ellipsis">
+      Example DNS Config
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-a-hosted-cluster">
+<span class="md-ellipsis">
+      Create a Hosted Cluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#create-an-infraenv">
+<span class="md-ellipsis">
+      Create an InfraEnv
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#adding-agents">
+<span class="md-ellipsis">
+      Adding Agents
+    </span>
+</a>
+<nav aria-label="Adding Agents" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#manual">
+<span class="md-ellipsis">
+      Manual
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#metal3">
+<span class="md-ellipsis">
+      Metal3
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#accessing-the-hostedcluster">
+<span class="md-ellipsis">
+      Accessing the HostedCluster
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#scale-the-nodepool">
+<span class="md-ellipsis">
+      Scale the NodePool
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#handling-ingress">
+<span class="md-ellipsis">
+      Handling Ingress
+    </span>
+</a>
+<nav aria-label="Handling Ingress" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#set-up-a-loadbalancer-and-wildcard-dns-record-for-the-apps">
+<span class="md-ellipsis">
+      Set up a LoadBalancer and wildcard DNS record for the *.apps.
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#enabling-node-auto-scaling-for-the-hosted-cluster">
+<span class="md-ellipsis">
+      Enabling Node Auto-Scaling for the Hosted Cluster
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="create-an-agent-cluster">Create an Agent cluster</h1>
+<p>This document explains how to create HostedClusters and NodePools using the Agent platform.</p>
+<p>The Agent platform uses the <a href="https://github.com/openshift/assisted-service">Infrastructure Operator</a> (AKA Assisted Installer) to add
+worker nodes to a hosted cluster. For a primer on the Infrastructure Operator, see
+<a href="https://github.com/openshift/assisted-service/blob/master/docs/hive-integration/kube-api-getting-started.md">here</a>.</p>
+<h2 id="overview">Overview</h2>
+<p>When you create a HostedCluster with the Agent platform, HyperShift will install the <a href="https://github.com/openshift/cluster-api-provider-agent">Agent CAPI
+provider</a> in the Hosted Control Plane (HCP) namespace.</p>
+<p>Upon scaling up a NodePool, a Machine will be created, and the CAPI provider will find a suitable Agent to match this Machine.
+Suitable means that the Agent is approved, is passing validations, is not currently bound (in use), and has the requirements
+specified on the NodePool Spec (e.g., minimum CPU/RAM, labels matching the label selector). You may monitor the installation of an
+Agent by checking its <code>Status</code> and <code>Conditions</code>.</p>
+<p>Upon scaling down a NodePool, Agents will be unbound from the corresponding cluster. However, you must boot them with the Discovery
+Image once again before reusing them.</p>
+<h2 id="install-hypershift-operator">Install HyperShift Operator</h2>
+<p>Before installing the HyperShift operator we need to get the HyperShift CLI. We have two methods for getting the CLI installed in our system.</p>
+<h3 id="method-1-build-the-hypershift-cli">Method 1 - Build the HyperShift CLI</h3>
+<p>Follow instructions for building the HyperShift CLI in <a href="https://hypershift-docs.netlify.app/getting-started/#prerequisites">Getting
+Started</a></p>
+<h3 id="method-2-extract-hypershift-cli-from-the-operator-image">Method 2 - Extract HyperShift CLI from the Operator Image</h3>
+<blockquote>
+<p><strong>INFO:</strong> We are using Podman in the example, same applies to Docker.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">HYPERSHIFT_RELEASE</span><span class="o">=</span><span class="m">4</span>.11
+
+podman<span class="w"> </span>cp<span class="w"> </span><span class="k">$(</span>podman<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>hypershift<span class="w"> </span>--rm<span class="w"> </span>--pull<span class="w"> </span>always<span class="w"> </span>quay.io/hypershift/hypershift-operator:<span class="si">${</span><span class="nv">HYPERSHIFT_RELEASE</span><span class="si">}</span><span class="k">)</span>:/usr/bin/hypershift<span class="w"> </span>/tmp/hypershift<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>podman<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>hypershift
+
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-o<span class="w"> </span>root<span class="w"> </span>-g<span class="w"> </span>root<span class="w"> </span>/tmp/hypershift<span class="w"> </span>/usr/local/bin/hypershift
+</code></pre></div>
+<h3 id="deploy-the-hypershift-operator">Deploy the HyperShift Operator</h3>
+<p>With the CLI deployed, we can go ahead and deploy the operator:</p>
+<blockquote>
+<p><strong>WARN:</strong> If we don't define the HyperShift image we want to use, by default the CLI will deploy <code>latest</code>. Usually you want to deploy the image matching the release of the OpenShift cluster where HyperShift will run.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1"># This install latest</span>
+hypershift<span class="w"> </span>install
+<span class="c1"># You may want to run this instead</span>
+hypershift<span class="w"> </span>install<span class="w"> </span>--hypershift-image<span class="w"> </span>quay.io/hypershift/hypershift-operator:4.11
+</code></pre></div>
+<p>You will see the operator running in the <code>hypershift</code> namespace:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>get<span class="w"> </span>pods
+
+NAME<span class="w">                      </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+operator-55fffbd6-whkxs<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>61s
+</code></pre></div>
+<h2 id="install-assisted-service-and-hive-operators">Install Assisted Service and Hive Operators</h2>
+<blockquote>
+<p><strong>NOTE</strong>: If Red Hat Advanced Cluster Management (RHACM) is already installed, this can be skipped as the Infrastructure Operator
+and Hive Operator are dependencies of RHACM.</p>
+</blockquote>
+<p>We will leverage <a href="https://github.com/karmab/tasty"><code>tasty</code></a> to deploy the required operators easily.</p>
+<p>Install tasty:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-L<span class="w"> </span>https://github.com/karmab/tasty/releases/download/v0.4.0/tasty-linux-amd64<span class="w"> </span>&gt;<span class="w"> </span>./tasty
+sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-o<span class="w"> </span>root<span class="w"> </span>-g<span class="w"> </span>root<span class="w"> </span>./tasty<span class="w"> </span>/usr/local/bin/tasty
+</code></pre></div>
+<p>Install the operators</p>
+<div class="highlight"><pre><span></span><code>tasty<span class="w"> </span>install<span class="w"> </span>assisted-service-operator<span class="w"> </span>hive-operator
+</code></pre></div>
+<h2 id="configure-agent-service">Configure Agent Service</h2>
+<p>Create the <code>AgentServiceConfig</code> resource</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">DB_VOLUME_SIZE</span><span class="o">=</span><span class="s2">"10Gi"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">FS_VOLUME_SIZE</span><span class="o">=</span><span class="s2">"10Gi"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OCP_VERSION</span><span class="o">=</span><span class="s2">"4.11.5"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OCP_MAJMIN</span><span class="o">=</span><span class="si">${</span><span class="nv">OCP_VERSION</span><span class="p">%.*</span><span class="si">}</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span><span class="s2">"x86_64"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">OCP_RELEASE_VERSION</span><span class="o">=</span><span class="k">$(</span>curl<span class="w"> </span>-s<span class="w"> </span>https://mirror.openshift.com/pub/openshift-v4/<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>/clients/ocp/<span class="si">${</span><span class="nv">OCP_VERSION</span><span class="si">}</span>/release.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'/machine-os / { print $2 }'</span><span class="k">)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ISO_URL</span><span class="o">=</span><span class="s2">"https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/</span><span class="si">${</span><span class="nv">OCP_MAJMIN</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">OCP_VERSION</span><span class="si">}</span><span class="s2">/rhcos-</span><span class="si">${</span><span class="nv">OCP_VERSION</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span><span class="s2">-live.</span><span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span><span class="s2">.iso"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">ROOT_FS_URL</span><span class="o">=</span><span class="s2">"https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/</span><span class="si">${</span><span class="nv">OCP_MAJMIN</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">OCP_VERSION</span><span class="si">}</span><span class="s2">/rhcos-</span><span class="si">${</span><span class="nv">OCP_VERSION</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span><span class="s2">-live-rootfs.</span><span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span><span class="s2">.img"</span>
+
+envsubst<span class="w"> </span>&lt;&lt;<span class="s2">"EOF"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+apiVersion:<span class="w"> </span>agent-install.openshift.io/v1beta1
+kind:<span class="w"> </span>AgentServiceConfig
+metadata:
+<span class="w"> </span>name:<span class="w"> </span>agent
+spec:
+<span class="w">  </span>databaseStorage:
+<span class="w">    </span>accessModes:
+<span class="w">    </span>-<span class="w"> </span>ReadWriteOnce
+<span class="w">    </span>resources:
+<span class="w">      </span>requests:
+<span class="w">        </span>storage:<span class="w"> </span><span class="si">${</span><span class="nv">DB_VOLUME_SIZE</span><span class="si">}</span>
+<span class="w">  </span>filesystemStorage:
+<span class="w">    </span>accessModes:
+<span class="w">    </span>-<span class="w"> </span>ReadWriteOnce
+<span class="w">    </span>resources:
+<span class="w">      </span>requests:
+<span class="w">        </span>storage:<span class="w"> </span><span class="si">${</span><span class="nv">FS_VOLUME_SIZE</span><span class="si">}</span>
+<span class="w">  </span>osImages:
+<span class="w">    </span>-<span class="w"> </span>openshiftVersion:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OCP_VERSION</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">      </span>version:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">OCP_RELEASE_VERSION</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">      </span>url:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">ISO_URL</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">      </span>rootFSUrl:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">ROOT_FS_URL</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">      </span>cpuArchitecture:<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span><span class="s2">"</span>
+EOF
+</code></pre></div>
+<h2 id="configure-dns">Configure DNS</h2>
+<p>The API Server for the Hosted Cluster is exposed a Service of type NodePort.</p>
+<p>A DNS entry must exist for <code>api.${HOSTED_CLUSTER_NAME}.${BASEDOMAIN}</code> pointing to destination where the API Server can be reached.</p>
+<p>This can be as simple as an A record pointing to one of the nodes in the management cluster (i.e. the cluster running the HCP).  It can also point to a <a href="https://docs.openshift.com/container-platform/4.11/installing/installing_platform_agnostic/installing-platform-agnostic.html#installation-load-balancing-user-infra-example_installing-platform-agnostic">load balancer</a> deployed to redirect incoming traffic to the ingress pods.</p>
+<h3 id="example-dns-config">Example DNS Config</h3>
+<div class="highlight"><pre><span></span><code>api.example.krnl.es.    IN A 192.168.122.20
+api.example.krnl.es.    IN A 192.168.122.21
+api.example.krnl.es.    IN A 192.168.122.22
+api-int.example.krnl.es.    IN A 192.168.122.20
+api-int.example.krnl.es.    IN A 192.168.122.21
+api-int.example.krnl.es.    IN A 192.168.122.22
+*.apps.example.krnl.es. IN A 192.168.122.23
+</code></pre></div>
+<h2 id="create-a-hosted-cluster">Create a Hosted Cluster</h2>
+<blockquote>
+<p><strong>WARN:</strong> Make sure you have a default storage class configured for your cluster, otherwise you may end up with pending PVCs.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CLUSTERS_NAMESPACE</span><span class="o">=</span><span class="s2">"clusters"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="o">=</span><span class="s2">"example"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">CLUSTERS_NAMESPACE</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BASEDOMAIN</span><span class="o">=</span><span class="s2">"krnl.es"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PULL_SECRET_FILE</span><span class="o">=</span><span class="nv">$PWD</span>/pull-secret
+<span class="nb">export</span><span class="w"> </span><span class="nv">OCP_RELEASE</span><span class="o">=</span><span class="m">4</span>.11.5-x86_64
+<span class="nb">export</span><span class="w"> </span><span class="nv">MACHINE_CIDR</span><span class="o">=</span><span class="m">192</span>.168.122.0/24
+<span class="c1"># Typically the namespace is created by the hypershift-operator</span>
+<span class="c1"># but agent cluster creation generates a capi-provider role that</span>
+<span class="c1"># needs the namespace to already exist</span>
+oc<span class="w"> </span>create<span class="w"> </span>ns<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span>
+
+hypershift<span class="w"> </span>create<span class="w"> </span>cluster<span class="w"> </span>agent<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--name<span class="o">=</span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--pull-secret<span class="o">=</span><span class="si">${</span><span class="nv">PULL_SECRET_FILE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--agent-namespace<span class="o">=</span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--base-domain<span class="o">=</span><span class="si">${</span><span class="nv">BASEDOMAIN</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--api-server-address<span class="o">=</span>api.<span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.<span class="si">${</span><span class="nv">BASEDOMAIN</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--release-image<span class="o">=</span>quay.io/openshift-release-dev/ocp-release:<span class="si">${</span><span class="nv">OCP_RELEASE</span><span class="si">}</span>
+</code></pre></div>
+<p>After a few moments we should see our hosted control plane pods up and running:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>pods
+
+NAME<span class="w">                                             </span>READY<span class="w">   </span>STATUS<span class="w">    </span>RESTARTS<span class="w">   </span>AGE
+capi-provider-7dcf5fc4c4-nr9sq<span class="w">                   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m32s
+catalog-operator-6cd867cc7-phb2q<span class="w">                 </span><span class="m">2</span>/2<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m50s
+certified-operators-catalog-884c756c4-zdt64<span class="w">      </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m51s
+cluster-api-f75d86f8c-56wfz<span class="w">                      </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m32s
+cluster-autoscaler-7977864686-2rz4c<span class="w">              </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m13s
+cluster-network-operator-754cf4ffd6-lwfm2<span class="w">        </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m51s
+cluster-policy-controller-784f995d5-7cbrz<span class="w">        </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m51s
+cluster-version-operator-5c68f7f4f8-lqzcm<span class="w">        </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m51s
+community-operators-catalog-58599d96cd-vpj2v<span class="w">     </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m51s
+control-plane-operator-f6b4c8465-4k5dh<span class="w">           </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m32s
+etcd-0<span class="w">                                           </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m13s
+hosted-cluster-config-operator-c4776f89f-dt46j<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m51s
+ignition-server-7cd8676fc5-hjx29<span class="w">                 </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m22s
+ingress-operator-75484cdc8c-zhdz5<span class="w">                </span><span class="m">1</span>/2<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m51s
+konnectivity-agent-c5485c9df-jsm9s<span class="w">               </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m13s
+konnectivity-server-85dc754888-7z8vm<span class="w">             </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m13s
+kube-apiserver-db5fb5549-zlvpq<span class="w">                   </span><span class="m">3</span>/3<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m13s
+kube-controller-manager-5fbf7b7b7b-mrtjj<span class="w">         </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>90s
+kube-scheduler-776c59d757-kfhv6<span class="w">                  </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>3m12s
+machine-approver-c6b947895-lkdbk<span class="w">                 </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>4m13s
+oauth-openshift-787b87cff6-trvd6<span class="w">                 </span><span class="m">2</span>/2<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>87s
+olm-operator-69c4657864-hxwzk<span class="w">                    </span><span class="m">2</span>/2<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m50s
+openshift-apiserver-67f9d9c5c7-c9bmv<span class="w">             </span><span class="m">2</span>/2<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>89s
+openshift-controller-manager-5899fc8778-q89xh<span class="w">    </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m51s
+openshift-oauth-apiserver-569c78c4d-568v8<span class="w">        </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m52s
+packageserver-ddfffb8d7-wlz6l<span class="w">                    </span><span class="m">2</span>/2<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m50s
+redhat-marketplace-catalog-7dd77d896-jtxkd<span class="w">       </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m51s
+redhat-operators-catalog-d66b5c965-qwhn7<span class="w">         </span><span class="m">1</span>/1<span class="w">     </span>Running<span class="w">   </span><span class="m">0</span><span class="w">          </span>2m51s
+</code></pre></div>
+<h2 id="create-an-infraenv">Create an InfraEnv</h2>
+<p>An InfraEnv is a environment to which hosts booting the live ISO can join as Agents.  In this case, the Agents will be created in the
+same namespace as our HostedControlPlane.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">SSH_PUB_KEY</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span><span class="nv">$HOME</span>/.ssh/id_rsa.pub<span class="k">)</span>
+
+envsubst<span class="w"> </span>&lt;&lt;<span class="s2">"EOF"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+apiVersion:<span class="w"> </span>agent-install.openshift.io/v1beta1
+kind:<span class="w"> </span>InfraEnv
+metadata:
+<span class="w">  </span>name:<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>
+<span class="w">  </span>namespace:<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span>
+spec:
+<span class="w">  </span>pullSecretRef:
+<span class="w">    </span>name:<span class="w"> </span>pull-secret
+<span class="w">  </span>sshAuthorizedKey:<span class="w"> </span><span class="si">${</span><span class="nv">SSH_PUB_KEY</span><span class="si">}</span>
+EOF
+</code></pre></div>
+<p>This will generate a live ISO that allows machines (VMs or bare-metal) to join as Agents.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>InfraEnv<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-ojsonpath<span class="o">=</span><span class="s2">"{.status.isoDownloadURL}"</span>
+</code></pre></div>
+<h2 id="adding-agents">Adding Agents</h2>
+<p>You can add Agents by manually configuring the machine to boot with the live ISO or by using Metal3.</p>
+<h3 id="manual">Manual</h3>
+<p>The live ISO may be downloaded and used to boot a node (bare-metal or VM).</p>
+<p>On boot, the node will communicate with the assisted-service and register as an Agent in the same namespace as the InfraEnv.</p>
+<p>Once each Agent is created, optionally set its installation_disk_id and hostname in the Spec. Then approve it to indicate that the Agent is ready for use.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>agents
+
+NAME<span class="w">                                   </span>CLUSTER<span class="w">   </span>APPROVED<span class="w">   </span>ROLE<span class="w">          </span>STAGE
+86f7ac75-4fc4-4b36-8130-40fa12602218<span class="w">                        </span>auto-assign
+e57a637f-745b-496e-971d-1abbf03341ba<span class="w">                        </span>auto-assign
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>patch<span class="w"> </span>agent<span class="w"> </span>86f7ac75-4fc4-4b36-8130-40fa12602218<span class="w"> </span>-p<span class="w"> </span><span class="s1">'{"spec":{"installation_disk_id":"/dev/sda","approved":true,"hostname":"worker-0.example.krnl.es"}}'</span><span class="w"> </span>--type<span class="w"> </span>merge
+
+oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>patch<span class="w"> </span>agent<span class="w"> </span>23d0c614-2caa-43f5-b7d3-0b3564688baa<span class="w"> </span>-p<span class="w"> </span><span class="s1">'{"spec":{"installation_disk_id":"/dev/sda","approved":true,"hostname":"worker-1.example.krnl.es"}}'</span><span class="w"> </span>--type<span class="w"> </span>merge
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>agents
+
+NAME<span class="w">                                   </span>CLUSTER<span class="w">   </span>APPROVED<span class="w">   </span>ROLE<span class="w">          </span>STAGE
+86f7ac75-4fc4-4b36-8130-40fa12602218<span class="w">             </span><span class="nb">true</span><span class="w">       </span>auto-assign
+e57a637f-745b-496e-971d-1abbf03341ba<span class="w">             </span><span class="nb">true</span><span class="w">       </span>auto-assign
+</code></pre></div>
+<h3 id="metal3">Metal3</h3>
+<p>We will leverage the Assisted Service and Hive to create the custom ISO as well as the Baremetal Operator to perform the installation.</p>
+<blockquote>
+<p><strong>WARN:</strong> Since the <code>BaremetalHost</code> objects will be created outside the baremetal-operator namespace we need to configure the operator to watch all namespaces.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>patch<span class="w"> </span>provisioning<span class="w"> </span>provisioning-configuration<span class="w"> </span>--type<span class="w"> </span>merge<span class="w"> </span>-p<span class="w"> </span><span class="s1">'{"spec":{"watchAllNamespaces": true }}'</span>
+</code></pre></div>
+<blockquote>
+<p><strong>INFO:</strong> This will trigger a restart of the <code>metal3</code> pod in the <code>openshift-machine-api</code> namespace.</p>
+</blockquote>
+<ul>
+<li>Wait until the <code>metal3</code> pod is ready again:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">until</span><span class="w"> </span>oc<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>-n<span class="w"> </span>openshift-machine-api<span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api<span class="w"> </span>-l<span class="w"> </span>baremetal.openshift.io/cluster-baremetal-operator<span class="o">=</span>metal3-state<span class="w"> </span>-o<span class="w"> </span>name<span class="k">)</span><span class="w"> </span>--for<span class="w"> </span><span class="nv">condition</span><span class="o">=</span>containersready<span class="w"> </span>--timeout<span class="w"> </span>10s<span class="w"> </span>&gt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</code></pre></div>
+<p>Now we can go ahead and create our BaremetalHost objects. We will need to configure some variables required to be able to boot our bare-metal nodes.</p>
+<ul>
+<li><code>BMC_USERNAME</code>: Username to be used for connecting to the BMC.</li>
+<li><code>BMC_PASSWORD</code>: Password to be used for connecting to the BMC.</li>
+<li><code>BMC_IP</code>: IP used by Metal3 to connect to the BMC.</li>
+<li><code>WORKER_NAME</code>: Name of the BaremetalHost object (this will be used as hostname as well)</li>
+<li><code>BOOT_MAC_ADDRESS</code>: MAC address of the NIC connected to the MachineNetwork.</li>
+<li><code>UUID</code>: Redfish UUID, this is usually <code>1</code>. If using sushy-tools this will be a long UUID. If using iDrac this will be <code>System.Embedded.1</code>. You may need to check with the vendor.</li>
+<li><code>REDFISH_SCHEME</code>: The Redfish provider to use. If using hardware that uses a standard Redfish implementation you can set this to <code>redfish-virtualmedia</code>. iDRAC will use <code>idrac-virtualmedia</code>. iLO5 will use <code>ilo5-virtualmedia</code>. You may need to check with the vendor.</li>
+<li><code>REDFISH</code>: Redfish connection endpoint.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BMC_USERNAME</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"root"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-w0<span class="k">)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BMC_PASSWORD</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"calvin"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-w0<span class="k">)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BMC_IP</span><span class="o">=</span><span class="s2">"192.168.124.228"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">WORKER_NAME</span><span class="o">=</span><span class="s2">"ocp-worker-0"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">BOOT_MAC_ADDRESS</span><span class="o">=</span><span class="s2">"aa:bb:cc:dd:ee:ff"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">UUID</span><span class="o">=</span><span class="s2">"1"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">REDFISH_SCHEME</span><span class="o">=</span><span class="s2">"redfish-virtualmedia"</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">REDFISH</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">REDFISH_SCHEME</span><span class="si">}</span><span class="s2">://</span><span class="si">${</span><span class="nv">BMC_IP</span><span class="si">}</span><span class="s2">/redfish/v1/Systems/</span><span class="si">${</span><span class="nv">UUID</span><span class="si">}</span><span class="s2">"</span>
+</code></pre></div>
+<p>With the required information ready, let's create the BaremetalHost. First we will create the BMC Secret:</p>
+<div class="highlight"><pre><span></span><code>envsubst<span class="w"> </span>&lt;&lt;<span class="s2">"EOF"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+apiVersion:<span class="w"> </span>v1
+data:
+<span class="w">  </span>password:<span class="w"> </span><span class="si">${</span><span class="nv">BMC_PASSWORD</span><span class="si">}</span>
+<span class="w">  </span>username:<span class="w"> </span><span class="si">${</span><span class="nv">BMC_USERNAME</span><span class="si">}</span>
+kind:<span class="w"> </span>Secret
+metadata:
+<span class="w">  </span>name:<span class="w"> </span><span class="si">${</span><span class="nv">WORKER_NAME</span><span class="si">}</span>-bmc-secret
+<span class="w">  </span>namespace:<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span>
+type:<span class="w"> </span>Opaque
+EOF
+</code></pre></div>
+<p>Second, we will create the BMH:</p>
+<blockquote>
+<p><strong>INFO:</strong> <code>infraenvs.agent-install.openshift.io</code> label is used to specify which InfraEnv is used to boot the BMH. <code>bmac.agent-install.openshift.io/hostname</code> is used to manually set a hostname.</p>
+</blockquote>
+<p>In case you want to manually specify the installation disk you can make use of the <a href="https://github.com/metal3-io/baremetal-operator/blob/main/docs/api.md#rootdevicehints">rootDeviceHints</a> in the BMH Spec. If rootDeviceHints are not provided, the agent will pick the installation disk that better suits the installation requirements.</p>
+<div class="highlight"><pre><span></span><code>envsubst<span class="w"> </span>&lt;&lt;<span class="s2">"EOF"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+apiVersion:<span class="w"> </span>metal3.io/v1alpha1
+kind:<span class="w"> </span>BareMetalHost
+metadata:
+<span class="w">  </span>name:<span class="w"> </span><span class="si">${</span><span class="nv">WORKER_NAME</span><span class="si">}</span>
+<span class="w">  </span>namespace:<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span>
+<span class="w">  </span>labels:
+<span class="w">    </span>infraenvs.agent-install.openshift.io:<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>
+<span class="w">  </span>annotations:
+<span class="w">    </span>inspect.metal3.io:<span class="w"> </span>disabled
+<span class="w">    </span>bmac.agent-install.openshift.io/hostname:<span class="w"> </span><span class="si">${</span><span class="nv">WORKER_NAME</span><span class="si">}</span>
+spec:
+<span class="w">  </span>automatedCleaningMode:<span class="w"> </span>disabled
+<span class="w">  </span>bmc:
+<span class="w">    </span>disableCertificateVerification:<span class="w"> </span>True
+<span class="w">    </span>address:<span class="w"> </span><span class="si">${</span><span class="nv">REDFISH</span><span class="si">}</span>
+<span class="w">    </span>credentialsName:<span class="w"> </span><span class="si">${</span><span class="nv">WORKER_NAME</span><span class="si">}</span>-bmc-secret
+<span class="w">  </span>bootMACAddress:<span class="w"> </span><span class="si">${</span><span class="nv">BOOT_MAC_ADDRESS</span><span class="si">}</span>
+<span class="w">  </span>online:<span class="w"> </span><span class="nb">true</span>
+EOF
+</code></pre></div>
+<p>The Agent should be automatically approved, if not, make sure the <code>bootMACAddress</code> is correct.</p>
+<p>The BMH will be provisioned:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>bmh
+
+NAME<span class="w">           </span>STATE<span class="w">          </span>CONSUMER<span class="w">   </span>ONLINE<span class="w">   </span>ERROR<span class="w">   </span>AGE
+ocp-worker-0<span class="w">   </span>provisioning<span class="w">              </span><span class="nb">true</span><span class="w">             </span>2m50s
+</code></pre></div>
+<p>BMH will reach <code>provisioned</code> state eventually.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>bmh
+NAME<span class="w">           </span>STATE<span class="w">          </span>CONSUMER<span class="w">   </span>ONLINE<span class="w">   </span>ERROR<span class="w">   </span>AGE
+ocp-worker-0<span class="w">   </span>provisioned<span class="w">               </span><span class="nb">true</span><span class="w">             </span>72s
+</code></pre></div>
+<p>Provisioned means that the node was configured to boot from the virtualCD properly. It will take a few moments for the Agent to show up:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>agent
+
+NAME<span class="w">                                   </span>CLUSTER<span class="w">   </span>APPROVED<span class="w">   </span>ROLE<span class="w">          </span>STAGE
+4dac1ab2-7dd5-4894-a220-6a3473b67ee6<span class="w">             </span><span class="nb">true</span><span class="w">       </span>auto-assign<span class="w">  </span>
+</code></pre></div>
+<p>As you can see it was auto-approved. We will repeat this with another two nodes.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>agent
+
+NAME<span class="w">                                   </span>CLUSTER<span class="w">   </span>APPROVED<span class="w">   </span>ROLE<span class="w">          </span>STAGE
+4dac1ab2-7dd5-4894-a220-6a3473b67ee6<span class="w">             </span><span class="nb">true</span><span class="w">       </span>auto-assign<span class="w">  </span>
+d9198891-39f4-4930-a679-65fb142b108b<span class="w">             </span><span class="nb">true</span><span class="w">       </span>auto-assign
+da503cf1-a347-44f2-875c-4960ddb04091<span class="w">             </span><span class="nb">true</span><span class="w">       </span>auto-assign
+</code></pre></div>
+<h2 id="accessing-the-hostedcluster">Accessing the HostedCluster</h2>
+<p>We have the HostedControlPlane running and the Agents ready to join the HostedCluster. Before we join the Agents let's access the HostedCluster.</p>
+<p>First, we need to generate the kubeconfig:</p>
+<div class="highlight"><pre><span></span><code>hypershift<span class="w"> </span>create<span class="w"> </span>kubeconfig<span class="w"> </span>--namespace<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTERS_NAMESPACE</span><span class="si">}</span><span class="w"> </span>--name<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig
+</code></pre></div>
+<p>If we access the cluster we will see that we don't have any nodes and that the ClusterVersion is trying to reconcile the OCP release:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>get<span class="w"> </span>clusterversion,nodes
+
+NAME<span class="w">                                         </span>VERSION<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>SINCE<span class="w">   </span>STATUS
+clusterversion.config.openshift.io/version<span class="w">             </span>False<span class="w">       </span>True<span class="w">          </span>8m6s<span class="w">    </span>Unable<span class="w"> </span>to<span class="w"> </span>apply<span class="w"> </span><span class="m">4</span>.11.5:<span class="w"> </span>some<span class="w"> </span>cluster<span class="w"> </span>operators<span class="w"> </span>have<span class="w"> </span>not<span class="w"> </span>yet<span class="w"> </span>rolled<span class="w"> </span>out
+</code></pre></div>
+<p>In order to get the cluster in a running state we need to add some nodes to it. Let's do it.</p>
+<h2 id="scale-the-nodepool">Scale the NodePool</h2>
+<p>We add nodes to our HostedCluster by scaling the NodePool object. In this case we will start by scaling the NodePool object to two nodes:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTERS_NAMESPACE</span><span class="si">}</span><span class="w"> </span>scale<span class="w"> </span>nodepool<span class="w"> </span><span class="si">${</span><span class="nv">NODEPOOL_NAME</span><span class="si">}</span><span class="w"> </span>--replicas<span class="w"> </span><span class="m">2</span>
+</code></pre></div>
+<p>The ClusterAPI Agent provider will pick two agents randomly that will get assigned to the HostedCluster. These agents will go over different states and will finally join the HostedCluster as OpenShift nodes.</p>
+<blockquote>
+<p><strong>INFO:</strong> States will be <code>binding</code> -&gt; <code>discoverying</code> -&gt; <code>insufficient</code> -&gt; <code>installing</code> -&gt; <code>installing-in-progress</code> -&gt; <code>added-to-existing-cluster</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>agent
+
+NAME<span class="w">                                   </span>CLUSTER<span class="w">         </span>APPROVED<span class="w">   </span>ROLE<span class="w">          </span>STAGE
+4dac1ab2-7dd5-4894-a220-6a3473b67ee6<span class="w">   </span>hypercluster1<span class="w">   </span><span class="nb">true</span><span class="w">       </span>auto-assign<span class="w">  </span>
+d9198891-39f4-4930-a679-65fb142b108b<span class="w">                   </span><span class="nb">true</span><span class="w">       </span>auto-assign<span class="w">  </span>
+da503cf1-a347-44f2-875c-4960ddb04091<span class="w">   </span>hypercluster1<span class="w">   </span><span class="nb">true</span><span class="w">       </span>auto-assign
+
+oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>agent<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{range .items[*]}BMH: {@.metadata.labels.agent-install\.openshift\.io/bmh} Agent: {@.metadata.name} State: {@.status.debugInfo.state}{"\n"}{end}'</span>
+
+BMH:<span class="w"> </span>ocp-worker-2<span class="w"> </span>Agent:<span class="w"> </span>4dac1ab2-7dd5-4894-a220-6a3473b67ee6<span class="w"> </span>State:<span class="w"> </span>binding
+BMH:<span class="w"> </span>ocp-worker-0<span class="w"> </span>Agent:<span class="w"> </span>d9198891-39f4-4930-a679-65fb142b108b<span class="w"> </span>State:<span class="w"> </span>known-unbound
+BMH:<span class="w"> </span>ocp-worker-1<span class="w"> </span>Agent:<span class="w"> </span>da503cf1-a347-44f2-875c-4960ddb04091<span class="w"> </span>State:<span class="w"> </span>insufficient
+</code></pre></div>
+<p>Once the agents have reached the <code>added-to-existing-cluster</code> state, we should see the OpenShift nodes after a few moments:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>get<span class="w"> </span>nodes
+
+NAME<span class="w">           </span>STATUS<span class="w">   </span>ROLES<span class="w">    </span>AGE<span class="w">     </span>VERSION
+ocp-worker-1<span class="w">   </span>Ready<span class="w">    </span>worker<span class="w">   </span>5m41s<span class="w">   </span>v1.24.0+3882f8f
+ocp-worker-2<span class="w">   </span>Ready<span class="w">    </span>worker<span class="w">   </span>6m3s<span class="w">    </span>v1.24.0+3882f8f
+</code></pre></div>
+<p>At this point some ClusterOperators will start to reconcile by adding workloads to the nodes.</p>
+<p>We can also see that two Machines were created when we scaled up the NodePool:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>machines
+
+NAME<span class="w">                            </span>CLUSTER<span class="w">               </span>NODENAME<span class="w">       </span>PROVIDERID<span class="w">                                     </span>PHASE<span class="w">     </span>AGE<span class="w">   </span>VERSION
+hypercluster1-c96b6f675-m5vch<span class="w">   </span>hypercluster1-b2qhl<span class="w">   </span>ocp-worker-1<span class="w">   </span>agent://da503cf1-a347-44f2-875c-4960ddb04091<span class="w">   </span>Running<span class="w">   </span>15m<span class="w">   </span><span class="m">4</span>.11.5
+hypercluster1-c96b6f675-tl42p<span class="w">   </span>hypercluster1-b2qhl<span class="w">   </span>ocp-worker-2<span class="w">   </span>agent://4dac1ab2-7dd5-4894-a220-6a3473b67ee6<span class="w">   </span>Running<span class="w">   </span>15m<span class="w">   </span><span class="m">4</span>.11.5
+</code></pre></div>
+<p>At some point the clusterversion reconcile will reach a point where only Ingress and Console cluster operators will be missing:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>get<span class="w"> </span>clusterversion,co
+
+NAME<span class="w">                                         </span>VERSION<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>SINCE<span class="w">   </span>STATUS
+clusterversion.config.openshift.io/version<span class="w">             </span>False<span class="w">       </span>True<span class="w">          </span>40m<span class="w">     </span>Unable<span class="w"> </span>to<span class="w"> </span>apply<span class="w"> </span><span class="m">4</span>.11.5:<span class="w"> </span>the<span class="w"> </span>cluster<span class="w"> </span>operator<span class="w"> </span>console<span class="w"> </span>has<span class="w"> </span>not<span class="w"> </span>yet<span class="w"> </span>successfully<span class="w"> </span>rolled<span class="w"> </span>out
+
+NAME<span class="w">                                                                           </span>VERSION<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>DEGRADED<span class="w">   </span>SINCE<span class="w">   </span>MESSAGE
+clusteroperator.config.openshift.io/console<span class="w">                                    </span><span class="m">4</span>.11.5<span class="w">    </span>False<span class="w">       </span>False<span class="w">         </span>False<span class="w">      </span>11m<span class="w">     </span>RouteHealthAvailable:<span class="w"> </span>failed<span class="w"> </span>to<span class="w"> </span>GET<span class="w"> </span>route<span class="w"> </span><span class="o">(</span>https://console-openshift-console.apps.hypercluster1.domain.com<span class="o">)</span>:<span class="w"> </span>Get<span class="w"> </span><span class="s2">"https://console-openshift-console.apps.hypercluster1.domain.com"</span>:<span class="w"> </span>dial<span class="w"> </span>tcp<span class="w"> </span><span class="m">10</span>.19.3.29:443:<span class="w"> </span>connect:<span class="w"> </span>connection<span class="w"> </span>refused
+clusteroperator.config.openshift.io/csi-snapshot-controller<span class="w">                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>10m<span class="w">  </span>
+clusteroperator.config.openshift.io/dns<span class="w">                                        </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>9m16s<span class="w">  </span>
+clusteroperator.config.openshift.io/image-registry<span class="w">                             </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>9m5s<span class="w">  </span>
+clusteroperator.config.openshift.io/ingress<span class="w">                                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>True<span class="w">       </span>39m<span class="w">     </span>The<span class="w"> </span><span class="s2">"default"</span><span class="w"> </span>ingress<span class="w"> </span>controller<span class="w"> </span>reports<span class="w"> </span><span class="nv">Degraded</span><span class="o">=</span>True:<span class="w"> </span>DegradedConditions:<span class="w"> </span>One<span class="w"> </span>or<span class="w"> </span>more<span class="w"> </span>other<span class="w"> </span>status<span class="w"> </span>conditions<span class="w"> </span>indicate<span class="w"> </span>a<span class="w"> </span>degraded<span class="w"> </span>state:<span class="w"> </span><span class="nv">CanaryChecksSucceeding</span><span class="o">=</span>False<span class="w"> </span><span class="o">(</span>CanaryChecksRepetitiveFailures:<span class="w"> </span>Canary<span class="w"> </span>route<span class="w"> </span>checks<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>default<span class="w"> </span>ingress<span class="w"> </span>controller<span class="w"> </span>are<span class="w"> </span>failing<span class="o">)</span>
+clusteroperator.config.openshift.io/insights<span class="w">                                   </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>11m<span class="w">  </span>
+clusteroperator.config.openshift.io/kube-apiserver<span class="w">                             </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>40m<span class="w">  </span>
+clusteroperator.config.openshift.io/kube-controller-manager<span class="w">                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>40m<span class="w">  </span>
+clusteroperator.config.openshift.io/kube-scheduler<span class="w">                             </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>40m<span class="w">  </span>
+clusteroperator.config.openshift.io/kube-storage-version-migrator<span class="w">              </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>10m<span class="w">  </span>
+clusteroperator.config.openshift.io/monitoring<span class="w">                                 </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>7m38s<span class="w">  </span>
+clusteroperator.config.openshift.io/network<span class="w">                                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>11m<span class="w">  </span>
+clusteroperator.config.openshift.io/openshift-apiserver<span class="w">                        </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>40m<span class="w">  </span>
+clusteroperator.config.openshift.io/openshift-controller-manager<span class="w">               </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>40m<span class="w">  </span>
+clusteroperator.config.openshift.io/openshift-samples<span class="w">                          </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>8m54s<span class="w">  </span>
+clusteroperator.config.openshift.io/operator-lifecycle-manager<span class="w">                 </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>40m<span class="w">  </span>
+clusteroperator.config.openshift.io/operator-lifecycle-manager-catalog<span class="w">         </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>40m<span class="w">  </span>
+clusteroperator.config.openshift.io/operator-lifecycle-manager-packageserver<span class="w">   </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>40m<span class="w">  </span>
+clusteroperator.config.openshift.io/service-ca<span class="w">                                 </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>11m<span class="w">  </span>
+clusteroperator.config.openshift.io/storage<span class="w">                                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>11m
+</code></pre></div>
+<p>Let's fix the Ingress.</p>
+<h2 id="handling-ingress">Handling Ingress</h2>
+<p>Every OpenShift cluster comes set up with a default application ingress
+controller, which is expected have an external DNS record associated with it.</p>
+<p>For example, if a HyperShift cluster named <code>example</code> with the base domain
+<code>krnl.es</code> is created, then the wildcard domain
+<code>*.apps.example.krnl.es</code> is expected to be routable.</p>
+<h3 id="set-up-a-loadbalancer-and-wildcard-dns-record-for-the-apps">Set up a LoadBalancer and wildcard DNS record for the <code>*.apps</code>.</h3>
+<p>This option requires deploying MetalLB, configuring a new LoadBalancer service that routes to the ingress deployment, as well as assigning a wildcard DNS entry to the LoadBalancer's IP address.</p>
+<h4 id="step-1-get-the-metallb-operator-deployed">Step 1 - Get the MetalLB Operator Deployed</h4>
+<p>Set up <a href="https://docs.openshift.com/container-platform/4.10/networking/metallb/about-metallb.html">MetalLB</a> so that when you create a service of type LoadBalancer, MetalLB will add an external IP address for the service.</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&lt;&lt;<span class="s2">"EOF"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+---
+apiVersion:<span class="w"> </span>v1
+kind:<span class="w"> </span>Namespace
+metadata:
+<span class="w">  </span>name:<span class="w"> </span>metallb
+<span class="w">  </span>labels:
+<span class="w">    </span>openshift.io/cluster-monitoring:<span class="w"> </span><span class="s2">"true"</span>
+<span class="w">  </span>annotations:
+<span class="w">    </span>workload.openshift.io/allowed:<span class="w"> </span>management
+---
+apiVersion:<span class="w"> </span>operators.coreos.com/v1
+kind:<span class="w"> </span>OperatorGroup
+metadata:
+<span class="w">  </span>name:<span class="w"> </span>metallb-operator-operatorgroup
+<span class="w">  </span>namespace:<span class="w"> </span>metallb
+---
+apiVersion:<span class="w"> </span>operators.coreos.com/v1alpha1
+kind:<span class="w"> </span>Subscription
+metadata:
+<span class="w">  </span>name:<span class="w"> </span>metallb-operator
+<span class="w">  </span>namespace:<span class="w"> </span>metallb
+spec:
+<span class="w">  </span>channel:<span class="w"> </span><span class="s2">"stable"</span>
+<span class="w">  </span>name:<span class="w"> </span>metallb-operator
+<span class="w">  </span>source:<span class="w"> </span>redhat-operators
+<span class="w">  </span>sourceNamespace:<span class="w"> </span>openshift-marketplace
+</code></pre></div>
+<p>Once the operator is up and running, create the MetalLB instance:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&lt;&lt;<span class="s2">"EOF"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+apiVersion:<span class="w"> </span>metallb.io/v1beta1
+kind:<span class="w"> </span>MetalLB
+metadata:
+<span class="w">  </span>name:<span class="w"> </span>metallb
+<span class="w">  </span>namespace:<span class="w"> </span>metallb
+EOF
+</code></pre></div>
+<h4 id="step-2-get-the-metallb-operator-configured">Step 2 - Get the MetalLB Operator Configured</h4>
+<p>We will create an <code>IPAddressPool</code> with a single IP address and L2Advertisement to advertise the LoadBalancer IPs provided by the <code>IPAddressPool</code> via L2.
+Since layer 2 mode relies on ARP and NDP, the IP address must be on the same subnet as the network used by the cluster nodes in order for the MetalLB to work.
+more information about metalLB configuration options is available <a href="https://metallb.universe.tf/configuration/">here</a>.</p>
+<blockquote>
+<p><strong>WARN:</strong> Change <code>INGRESS_IP</code> env var to match your environments addressing.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">INGRESS_IP</span><span class="o">=</span><span class="m">192</span>.168.122.23
+
+envsubst<span class="w"> </span>&lt;&lt;<span class="s2">"EOF"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+apiVersion:<span class="w"> </span>metallb.io/v1beta1
+kind:<span class="w"> </span>IPAddressPool
+metadata:
+<span class="w">  </span>name:<span class="w"> </span>ingress-public-ip
+<span class="w">  </span>namespace:<span class="w"> </span>metallb
+spec:
+<span class="w">  </span>protocol:<span class="w"> </span>layer2
+<span class="w">  </span>autoAssign:<span class="w"> </span><span class="nb">false</span>
+<span class="w">  </span>addresses:
+<span class="w">    </span>-<span class="w"> </span><span class="si">${</span><span class="nv">INGRESS_IP</span><span class="si">}</span>-<span class="si">${</span><span class="nv">INGRESS_IP</span><span class="si">}</span>
+---
+
+apiVersion:<span class="w"> </span>metallb.io/v1beta1
+kind:<span class="w"> </span>L2Advertisement
+metadata:
+<span class="w">  </span>name:<span class="w"> </span>ingress-public-ip
+<span class="w">  </span>namespace:<span class="w"> </span>metallb
+EOF
+</code></pre></div>
+<h4 id="step-3-get-the-openshift-router-exposed-via-metallb">Step 3 - Get the OpenShift Router exposed via MetalLB</h4>
+<p>Set up the LoadBalancer Service that routes ingress traffic to the ingress deployment.</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>&lt;&lt;<span class="s2">"EOF"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+kind:<span class="w"> </span>Service
+apiVersion:<span class="w"> </span>v1
+metadata:
+<span class="w">  </span>annotations:
+<span class="w">    </span>metallb.universe.tf/address-pool:<span class="w"> </span>ingress-public-ip
+<span class="w">  </span>name:<span class="w"> </span>metallb-ingress
+<span class="w">  </span>namespace:<span class="w"> </span>openshift-ingress
+spec:
+<span class="w">  </span>ports:
+<span class="w">    </span>-<span class="w"> </span>name:<span class="w"> </span>http
+<span class="w">      </span>protocol:<span class="w"> </span>TCP
+<span class="w">      </span>port:<span class="w"> </span><span class="m">80</span>
+<span class="w">      </span>targetPort:<span class="w"> </span><span class="m">80</span>
+<span class="w">    </span>-<span class="w"> </span>name:<span class="w"> </span>https
+<span class="w">      </span>protocol:<span class="w"> </span>TCP
+<span class="w">      </span>port:<span class="w"> </span><span class="m">443</span>
+<span class="w">      </span>targetPort:<span class="w"> </span><span class="m">443</span>
+<span class="w">  </span>selector:
+<span class="w">    </span>ingresscontroller.operator.openshift.io/deployment-ingresscontroller:<span class="w"> </span>default
+<span class="w">  </span>type:<span class="w"> </span>LoadBalancer
+EOF
+</code></pre></div>
+<p>We already configured the wildcard record in our example DNS config:</p>
+<div class="highlight"><pre><span></span><code>*.apps.example.krnl.es. IN A 192.168.122.23
+</code></pre></div>
+<p>So we should be able to reach the OCP Console now:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-kI<span class="w"> </span>https://console-openshift-console.apps.example.krnl.es
+
+HTTP/1.1<span class="w"> </span><span class="m">200</span><span class="w"> </span>OK
+</code></pre></div>
+<p>And if we check the clusterversion and clusteroperator we should have everything up and running now:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>get<span class="w"> </span>clusterversion,co
+
+NAME<span class="w">                                         </span>VERSION<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>SINCE<span class="w">   </span>STATUS
+clusterversion.config.openshift.io/version<span class="w">   </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>3m32s<span class="w">   </span>Cluster<span class="w"> </span>version<span class="w"> </span>is<span class="w"> </span><span class="m">4</span>.11.5
+
+NAME<span class="w">                                                                           </span>VERSION<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>DEGRADED<span class="w">   </span>SINCE<span class="w">   </span>MESSAGE
+clusteroperator.config.openshift.io/console<span class="w">                                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>3m50s<span class="w">  </span>
+clusteroperator.config.openshift.io/csi-snapshot-controller<span class="w">                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>25m<span class="w">  </span>
+clusteroperator.config.openshift.io/dns<span class="w">                                        </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>23m<span class="w">  </span>
+clusteroperator.config.openshift.io/image-registry<span class="w">                             </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>23m<span class="w">  </span>
+clusteroperator.config.openshift.io/ingress<span class="w">                                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>53m<span class="w">  </span>
+clusteroperator.config.openshift.io/insights<span class="w">                                   </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>25m<span class="w">  </span>
+clusteroperator.config.openshift.io/kube-apiserver<span class="w">                             </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>54m<span class="w">  </span>
+clusteroperator.config.openshift.io/kube-controller-manager<span class="w">                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>54m<span class="w">  </span>
+clusteroperator.config.openshift.io/kube-scheduler<span class="w">                             </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>54m<span class="w">  </span>
+clusteroperator.config.openshift.io/kube-storage-version-migrator<span class="w">              </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>25m<span class="w">  </span>
+clusteroperator.config.openshift.io/monitoring<span class="w">                                 </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>21m<span class="w">  </span>
+clusteroperator.config.openshift.io/network<span class="w">                                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>25m<span class="w">  </span>
+clusteroperator.config.openshift.io/openshift-apiserver<span class="w">                        </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>54m<span class="w">  </span>
+clusteroperator.config.openshift.io/openshift-controller-manager<span class="w">               </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>54m<span class="w">  </span>
+clusteroperator.config.openshift.io/openshift-samples<span class="w">                          </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>23m<span class="w">  </span>
+clusteroperator.config.openshift.io/operator-lifecycle-manager<span class="w">                 </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>54m<span class="w">  </span>
+clusteroperator.config.openshift.io/operator-lifecycle-manager-catalog<span class="w">         </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>54m<span class="w">  </span>
+clusteroperator.config.openshift.io/operator-lifecycle-manager-packageserver<span class="w">   </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>54m<span class="w">  </span>
+clusteroperator.config.openshift.io/service-ca<span class="w">                                 </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>25m<span class="w">  </span>
+clusteroperator.config.openshift.io/storage<span class="w">                                    </span><span class="m">4</span>.11.5<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>25m<span class="w">  </span>
+</code></pre></div>
+<h2 id="enabling-node-auto-scaling-for-the-hosted-cluster">Enabling Node Auto-Scaling for the Hosted Cluster</h2>
+<p>Auto-scaling can be enabled, if we choose to enable auto-scaling, when more capacity is require in our Hosted Cluster a new Agent will be installed (providing that we have spare agents). In order to enable auto-scaling we can run the following command:</p>
+<blockquote>
+<p><strong>INFO:</strong> In this case the minimum nodes will be 2 and the maximum 5.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTERS_NAMESPACE</span><span class="si">}</span><span class="w"> </span>patch<span class="w"> </span>nodepool<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--type<span class="o">=</span>json<span class="w"> </span>-p<span class="w"> </span><span class="s1">'[{"op": "remove", "path": "/spec/replicas"},{"op":"add", "path": "/spec/autoScaling", "value": { "max": 5, "min": 2 }}]'</span>
+</code></pre></div>
+<p>If 10 minutes passes without requiring the additional capacity the agent will be decommissioned and placed in the spare queue again.</p>
+<ol>
+<li>
+<p>Let's create a workload that requires a new node.</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt;EOF | oc --kubeconfig ${HOSTED_CLUSTER_NAME}.kubeconfig apply -f -</span>
+<span class="s">apiVersion: apps/v1</span>
+<span class="s">kind: Deployment</span>
+<span class="s">metadata:</span>
+<span class="s">  creationTimestamp: null</span>
+<span class="s">  labels:</span>
+<span class="s">    app: reversewords</span>
+<span class="s">  name: reversewords</span>
+<span class="s">  namespace: default</span>
+<span class="s">spec:</span>
+<span class="s">  replicas: 40</span>
+<span class="s">  selector:</span>
+<span class="s">    matchLabels:</span>
+<span class="s">      app: reversewords</span>
+<span class="s">  strategy: {}</span>
+<span class="s">  template:</span>
+<span class="s">    metadata:</span>
+<span class="s">      creationTimestamp: null</span>
+<span class="s">      labels:</span>
+<span class="s">        app: reversewords</span>
+<span class="s">    spec:</span>
+<span class="s">      containers:</span>
+<span class="s">      - image: quay.io/mavazque/reversewords:latest</span>
+<span class="s">        name: reversewords</span>
+<span class="s">        resources:</span>
+<span class="s">          requests:</span>
+<span class="s">            memory: 2Gi</span>
+<span class="s">status: {}</span>
+<span class="s">EOF</span>
+</code></pre></div>
+</li>
+<li>
+<p>We will see the remaining agent starts getting deployed.</p>
+<blockquote>
+<p><strong>INFO:</strong> The spare agent <code>d9198891-39f4-4930-a679-65fb142b108b</code> started getting provisioned.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>agent<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{range .items[*]}BMH: {@.metadata.labels.agent-install\.openshift\.io/bmh} Agent: {@.metadata.name} State: {@.status.debugInfo.state}{"\n"}{end}'</span>
+
+BMH:<span class="w"> </span>ocp-worker-2<span class="w"> </span>Agent:<span class="w"> </span>4dac1ab2-7dd5-4894-a220-6a3473b67ee6<span class="w"> </span>State:<span class="w"> </span>added-to-existing-cluster
+BMH:<span class="w"> </span>ocp-worker-0<span class="w"> </span>Agent:<span class="w"> </span>d9198891-39f4-4930-a679-65fb142b108b<span class="w"> </span>State:<span class="w"> </span>installing-in-progress
+BMH:<span class="w"> </span>ocp-worker-1<span class="w"> </span>Agent:<span class="w"> </span>da503cf1-a347-44f2-875c-4960ddb04091<span class="w"> </span>State:<span class="w"> </span>added-to-existing-cluster
+</code></pre></div>
+</li>
+<li>
+<p>If we check the nodes we will see a new one joined the cluster.</p>
+<blockquote>
+<p><strong>INFO:</strong> We got ocp-worker-0 added to the cluster</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>get<span class="w"> </span>nodes
+
+NAME<span class="w">           </span>STATUS<span class="w">   </span>ROLES<span class="w">    </span>AGE<span class="w">   </span>VERSION
+ocp-worker-0<span class="w">   </span>Ready<span class="w">    </span>worker<span class="w">   </span>35s<span class="w">   </span>v1.24.0+3882f8f
+ocp-worker-1<span class="w">   </span>Ready<span class="w">    </span>worker<span class="w">   </span>40m<span class="w">   </span>v1.24.0+3882f8f
+ocp-worker-2<span class="w">   </span>Ready<span class="w">    </span>worker<span class="w">   </span>41m<span class="w">   </span>v1.24.0+3882f8f
+</code></pre></div>
+</li>
+<li>
+<p>If we delete the workload and wait 10 minutes the node will be removed.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>-n<span class="w"> </span>default<span class="w"> </span>delete<span class="w"> </span>deployment<span class="w"> </span>reversewords
+</code></pre></div>
+</li>
+<li>
+<p>After 10 minutes.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>--kubeconfig<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CLUSTER_NAME</span><span class="si">}</span>.kubeconfig<span class="w"> </span>get<span class="w"> </span>nodes
+
+NAME<span class="w">           </span>STATUS<span class="w">   </span>ROLES<span class="w">    </span>AGE<span class="w">   </span>VERSION
+ocp-worker-1<span class="w">   </span>Ready<span class="w">    </span>worker<span class="w">   </span>51m<span class="w">   </span>v1.24.0+3882f8f
+ocp-worker-2<span class="w">   </span>Ready<span class="w">    </span>worker<span class="w">   </span>52m<span class="w">   </span>v1.24.0+3882f8f
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HOSTED_CONTROL_PLANE_NAMESPACE</span><span class="si">}</span><span class="w"> </span>get<span class="w"> </span>agent<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{range .items[*]}BMH: {@.metadata.labels.agent-install\.openshift\.io/bmh} Agent: {@.metadata.name} State: {@.status.debugInfo.state}{"\n"}{end}'</span>
+
+BMH:<span class="w"> </span>ocp-worker-2<span class="w"> </span>Agent:<span class="w"> </span>4dac1ab2-7dd5-4894-a220-6a3473b67ee6<span class="w"> </span>State:<span class="w"> </span>added-to-existing-cluster
+BMH:<span class="w"> </span>ocp-worker-0<span class="w"> </span>Agent:<span class="w"> </span>d9198891-39f4-4930-a679-65fb142b108b<span class="w"> </span>State:<span class="w"> </span>known-unbound
+BMH:<span class="w"> </span>ocp-worker-1<span class="w"> </span>Agent:<span class="w"> </span>da503cf1-a347-44f2-875c-4960ddb04091<span class="w"> </span>State:<span class="w"> </span>added-to-existing-cluster
+</code></pre></div>
+</li>
+</ol>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

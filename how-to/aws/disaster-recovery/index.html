@@ -1,0 +1,1144 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Developer preview documentation for HyperShift on Azure" name="description"/>
+<meta content="HyperShift Community" name="author"/>
+<link href="https://hypershift-community.github.io/azure-dev-preview/how-to/aws/disaster-recovery/" rel="canonical"/>
+<link href="../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.8" name="generator"/>
+<title>Disaster Recovery - HyperShift Azure Developer Preview</title>
+<link href="../../../assets/stylesheets/main.8608ea7d.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../../custom.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+ <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#migrating-hosted-cluster-within-the-same-aws-region">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="HyperShift Azure Developer Preview" class="md-header__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            HyperShift Azure Developer Preview
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Disaster Recovery
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../..">
+        
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/01-understanding/">
+        
+  
+    
+  
+  Understanding
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/02-planning/">
+        
+  
+    
+  
+  Planning
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/03-azure-foundation/">
+        
+  
+    
+  
+  Azure Setup
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/04-management-cluster/">
+          
+  
+    
+  
+  Management &amp; Hosted Clusters
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../azure/self-managed/07-troubleshooting/">
+          
+  
+    
+  
+  Reference
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="HyperShift Azure Developer Preview" class="md-nav__button md-logo" data-md-component="logo" href="../../.." title="HyperShift Azure Developer Preview">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    HyperShift Azure Developer Preview
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/hypershift-community/azure-dev-preview" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"></path></svg>
+</div>
+<div class="md-source__repository">
+    hypershift-community/azure-dev-preview
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/01-understanding/">
+<span class="md-ellipsis">
+    Understanding
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/02-planning/">
+<span class="md-ellipsis">
+    Planning
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/03-azure-foundation/">
+<span class="md-ellipsis">
+    Azure Setup
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Management &amp; Hosted Clusters
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Management &amp; Hosted Clusters
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/04-management-cluster/">
+<span class="md-ellipsis">
+    Management Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/05-hosted-cluster/">
+<span class="md-ellipsis">
+    Create Hosted Cluster
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/06-day2-operations/">
+<span class="md-ellipsis">
+    Day 2 Operations
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_6_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_6">
+<span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/07-troubleshooting/">
+<span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../azure/self-managed/08-reference/">
+<span class="md-ellipsis">
+    Reference
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#migrating-hosted-cluster-within-the-same-aws-region">
+<span class="md-ellipsis">
+      Migrating Hosted Cluster within the same AWS Region
+    </span>
+</a>
+<nav aria-label="Migrating Hosted Cluster within the same AWS Region" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#use-cases-for-disaster-recovery">
+<span class="md-ellipsis">
+      Use cases for Disaster Recovery
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#preface-and-considerations">
+<span class="md-ellipsis">
+      Preface and Considerations
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#environment-and-context">
+<span class="md-ellipsis">
+      Environment and Context
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backup">
+<span class="md-ellipsis">
+      Backup
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#restoration">
+<span class="md-ellipsis">
+      Restoration
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#teardown">
+<span class="md-ellipsis">
+      Teardown
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#migration-helper-script">
+<span class="md-ellipsis">
+      Migration Helper script
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="disaster-recovery">Disaster Recovery</h1>
+<h2 id="migrating-hosted-cluster-within-the-same-aws-region">Migrating Hosted Cluster within the same AWS Region</h2>
+<h3 id="use-cases-for-disaster-recovery">Use cases for Disaster Recovery</h3>
+<p>This procedure <strong>is helpful</strong> for:</p>
+<ol>
+<li><em>The control-plane is down for your hosted cluster (api-server, etcd,...)</em></li>
+<li><em>Hypershift operator is not working, it’s down and it cannot be recovered</em></li>
+</ol>
+<p>This procedure <strong>is not helpful</strong> for:</p>
+<ol>
+<li>
+<p><em>My compute nodes are frozen or not working fine</em></p>
+<ul>
+<li>For this situation you will need to access the serial console of the node in order to see what is happening.</li>
+</ul>
+</li>
+<li>
+<p><em>The management cluster API-server/etcd is down?</em></p>
+<ul>
+<li>For this second situation it does not make sense to use this procedure, so you can use a backup/recovery tool like Velero in order to recover the Etcd.</li>
+</ul>
+</li>
+</ol>
+<div class="admonition note important">
+<p class="admonition-title">Note</p>
+<p>Other situations should be carefully examined, to ensure the stability of the other deployed HostedClusters</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These are some examples where this procedure could be useful. We don't recommend following this procedure unless it is strictly necessary.</p>
+</div>
+<h3 id="preface-and-considerations">Preface and Considerations</h3>
+<p>The behaviour of this implementation is focused on the transparency for the user. Hypershift will not disrupt any customer workloads at anytime, also have in mind that the service workloads will be up and running during the migration process. Maybe at some point the Cluster API will be down but this will not affect the services running on the worker nodes.</p>
+<p>In the storage side, It's mandatory to have under consideration that when we move a HostedControlPlane to another Management cluster we use some external services, which allows the migration to make it happen. We reusethe storage provisioned in AWS by the initial ControlPlane (PVs/PVCs) in the destination Management cluster.</p>
+<p>Regarding the Workers nodes assigned to the cluster, during the migration they will still point to the same DNS entry, and we, under the hood, change the DNS Records to point to the new Management Cluster API, that way the node migration is transparent for the user.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Keep in mind that this <strong>"migration"</strong> capability is only for <strong>disaster recovery purposes</strong>, please <strong>DO NOT</strong> use this to perform clusters migrations as a common task in your platform.</p>
+</div>
+<p>These next arguments depend on how the Hypershift Operator has been deployed and how a Hosted Cluster has been created. E.G If we want to go ahead with the procedure and our cluster is <strong>private</strong> we need to make sure that our <strong>Hypershift Operator</strong> has been deployed with the arguments set in the <strong>Private</strong> tab for <strong>Hypershift Operator Deployment access endpoints arguments</strong> and our <strong>Hosted Cluster</strong> has been created using the arguments following the <strong>Private</strong> tab in the <strong>Arguments of the CLI when creating a HostedCluster</strong> section down below.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Since this is a disaster recovery procedure, unexpected things could happen because of all the moving components involved. To assist, see this <a href="../troubleshooting/troubleshooting-disaster-recovery/">troubleshooting section</a> for the most common issues identified.</p>
+</div>
+<ul>
+<li>Hypershift Operator Deployment endpoint access arguments</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><input id="__tabbed_1_2" name="__tabbed_1" type="radio"><div class="tabbed-labels"><label for="__tabbed_1_1"><strong>Public</strong> and <strong>PublicAndPrivate</strong></label><label for="__tabbed_1_2"><strong>Private</strong></label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>--external-dns-provider<span class="o">=</span>aws<span class="w"> </span><span class="se">\</span>
+--external-dns-credentials<span class="o">=</span>&lt;AWS<span class="w"> </span>Credentials<span class="w"> </span>location&gt;<span class="w"> </span><span class="se">\</span>
+--external-dns-domain-filter<span class="o">=</span>&lt;External<span class="w"> </span>DNS<span class="w"> </span><span class="k">for</span><span class="w"> </span>HostedCluster&gt;
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>--private-platform<span class="w"> </span>aws<span class="w"> </span><span class="se">\</span>
+--aws-private-creds<span class="w"> </span>&lt;Path<span class="w"> </span>to<span class="w"> </span>AWS<span class="w"> </span>Credentials&gt;<span class="w"> </span><span class="se">\</span>
+--aws-private-region<span class="w"> </span>&lt;AWS<span class="w"> </span>Region&gt;
+</code></pre></div>
+</div>
+</div>
+</input></input></div>
+<ul>
+<li>Arguments of the CLI when creating a HostedCluster</li>
+</ul>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><input id="__tabbed_2_2" name="__tabbed_2" type="radio"><input id="__tabbed_2_3" name="__tabbed_2" type="radio"><div class="tabbed-labels"><label for="__tabbed_2_1"><strong>Public</strong></label><label for="__tabbed_2_2"><strong>PublicAndPrivate</strong></label><label for="__tabbed_2_3"><strong>Private</strong></label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>--external-dns-domain<span class="o">=</span>&lt;External<span class="w"> </span>DNS<span class="w"> </span>Domain&gt;<span class="w"> </span><span class="se">\</span>
+--endpoint-access<span class="o">=</span>Public
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>--external-dns-domain<span class="o">=</span>&lt;External<span class="w"> </span>DNS<span class="w"> </span>Domain&gt;<span class="w"> </span><span class="se">\</span>
+--endpoint-access<span class="o">=</span>PublicAndPrivate
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>--endpoint-access<span class="o">=</span>Private
+</code></pre></div>
+</div>
+</div>
+</input></input></input></div>
+<p>This way, the server URL will end in something like this: "https://api-sample-hosted.sample-hosted.aws.openshift.com"</p>
+<p>The way that a Hosted Cluster migration follows, it's basically done in 3 phases:</p>
+<ol>
+<li><strong>Backup</strong></li>
+<li><strong>Restoration</strong></li>
+<li><strong>Teardown</strong></li>
+</ol>
+<p>Let's setup the environment to start the migration with our first cluster.</p>
+<h3 id="environment-and-context">Environment and Context</h3>
+<p>Our scenario involves 3 Clusters, 2 Management ones and 1 HostedCluster, which will be migrated. Depending on the situation we would like to migrate just the ControlPlane or the Controlplane + nodes.</p>
+<p>These are the relevant data we need to know in order to migrate a cluster:</p>
+<ul>
+<li><strong>Source MGMT Namespace</strong>: Source Management Namespace</li>
+<li><strong>Source MGMT ClusterName</strong>: Source Management Cluster Name</li>
+<li><strong>Source MGMT Kubeconfig</strong>: Source Management Kubeconfig</li>
+<li><strong>Destination MGMT Kubeconfig</strong>: Destination Management Kubeconfig</li>
+<li><strong>HC Kubeconfig</strong>: Hosted Cluster Kubeconfig</li>
+<li><strong>SSH Key File</strong>: SSH Public Key</li>
+<li><strong>Pull Secret</strong>: Pull Secret file to access to the Release Images</li>
+<li><strong>AWS Credentials</strong>: AWS Credentials file</li>
+<li><strong>AWS Region</strong>: AWS Region</li>
+<li><strong>Base Domain</strong>: DNS Base Domain to use it as external DNS.</li>
+<li><strong>S3 Bucket Name</strong>: This is the bucket in the same <strong>AWS Region</strong> where the ETCD backup will be uploaded</li>
+</ul>
+<p>These are the Variables we will use in the scripts:</p>
+<details>
+<summary>Sample Environment Variables</summary>
+
+- Ensure all the file it's correct regarding you folder tree and put this env file in your filesystem, then execute `source env_file` from a terminal
+
+<div class="highlight"><pre><span></span><code><span class="nv">SSH_KEY_FILE</span><span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/.ssh/id_rsa.pub
+<span class="nv">BASE_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/hypershift
+<span class="nv">BASE_DOMAIN</span><span class="o">=</span><span class="s2">"aws.sample.com"</span>
+<span class="nv">PULL_SECRET_FILE</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/pull_secret.json"</span>
+<span class="nv">AWS_CREDS</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/.aws/credentials"</span>
+<span class="nv">AWS_ZONE_ID</span><span class="o">=</span><span class="s2">"Z02718293M33QHDEQBROL"</span>
+
+<span class="nv">CONTROL_PLANE_AVAILABILITY_POLICY</span><span class="o">=</span>SingleReplica
+<span class="nv">HYPERSHIFT_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">BASE_PATH</span><span class="si">}</span>/src/hypershift
+<span class="nv">HYPERSHIFT_CLI</span><span class="o">=</span><span class="si">${</span><span class="nv">HYPERSHIFT_PATH</span><span class="si">}</span>/bin/hypershift
+<span class="nv">HYPERSHIFT_IMAGE</span><span class="o">=</span><span class="si">${</span><span class="nv">HYPERSHIFT_IMAGE</span><span class="k">:-</span><span class="s2">"quay.io/</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">/hypershift:latest"</span><span class="si">}</span>
+<span class="nv">NODE_POOL_REPLICAS</span><span class="o">=</span><span class="si">${</span><span class="nv">NODE_POOL_REPLICAS</span><span class="k">:-</span><span class="nv">2</span><span class="si">}</span>
+
+<span class="c1"># MGMT Context</span>
+<span class="nv">MGMT_REGION</span><span class="o">=</span>us-west-1
+<span class="nv">MGMT_CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-dev"</span>
+<span class="nv">MGMT_CLUSTER_NS</span><span class="o">=</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span>
+<span class="nv">MGMT_CLUSTER_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">BASE_PATH</span><span class="si">}</span><span class="s2">/hosted_clusters/</span><span class="si">${</span><span class="nv">MGMT_CLUSTER_NS</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">MGMT_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">MGMT_KUBECONFIG</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">MGMT_CLUSTER_DIR</span><span class="si">}</span><span class="s2">/kubeconfig"</span>
+
+<span class="c1"># MGMT2 Context</span>
+<span class="nv">MGMT2_CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-dest"</span>
+<span class="nv">MGMT2_CLUSTER_NS</span><span class="o">=</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span>
+<span class="nv">MGMT2_CLUSTER_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">BASE_PATH</span><span class="si">}</span><span class="s2">/hosted_clusters/</span><span class="si">${</span><span class="nv">MGMT2_CLUSTER_NS</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">MGMT2_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">MGMT2_KUBECONFIG</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">MGMT2_CLUSTER_DIR</span><span class="si">}</span><span class="s2">/kubeconfig"</span>
+
+<span class="c1"># Hosted Cluster Context</span>
+<span class="nv">HC_CLUSTER_NS</span><span class="o">=</span>clusters
+<span class="nv">HC_REGION</span><span class="o">=</span>us-west-1
+<span class="nv">HC_CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-hosted"</span>
+<span class="nv">HC_CLUSTER_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">BASE_PATH</span><span class="si">}</span><span class="s2">/hosted_clusters/</span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">HC_KUBECONFIG</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">HC_CLUSTER_DIR</span><span class="si">}</span><span class="s2">/kubeconfig"</span>
+<span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">HC_CLUSTER_DIR</span><span class="si">}</span>/backup
+
+<span class="nv">BUCKET_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-hosted-</span><span class="si">${</span><span class="nv">MGMT_REGION</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="c1"># DNS</span>
+<span class="nv">AWS_ZONE_ID</span><span class="o">=</span><span class="s2">"Z07342811SH9AA102K1AC"</span>
+<span class="nv">EXTERNAL_DNS_DOMAIN</span><span class="o">=</span><span class="s2">"hc.jpdv.aws.kerbeross.com"</span>
+</code></pre></div>
+</details>
+<p>And this is how the Migration workflow will happen</p>
+<p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="100%" href="../../../images/hc-migration-workflow.gif"><img alt="gif" src="../../../images/hc-migration-workflow.gif"/></a></p>
+<h3 id="backup">Backup</h3>
+<p>This section complains interaction among multiple components. We will need to backup all the relevant things to raise up this same cluster in our target management cluster.</p>
+<p>To do that we will:</p>
+<ol>
+<li>Mark the Hosted Cluster with a ConfigMap which will declare the source Management Cluster it comes from (This is not mandatory but useful).</li>
+</ol>
+<details>
+<summary>Config Map creation to set the Source Management Cluster</summary>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>configmap<span class="w"> </span>mgmt-parent-cluster<span class="w"> </span>-n<span class="w"> </span>default<span class="w"> </span>--from-literal<span class="o">=</span><span class="nv">from</span><span class="o">=</span><span class="si">${</span><span class="nv">MGMT_CLUSTER_NAME</span><span class="si">}</span>
+</code></pre></div>
+</details>
+<ol>
+<li>Shutdown the reconciliation in the HostedCluster we want to migrate and also in the Nodepools.</li>
+</ol>
+<details>
+<summary>ControlPlane Migration</summary>
+<div class="highlight"><pre><span></span><code><span class="nv">PAUSED_UNTIL</span><span class="o">=</span><span class="s2">"true"</span>
+oc<span class="w"> </span>patch<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span>hostedclusters/<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">'{"spec":{"pausedUntil":"'</span><span class="si">${</span><span class="nv">PAUSED_UNTIL</span><span class="si">}</span><span class="s1">'"}}'</span><span class="w"> </span>--type<span class="o">=</span>merge
+oc<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--replicas<span class="o">=</span><span class="m">0</span><span class="w"> </span>kube-apiserver<span class="w"> </span>openshift-apiserver<span class="w"> </span>openshift-oauth-apiserver<span class="w"> </span>control-plane-operator
+</code></pre></div>
+</details>
+<details>
+<summary>ControlPlane + NodePool Migration</summary>
+<div class="highlight"><pre><span></span><code><span class="nv">PAUSED_UNTIL</span><span class="o">=</span><span class="s2">"true"</span>
+oc<span class="w"> </span>patch<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span>hostedclusters/<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">'{"spec":{"pausedUntil":"'</span><span class="si">${</span><span class="nv">PAUSED_UNTIL</span><span class="si">}</span><span class="s1">'"}}'</span><span class="w"> </span>--type<span class="o">=</span>merge
+oc<span class="w"> </span>patch<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span>nodepools/<span class="si">${</span><span class="nv">NODEPOOLS</span><span class="si">}</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">'{"spec":{"pausedUntil":"'</span><span class="si">${</span><span class="nv">PAUSED_UNTIL</span><span class="si">}</span><span class="s1">'"}}'</span><span class="w"> </span>--type<span class="o">=</span>merge
+oc<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--replicas<span class="o">=</span><span class="m">0</span><span class="w"> </span>kube-apiserver<span class="w"> </span>openshift-apiserver<span class="w"> </span>openshift-oauth-apiserver<span class="w"> </span>control-plane-operator
+</code></pre></div>
+</details>
+<ol>
+<li>Backup ETCD and Upload to S3 Bucket</li>
+</ol>
+<p>The whole process of this step is documented <a href="https://hypershift-docs.netlify.app/how-to/aws/etc-backup-restore/">here</a>, even with that we will go through the process in a more programmatically way.</p>
+<p>To do this programmatically it's a bit more complicated, but we will try to put all the necessary steps in a bash script</p>
+<details>
+<summary>ETCD Backup and Upload to S3 procedure</summary>
+
+- As an advice, we recommend to wrap it up in a function and call it from the main function.
+
+<div class="highlight"><pre><span></span><code><span class="c1"># ETCD Backup</span>
+<span class="nv">ETCD_PODS</span><span class="o">=</span><span class="s2">"etcd-0"</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CONTROL_PLANE_AVAILABILITY_POLICY</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"HighlyAvailable"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nv">ETCD_PODS</span><span class="o">=</span><span class="s2">"etcd-0 etcd-1 etcd-2"</span>
+<span class="k">fi</span>
+
+<span class="c1">## If you are in 4.12 or above, use this one</span>
+<span class="nv">ETCD_CA_LOCATION</span><span class="o">=</span>/etc/etcd/tls/etcd-ca/ca.crt
+
+<span class="c1">## If you are in 4.11 or below, use this other one</span>
+<span class="c1">#ETCD_CA_LOCATION=/etc/etcd/tls/client/etcd-client-ca.crt</span>
+
+<span class="k">for</span><span class="w"> </span>POD<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="si">${</span><span class="nv">ETCD_PODS</span><span class="si">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="c1"># Create an etcd snapshot</span>
+<span class="w">  </span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span><span class="si">${</span><span class="nv">POD</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--<span class="w"> </span>env<span class="w"> </span><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>/usr/bin/etcdctl<span class="w"> </span>--cacert<span class="w"> </span><span class="si">${</span><span class="nv">ETCD_CA_LOCATION</span><span class="si">}</span><span class="w"> </span>--cert<span class="w"> </span>/etc/etcd/tls/client/etcd-client.crt<span class="w"> </span>--key<span class="w"> </span>/etc/etcd/tls/client/etcd-client.key<span class="w"> </span>--endpoints<span class="o">=</span>localhost:2379<span class="w"> </span>snapshot<span class="w"> </span>save<span class="w"> </span>/var/lib/data/snapshot.db
+
+<span class="w">  </span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span><span class="si">${</span><span class="nv">POD</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--<span class="w"> </span>env<span class="w"> </span><span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span><span class="w"> </span>/usr/bin/etcdctl<span class="w"> </span>-w<span class="w"> </span>table<span class="w"> </span>snapshot<span class="w"> </span>status<span class="w"> </span>/var/lib/data/snapshot.db
+
+<span class="w">  </span><span class="nv">FILEPATH</span><span class="o">=</span><span class="s2">"/</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">POD</span><span class="si">}</span><span class="s2">-snapshot.db"</span>
+<span class="w">  </span><span class="nv">CONTENT_TYPE</span><span class="o">=</span><span class="s2">"application/x-compressed-tar"</span>
+<span class="w">  </span><span class="nv">DATE_VALUE</span><span class="o">=</span><span class="sb">`</span>date<span class="w"> </span>-R<span class="sb">`</span>
+<span class="w">  </span><span class="nv">SIGNATURE_STRING</span><span class="o">=</span><span class="s2">"PUT\n\n</span><span class="si">${</span><span class="nv">CONTENT_TYPE</span><span class="si">}</span><span class="s2">\n</span><span class="si">${</span><span class="nv">DATE_VALUE</span><span class="si">}</span><span class="s2">\n</span><span class="si">${</span><span class="nv">FILEPATH</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>+x
+<span class="w">  </span><span class="nv">ACCESS_KEY</span><span class="o">=</span><span class="k">$(</span>grep<span class="w"> </span>aws_access_key_id<span class="w"> </span><span class="si">${</span><span class="nv">AWS_CREDS</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n1<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="o">=</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s2">"s/ //g"</span><span class="k">)</span>
+<span class="w">  </span><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="k">$(</span>grep<span class="w"> </span>aws_secret_access_key<span class="w"> </span><span class="si">${</span><span class="nv">AWS_CREDS</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n1<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="o">=</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s2">"s/ //g"</span><span class="k">)</span>
+<span class="w">  </span><span class="nv">SIGNATURE_HASH</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span>-en<span class="w"> </span><span class="si">${</span><span class="nv">SIGNATURE_STRING</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>openssl<span class="w"> </span>sha1<span class="w"> </span>-hmac<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">SECRET_KEY</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>-binary<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="k">)</span>
+<span class="w">  </span><span class="nb">set</span><span class="w"> </span>-x
+
+<span class="w">  </span><span class="c1"># FIXME: this is pushing to the OIDC bucket</span>
+<span class="w">  </span>oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>etcd-0<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-T<span class="w"> </span><span class="s2">"/var/lib/data/snapshot.db"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s2">"Host: </span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s2">.s3.amazonaws.com"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s2">"Date: </span><span class="si">${</span><span class="nv">DATE_VALUE</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s2">"Content-Type: </span><span class="si">${</span><span class="nv">CONTENT_TYPE</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s2">"Authorization: AWS </span><span class="si">${</span><span class="nv">ACCESS_KEY</span><span class="si">}</span><span class="s2">:</span><span class="si">${</span><span class="nv">SIGNATURE_HASH</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>https://<span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span>.s3.amazonaws.com/<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>-<span class="si">${</span><span class="nv">POD</span><span class="si">}</span>-snapshot.db
+<span class="k">done</span>
+</code></pre></div>
+</details>
+<div class="admonition warning warning">
+<p class="admonition-title">Warning</p>
+<p>The CA Certificate of ETCD has changed the location in 4.12, so take care about the command execution because it will fail. It's safe to reexecute this piece of code, it just will backup the ETCD in S3. In order to know which version you have installed, just execute this command <code>oc version -o json | jq -e .openshiftVersion</code></p>
+</div>
+<ol>
+<li>
+<p>Backup Kubernetes/Openshift objects</p>
+<ul>
+<li>From HostedCluster Namespace:<ul>
+<li>HostedCluster and NodePool Objects</li>
+<li>HostedCluster Secrets</li>
+</ul>
+</li>
+<li>From Hosted Control Plane Namespace:<ul>
+<li>HostedControlPlane</li>
+<li>Cluster</li>
+<li>AWSCluster, AWSMachineTemplate, AWSMachine</li>
+<li>MachineDeployments, MachineSets and Machines</li>
+<li>ControlPlane Secrets</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<details>
+<summary>Openshift Objects backup</summary>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>
+chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/
+
+<span class="c1"># HostedCluster</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"Backing Up HostedCluster Objects:"</span>
+oc<span class="w"> </span>get<span class="w"> </span>hc<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>/hc-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>.yaml
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; HostedCluster"</span>
+sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">''</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">'/^status:$/,$d'</span><span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>/hc-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>.yaml
+
+<span class="c1"># NodePool</span>
+oc<span class="w"> </span>get<span class="w"> </span>np<span class="w"> </span><span class="si">${</span><span class="nv">NODEPOOLS</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>/np-<span class="si">${</span><span class="nv">NODEPOOLS</span><span class="si">}</span>.yaml
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; NodePool"</span>
+sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">''</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">'/^status:$/,$ d'</span><span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>/np-<span class="si">${</span><span class="nv">NODEPOOLS</span><span class="si">}</span>.yaml
+
+<span class="c1"># Secrets in the HC Namespace</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; HostedCluster Secrets:"</span>
+<span class="k">for</span><span class="w"> </span>s<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">"^</span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $1}'</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span><span class="nv">$s</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>/secret-<span class="si">${</span><span class="nv">s</span><span class="si">}</span>.yaml
+<span class="k">done</span>
+
+<span class="c1"># Secrets in the HC Control Plane Namespace</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; HostedCluster ControlPlane Secrets:"</span>
+<span class="k">for</span><span class="w"> </span>s<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>egrep<span class="w"> </span>-v<span class="w"> </span><span class="s2">"docker|service-account-token|oauth-openshift|NAME|token-</span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $1}'</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="nv">$s</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/secret-<span class="si">${</span><span class="nv">s</span><span class="si">}</span>.yaml
+<span class="k">done</span>
+
+<span class="c1"># Hosted Control Plane</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; HostedControlPlane:"</span>
+oc<span class="w"> </span>get<span class="w"> </span>hcp<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/hcp-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>.yaml
+
+<span class="c1"># Cluster</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; Cluster:"</span>
+<span class="nv">CL_NAME</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>hcp<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">={</span>.metadata.labels.<span class="se">\*</span><span class="o">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="k">)</span>
+oc<span class="w"> </span>get<span class="w"> </span>cluster<span class="w"> </span><span class="si">${</span><span class="nv">CL_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/cl-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>.yaml
+
+<span class="c1"># AWS Cluster</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; AWS Cluster:"</span>
+oc<span class="w"> </span>get<span class="w"> </span>awscluster<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/awscl-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>.yaml
+
+<span class="c1"># AWS MachineTemplate</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; AWS Machine Template:"</span>
+oc<span class="w"> </span>get<span class="w"> </span>awsmachinetemplate<span class="w"> </span><span class="si">${</span><span class="nv">NODEPOOLS</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/awsmt-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>.yaml
+
+<span class="c1"># AWS Machines</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; AWS Machine:"</span>
+<span class="nv">CL_NAME</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>hcp<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">={</span>.metadata.labels.<span class="se">\*</span><span class="o">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="k">)</span>
+<span class="k">for</span><span class="w"> </span>s<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>awsmachines<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--no-headers<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="si">${</span><span class="nv">CL_NAME</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f1<span class="w"> </span>-d<span class="se">\ </span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>oc<span class="w"> </span>get<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>awsmachines<span class="w"> </span><span class="nv">$s</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/awsm-<span class="si">${</span><span class="nv">s</span><span class="si">}</span>.yaml
+<span class="k">done</span>
+
+<span class="c1"># MachineDeployments</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; HostedCluster MachineDeployments:"</span>
+<span class="k">for</span><span class="w"> </span>s<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>machinedeployment<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>name<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">mdp_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">s</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span>-d<span class="w"> </span>/<span class="k">)</span>
+<span class="w">    </span>oc<span class="w"> </span>get<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="nv">$s</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/machinedeployment-<span class="si">${</span><span class="nv">mdp_name</span><span class="si">}</span>.yaml
+<span class="k">done</span>
+
+<span class="c1"># MachineSets</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; HostedCluster MachineSets:"</span>
+<span class="k">for</span><span class="w"> </span>s<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>machineset<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>name<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">ms_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">s</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span>-d<span class="w"> </span>/<span class="k">)</span>
+<span class="w">    </span>oc<span class="w"> </span>get<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="nv">$s</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/machineset-<span class="si">${</span><span class="nv">ms_name</span><span class="si">}</span>.yaml
+<span class="k">done</span>
+
+<span class="c1"># Machines</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"--&gt; HostedCluster Machine:"</span>
+<span class="k">for</span><span class="w"> </span>s<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>machine<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>name<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">m_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv">s</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f<span class="w"> </span><span class="m">2</span><span class="w"> </span>-d<span class="w"> </span>/<span class="k">)</span>
+<span class="w">    </span>oc<span class="w"> </span>get<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="nv">$s</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/machine-<span class="si">${</span><span class="nv">m_name</span><span class="si">}</span>.yaml
+<span class="k">done</span>
+</code></pre></div>
+</details>
+<ol>
+<li>
+<p>Cleanup the ControlPlane Routes (only in <code>PublicAndPrivate</code> and <code>Public</code> clusters)</p>
+<ul>
+<li>This will allow the <strong>ExternalDNS Operator</strong> to delete the Route53 entries in AWS and they will not be recreated because of this HostedCluster it's paused.</li>
+</ul>
+</li>
+</ol>
+<details>
+<summary>HostedCluster ControlPlane Routes Cleanup</summary>
+
+- Just to clean the routes you could execute this command, but you will need to wait until the Route53 are clean (this is why I will add an alternative to validate this step).
+
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>routes<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--all
+</code></pre></div>
+
+- (Alternative bash script) Cleanup OCP HC ControlPlane Routes and wait until Route53 it's clean (only in `PublicAndPrivate` and `Public` clusters)
+<div class="highlight"><pre><span></span><code><span class="k">function</span><span class="w"> </span>clean_routes<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Give me the NS where to clean the routes"</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="k">fi</span>
+
+<span class="w">    </span><span class="c1"># Constants</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-z<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Give me the Route53 zone ID"</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="k">fi</span>
+
+<span class="w">    </span><span class="nv">ZONE_ID</span><span class="o">=</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span>
+<span class="w">    </span><span class="nv">ROUTES</span><span class="o">=</span><span class="m">10</span>
+<span class="w">    </span><span class="nv">timeout</span><span class="o">=</span><span class="m">40</span>
+<span class="w">    </span><span class="nv">count</span><span class="o">=</span><span class="m">0</span>
+
+<span class="w">    </span><span class="c1"># This allows us to remove the ownership in the AWS for the API route</span>
+<span class="w">    </span>oc<span class="w"> </span>delete<span class="w"> </span>route<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="w"> </span>--all
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">ROUTES</span><span class="si">}</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">]</span>
+<span class="w">    </span><span class="k">do</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Waiting for ExternalDNS Operator to clean the DNS Records in AWS Route53 where the zone id is: </span><span class="si">${</span><span class="nv">ZONE_ID</span><span class="si">}</span><span class="s2">..."</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Try: (</span><span class="si">${</span><span class="nv">count</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">timeout</span><span class="si">}</span><span class="s2">)"</span>
+<span class="w">        </span>sleep<span class="w"> </span><span class="m">10</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$count</span><span class="w"> </span>-eq<span class="w"> </span>timeout<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="k">then</span>
+<span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Timeout waiting for cleaning the Route53 DNS records"</span>
+<span class="w">            </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">        </span><span class="k">fi</span>
+<span class="w">        </span><span class="nv">count</span><span class="o">=</span><span class="k">$((</span><span class="nv">count</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">        </span><span class="nv">ROUTES</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>route53<span class="w"> </span>list-resource-record-sets<span class="w"> </span>--hosted-zone-id<span class="w"> </span><span class="si">${</span><span class="nv">ZONE_ID</span><span class="si">}</span><span class="w"> </span>--max-items<span class="w"> </span><span class="m">10000</span><span class="w"> </span>--output<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="si">${</span><span class="nv">EXTERNAL_DNS_DOMAIN</span><span class="si">}</span><span class="k">)</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="o">}</span>
+
+<span class="c1"># SAMPLE: clean_routes "&lt;HC ControlPlane Namespace&gt;" "&lt;AWS_ZONE_ID&gt;"</span>
+clean_routes<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">AWS_ZONE_ID</span><span class="si">}</span><span class="s2">"</span>
+</code></pre></div>
+</details>
+<div class="admonition warning warning">
+<p class="admonition-title">Warning</p>
+<p>This step is only relevant if you have a HostedCluster with a <code>--endpoint-access</code> argument as <code>PublicAndPrivate</code> or <code>Public</code>. If that's not the case, you will not have the need to execute this part.</p>
+</div>
+<p>This was the last step on Backup stage, now we encourage you to validate all the OCP Objects and the S3 Bucket in order to ensure all is fine.</p>
+<h3 id="restoration">Restoration</h3>
+<p>This step it's basically catch all the objects which has been backuped up and restore them in the Destination Management Cluster.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure you have the destination's cluster's Kubeconfig placed as is set in <code>MGMT2_KUBECONFIG</code> (if you follow the final script) or <code>KUBECONFIG</code> variable if you are going step by step. <code>export KUBECONFIG=${MGMT2_KUBECONFIG}</code> or <code>export KUBECONFIG=&lt;Kubeconfig FilePath&gt;</code></p>
+</div>
+<ol>
+<li>Ensure you don't have an old Namespace in the new MGMT Cluster with the same name as the cluster that are you migrating.</li>
+</ol>
+<details>
+<summary>Delete the Namespace that will be used by the Migrated Cluster and the Control plane</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># Just in case</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">MGMT2_KUBECONFIG</span><span class="si">}</span>
+<span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">HC_CLUSTER_DIR</span><span class="si">}</span>/backup
+
+<span class="c1"># Namespace deletion in the destination Management cluster</span>
+oc<span class="w"> </span>delete<span class="w"> </span>ns<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+oc<span class="w"> </span>delete<span class="w"> </span>ns<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="o">{</span>HC_CLUSTER_NAME<span class="o">}</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</code></pre></div>
+</details>
+<ol>
+<li>ReCreate the deleted namespaces from fresh start</li>
+</ol>
+<details>
+<summary>Namespace creation</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># Namespace creation</span>
+oc<span class="w"> </span>new-project<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>
+oc<span class="w"> </span>new-project<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>
+</code></pre></div>
+</details>
+<ol>
+<li>Restore Secrets in the HC Namespace</li>
+</ol>
+<details>
+<summary>Secrets Restoration in HostedCluster Namespace</summary>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>/secret-*
+</code></pre></div>
+</details>
+<ol>
+<li>Restore Objects in the HC ControlPlane Namespace</li>
+</ol>
+<details>
+<summary>Restore OCP Objects related with the HC ControlPlane</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># Secrets</span>
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/secret-*
+
+<span class="c1"># Cluster</span>
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/hcp-*
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/cl-*
+</code></pre></div>
+</details>
+<ol>
+<li>
+<p>(Optional) Restore objects in the HC ControlPlane Namespace</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step it's only relevant if you are migrating the Nodes and the NodePool to reuse the AWS Instances.</p>
+</div>
+</li>
+</ol>
+<details>
+<summary>Restore OCP Nodes related objects within the HC ControlPlane Namespace</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># AWS</span>
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/awscl-*
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/awsmt-*
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/awsm-*
+
+<span class="c1"># Machines</span>
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/machinedeployment-*
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/machineset-*
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>/machine-*
+</code></pre></div>
+</details>
+<ol>
+<li>Restore the ETCD Backup and HostedCluster</li>
+</ol>
+<details>
+<summary>Bash script to restore ETCD and HostedCluster object</summary>
+<div class="highlight"><pre><span></span><code><span class="nv">ETCD_PODS</span><span class="o">=</span><span class="s2">"etcd-0"</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">CONTROL_PLANE_AVAILABILITY_POLICY</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"HighlyAvailable"</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="nv">ETCD_PODS</span><span class="o">=</span><span class="s2">"etcd-0 etcd-1 etcd-2"</span>
+<span class="k">fi</span>
+
+<span class="nv">HC_RESTORE_FILE</span><span class="o">=</span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>/hc-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>-restore.yaml
+<span class="nv">HC_BACKUP_FILE</span><span class="o">=</span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>/hc-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>.yaml
+<span class="nv">HC_NEW_FILE</span><span class="o">=</span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>/hc-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>-new.yaml
+cat<span class="w"> </span><span class="si">${</span><span class="nv">HC_BACKUP_FILE</span><span class="si">}</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">HC_NEW_FILE</span><span class="si">}</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">HC_RESTORE_FILE</span><span class="si">}</span><span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">    restoreSnapshotURL:</span>
+<span class="s">EOF</span>
+
+<span class="k">for</span><span class="w"> </span>POD<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="si">${</span><span class="nv">ETCD_PODS</span><span class="si">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="c1"># Create a pre-signed URL for the etcd snapshot</span>
+<span class="w">  </span><span class="nv">ETCD_SNAPSHOT</span><span class="o">=</span><span class="s2">"s3://</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">POD</span><span class="si">}</span><span class="s2">-snapshot.db"</span>
+<span class="w">  </span><span class="nv">ETCD_SNAPSHOT_URL</span><span class="o">=</span><span class="k">$(</span><span class="nv">AWS_DEFAULT_REGION</span><span class="o">=</span><span class="si">${</span><span class="nv">MGMT2_REGION</span><span class="si">}</span><span class="w"> </span>aws<span class="w"> </span>s3<span class="w"> </span>presign<span class="w"> </span><span class="si">${</span><span class="nv">ETCD_SNAPSHOT</span><span class="si">}</span><span class="k">)</span>
+
+<span class="w">  </span><span class="c1"># FIXME no CLI support for restoreSnapshotURL yet</span>
+<span class="w">  </span>cat<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="si">${</span><span class="nv">HC_RESTORE_FILE</span><span class="si">}</span><span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">    - "${ETCD_SNAPSHOT_URL}"</span>
+<span class="s">EOF</span>
+<span class="k">done</span>
+
+cat<span class="w"> </span><span class="si">${</span><span class="nv">HC_RESTORE_FILE</span><span class="si">}</span>
+
+<span class="k">if</span><span class="w"> </span>!<span class="w"> </span>grep<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>-snapshot.db<span class="w"> </span><span class="si">${</span><span class="nv">HC_NEW_FILE</span><span class="si">}</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">''</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">"/type: PersistentVolume/r </span><span class="si">${</span><span class="nv">HC_RESTORE_FILE</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="si">${</span><span class="nv">HC_NEW_FILE</span><span class="si">}</span>
+<span class="w">  </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">''</span><span class="w"> </span>-e<span class="w"> </span><span class="s1">'/pausedUntil:/d'</span><span class="w"> </span><span class="si">${</span><span class="nv">HC_NEW_FILE</span><span class="si">}</span>
+<span class="k">fi</span>
+
+<span class="nv">HC</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>hc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>name<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span><span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="si">${</span><span class="nv">HC</span><span class="si">}</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Deploying HC Cluster: </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="s2"> in </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="s2"> namespace"</span>
+<span class="w">    </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">HC_NEW_FILE</span><span class="si">}</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"HC Cluster </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="s2"> already exists, avoiding step"</span>
+<span class="k">fi</span>
+</code></pre></div>
+</details>
+<ol>
+<li>
+<p>(Optional) Restore the NodePool</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step it's only relevant if you are migrating the Nodes and the NodePool to reuse the AWS Instances.</p>
+</div>
+</li>
+</ol>
+<details>
+<summary>Restore the NodePool object</summary>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="si">${</span><span class="nv">BACKUP_DIR</span><span class="si">}</span>/namespaces/<span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>/np-*
+</code></pre></div>
+</details>
+<p>This was our last step in the <strong>Restoration</strong> phase. If you are not migrating nodes, congratulations, you can pass to the next section <strong>Teardown</strong>.</p>
+<p>(Optional) Now we will need to wait for some time until the Nodes gets fully migrated. We recommend to use this function</p>
+<details>
+<summary>Ensure Nodes Migrated</summary>
+<div class="highlight"><pre><span></span><code><span class="nv">timeout</span><span class="o">=</span><span class="m">40</span>
+<span class="nv">count</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">NODE_STATUS</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--kubeconfig<span class="o">=</span><span class="si">${</span><span class="nv">HC_KUBECONFIG</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>NotReady<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">"worker"</span><span class="k">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">NODE_STATUS</span><span class="o">=</span><span class="m">0</span>
+
+<span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${</span><span class="nv">NODE_POOL_REPLICAS</span><span class="si">}</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="si">${</span><span class="nv">NODE_STATUS</span><span class="si">}</span><span class="w"> </span><span class="o">]</span>
+<span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Waiting for Nodes to be Ready in the destination MGMT Cluster: </span><span class="si">${</span><span class="nv">MGMT2_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Try: (</span><span class="si">${</span><span class="nv">count</span><span class="si">}</span><span class="s2">/</span><span class="si">${</span><span class="nv">timeout</span><span class="si">}</span><span class="s2">)"</span>
+<span class="w">    </span>sleep<span class="w"> </span><span class="m">30</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$count</span><span class="w"> </span>-eq<span class="w"> </span>timeout<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"Timeout waiting for Nodes in the destination MGMT Cluster"</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="nv">count</span><span class="o">=</span><span class="k">$((</span><span class="nv">count</span><span class="o">+</span><span class="m">1</span><span class="k">))</span>
+<span class="w">    </span><span class="nv">NODE_STATUS</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--kubeconfig<span class="o">=</span><span class="si">${</span><span class="nv">HC_KUBECONFIG</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>NotReady<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">"worker"</span><span class="k">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nv">NODE_STATUS</span><span class="o">=</span><span class="m">0</span>
+<span class="k">done</span>
+</code></pre></div>
+</details>
+<h3 id="teardown">Teardown</h3>
+<p>In this section we will shutdown and delete the HostedCluster in the source Management Cluster.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure you have the source's cluster's Kubeconfig placed as is set in <code>MGMT_KUBECONFIG</code> (if you follow the final script) or <code>KUBECONFIG</code> variable if you are going step by step. <code>export KUBECONFIG=${MGMT_KUBECONFIG}</code> or <code>export KUBECONFIG=&lt;Kubeconfig FilePath&gt;</code></p>
+</div>
+<ol>
+<li>Scale The Deployments and StatefulSets</li>
+</ol>
+<details>
+<summary>ScaleDown Pod relevant objects in the HC ControlPlane Namespace</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># Just in case</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">MGMT_KUBECONFIG</span><span class="si">}</span>
+
+<span class="c1"># Scale down deployments</span>
+oc<span class="w"> </span>scale<span class="w"> </span>deployment<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--replicas<span class="o">=</span><span class="m">0</span><span class="w"> </span>--all
+oc<span class="w"> </span>scale<span class="w"> </span>statefulset.apps<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--replicas<span class="o">=</span><span class="m">0</span><span class="w"> </span>--all
+sleep<span class="w"> </span><span class="m">15</span>
+</code></pre></div>
+</details>
+<ol>
+<li>Delete the NodePool objects</li>
+</ol>
+<details>
+<summary>Delete NodePools</summary>
+<div class="highlight"><pre><span></span><code><span class="nv">NODEPOOLS</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>nodepools<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span>-o<span class="o">=</span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.items[?(@.spec.clusterName=="'</span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="s1">'")].metadata.name}'</span><span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>!<span class="w"> </span>-z<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">NODEPOOLS</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="k">then</span>
+<span class="w">    </span>oc<span class="w"> </span>patch<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span>nodepool<span class="w"> </span><span class="si">${</span><span class="nv">NODEPOOLS</span><span class="si">}</span><span class="w"> </span>--type<span class="o">=</span>json<span class="w"> </span>--patch<span class="o">=</span><span class="s1">'[ { "op":"remove", "path": "/metadata/finalizers" }]'</span>
+<span class="w">    </span>oc<span class="w"> </span>delete<span class="w"> </span>np<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">NODEPOOLS</span><span class="si">}</span>
+<span class="k">fi</span>
+</code></pre></div>
+</details>
+<ol>
+<li>Delete the Machines and MachineSets</li>
+</ol>
+<details>
+<summary>Delete Machines and MachineSets</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># Machines</span>
+<span class="k">for</span><span class="w"> </span>m<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>name<span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span>oc<span class="w"> </span>patch<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">m</span><span class="si">}</span><span class="w"> </span>--type<span class="o">=</span>json<span class="w"> </span>--patch<span class="o">=</span><span class="s1">'[ { "op":"remove", "path": "/metadata/finalizers" }]'</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>oc<span class="w"> </span>delete<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">m</span><span class="si">}</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="k">done</span>
+
+oc<span class="w"> </span>delete<span class="w"> </span>machineset<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--all<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</code></pre></div>
+</details>
+<ol>
+<li>Delete Cluster object</li>
+</ol>
+<details>
+<summary>Delete the Cluster</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># Cluster</span>
+<span class="nv">C_NAME</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>cluster<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>name<span class="k">)</span>
+oc<span class="w"> </span>patch<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">C_NAME</span><span class="si">}</span><span class="w"> </span>--type<span class="o">=</span>json<span class="w"> </span>--patch<span class="o">=</span><span class="s1">'[ { "op":"remove", "path": "/metadata/finalizers" }]'</span>
+oc<span class="w"> </span>delete<span class="w"> </span>cluster.cluster.x-k8s.io<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--all
+</code></pre></div>
+</details>
+<ol>
+<li>Delete the AWS Machines (Kubernetes Objects)</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Don't worry about the real AWS Machines, even if you delete this object, the CAPI controllers are down and will not affect the cloud instances</p>
+</div>
+<details>
+<summary>Delete AWS Machines OCP Objects</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># AWS Machines</span>
+<span class="k">for</span><span class="w"> </span>m<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>awsmachine.infrastructure.cluster.x-k8s.io<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>name<span class="k">)</span>
+<span class="k">do</span>
+<span class="w">    </span>oc<span class="w"> </span>patch<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">m</span><span class="si">}</span><span class="w"> </span>--type<span class="o">=</span>json<span class="w"> </span>--patch<span class="o">=</span><span class="s1">'[ { "op":"remove", "path": "/metadata/finalizers" }]'</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="w">    </span>oc<span class="w"> </span>delete<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">m</span><span class="si">}</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<span class="k">done</span>
+</code></pre></div>
+</details>
+<ol>
+<li>Delete HostedControlPlane and Controlplane HC Namespace</li>
+</ol>
+<details>
+<summary>Delete HostedControlPlane and ControlPlane HC Namespace objects</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># Delete HCP and ControlPlane HC NS</span>
+oc<span class="w"> </span>patch<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>hostedcontrolplane.hypershift.openshift.io<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--type<span class="o">=</span>json<span class="w"> </span>--patch<span class="o">=</span><span class="s1">'[ { "op":"remove", "path": "/metadata/finalizers" }]'</span>
+oc<span class="w"> </span>delete<span class="w"> </span>hostedcontrolplane.hypershift.openshift.io<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--all
+oc<span class="w"> </span>delete<span class="w"> </span>ns<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</code></pre></div>
+</details>
+<ol>
+<li>Delete the HostedCluster and HC Namespace</li>
+</ol>
+<details>
+<summary>Delete the HostedCluster object</summary>
+<div class="highlight"><pre><span></span><code><span class="c1"># Delete HC and HC Namespace</span>
+oc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span>patch<span class="w"> </span>hostedclusters<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">'{"metadata":{"finalizers":null}}'</span><span class="w"> </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+oc<span class="w"> </span>delete<span class="w"> </span>hc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="w">  </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+oc<span class="w"> </span>delete<span class="w"> </span>ns<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+</code></pre></div>
+</details>
+<p>And that was it, following this whole process you could migrate an HostedCluster from one Management Cluster to other one in the same AWS Region.</p>
+<p>To ensure all is working fine, you just need to validate that all the objects are in the right place:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Validations</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">MGMT2_KUBECONFIG</span><span class="si">}</span>
+
+oc<span class="w"> </span>get<span class="w"> </span>hc<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>np<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span>-<span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span>
+
+<span class="c1"># Inside the HostedCluster</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">HC_KUBECONFIG</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>clusterversion
+oc<span class="w"> </span>get<span class="w"> </span>nodes
+</code></pre></div>
+<ol>
+<li>(Optional) Restart OVN Pods in compute nodes (only in <code>PublicAndPrivate</code> and <code>Public</code> clusters)
+After the Teardown of the HostedCluster in the source Management Cluster <strong>you will need to delete the OVN pods in the HostedCluster</strong> in order to perform the connection with the new OVN Master running in the new Management Cluster.</li>
+</ol>
+<p>To do that you just need to load the proper KUBECONFIG env var with the Hosted Cluster Kubeconfig path and execute this command:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>openshift-ovn-kubernetes<span class="w"> </span>--all
+</code></pre></div>
+<p>with that, all the ClusterOperators that were failing and all the new pods generated, will get executed without issues.</p>
+<div class="admonition warning warning">
+<p class="admonition-title">Warning</p>
+<p>This step is only relevant if you have a HostedCluster with a <code>--endpoint-access</code> argument as <code>PublicAndPrivate</code> or <code>Public</code>. If that's not the case, you will not have the need to execute this part.</p>
+</div>
+<h3 id="migration-helper-script">Migration Helper script</h3>
+<p>In order to ensure the that whole migration works fine, you could use this helper script that should work out of the box.</p>
+<details>
+<summary>HC Migration Script</summary>
+
+In order to execute the script, just:
+- Fill the common variables and save the file as `../common/common.sh`
+- Execute the migration script without params.
+
+Now let's take a look to that script
+
+- Common Variables
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Fill the Common variables to fit your environment, this is just a sample</span>
+<span class="nv">SSH_KEY_FILE</span><span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/.ssh/id_rsa.pub
+<span class="nv">BASE_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/hypershift
+<span class="nv">BASE_DOMAIN</span><span class="o">=</span><span class="s2">"aws.sample.com"</span>
+<span class="nv">PULL_SECRET_FILE</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/pull_secret.json"</span>
+<span class="nv">AWS_CREDS</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/.aws/credentials"</span>
+<span class="nv">CONTROL_PLANE_AVAILABILITY_POLICY</span><span class="o">=</span>SingleReplica
+<span class="nv">HYPERSHIFT_PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">BASE_PATH</span><span class="si">}</span>/src/hypershift
+<span class="nv">HYPERSHIFT_CLI</span><span class="o">=</span><span class="si">${</span><span class="nv">HYPERSHIFT_PATH</span><span class="si">}</span>/bin/hypershift
+<span class="nv">HYPERSHIFT_IMAGE</span><span class="o">=</span><span class="si">${</span><span class="nv">HYPERSHIFT_IMAGE</span><span class="k">:-</span><span class="s2">"quay.io/</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">/hypershift:latest"</span><span class="si">}</span>
+<span class="nv">NODE_POOL_REPLICAS</span><span class="o">=</span><span class="si">${</span><span class="nv">NODE_POOL_REPLICAS</span><span class="k">:-</span><span class="nv">2</span><span class="si">}</span>
+
+<span class="c1"># MGMT Context</span>
+<span class="nv">MGMT_REGION</span><span class="o">=</span>us-west-1
+<span class="nv">MGMT_CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-dev"</span>
+<span class="nv">MGMT_CLUSTER_NS</span><span class="o">=</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span>
+<span class="nv">MGMT_CLUSTER_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">BASE_PATH</span><span class="si">}</span><span class="s2">/hosted_clusters/</span><span class="si">${</span><span class="nv">MGMT_CLUSTER_NS</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">MGMT_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">MGMT_KUBECONFIG</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">MGMT_CLUSTER_DIR</span><span class="si">}</span><span class="s2">/kubeconfig"</span>
+
+<span class="c1"># MGMT2 Context</span>
+<span class="nv">MGMT2_REGION</span><span class="o">=</span>us-west-1
+<span class="nv">MGMT2_CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-dest"</span>
+<span class="nv">MGMT2_CLUSTER_NS</span><span class="o">=</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span>
+<span class="nv">MGMT2_CLUSTER_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">BASE_PATH</span><span class="si">}</span><span class="s2">/hosted_clusters/</span><span class="si">${</span><span class="nv">MGMT2_CLUSTER_NS</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">MGMT2_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">MGMT2_KUBECONFIG</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">MGMT2_CLUSTER_DIR</span><span class="si">}</span><span class="s2">/kubeconfig"</span>
+
+<span class="c1"># Hosted Cluster Context</span>
+<span class="nv">HC_CLUSTER_NS</span><span class="o">=</span>clusters
+<span class="nv">HC_REGION</span><span class="o">=</span>us-west-1
+<span class="nv">HC_CLUSTER_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-hosted"</span>
+<span class="nv">HC_CLUSTER_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">BASE_PATH</span><span class="si">}</span><span class="s2">/hosted_clusters/</span><span class="si">${</span><span class="nv">HC_CLUSTER_NS</span><span class="si">}</span><span class="s2">-</span><span class="si">${</span><span class="nv">HC_CLUSTER_NAME</span><span class="si">}</span><span class="s2">"</span>
+<span class="nv">HC_KUBECONFIG</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">HC_CLUSTER_DIR</span><span class="si">}</span><span class="s2">/kubeconfig"</span>
+<span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">HC_CLUSTER_DIR</span><span class="si">}</span>/backup
+
+<span class="nv">BUCKET_NAME</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">USER</span><span class="si">}</span><span class="s2">-hosted-</span><span class="si">${</span><span class="nv">MGMT_REGION</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="c1"># DNS</span>
+<span class="nv">AWS_ZONE_ID</span><span class="o">=</span><span class="s2">"Z026552815SS3YPH9H6MG"</span>
+<span class="nv">EXTERNAL_DNS_DOMAIN</span><span class="o">=</span><span class="s2">"guest.jpdv.aws.kerbeross.com"</span>
+</code></pre></div>
+
+- Migration Script
+The migration script is maintained at https://github.com/openshift/hypershift/blob/main/contrib/migration/migrate-hcp.sh
+</details>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+<script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+<script src="https://unpkg.com/mermaid@11.2.0/dist/mermaid.min.js"></script>
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
