@@ -28,7 +28,7 @@ An Azure subscription is the billing and access boundary for Azure resources. Th
 |------------|----------------|--------------------------|
 | `Contributor` | Create and manage Azure resources (VMs, networks, storage) | cluster-admin for infrastructure |
 | `User Access Administrator` | Assign roles to managed identities | Permission to create RoleBindings |
-| `Application.ReadWrite.OwnedBy`<br/>(Microsoft Graph API) | Create service principals for cluster operations | Permission to create ServiceAccounts |
+| `Application.ReadWrite.OwnedBy`<br/>(Microsoft Graph API) | Create service principals (External DNS, cluster operations) and query Graph API to assign RBAC roles to managed identities | ServiceAccount creation + role binding permissions |
 
 **How to verify your permissions:**
 
@@ -194,16 +194,19 @@ Choose how to handle DNS for your hosted clusters:
 **Best For**: Production environments, multiple clusters, custom domains
 
 **Characteristics**:
+
 - Automatic DNS record management via External DNS operator
 - Custom domain names (e.g., `api.my-cluster.example.com`)
 - Requires: DNS zones, service principal with DNS permissions, External DNS operator
 - Higher initial setup complexity, but simpler ongoing operations
 
 **Example DNS**:
+
 - API Server: `api.my-cluster.azure.example.com`
 - Apps: `*.apps.my-cluster.azure.example.com`
 
 **Decision Criteria**:
+
 - Choose this if you need custom, branded domain names
 - Choose this if you plan to manage multiple clusters
 - Choose this if you want fully automated DNS provisioning
@@ -213,6 +216,7 @@ Choose how to handle DNS for your hosted clusters:
 **Best For**: Development, testing, proof-of-concept environments
 
 **Characteristics**:
+
 - Manual DNS management or Azure-provided LoadBalancer DNS
 - API server uses Azure LoadBalancer DNS (e.g., `abc123.eastus.cloudapp.azure.com`)
 - No DNS zones or service principals needed
@@ -223,6 +227,7 @@ Choose how to handle DNS for your hosted clusters:
 - Apps: `my-cluster-apps.eastus.cloudapp.azure.com`
 
 **Decision Criteria**:
+
 - Choose this for quick testing or POC environments
 - Choose this if you don't control your DNS infrastructure
 - Choose this if you only need a single cluster temporarily
@@ -236,6 +241,7 @@ Choose how to handle DNS for your hosted clusters:
 Plan your resource group structure to separate long-lived shared resources from cluster-specific resources:
 
 #### Persistent Resource Group
+
 - **Name example**: `hypershift-shared`, `openshift-common`
 - **Lifecycle**: Long-lived, not deleted when clusters are removed
 - **Contains**:
@@ -245,6 +251,7 @@ Plan your resource group structure to separate long-lived shared resources from 
     - (Optional) DNS zones
 
 #### Per-Cluster Resource Groups
+
 - **Name pattern**: `<prefix>-vnet-rg`, `<prefix>-nsg-rg`, `<prefix>-managed-rg`
 - **Lifecycle**: Created and deleted with each cluster
 - **Contains**:
@@ -268,12 +275,14 @@ Plan your resource group structure to separate long-lived shared resources from 
 ### Network Planning
 
 #### VNet and Subnet Design
+
 - Default: `/16` VNet with `/24` subnet
 - Plan for sufficient IP addresses for worker nodes
 - Consider network security group (NSG) rules for your environment
 - Ensure network connectivity to Azure APIs and management cluster
 
 #### Network Security
+
 - NSG rules are created automatically
 - Review and customize based on your security requirements
 - Consider private endpoint requirements for production
