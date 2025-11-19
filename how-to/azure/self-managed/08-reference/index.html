@@ -917,13 +917,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kubectloc-quick-reference" class="md-nav__link">
+  <a href="#oc-openshift-cli-quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
-      kubectl/oc Quick Reference
+      oc (OpenShift CLI) Quick Reference
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="kubectl/oc Quick Reference">
+    <nav class="md-nav" aria-label="oc (OpenShift CLI) Quick Reference">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1350,13 +1350,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kubectloc-quick-reference" class="md-nav__link">
+  <a href="#oc-openshift-cli-quick-reference" class="md-nav__link">
     <span class="md-ellipsis">
-      kubectl/oc Quick Reference
+      oc (OpenShift CLI) Quick Reference
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="kubectl/oc Quick Reference">
+    <nav class="md-nav" aria-label="oc (OpenShift CLI) Quick Reference">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1902,62 +1902,64 @@ az<span class="w"> </span>vm<span class="w"> </span>boot-diagnostics<span class=
 <span class="w">    </span>--resource-group<span class="w"> </span>&lt;rg-name&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--name<span class="w"> </span>&lt;vm-name&gt;
 </code></pre></div>
-<h2 id="kubectloc-quick-reference">kubectl/oc Quick Reference</h2>
+<h2 id="oc-openshift-cli-quick-reference">oc (OpenShift CLI) Quick Reference</h2>
+<p>The <code>oc</code> CLI is the recommended tool for OpenShift environments. While <code>oc</code> works for basic Kubernetes operations, <code>oc</code> provides additional OpenShift-specific features like project management, build operations, and route handling.</p>
+<p>All examples in this guide use <code>oc</code> commands.</p>
 <h3 id="cluster-resources">Cluster Resources</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># List HostedClusters</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedclusters<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+oc<span class="w"> </span>get<span class="w"> </span>hostedclusters<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
 
 <span class="c1"># Get HostedCluster details</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-o<span class="w"> </span>yaml
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-o<span class="w"> </span>yaml
 
 <span class="c1"># Describe HostedCluster (shows events)</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>hostedcluster<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+oc<span class="w"> </span>describe<span class="w"> </span>hostedcluster<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
 
 <span class="c1"># Patch HostedCluster (upgrade)</span>
-kubectl<span class="w"> </span>patch<span class="w"> </span>hostedcluster/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>patch<span class="w"> </span>hostedcluster/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;:{&quot;release&quot;:{&quot;image&quot;:&quot;&lt;new-image&gt;&quot;}}}&#39;</span>
 </code></pre></div>
 <h3 id="nodepool-resources">NodePool Resources</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># List NodePools</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepools<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+oc<span class="w"> </span>get<span class="w"> </span>nodepools<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
 
 <span class="c1"># Get NodePool details</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-o<span class="w"> </span>yaml
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-o<span class="w"> </span>yaml
 
 <span class="c1"># Scale NodePool</span>
-kubectl<span class="w"> </span>scale<span class="w"> </span>nodepool/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>--replicas<span class="o">=</span>&lt;count&gt;
+oc<span class="w"> </span>scale<span class="w"> </span>nodepool/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>--replicas<span class="o">=</span>&lt;count&gt;
 
 <span class="c1"># Patch NodePool</span>
-kubectl<span class="w"> </span>patch<span class="w"> </span>nodepool/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>patch<span class="w"> </span>nodepool/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;:{&quot;replicas&quot;:&lt;count&gt;}}&#39;</span>
 
 <span class="c1"># Delete NodePool</span>
-kubectl<span class="w"> </span>delete<span class="w"> </span>nodepool/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+oc<span class="w"> </span>delete<span class="w"> </span>nodepool/&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
 </code></pre></div>
 <h3 id="control-plane-pods">Control Plane Pods</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># List control plane pods</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;
 
 <span class="c1"># Get pod logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span><span class="o">[</span>-f<span class="o">]</span>
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span><span class="o">[</span>-f<span class="o">]</span>
 
 <span class="c1"># Describe pod</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;pod-name&gt;
+oc<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;pod-name&gt;
 
 <span class="c1"># Get pod resource usage</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;
+oc<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;
 </code></pre></div>
 <h3 id="machines">Machines</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># List machines</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;
+oc<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;
 
 <span class="c1"># Describe machine</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>machine<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;machine-name&gt;
+oc<span class="w"> </span>describe<span class="w"> </span>machine<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;machine-name&gt;
 
 <span class="c1"># Delete machine (triggers replacement)</span>
-kubectl<span class="w"> </span>delete<span class="w"> </span>machine<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;machine-name&gt;
+oc<span class="w"> </span>delete<span class="w"> </span>machine<span class="w"> </span>-n<span class="w"> </span>clusters-&lt;cluster-name&gt;<span class="w"> </span>&lt;machine-name&gt;
 </code></pre></div>
 <h2 id="appendices">Appendices</h2>
 <h3 id="appendix-a-azure-permissions-reference">Appendix A: Azure Permissions Reference</h3>
@@ -2205,7 +2207,7 @@ kubectl<span class="w"> </span>delete<span class="w"> </span>machine<span class=
 <ul>
 <li><a href="https://learn.microsoft.com/en-us/cli/azure/install-azure-cli">Azure CLI Installation</a></li>
 <li><a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/">OpenShift CLI (oc) Downloads</a></li>
-<li><a href="https://kubernetes.io/docs/tasks/tools/">kubectl Installation</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/tools/">oc Installation</a></li>
 <li><a href="https://jqlang.github.io/jq/">jq - Command-line JSON processor</a></li>
 <li><a href="https://taskfile.dev">go-task/task - Task runner</a></li>
 </ul>
@@ -2231,7 +2233,7 @@ task<span class="w"> </span>azure:infra
 task<span class="w"> </span>cluster:create
 
 <span class="c1"># 4. Wait for cluster</span>
-kubectl<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>--for<span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Available<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>--for<span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Available<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--timeout<span class="o">=</span>30m
@@ -2242,8 +2244,8 @@ hypershift<span class="w"> </span>create<span class="w"> </span>kubeconfig<span 
 <span class="w">    </span>--namespace<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>&gt;<span class="w"> </span>kubeconfig
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>kubeconfig
-kubectl<span class="w"> </span>get<span class="w"> </span>nodes
-kubectl<span class="w"> </span>get<span class="w"> </span>co
+oc<span class="w"> </span>get<span class="w"> </span>nodes
+oc<span class="w"> </span>get<span class="w"> </span>co
 
 <span class="c1"># 6. Cleanup (when done)</span>
 task<span class="w"> </span>cluster:destroy

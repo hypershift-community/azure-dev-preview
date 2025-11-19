@@ -1397,18 +1397,19 @@
 <li>Valid OpenShift pull secret from <a href="https://console.redhat.com/openshift/downloads">cloud.redhat.com</a></li>
 <li>HyperShift CLI binary (<a href="../03-azure-foundation/#step-1-validate-prerequisites">installation covered by <code>task prereq:validate</code></a>)</li>
 </ul>
-<p>Required Taskfile variables:
+<p>Required Taskfile variables:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">PULL_SECRET</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;pull-secret.json&#39;</span>
-<span class="nt">PARENT_DNS_ZONE</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;example.com&#39;</span><span class="w">  </span><span class="c1"># For External DNS option</span>
-</code></pre></div></p>
+<span class="nt">HYPERSHIFT_NAMESPACE</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;hypershift&#39;</span><span class="w">  </span><span class="c1"># Optional, defaults to &#39;hypershift&#39;</span>
+<span class="nt">PARENT_DNS_ZONE</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;example.com&#39;</span><span class="w">      </span><span class="c1"># Required for External DNS option</span>
+</code></pre></div>
 <h2 id="installing-the-hypershift-operator">Installing the HyperShift Operator</h2>
 <h3 id="step-1-verify-management-cluster-access">Step 1: Verify Management Cluster Access</h3>
 <p>Verify you have the required access to the management cluster:</p>
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt:verify-access
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:verify-access
 </code></pre></div>
 <p><strong>What this does</strong>:
-- Tests kubectl connectivity to the cluster
-- Verifies cluster-admin permissions (<code>kubectl auth can-i '*' '*'</code>)
+- Tests oc connectivity to the cluster
+- Verifies cluster-admin permissions (<code>oc auth can-i '*' '*'</code>)
 - Confirms you can deploy resources</p>
 <p><strong>Expected output</strong>:
 <div class="highlight"><pre><span></span><code>Verifying management cluster access...
@@ -1416,8 +1417,8 @@ Kubernetes control plane is running at https://api.management-cluster.example.co
 ✓ Cluster-admin permissions confirmed
 </code></pre></div></p>
 <p><strong>Under the hood</strong> (see <code>tasks/mgmt-cluster.yml</code>):
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>cluster-info
-kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w"> </span><span class="s1">&#39;*&#39;</span>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>cluster-info
+oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w"> </span><span class="s1">&#39;*&#39;</span>
 </code></pre></div></p>
 <h3 id="step-2-choose-your-dns-strategy">Step 2: Choose Your DNS Strategy</h3>
 <p>Select one of two installation paths based on your DNS requirements:</p>
@@ -1447,7 +1448,7 @@ kubectl<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w">
 </div>
 <h3 id="step-3a-install-with-external-dns-production-mode">Step 3A: Install with External DNS (Production Mode)</h3>
 <p>Install the HyperShift operator with External DNS for automatic DNS management:</p>
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt:setup-with-dns
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:setup-with-dns
 </code></pre></div>
 <p><strong>What this does</strong>:
 1. Verifies management cluster access
@@ -1464,7 +1465,7 @@ az<span class="w"> </span>ad<span class="w"> </span>sp<span class="w"> </span>cr
 <span class="w">  </span>--scopes<span class="w"> </span><span class="s2">&quot;/subscriptions/</span><span class="si">${</span><span class="nv">SUBSCRIPTION_ID</span><span class="si">}</span><span class="s2">/resourceGroups/</span><span class="si">${</span><span class="nv">PERSISTENT_RG_NAME</span><span class="si">}</span><span class="s2">&quot;</span>
 
 <span class="c1"># Create Kubernetes secret</span>
-kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>azure-config-file<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>azure-config-file<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-n<span class="w"> </span>default<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--from-file<span class="o">=</span>azure_mgmt.json
 
@@ -1497,14 +1498,15 @@ operator-xxxxx-xxxxx           1/1     Running   0          30s
 ✓ External DNS verification complete
 </code></pre></div></p>
 <p><strong>Advanced configuration</strong>:</p>
-<p>To use a custom operator image:
+<p>To use a custom operator image or namespace:
 <div class="highlight"><pre><span></span><code><span class="c1"># In Taskfile.yml</span>
 <span class="nt">vars</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">HYPERSHIFT_IMAGE</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;quay.io/hypershift/hypershift:custom-tag&#39;</span>
+<span class="w">  </span><span class="nt">HYPERSHIFT_NAMESPACE</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;custom-namespace&#39;</span><span class="w">  </span><span class="c1"># Optional, defaults to &#39;hypershift&#39;</span>
 </code></pre></div></p>
 <h3 id="step-3b-install-without-external-dns-simple-mode">Step 3B: Install without External DNS (Simple Mode)</h3>
 <p>Install the HyperShift operator for simpler dev/test deployments:</p>
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt:setup
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:setup
 </code></pre></div>
 <p><strong>What this does</strong>:
 1. Verifies management cluster access
@@ -1543,7 +1545,7 @@ operator   1/1     1            1           30s
 <h2 id="verifying-the-installation">Verifying the Installation</h2>
 <h3 id="check-operator-status">Check Operator Status</h3>
 <p>Verify the operator is running correctly:</p>
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt:verify
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:verify
 </code></pre></div>
 <p><strong>What this shows</strong>:
 - Pods in hypershift namespace
@@ -1577,7 +1579,7 @@ Operator logs (last 20 lines):
 </code></pre></div></p>
 <h3 id="check-external-dns-if-installed">Check External DNS (if installed)</h3>
 <p>For installations with External DNS:</p>
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt:verify-external-dns
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:verify-external-dns
 </code></pre></div>
 <p><strong>What this shows</strong>:
 - External DNS deployment status
@@ -1585,7 +1587,7 @@ Operator logs (last 20 lines):
 - Connection to Azure DNS</p>
 <h3 id="check-management-cluster-capacity">Check Management Cluster Capacity</h3>
 <p>Verify the management cluster has sufficient resources:</p>
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt:check-capacity
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:check-capacity
 </code></pre></div>
 <p><strong>What this shows</strong>:
 - Current node resource usage
@@ -1637,7 +1639,7 @@ Each hosted cluster needs approximately:
 <h3 id="operator-pod-not-starting">Operator Pod Not Starting</h3>
 <p><strong>Symptom</strong>: Operator pod stuck in <code>Pending</code> or <code>CrashLoopBackOff</code></p>
 <p><strong>Check</strong>:
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>-l<span class="w"> </span><span class="nv">name</span><span class="o">=</span>operator
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>-l<span class="w"> </span><span class="nv">name</span><span class="o">=</span>operator
 </code></pre></div></p>
 <p><strong>Common causes</strong>:
 - Insufficient resources on management cluster
@@ -1650,7 +1652,7 @@ Each hosted cluster needs approximately:
 <h3 id="external-dns-not-creating-records">External DNS Not Creating Records</h3>
 <p><strong>Symptom</strong>: DNS records not appearing in Azure DNS zone</p>
 <p><strong>Check</strong>:
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt:verify-external-dns
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:verify-external-dns
 </code></pre></div></p>
 <p><strong>Common causes</strong>:
 - Service principal lacks DNS Zone Contributor permissions
@@ -1658,7 +1660,7 @@ Each hosted cluster needs approximately:
 - Secret <code>azure-config-file</code> not created or incorrect</p>
 <p><strong>Solutions</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Verify secret exists</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>azure-config-file<span class="w"> </span>-n<span class="w"> </span>default
+oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>azure-config-file<span class="w"> </span>-n<span class="w"> </span>default
 
 <span class="c1"># Check service principal permissions</span>
 az<span class="w"> </span>role<span class="w"> </span>assignment<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
@@ -1666,18 +1668,18 @@ az<span class="w"> </span>role<span class="w"> </span>assignment<span class="w">
 <span class="w">  </span>--output<span class="w"> </span>table
 
 <span class="c1"># Recreate DNS resources if needed</span>
-task<span class="w"> </span>mgmt:delete-dns-resources
-task<span class="w"> </span>mgmt:setup-with-dns
+task<span class="w"> </span>mgmt-cluster:delete-dns-resources
+task<span class="w"> </span>mgmt-cluster:setup-with-dns
 </code></pre></div></p>
 <h3 id="crd-installation-issues">CRD Installation Issues</h3>
 <p><strong>Symptom</strong>: Errors about unknown resource types</p>
 <p><strong>Check</strong>:
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>crd<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hypershift
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>crd<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>hypershift
 </code></pre></div></p>
 <p><strong>Solution</strong>:
 Reinstall the operator:
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt:cleanup
-task<span class="w"> </span>mgmt:setup
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:cleanup
+task<span class="w"> </span>mgmt-cluster:setup
 </code></pre></div></p>
 <h2 id="uninstalling-the-operator">Uninstalling the Operator</h2>
 <h3 id="before-uninstalling">Before Uninstalling</h3>
@@ -1688,7 +1690,7 @@ task<span class="w"> </span>mgmt:setup
 </div>
 <h3 id="check-for-existing-clusters">Check for Existing Clusters</h3>
 <p>The uninstall task automatically checks for existing clusters:</p>
-<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt:cleanup
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:cleanup
 </code></pre></div>
 <p>If hosted clusters exist, you'll see:
 <div class="highlight"><pre><span></span><code>❌ WARNING: Found 2 HostedCluster resource(s)
@@ -1699,19 +1701,18 @@ clusters    myprefix-hc   4.21.0    ...
 Delete all hosted clusters before uninstalling the operator!
 </code></pre></div></p>
 <h3 id="complete-cleanup">Complete Cleanup</h3>
-<p>To uninstall the operator and remove DNS resources:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># This will:</span>
-<span class="c1"># 1. Check for existing HostedClusters (fails if any exist)</span>
-<span class="c1"># 2. Delete the hypershift namespace</span>
-<span class="c1"># 3. Remove External DNS Kubernetes secret</span>
-<span class="c1"># 4. Delete local azure_mgmt.json file</span>
-task<span class="w"> </span>mgmt:cleanup
-</code></pre></div>
-<p><strong>What gets removed</strong>:
-- HyperShift operator deployment
+<p>To uninstall the operator and remove DNS resources, use the cleanup task that matches your installation:</p>
+<p><strong>For basic installations (without External DNS):</strong>
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:cleanup
+</code></pre></div></p>
+<p><strong>For installations with External DNS:</strong>
+<div class="highlight"><pre><span></span><code>task<span class="w"> </span>mgmt-cluster:cleanup-with-dns
+</code></pre></div></p>
+<p><strong>What gets removed</strong> (via <code>hypershift install render | oc delete -f -</code>):
+- HyperShift operator deployment and all related resources
 - External DNS deployment (if installed)
-- All pods in hypershift namespace
-- CRDs remain (to prevent accidental data loss)
+- ServiceAccounts, Roles, RoleBindings, and Services
+- All Kubernetes resources created by the install command
 - Kubernetes secret <code>azure-config-file</code>
 - Local <code>azure_mgmt.json</code> file</p>
 <p><strong>What persists</strong>:
@@ -1731,20 +1732,21 @@ task<span class="w"> </span>mgmt:cleanup
 <h2 id="quick-reference">Quick Reference</h2>
 <h3 id="essential-commands">Essential Commands</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Simple installation (dev/test)</span>
-task<span class="w"> </span>mgmt:setup
+task<span class="w"> </span>mgmt-cluster:setup
 
 <span class="c1"># Production installation with External DNS</span>
-task<span class="w"> </span>mgmt:setup-with-dns
+task<span class="w"> </span>mgmt-cluster:setup-with-dns
 
 <span class="c1"># Verify installation</span>
-task<span class="w"> </span>mgmt:verify
-task<span class="w"> </span>mgmt:verify-external-dns<span class="w">  </span><span class="c1"># If using External DNS</span>
+task<span class="w"> </span>mgmt-cluster:verify
+task<span class="w"> </span>mgmt-cluster:verify-external-dns<span class="w">  </span><span class="c1"># If using External DNS</span>
 
 <span class="c1"># Check capacity</span>
-task<span class="w"> </span>mgmt:check-capacity
+task<span class="w"> </span>mgmt-cluster:check-capacity
 
-<span class="c1"># Cleanup (requires no hosted clusters exist)</span>
-task<span class="w"> </span>mgmt:cleanup
+<span class="c1"># Cleanup (choose based on how you installed)</span>
+task<span class="w"> </span>mgmt-cluster:cleanup<span class="w">              </span><span class="c1"># For simple installations</span>
+task<span class="w"> </span>mgmt-cluster:cleanup-with-dns<span class="w">     </span><span class="c1"># For External DNS installations</span>
 </code></pre></div>
 <h3 id="task-summary">Task Summary</h3>
 <table>
@@ -1757,39 +1759,44 @@ task<span class="w"> </span>mgmt:cleanup
 </thead>
 <tbody>
 <tr>
-<td><code>task mgmt:verify-access</code></td>
+<td><code>task mgmt-cluster:verify-access</code></td>
 <td>Verify cluster access and permissions</td>
 <td>Before installation</td>
 </tr>
 <tr>
-<td><code>task mgmt:setup</code></td>
+<td><code>task mgmt-cluster:setup</code></td>
 <td>Install operator without External DNS</td>
 <td>Dev/test environments</td>
 </tr>
 <tr>
-<td><code>task mgmt:setup-with-dns</code></td>
+<td><code>task mgmt-cluster:setup-with-dns</code></td>
 <td>Install operator with External DNS</td>
 <td>Production environments</td>
 </tr>
 <tr>
-<td><code>task mgmt:verify</code></td>
+<td><code>task mgmt-cluster:verify</code></td>
 <td>Verify operator installation</td>
 <td>After installation</td>
 </tr>
 <tr>
-<td><code>task mgmt:verify-external-dns</code></td>
+<td><code>task mgmt-cluster:verify-external-dns</code></td>
 <td>Verify External DNS installation</td>
 <td>After installation with DNS</td>
 </tr>
 <tr>
-<td><code>task mgmt:check-capacity</code></td>
+<td><code>task mgmt-cluster:check-capacity</code></td>
 <td>Check management cluster capacity</td>
 <td>Before creating clusters</td>
 </tr>
 <tr>
-<td><code>task mgmt:cleanup</code></td>
-<td>Uninstall operator (safety checks)</td>
-<td>Environment teardown</td>
+<td><code>task mgmt-cluster:cleanup</code></td>
+<td>Uninstall operator WITHOUT External DNS</td>
+<td>Teardown simple installations</td>
+</tr>
+<tr>
+<td><code>task mgmt-cluster:cleanup-with-dns</code></td>
+<td>Uninstall operator WITH External DNS</td>
+<td>Teardown External DNS installations</td>
 </tr>
 </tbody>
 </table>

@@ -1346,7 +1346,7 @@
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li>At least one HostedCluster successfully deployed</li>
-<li>kubectl/oc access to the management cluster</li>
+<li>oc/oc access to the management cluster</li>
 <li>HyperShift CLI binary available</li>
 </ul>
 <h2 id="managing-nodepools">Managing NodePools</h2>
@@ -1387,11 +1387,11 @@ hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span cl
 <p>See <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/sizes">Azure VM sizes</a> for complete list.</p>
 <p><strong>Verify NodePool creation</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check NodePool status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Watch nodes join the cluster (switch to hosted cluster context)</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
-kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-w
+oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-w
 </code></pre></div></p>
 <h3 id="configuring-nodepool-marketplace-images">Configuring NodePool Marketplace Images</h3>
 <p>For OpenShift 4.20+, NodePools automatically use the release payload defaults. For custom configurations:</p>
@@ -1418,38 +1418,38 @@ kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> 
 </code></pre></div></p>
 <h3 id="scaling-nodepools">Scaling NodePools</h3>
 <p>Adjust the number of worker nodes in a NodePool:</p>
-<p><strong>Scale using kubectl</strong>:
+<p><strong>Scale using oc</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Scale to 5 replicas</span>
-kubectl<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--replicas<span class="o">=</span><span class="m">5</span>
 
 <span class="c1"># Verify scaling</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 </code></pre></div></p>
 <p><strong>Scale using patch</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Scale specific NodePool</span>
-kubectl<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-large-workers<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-large-workers<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;:{&quot;replicas&quot;:10}}&#39;</span>
 </code></pre></div></p>
 <p><strong>Scale using edit</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Edit NodePool interactively</span>
-kubectl<span class="w"> </span>edit<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>edit<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Modify spec.replicas field and save</span>
 </code></pre></div></p>
 <p><strong>Monitor scaling progress</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Watch NodePool status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-w
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-w
 
 <span class="c1"># Watch machines being created</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-w
+oc<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-w
 
 <span class="c1"># In hosted cluster context, watch nodes joining</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
-kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-w
+oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-w
 </code></pre></div></p>
 <div class="admonition tip">
 <p class="admonition-title">Scaling Best Practices</p>
@@ -1463,11 +1463,11 @@ kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> 
 <h3 id="deleting-nodepools">Deleting NodePools</h3>
 <p>Remove a NodePool when no longer needed:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Delete a specific NodePool</span>
-kubectl<span class="w"> </span>delete<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-large-workers<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>delete<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-large-workers<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Verify deletion</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">NodePool Deletion</p>
@@ -1504,23 +1504,23 @@ kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w
 <span class="nv">NEW_RELEASE_IMAGE</span><span class="o">=</span><span class="s2">&quot;quay.io/openshift-release-dev/ocp-release:4.21.1-x86_64&quot;</span>
 
 <span class="c1"># Patch the HostedCluster</span>
-kubectl<span class="w"> </span>patch<span class="w"> </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>patch<span class="w"> </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--patch<span class="w"> </span><span class="s2">&quot;{\&quot;spec\&quot;:{\&quot;release\&quot;:{\&quot;image\&quot;:\&quot;</span><span class="si">${</span><span class="nv">NEW_RELEASE_IMAGE</span><span class="si">}</span><span class="s2">\&quot;}}}&quot;</span>
 </code></pre></div>
 <p><strong>Monitor control plane upgrade</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Watch HostedCluster status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-w
 
 <span class="c1"># Check control plane pod rollouts</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-w
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-w
 
 <span class="c1"># In hosted cluster context, check cluster version</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
-kubectl<span class="w"> </span>get<span class="w"> </span>clusterversion
+oc<span class="w"> </span>get<span class="w"> </span>clusterversion
 </code></pre></div></p>
 <p><strong>Expected progression</strong>:
 <div class="highlight"><pre><span></span><code># HostedCluster shows progressing
@@ -1534,25 +1534,25 @@ myprefix-hc   4.21.1    True        False         The hosted cluster is availabl
 <h3 id="upgrading-nodepools">Upgrading NodePools</h3>
 <p>Upgrade worker nodes to match the control plane version:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Option 1: Patch the NodePool release</span>
-kubectl<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--patch<span class="w"> </span><span class="s2">&quot;{\&quot;spec\&quot;:{\&quot;release\&quot;:{\&quot;image\&quot;:\&quot;</span><span class="si">${</span><span class="nv">NEW_RELEASE_IMAGE</span><span class="si">}</span><span class="s2">\&quot;}}}&quot;</span>
 
 <span class="c1"># Option 2: Edit NodePool interactively</span>
-kubectl<span class="w"> </span>edit<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>edit<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 <span class="c1"># Update spec.release.image and save</span>
 </code></pre></div>
 <p><strong>Monitor NodePool upgrade</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Watch NodePool status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-w
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-w
 
 <span class="c1"># Watch machines being replaced</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-w
+oc<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-w
 
 <span class="c1"># In hosted cluster context, watch node versions</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
-kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-w
+oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-w
 </code></pre></div></p>
 <p><strong>Upgrade strategies</strong>:</p>
 <p><strong>Replace Strategy</strong> (default):
@@ -1571,7 +1571,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> 
 <ul>
 <li>[ ] Review release notes for breaking changes</li>
 <li>[ ] Test upgrade in non-production cluster first</li>
-<li>[ ] Ensure cluster operators are healthy: <code>kubectl get co</code></li>
+<li>[ ] Ensure cluster operators are healthy: <code>oc get co</code></li>
 <li>[ ] Verify sufficient capacity in management cluster</li>
 <li>[ ] Back up critical data and configurations</li>
 <li>[ ] Notify users of potential disruption</li>
@@ -1592,32 +1592,32 @@ Downgrades are not supported. If issues occur:
 <h3 id="checking-cluster-status">Checking Cluster Status</h3>
 <p><strong>From management cluster</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># HostedCluster health</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># NodePool health</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Control plane pods</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Control plane resource usage</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 </code></pre></div></p>
 <p><strong>From hosted cluster</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Switch to hosted cluster</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
 
 <span class="c1"># Cluster version and available updates</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>clusterversion
+oc<span class="w"> </span>get<span class="w"> </span>clusterversion
 
 <span class="c1"># Cluster operators</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>co
+oc<span class="w"> </span>get<span class="w"> </span>co
 
 <span class="c1"># Node health</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+oc<span class="w"> </span>get<span class="w"> </span>nodes
 
 <span class="c1"># Node resource usage</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>nodes
+oc<span class="w"> </span>top<span class="w"> </span>nodes
 </code></pre></div></p>
 <h3 id="key-health-indicators">Key Health Indicators</h3>
 <p><strong>Healthy HostedCluster</strong>:
@@ -1640,7 +1640,7 @@ kubectl<span class="w"> </span>top<span class="w"> </span>nodes
 </code></pre></div></p>
 <p><strong>Healthy Cluster Operators</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># All operators should show AVAILABLE=True, DEGRADED=False</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>co
+oc<span class="w"> </span>get<span class="w"> </span>co
 
 NAME<span class="w">                                       </span>VERSION<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>DEGRADED
 authentication<span class="w">                             </span><span class="m">4</span>.21.0<span class="w">    </span>True<span class="w">        </span>False<span class="w">         </span>False
@@ -1651,32 +1651,32 @@ cluster-autoscaler<span class="w">                         </span><span class="m
 <h3 id="cluster-metrics-and-logging">Cluster Metrics and Logging</h3>
 <p><strong>View control plane metrics</strong> (from management cluster):
 <div class="highlight"><pre><span></span><code><span class="c1"># CPU and memory usage</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Node resource allocation on management cluster</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>nodes
+oc<span class="w"> </span>top<span class="w"> </span>nodes
 </code></pre></div></p>
 <p><strong>View hosted cluster metrics</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Switch to hosted cluster</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
 
 <span class="c1"># Worker node metrics</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>nodes
+oc<span class="w"> </span>top<span class="w"> </span>nodes
 
 <span class="c1"># Pod metrics across cluster</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>--all-namespaces
+oc<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>--all-namespaces
 </code></pre></div></p>
 <p><strong>Access control plane logs</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># From management cluster</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-apiserver
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-controller-manager
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>statefulset/etcd
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-apiserver
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-controller-manager
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>statefulset/etcd
 </code></pre></div></p>
 <h2 id="modifying-cluster-configuration">Modifying Cluster Configuration</h2>
 <h3 id="changing-cluster-networking">Changing Cluster Networking</h3>
 <p>Update cluster network settings:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Edit HostedCluster</span>
-kubectl<span class="w"> </span>edit<span class="w"> </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>edit<span class="w"> </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Modify spec.networking fields</span>
 <span class="c1"># Note: Some changes require cluster recreation</span>
@@ -1696,11 +1696,11 @@ kubectl<span class="w"> </span>edit<span class="w"> </span>hostedcluster/<span c
 <h3 id="managing-cluster-credentials">Managing Cluster Credentials</h3>
 <p><strong>Rotate kubeadmin password</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># From management cluster</span>
-kubectl<span class="w"> </span>delete<span class="w"> </span>secret<span class="w"> </span>kubeadmin<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>delete<span class="w"> </span>secret<span class="w"> </span>kubeadmin<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Controller will regenerate with new password</span>
 <span class="c1"># Retrieve new password</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>kubeadmin<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>kubeadmin<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.password}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
 </code></pre></div></p>
@@ -1709,20 +1709,20 @@ kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w">
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
 
 <span class="c1"># Grant cluster-admin to user</span>
-kubectl<span class="w"> </span>create<span class="w"> </span>clusterrolebinding<span class="w"> </span>admin-user<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>create<span class="w"> </span>clusterrolebinding<span class="w"> </span>admin-user<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--clusterrole<span class="o">=</span>cluster-admin<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--user<span class="o">=</span>admin@example.com
 </code></pre></div></p>
 <h2 id="nodepool-advanced-configuration">NodePool Advanced Configuration</h2>
 <h3 id="configuring-node-labels-and-taints">Configuring Node Labels and Taints</h3>
 <p><strong>Add labels to NodePool</strong>:
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;:{&quot;nodeLabels&quot;:{&quot;workload-type&quot;:&quot;database&quot;}}}&#39;</span>
 </code></pre></div></p>
 <p><strong>Add taints to NodePool</strong>:
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>edit<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>edit<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Add to spec:</span>
 spec:
@@ -1734,12 +1734,12 @@ spec:
 <p><strong>Verify labels and taints</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># From hosted cluster</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
-kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--show-labels
-kubectl<span class="w"> </span>describe<span class="w"> </span>node<span class="w"> </span>&lt;node-name&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Taints
+oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--show-labels
+oc<span class="w"> </span>describe<span class="w"> </span>node<span class="w"> </span>&lt;node-name&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Taints
 </code></pre></div></p>
 <h3 id="configuring-root-volume-size">Configuring Root Volume Size</h3>
 <p>Increase root volume size for NodePool VMs:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>patch<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--patch<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;:{&quot;platform&quot;:{&quot;azure&quot;:{&quot;diskSizeGB&quot;:256}}}}&#39;</span>
@@ -1769,24 +1769,24 @@ hypershift<span class="w"> </span>create<span class="w"> </span>nodepool<span cl
 <span class="w">    </span>--azure-creds<span class="w"> </span><span class="si">${</span><span class="nv">AZURE_CREDS</span><span class="si">}</span>
 
 <span class="c1"># Scale NodePool</span>
-kubectl<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--replicas<span class="o">=</span><span class="m">5</span>
 
 <span class="c1"># Upgrade cluster</span>
 <span class="nv">NEW_VERSION</span><span class="o">=</span><span class="s2">&quot;quay.io/openshift-release-dev/ocp-release:4.21.1-x86_64&quot;</span>
-kubectl<span class="w"> </span>patch<span class="w"> </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>patch<span class="w"> </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--type<span class="w"> </span>merge<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--patch<span class="w"> </span><span class="s2">&quot;{\&quot;spec\&quot;:{\&quot;release\&quot;:{\&quot;image\&quot;:\&quot;</span><span class="si">${</span><span class="nv">NEW_VERSION</span><span class="si">}</span><span class="s2">\&quot;}}}&quot;</span>
 
 <span class="c1"># Delete NodePool</span>
-kubectl<span class="w"> </span>delete<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-new-pool<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>delete<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-new-pool<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Check cluster health</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster,nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>co<span class="w">  </span><span class="c1"># From hosted cluster context</span>
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster,nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>co<span class="w">  </span><span class="c1"># From hosted cluster context</span>
 </code></pre></div>
 
 

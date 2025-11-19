@@ -2,986 +2,986 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/getting-started/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/branch-process/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/contribute-docs/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/cpo-overrides/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/custom-images/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/develop_in_cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/onboard-a-platform/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/precommit-hook-help/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/release-process/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/run-hypershift-operator-locally/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/contribute/run-tests/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/distribute-hosted-cluster-workloads/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/feature-gates/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/metrics-sets/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/pause-reconciliation/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/per-hostedcluster-dashboard/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/restart-control-plane-components/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/troubleshooting-general/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/upgrades/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/agent/create-agent-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/agent/create-heterogeneous-nodepools/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/agent/exposing-services-from-hcp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/agent/global-pull-secret/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/agent/other-sdn-providers/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/automated-machine-management/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/automated-machine-management/configure-machines/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/automated-machine-management/node-tuning/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/automated-machine-management/nodepool-lifecycle/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/automated-machine-management/performance-profiling/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/automated-machine-management/scale-to-zero-dataplane/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/create-aws-hosted-cluster-arm-workers/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/create-aws-hosted-cluster-autonode/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/create-aws-hosted-cluster-multiple-zones/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/create-aws-hosted-cluster-secret-credentials/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/create-infra-iam-separately/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/define-custom-kube-api-name/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/deploy-aws-private-clusters/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/disaster-recovery/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/etc-backup-restore/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/external-dns/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/global-pull-secret/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/other-sdn-providers/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/shared-vpc/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/troubleshooting/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/troubleshooting/debug-nodes/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/aws/troubleshooting/troubleshooting-disaster-recovery/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/azure-workload-identity-setup/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/create-azure-cluster-on-aks/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/create-azure-cluster-with-options/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/create-self-managed-azure-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/global-pull-secret/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/scheduler/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed-azure-getting-started-DEPRECATED/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed-azure-index/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/setup-management-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/01-understanding/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/02a-azure-planning/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/02b-workflow-planning/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/03-azure-foundation/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/04-management-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/05-hosted-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/06-day2-operations/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/07-troubleshooting/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/self-managed/08-reference/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/troubleshooting/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/azure/troubleshooting/debug-nodes/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/ci/checking-ci/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/common/exposing-services-from-hcp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/common/global-pull-secret/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/common/multi-arch-on-hcp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/configure-ocp-components/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/configure-ocp-components/custom-kas-kubeconfig/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/configure-ocp-components/kubeapi-server/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/disaster-recovery/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/disaster-recovery/backup-and-restore-oadp-1-5/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/disaster-recovery/backup-and-restore-oadp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/disaster-recovery/etcd-recovery/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/disconnected/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/disconnected/disconnected-workarounds/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/disconnected/idms-icsp-for-management-clusters/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/disconnected/image-content-sources/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/disconnected/known-issues/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/disconnected/tls-certificates/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/install/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/kubevirt/configuring-network/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/kubevirt/configuring-storage/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/kubevirt/create-kubevirt-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/kubevirt/external-infrastructure/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/kubevirt/global-pull-secret/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/kubevirt/gpu-devices/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/kubevirt/ingress-and-dns/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/kubevirt/performance-tuning/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/kubevirt/troubleshooting-kubevirt-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/none/create-none-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/none/exposing-services-from-hcp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/none/global-pull-secret/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/openstack/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/openstack/additional-ports/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/openstack/az/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/openstack/destroy/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/openstack/etcd-local-storage/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/openstack/global-pull-secret/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/openstack/hostedcluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/openstack/performance-tuning/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/openstack/prerequisites/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/powervs/create-cluster-powervs/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/powervs/create-infra-separately/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/powervs/global-pull-secret/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/powervs/prerequisites-and-env-guide/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/how-to/sdn/other-sdn-providers/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/dns/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/registry/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/tls-certificates/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/webserver/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hostedcluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hostedcluster/baremetalhost/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hostedcluster/hostedcluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hostedcluster/infraenv/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hostedcluster/nodepool/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hostedcluster/worker-nodes/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hypervisor/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hypervisor/hypervisor-system-config/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hypervisor/network-manager-dispatcher/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hypervisor/packaging/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hypervisor/redfish-for-vms/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/hypervisor/requisites/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/mce/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/mce/agentserviceconfig/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/mce/multicluster-engine/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/mgmt-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/mgmt-cluster/compact-dual/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/mgmt-cluster/network/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/mirror/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/mirror/ICSP-IDMS/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/mirror/mirroring/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/watching/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/watching/watching-cp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/Dual/watching/watching-dp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/dns/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/registry/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/tls-certificates/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/webserver/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hostedcluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hostedcluster/baremetalhost/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hostedcluster/hostedcluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hostedcluster/infraenv/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hostedcluster/nodepool/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hostedcluster/worker-nodes/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hypervisor/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hypervisor/hypervisor-system-config/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hypervisor/network-manager-dispatcher/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hypervisor/packaging/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hypervisor/redfish-for-vms/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/hypervisor/requisites/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/mce/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/mce/agentserviceconfig/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/mce/multicluster-engine/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/mgmt-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/mgmt-cluster/compact-ipv4/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/mgmt-cluster/network/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/mirror/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/mirror/ICSP-IDMS/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/mirror/mirroring/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/watching/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/watching/watching-cp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv4/watching/watching-dp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/dns/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/registry/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/tls-certificates/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/webserver/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hostedcluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hostedcluster/baremetalhost/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hostedcluster/hostedcluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hostedcluster/infraenv/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hostedcluster/nodepool/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hostedcluster/worker-nodes/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hypervisor/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hypervisor/hypervisor-system-config/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hypervisor/network-manager-dispatcher/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hypervisor/packaging/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hypervisor/redfish-for-vms/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/hypervisor/requisites/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/mce/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/mce/agentserviceconfig/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/mce/multicluster-engine/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/mgmt-cluster/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/mgmt-cluster/compact-ipv6/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/mgmt-cluster/network/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/mirror/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/mirror/ICSP-IDMS/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/mirror/mirroring/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/watching/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/watching/watching-cp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/IPv6/watching/watching-dp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/registry/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/tls-certificates/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/webserver/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/hypervisor/hypervisor-system-config/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/hypervisor/network-manager-dispatcher/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/hypervisor/packaging/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/hypervisor/requisites/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/mce/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/mce/agentserviceconfig/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/mce/multicluster-engine/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/mirror/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/mirror/ICSP-IDMS/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/mirror/mirroring/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/watching/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/watching/watching-cp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/labs/common/watching/watching-dp/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/recipes/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/recipes/common/exposing-dataplane-with-metallb/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/recipes/common/replace-crio-runtime/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/SLOs/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/api/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/concepts-and-personas/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/controller-architecture/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/goals-and-design-invariants/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/konnectivity/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/multi-platform-support/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/versioning-support/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/architecture/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/architecture/mce-and-agent/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/architecture/managed-azure/secrets-csi/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/architecture/managed-azure/shared-ingress/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/infrastructure/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/infrastructure/agent/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/infrastructure/aws/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/manifests/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/manifests/ibmcloud/4.10/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/manifests/ibmcloud/4.11/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/manifests/ibmcloud/4.12/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/manifests/ibmcloud/4.13/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/manifests/ibmcloud/4.9/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/ocp-behaviour-deviations/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/ocp-behaviour-deviations/upgrade-4.17-4.18/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/reference/test-information-debugging/Azure/test-artifacts-directory-structure/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
     <url>
          <loc>https://hypershift-community.github.io/azure-dev-preview/videos/</loc>
-         <lastmod>2025-11-18</lastmod>
+         <lastmod>2025-11-19</lastmod>
     </url>
 </urlset>

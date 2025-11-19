@@ -1038,19 +1038,19 @@ Azure Details:
 <h3 id="step-4-verify-cluster-creation">Step 4: Verify Cluster Creation</h3>
 <p>Monitor cluster creation progress:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Check HostedCluster status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Watch cluster become available (15-30 minutes)</span>
-kubectl<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>--for<span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Available<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>--for<span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Available<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>hostedcluster/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--timeout<span class="o">=</span>30m
 
 <span class="c1"># Check NodePool status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Verify control plane pods are running</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 </code></pre></div>
 <p><strong>Healthy cluster indicators</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># HostedCluster should show Available=True</span>
@@ -1080,9 +1080,9 @@ hypershift<span class="w"> </span>create<span class="w"> </span>kubeconfig<span 
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
 
 <span class="c1"># Verify cluster access</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodes
-kubectl<span class="w"> </span>get<span class="w"> </span>clusterversion
-kubectl<span class="w"> </span>get<span class="w"> </span>co<span class="w">  </span><span class="c1"># Check cluster operators status</span>
+oc<span class="w"> </span>get<span class="w"> </span>nodes
+oc<span class="w"> </span>get<span class="w"> </span>clusterversion
+oc<span class="w"> </span>get<span class="w"> </span>co<span class="w">  </span><span class="c1"># Check cluster operators status</span>
 </code></pre></div>
 <p><strong>Expected output</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Nodes should be Ready</span>
@@ -1190,25 +1190,25 @@ task<span class="w"> </span>azure:infra<span class="w">         </span><span cla
 <h3 id="scaling-nodepools">Scaling NodePools</h3>
 <p>Scale worker nodes after cluster creation:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Scale existing NodePool</span>
-kubectl<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>scale<span class="w"> </span>nodepool/<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--replicas<span class="o">=</span><span class="m">5</span>
 
 <span class="c1"># Verify scaling</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 </code></pre></div>
 <h2 id="troubleshooting-cluster-creation">Troubleshooting Cluster Creation</h2>
 <h3 id="cluster-stuck-in-provisioning">Cluster Stuck in Provisioning</h3>
 <p><strong>Symptom</strong>: HostedCluster remains in <code>Progressing</code> state for &gt;30 minutes</p>
 <p><strong>Check</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check HostedCluster status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
 
 <span class="c1"># Check control plane pods</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Check operator logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/operator
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/operator
 </code></pre></div></p>
 <p><strong>Common causes</strong>:
 - Insufficient resources on management cluster
@@ -1219,10 +1219,10 @@ kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </
 <p><strong>Symptom</strong>: NodePool shows desired nodes, but nodes don't appear as Ready</p>
 <p><strong>Check</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check NodePool status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
 
 <span class="c1"># Check machine resources</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Check Azure VMs</span>
 az<span class="w"> </span>vm<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
@@ -1254,7 +1254,7 @@ curl<span class="w"> </span><span class="si">${</span><span class="nv">OIDC_ISSU
 <p><strong>For External DNS deployments</strong>:</p>
 <p><strong>Check</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check External DNS logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/external-dns
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/external-dns
 
 <span class="c1"># Verify DNS records in Azure</span>
 az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </span>record-set<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
@@ -1263,7 +1263,7 @@ az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </s
 </code></pre></div></p>
 <p><strong>For deployments without External DNS</strong>:</p>
 <p>API server uses Azure LoadBalancer DNS. Get the DNS name:
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>kube-apiserver
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>kube-apiserver
 
 <span class="c1"># Use the EXTERNAL-IP or LoadBalancer hostname</span>
 </code></pre></div></p>
@@ -1285,10 +1285,10 @@ ls<span class="w"> </span>-l<span class="w"> </span><span class="si">${</span><s
 <h3 id="control-plane-architecture">Control Plane Architecture</h3>
 <p>The hosted control plane consists of pods running on the management cluster:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># View control plane namespace</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>ns<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>ns<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># View control plane pods</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 </code></pre></div>
 <p><strong>Key components</strong>:
 - <strong>kube-apiserver</strong>: Cluster API endpoint
@@ -1336,7 +1336,7 @@ hypershift<span class="w"> </span>create<span class="w"> </span>kubeconfig<span 
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>kubeconfig
 
 <span class="c1"># Check cluster status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster,nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster,nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Destroy cluster</span>
 task<span class="w"> </span>cluster:destroy

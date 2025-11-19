@@ -1257,7 +1257,7 @@ az<span class="w"> </span>identity<span class="w"> </span>federated-credential<s
 curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OIDC_ISSUER_URL</span><span class="si">}</span><span class="s2">/.well-known/openid-configuration&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 
 <span class="c1"># 4. Verify OIDC issuer URL matches</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.spec.issuerURL}&#39;</span>
 </code></pre></div></p>
@@ -1331,24 +1331,24 @@ az<span class="w"> </span>vm<span class="w"> </span>list-usage<span class="w"> <
 <p><strong>Symptom</strong>: Control plane pods stuck in <code>Pending</code>, <code>ImagePullBackOff</code>, or <code>CrashLoopBackOff</code>.</p>
 <p><strong>Diagnostic steps</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check pod status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Describe problematic pod</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Check pod logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>logs<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Check events</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">&#39;.lastTimestamp&#39;</span>
+oc<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">&#39;.lastTimestamp&#39;</span>
 </code></pre></div></p>
 <p><strong>Common causes and solutions</strong>:</p>
 <p><strong>Insufficient Resources on Management Cluster</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check node resources</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>nodes
+oc<span class="w"> </span>top<span class="w"> </span>nodes
 
 <span class="c1"># Check pod resource requests</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span>Requests
+oc<span class="w"> </span>describe<span class="w"> </span>pod<span class="w"> </span>&lt;pod-name&gt;<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span>Requests
 
 <span class="c1"># Each hosted cluster needs approximately:</span>
 <span class="c1"># - 4 vCPU</span>
@@ -1361,7 +1361,7 @@ kubectl<span class="w"> </span>describe<span class="w"> </span>pod<span class="w
 </code></pre></div></p>
 <p><strong>Image Pull Errors</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check pull secret</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-pull-secret<span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-pull-secret<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.\.dockerconfigjson}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 
@@ -1370,25 +1370,25 @@ kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w">
 </code></pre></div></p>
 <p><strong>etcd Issues</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check etcd pods</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>etcd
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>etcd
 
 <span class="c1"># Check etcd logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>statefulset/etcd
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>statefulset/etcd
 
 <span class="c1"># Check etcd persistent volumes</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 </code></pre></div></p>
 <h4 id="control-plane-performance-issues">Control Plane Performance Issues</h4>
 <p><strong>Symptom</strong>: Slow API response times or timeouts.</p>
 <p><strong>Diagnostic steps</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check control plane pod CPU/memory usage</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Check API server logs for slow requests</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-apiserver<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;slow\|timeout&quot;</span>
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-apiserver<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;slow\|timeout&quot;</span>
 
 <span class="c1"># Check etcd performance</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>statefulset/etcd<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;slow&quot;</span>
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>statefulset/etcd<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;slow&quot;</span>
 </code></pre></div></p>
 <p><strong>Solutions</strong>:
 - Scale up management cluster nodes
@@ -1396,13 +1396,13 @@ kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </
 - Check management cluster storage performance</p>
 <h3 id="worker-node-issues">Worker Node Issues</h3>
 <h4 id="worker-nodes-not-joining-cluster">Worker Nodes Not Joining Cluster</h4>
-<p><strong>Symptom</strong>: Azure VMs are created but don't appear in <code>kubectl get nodes</code> (from hosted cluster context).</p>
+<p><strong>Symptom</strong>: Azure VMs are created but don't appear in <code>oc get nodes</code> (from hosted cluster context).</p>
 <p><strong>Diagnostic steps</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># 1. Check NodePool status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
 
 <span class="c1"># 2. Check Machine resources</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># 3. Check Azure VMs</span>
 az<span class="w"> </span>vm<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
@@ -1410,7 +1410,7 @@ az<span class="w"> </span>vm<span class="w"> </span>list<span class="w"> </span>
 <span class="w">    </span>--output<span class="w"> </span>table
 
 <span class="c1"># 4. Check ignition server logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/ignition-server
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/ignition-server
 
 <span class="c1"># 5. Get VM boot diagnostics (if enabled)</span>
 <span class="nv">VM_NAME</span><span class="o">=</span><span class="k">$(</span>az<span class="w"> </span>vm<span class="w"> </span>list<span class="w"> </span>--resource-group<span class="w"> </span><span class="si">${</span><span class="nv">MANAGED_RG_NAME</span><span class="si">}</span><span class="w"> </span>--query<span class="w"> </span><span class="s2">&quot;[0].name&quot;</span><span class="w"> </span>-o<span class="w"> </span>tsv<span class="k">)</span>
@@ -1444,7 +1444,7 @@ az<span class="w"> </span>network<span class="w"> </span>nsg<span class="w"> </s
 </code></pre></div></p>
 <p><strong>Ignition Server Not Reachable</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check ignition server service</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>ignition-server
+oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>ignition-server
 
 <span class="c1"># From a node, test connectivity (requires VM access)</span>
 <span class="c1"># curl -k https://ignition-server.clusters-${CLUSTER_NAME}.svc:443/config/worker</span>
@@ -1459,19 +1459,19 @@ az<span class="w"> </span>role<span class="w"> </span>assignment<span class="w">
 <span class="w">    </span>--output<span class="w"> </span>table
 </code></pre></div></p>
 <h4 id="node-status-shows-notready">Node Status Shows NotReady</h4>
-<p><strong>Symptom</strong>: Nodes appear in <code>kubectl get nodes</code> but show status <code>NotReady</code>.</p>
+<p><strong>Symptom</strong>: Nodes appear in <code>oc get nodes</code> but show status <code>NotReady</code>.</p>
 <p><strong>Diagnostic steps</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># From hosted cluster context</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
 
 <span class="c1"># Check node status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
+oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
 
 <span class="c1"># Describe the NotReady node</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>node<span class="w"> </span>&lt;node-name&gt;
+oc<span class="w"> </span>describe<span class="w"> </span>node<span class="w"> </span>&lt;node-name&gt;
 
 <span class="c1"># Check node conditions</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>node<span class="w"> </span>&lt;node-name&gt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.conditions}&#39;</span><span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+oc<span class="w"> </span>get<span class="w"> </span>node<span class="w"> </span>&lt;node-name&gt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.conditions}&#39;</span><span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 </code></pre></div></p>
 <p><strong>Common causes</strong>:
 - Container runtime issues
@@ -1484,7 +1484,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>node<span class="w"> <
 <span class="c1"># sudo journalctl -u kubelet -f</span>
 
 <span class="c1"># Delete and recreate the node</span>
-kubectl<span class="w"> </span>delete<span class="w"> </span>node<span class="w"> </span>&lt;node-name&gt;
+oc<span class="w"> </span>delete<span class="w"> </span>node<span class="w"> </span>&lt;node-name&gt;
 <span class="c1"># NodePool controller will create replacement VM</span>
 </code></pre></div></p>
 <h3 id="dns-and-networking-issues">DNS and Networking Issues</h3>
@@ -1492,13 +1492,13 @@ kubectl<span class="w"> </span>delete<span class="w"> </span>node<span class="w"
 <p><strong>Symptom</strong>: Cannot resolve cluster API or app hostnames via DNS.</p>
 <p><strong>Diagnostic steps</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check External DNS pod</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>external-dns
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>external-dns
 
 <span class="c1"># Check External DNS logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/external-dns
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/external-dns
 
 <span class="c1"># Check Route resources</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>routes<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>routes<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Verify DNS zone exists</span>
 az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </span>zone<span class="w"> </span>show<span class="w"> </span><span class="se">\</span>
@@ -1514,7 +1514,7 @@ az<span class="w"> </span>network<span class="w"> </span>dns<span class="w"> </s
 <p><strong>Common issues</strong>:</p>
 <p><strong>External DNS Authentication Failures</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check External DNS secret</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>azure-config-file<span class="w"> </span>-n<span class="w"> </span>default
+oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>azure-config-file<span class="w"> </span>-n<span class="w"> </span>default
 
 <span class="c1"># Verify service principal permissions</span>
 az<span class="w"> </span>role<span class="w"> </span>assignment<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
@@ -1525,7 +1525,7 @@ az<span class="w"> </span>role<span class="w"> </span>assignment<span class="w">
 </code></pre></div></p>
 <p><strong>External DNS Not Watching Correct Namespace</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check External DNS configuration</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>external-dns<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">10</span><span class="w"> </span>args
+oc<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>external-dns<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">10</span><span class="w"> </span>args
 
 <span class="c1"># Ensure it&#39;s watching routes in hosted cluster namespaces</span>
 </code></pre></div></p>
@@ -1537,16 +1537,16 @@ hypershift<span class="w"> </span>install<span class="w"> </span><span class="se
 <span class="w">    </span>--pull-secret<span class="w"> </span><span class="si">${</span><span class="nv">PULL_SECRET</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--external-dns-domain-filter<span class="w"> </span><span class="si">${</span><span class="nv">EXTRN_DNS_ZONE_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--limit-crd-install<span class="w"> </span>Azure<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--render<span class="w"> </span><span class="p">|</span><span class="w"> </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+<span class="w">    </span>--render<span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
 </code></pre></div></p>
 <h4 id="loadbalancer-service-stuck-pending-without-external-dns">LoadBalancer Service Stuck Pending (Without External DNS)</h4>
 <p><strong>Symptom</strong>: API server LoadBalancer service doesn't get external IP.</p>
 <p><strong>Diagnostic steps</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check service</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>kube-apiserver
+oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>kube-apiserver
 
 <span class="c1"># Check cloud-controller-manager logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/cloud-controller-manager
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/cloud-controller-manager
 
 <span class="c1"># Check Azure load balancer</span>
 az<span class="w"> </span>network<span class="w"> </span>lb<span class="w"> </span>list<span class="w"> </span><span class="se">\</span>
@@ -1562,19 +1562,19 @@ az<span class="w"> </span>network<span class="w"> </span>lb<span class="w"> </sp
 <p><strong>Symptom</strong>: Cluster upgrade doesn't complete or control plane pods crash during upgrade.</p>
 <p><strong>Diagnostic steps</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># Check HostedCluster upgrade status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.version}&#39;</span>
 
 <span class="c1"># Check cluster version operator</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/cluster-version-operator
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/cluster-version-operator
 
 <span class="c1"># Check control plane pod status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># From hosted cluster, check cluster operators</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>-kubeconfig
-kubectl<span class="w"> </span>get<span class="w"> </span>co
+oc<span class="w"> </span>get<span class="w"> </span>co
 </code></pre></div></p>
 <p><strong>Solutions</strong>:
 <div class="highlight"><pre><span></span><code><span class="c1"># If upgrade is stuck, check for:</span>
@@ -1587,58 +1587,58 @@ kubectl<span class="w"> </span>get<span class="w"> </span>co
 <h2 id="diagnostic-commands-reference">Diagnostic Commands Reference</h2>
 <h3 id="hostedcluster-health">HostedCluster Health</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Overall cluster status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Detailed status with conditions</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
 
 <span class="c1"># Check HostedControlPlane</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcontrolplane<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>hostedcontrolplane<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Describe for events</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>describe<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 </code></pre></div>
 <h3 id="nodepool-health">NodePool Health</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># NodePool status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span>
 
 <span class="c1"># Detailed NodePool information</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml
 
 <span class="c1"># Check Machine resources</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Machine details</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>machine<span class="w"> </span>&lt;machine-name&gt;<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>describe<span class="w"> </span>machine<span class="w"> </span>&lt;machine-name&gt;<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 </code></pre></div>
 <h3 id="control-plane-diagnostics">Control Plane Diagnostics</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># All control plane pods</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Pod resource usage</span>
-kubectl<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>top<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Specific component logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-apiserver<span class="w"> </span>-f
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-controller-manager<span class="w"> </span>-f
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-scheduler<span class="w"> </span>-f
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>statefulset/etcd<span class="w"> </span>-f
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-apiserver<span class="w"> </span>-f
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-controller-manager<span class="w"> </span>-f
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/kube-scheduler<span class="w"> </span>-f
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>statefulset/etcd<span class="w"> </span>-f
 
 <span class="c1"># Check all resources in control plane namespace</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>all<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>get<span class="w"> </span>all<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 
 <span class="c1"># Events in control plane namespace</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">&#39;.lastTimestamp&#39;</span>
+oc<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">&#39;.lastTimestamp&#39;</span>
 </code></pre></div>
 <h3 id="hypershift-operator-diagnostics">HyperShift Operator Diagnostics</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Operator pod status</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>hypershift
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>hypershift
 
 <span class="c1"># Operator logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/operator<span class="w"> </span>-f
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/operator<span class="w"> </span>-f
 
 <span class="c1"># Check operator reconciliation</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/operator<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/operator<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span>
 </code></pre></div>
 <h3 id="azure-resource-diagnostics">Azure Resource Diagnostics</h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># List all resource groups for cluster</span>
@@ -1709,28 +1709,28 @@ mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Collecting debug information for </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="s2">...&quot;</span>
 
 <span class="c1"># HostedCluster</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/hostedcluster.yaml
+oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/hostedcluster.yaml
 
 <span class="c1"># NodePools</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/nodepools.yaml
+oc<span class="w"> </span>get<span class="w"> </span>nodepool<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">CLUSTER_NAMESPACE</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/nodepools.yaml
 
 <span class="c1"># Control plane pods</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/control-plane-pods.txt
-kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/control-plane-pods.yaml
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/control-plane-pods.txt
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/control-plane-pods.yaml
 
 <span class="c1"># Control plane events</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">&#39;.lastTimestamp&#39;</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/control-plane-events.txt
+oc<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>--sort-by<span class="o">=</span><span class="s1">&#39;.lastTimestamp&#39;</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/control-plane-events.txt
 
 <span class="c1"># Operator logs</span>
-kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/operator<span class="w"> </span>--tail<span class="o">=</span><span class="m">1000</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/operator-logs.txt
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>hypershift<span class="w"> </span>deployment/operator<span class="w"> </span>--tail<span class="o">=</span><span class="m">1000</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/operator-logs.txt
 
 <span class="c1"># Control plane logs</span>
 <span class="k">for</span><span class="w"> </span>deployment<span class="w"> </span><span class="k">in</span><span class="w"> </span>kube-apiserver<span class="w"> </span>kube-controller-manager<span class="w"> </span>kube-scheduler<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">    </span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/<span class="si">${</span><span class="nv">deployment</span><span class="si">}</span><span class="w"> </span>--tail<span class="o">=</span><span class="m">500</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">deployment</span><span class="si">}</span>-logs.txt
+<span class="w">    </span>oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>deployment/<span class="si">${</span><span class="nv">deployment</span><span class="si">}</span><span class="w"> </span>--tail<span class="o">=</span><span class="m">500</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/<span class="si">${</span><span class="nv">deployment</span><span class="si">}</span>-logs.txt
 <span class="k">done</span>
 
 <span class="c1"># Machines</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/machines.yaml
+oc<span class="w"> </span>get<span class="w"> </span>machines<span class="w"> </span>-n<span class="w"> </span>clusters-<span class="si">${</span><span class="nv">CLUSTER_NAME</span><span class="si">}</span><span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/machines.yaml
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Debug information collected in </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">/&quot;</span>
 tar<span class="w"> </span>-czf<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>.tar.gz<span class="w"> </span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span>/
