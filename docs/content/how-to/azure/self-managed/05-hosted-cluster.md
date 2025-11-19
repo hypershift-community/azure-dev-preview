@@ -210,19 +210,19 @@ Monitor cluster creation progress:
 
 ```bash
 # Check HostedCluster status
-kubectl get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
+oc get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
 
 # Watch cluster become available (15-30 minutes)
-kubectl wait --for=condition=Available \
+oc wait --for=condition=Available \
     hostedcluster/${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     --timeout=30m
 
 # Check NodePool status
-kubectl get nodepool -n ${CLUSTER_NAMESPACE}
+oc get nodepool -n ${CLUSTER_NAMESPACE}
 
 # Verify control plane pods are running
-kubectl get pods -n clusters-${CLUSTER_NAME}
+oc get pods -n clusters-${CLUSTER_NAME}
 ```
 
 **Healthy cluster indicators**:
@@ -258,9 +258,9 @@ hypershift create kubeconfig \
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
 
 # Verify cluster access
-kubectl get nodes
-kubectl get clusterversion
-kubectl get co  # Check cluster operators status
+oc get nodes
+oc get clusterversion
+oc get co  # Check cluster operators status
 ```
 
 **Expected output**:
@@ -412,12 +412,12 @@ Scale worker nodes after cluster creation:
 
 ```bash
 # Scale existing NodePool
-kubectl scale nodepool/${CLUSTER_NAME} \
+oc scale nodepool/${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     --replicas=5
 
 # Verify scaling
-kubectl get nodepool -n ${CLUSTER_NAMESPACE}
+oc get nodepool -n ${CLUSTER_NAMESPACE}
 ```
 
 ## Troubleshooting Cluster Creation
@@ -429,13 +429,13 @@ kubectl get nodepool -n ${CLUSTER_NAMESPACE}
 **Check**:
 ```bash
 # Check HostedCluster status
-kubectl get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE} -o yaml
+oc get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE} -o yaml
 
 # Check control plane pods
-kubectl get pods -n clusters-${CLUSTER_NAME}
+oc get pods -n clusters-${CLUSTER_NAME}
 
 # Check operator logs
-kubectl logs -n hypershift deployment/operator
+oc logs -n hypershift deployment/operator
 ```
 
 **Common causes**:
@@ -451,10 +451,10 @@ kubectl logs -n hypershift deployment/operator
 **Check**:
 ```bash
 # Check NodePool status
-kubectl get nodepool -n ${CLUSTER_NAMESPACE} -o yaml
+oc get nodepool -n ${CLUSTER_NAMESPACE} -o yaml
 
 # Check machine resources
-kubectl get machines -n clusters-${CLUSTER_NAME}
+oc get machines -n clusters-${CLUSTER_NAME}
 
 # Check Azure VMs
 az vm list \
@@ -496,7 +496,7 @@ curl ${OIDC_ISSUER_URL}/.well-known/openid-configuration
 **Check**:
 ```bash
 # Check External DNS logs
-kubectl logs -n hypershift deployment/external-dns
+oc logs -n hypershift deployment/external-dns
 
 # Verify DNS records in Azure
 az network dns record-set list \
@@ -508,7 +508,7 @@ az network dns record-set list \
 
 API server uses Azure LoadBalancer DNS. Get the DNS name:
 ```bash
-kubectl get svc -n clusters-${CLUSTER_NAME} kube-apiserver
+oc get svc -n clusters-${CLUSTER_NAME} kube-apiserver
 
 # Use the EXTERNAL-IP or LoadBalancer hostname
 ```
@@ -539,10 +539,10 @@ The hosted control plane consists of pods running on the management cluster:
 
 ```bash
 # View control plane namespace
-kubectl get ns | grep clusters-${CLUSTER_NAME}
+oc get ns | grep clusters-${CLUSTER_NAME}
 
 # View control plane pods
-kubectl get pods -n clusters-${CLUSTER_NAME}
+oc get pods -n clusters-${CLUSTER_NAME}
 ```
 
 **Key components**:
@@ -604,7 +604,7 @@ hypershift create kubeconfig --name ${CLUSTER_NAME} > kubeconfig
 export KUBECONFIG=kubeconfig
 
 # Check cluster status
-kubectl get hostedcluster,nodepool -n ${CLUSTER_NAMESPACE}
+oc get hostedcluster,nodepool -n ${CLUSTER_NAMESPACE}
 
 # Destroy cluster
 task cluster:destroy

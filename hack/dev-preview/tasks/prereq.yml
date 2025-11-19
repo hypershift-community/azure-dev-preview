@@ -20,7 +20,7 @@ tasks:
       - command -v az >/dev/null || (echo "❌ az CLI not found" && exit 1)
       - command -v ccoctl >/dev/null || (echo "❌ ccoctl not found" && exit 1)
       - command -v hypershift >/dev/null || (echo "❌ hypershift CLI not found" && exit 1)
-      - command -v kubectl >/dev/null || (echo "❌ kubectl not found" && exit 1)
+      - command -v oc >/dev/null || (echo "❌ oc not found" && exit 1)
 
       - echo "✅ All prerequisites validated"
 

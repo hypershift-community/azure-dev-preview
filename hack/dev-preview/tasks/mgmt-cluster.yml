@@ -13,9 +13,9 @@ tasks:
     desc: Verify management cluster access and permissions
     cmds:
       - echo "Verifying management cluster access..."
-      - kubectl cluster-info
+      - oc cluster-info
       - |
-        if kubectl auth can-i '*' '*' 2>/dev/null | grep -q "yes"; then
+        if oc auth can-i '*' '*' 2>/dev/null | grep -q "yes"; then
           echo "✓ Cluster-admin permissions confirmed"
         else
           echo "❌ Cluster-admin permissions required"
@@ -26,7 +26,7 @@ tasks:
     desc: Check management cluster resource availability
     cmds:
       - echo "Checking node capacity..."
-      - kubectl top nodes || echo "⚠ metrics-server not available"
+      - oc top nodes || echo "⚠ metrics-server not available"
       - echo ""
       - echo "Note{{":"}} Each hosted cluster needs approximately{{":"}}"
       - echo "  - 4 CPU cores"
@@ -34,8 +34,8 @@ tasks:
 
   # === EXTERNAL DNS SETUP ===
 
-  create-dns-sp:
-    desc: Create service principal for External DNS
+  create-dns-sp-azure:
+    desc: Create Azure service principal for External DNS
     internal: true
     preconditions:
       - sh: test -n "{{.PARENT_DNS_ZONE}}"
@@ -47,25 +47,33 @@ tasks:
       - sh: test -n "{{.TENANT_ID}}"
         msg: "TENANT_ID not set"
     status:
-      - test -f {{.DNS_CREDS_FILE}}
+      - test -f .sp-output.json
     cmds:
       - echo "Creating service principal for External DNS..."
-      - |
-        SP_DETAILS=$(az ad sp create-for-rbac \
-          --name "hypershift-external-dns-{{.PREFIX}}" \
-          --role "DNS Zone Contributor" \
-          --scopes "/subscriptions/{{.SUBSCRIPTION_ID}}/resourceGroups/{{.DNS_ZONE_RG}}")
+      - az ad sp create-for-rbac --name "hypershift-external-dns-{{.PREFIX}}" --role "DNS Zone Contributor" --scopes "/subscriptions/{{.SUBSCRIPTION_ID}}/resourceGroups/{{.DNS_ZONE_RG}}" > .sp-output.json
 
-        cat > {{.DNS_CREDS_FILE}} <<EOF
-        {
-          "tenantId": "{{.TENANT_ID}}",
-          "subscriptionId": "{{.SUBSCRIPTION_ID}}",
-          "resourceGroup": "{{.DNS_ZONE_RG}}",
-          "aadClientId": "$(echo "$SP_DETAILS" | jq -r '.appId')",
-          "aadClientSecret": "$(echo "$SP_DETAILS" | jq -r '.password')"
-        }
-        EOF
-        chmod 600 {{.DNS_CREDS_FILE}}
+  create-dns-sp:
+    desc: Create service principal credentials file for External DNS
+    internal: true
+    deps: [create-dns-sp-azure]
+    vars:
+      SP_APP_ID:
+        sh: jq -r '.appId' .sp-output.json
+      SP_PASSWORD:
+        sh: jq -r '.password' .sp-output.json
+    status:
+      - test -f {{.DNS_CREDS_FILE}}
+    cmds:
+      - |
+        jq -n \
+          --arg tenantId "{{.TENANT_ID}}" \
+          --arg subscriptionId "{{.SUBSCRIPTION_ID}}" \
+          --arg resourceGroup "{{.DNS_ZONE_RG}}" \
+          --arg aadClientId "{{.SP_APP_ID}}" \
+          --arg aadClientSecret "{{.SP_PASSWORD}}" \
+          '{tenantId: $tenantId, subscriptionId: $subscriptionId, resourceGroup: $resourceGroup, aadClientId: $aadClientId, aadClientSecret: $aadClientSecret}' > {{.DNS_CREDS_FILE}}
+      - chmod 600 {{.DNS_CREDS_FILE}}
+      - rm -f .sp-output.json
       - echo "✓ Created {{.DNS_CREDS_FILE}}"
 
   create-dns-secret:
@@ -77,42 +85,35 @@ tasks:
         msg: "DNS credentials file not found: {{.DNS_CREDS_FILE}}"
     cmds:
       - echo "Creating azure-config-file secret in default namespace..."
-      - kubectl delete secret azure-config-file -n default --ignore-not-found
-      - kubectl create secret generic azure-config-file -n default --from-file={{.DNS_CREDS_FILE}}
+      - oc delete secret azure-config-file -n default --ignore-not-found
+      - oc create secret generic azure-config-file -n default --from-file={{.DNS_CREDS_FILE}}
       - echo "✓ Created secret azure-config-file"
 
   # === OPERATOR INSTALLATION ===
 
   install:
     desc: Install HyperShift operator WITHOUT External DNS (simple mode)
+    vars:
+      IMAGE_FLAG: '{{if .HYPERSHIFT_IMAGE}}--hypershift-image={{.HYPERSHIFT_IMAGE}}{{end}}'
+      NS_FLAG: '{{if ne .HYPERSHIFT_NAMESPACE "hypershift"}}--namespace={{.HYPERSHIFT_NAMESPACE}}{{end}}'
     preconditions:
       - sh: test -f {{.PULL_SECRET}}
         msg: "Pull secret not found at {{.PULL_SECRET}}"
       - sh: command -v hypershift
         msg: "hypershift CLI not found"
     status:
-      - kubectl get deployment operator -n {{.HYPERSHIFT_NAMESPACE}} 2>/dev/null
+      - oc get deployment operator -n {{.HYPERSHIFT_NAMESPACE}} 2>/dev/null
     cmds:
       - echo "Installing HyperShift operator (without External DNS)..."
-      - |
-        EXTRA_ARGS=""
-        if [ -n "{{.HYPERSHIFT_IMAGE}}" ]; then
-          EXTRA_ARGS="$EXTRA_ARGS --hypershift-image={{.HYPERSHIFT_IMAGE}}"
-          echo "  Using custom operator image{{":"}} {{.HYPERSHIFT_IMAGE}}"
-        fi
-        if [ "{{.HYPERSHIFT_NAMESPACE}}" != "hypershift" ]; then
-          EXTRA_ARGS="$EXTRA_ARGS --namespace={{.HYPERSHIFT_NAMESPACE}}"
-        fi
-
-        hypershift install \
-          --pull-secret {{.PULL_SECRET}} \
-          --limit-crd-install Azure \
-          $EXTRA_ARGS
+      - hypershift install --pull-secret {{.PULL_SECRET}} --limit-crd-install azure {{.IMAGE_FLAG}} {{.NS_FLAG}}
       - echo "✓ HyperShift operator installed in namespace {{.HYPERSHIFT_NAMESPACE}}"
 
   install-with-external-dns:
     desc: Install HyperShift operator WITH External DNS (production mode)
     deps: [create-dns-secret]
+    vars:
+      IMAGE_FLAG: '{{if .HYPERSHIFT_IMAGE}}--hypershift-image={{.HYPERSHIFT_IMAGE}}{{end}}'
+      NS_FLAG: '{{if ne .HYPERSHIFT_NAMESPACE "hypershift"}}--namespace={{.HYPERSHIFT_NAMESPACE}}{{end}}'
     preconditions:
       - sh: test -f {{.PULL_SECRET}}
         msg: "Pull secret not found at {{.PULL_SECRET}}"
@@ -123,28 +124,12 @@ tasks:
       - sh: command -v hypershift
         msg: "hypershift CLI not found"
     status:
-      - kubectl get deployment operator -n {{.HYPERSHIFT_NAMESPACE}} 2>/dev/null
-      - kubectl get deployment external-dns -n {{.HYPERSHIFT_NAMESPACE}} 2>/dev/null
+      - oc get deployment operator -n {{.HYPERSHIFT_NAMESPACE}} 2>/dev/null
+      - oc get deployment external-dns -n {{.HYPERSHIFT_NAMESPACE}} 2>/dev/null
     cmds:
       - echo "Installing HyperShift operator with External DNS..."
       - echo "  DNS Zone{{":"}} {{.EXTRN_DNS_ZONE_NAME}}"
-      - |
-        EXTRA_ARGS=""
-        if [ -n "{{.HYPERSHIFT_IMAGE}}" ]; then
-          EXTRA_ARGS="$EXTRA_ARGS --hypershift-image={{.HYPERSHIFT_IMAGE}}"
-          echo "  Using custom operator image{{":"}} {{.HYPERSHIFT_IMAGE}}"
-        fi
-        if [ "{{.HYPERSHIFT_NAMESPACE}}" != "hypershift" ]; then
-          EXTRA_ARGS="$EXTRA_ARGS --namespace={{.HYPERSHIFT_NAMESPACE}}"
-        fi
-
-        hypershift install \
-          --external-dns-provider=azure \
-          --external-dns-credentials {{.DNS_CREDS_FILE}} \
-          --pull-secret {{.PULL_SECRET}} \
-          --external-dns-domain-filter {{.EXTRN_DNS_ZONE_NAME}} \
-          --limit-crd-install Azure \
-          $EXTRA_ARGS
+      - hypershift install --external-dns-provider=azure --external-dns-credentials {{.DNS_CREDS_FILE}} --pull-secret {{.PULL_SECRET}} --external-dns-domain-filter {{.EXTRN_DNS_ZONE_NAME}} --limit-crd-install azure {{.IMAGE_FLAG}} {{.NS_FLAG}}
       - echo "✓ HyperShift operator and External DNS installed in namespace {{.HYPERSHIFT_NAMESPACE}}"
 
   # === VERIFICATION ===
@@ -155,32 +140,32 @@ tasks:
       - echo "Verifying HyperShift operator installation..."
       - echo ""
       - echo "Pods in {{.HYPERSHIFT_NAMESPACE}} namespace{{":"}}"
-      - kubectl get pods -n {{.HYPERSHIFT_NAMESPACE}}
+      - oc get pods -n {{.HYPERSHIFT_NAMESPACE}}
       - echo ""
       - echo "Operator deployment{{":"}}"
-      - kubectl get deployment operator -n {{.HYPERSHIFT_NAMESPACE}}
+      - oc get deployment operator -n {{.HYPERSHIFT_NAMESPACE}}
       - echo ""
       - echo "HyperShift CRDs{{":"}}"
-      - kubectl get crd | grep hypershift.openshift.io
+      - oc get crd | grep hypershift.openshift.io
       - echo ""
       - echo "Operator logs (last 20 lines){{":"}}"
-      - kubectl logs -n {{.HYPERSHIFT_NAMESPACE}} deployment/operator --tail=20 || echo "⚠ Operator not yet ready"
+      - oc logs -n {{.HYPERSHIFT_NAMESPACE}} deployment/operator --tail=20 || echo "⚠ Operator not yet ready"
       - echo ""
       - echo "✓ HyperShift operator verification complete"
 
   verify-external-dns:
     desc: Verify External DNS installation
     preconditions:
-      - sh: kubectl get deployment external-dns -n {{.HYPERSHIFT_NAMESPACE}} 2>/dev/null
+      - sh: oc get deployment external-dns -n {{.HYPERSHIFT_NAMESPACE}} 2>/dev/null
         msg: "External DNS deployment not found - did you install with External DNS?"
     cmds:
       - echo "Verifying External DNS..."
       - echo ""
       - echo "External DNS deployment{{":"}}"
-      - kubectl get deployment external-dns -n {{.HYPERSHIFT_NAMESPACE}}
+      - oc get deployment external-dns -n {{.HYPERSHIFT_NAMESPACE}}
       - echo ""
       - echo "External DNS logs (last 20 lines){{":"}}"
-      - kubectl logs -n {{.HYPERSHIFT_NAMESPACE}} deployment/external-dns --tail=20 || echo "⚠ External DNS not yet ready"
+      - oc logs -n {{.HYPERSHIFT_NAMESPACE}} deployment/external-dns --tail=20 || echo "⚠ External DNS not yet ready"
       - echo ""
       - echo "✓ External DNS verification complete"
 
@@ -188,38 +173,70 @@ tasks:
 
   check-hosted-clusters:
     desc: Check for existing HostedCluster resources (safety check)
-    silent: true
+    preconditions:
+      - sh: '[ $(oc get hostedclusters --all-namespaces -o name 2>/dev/null | wc -l) -eq 0 ]'
+        msg: |
+          ❌ WARNING: HostedCluster resources exist!
+
+          View them with:
+            oc get hostedclusters --all-namespaces
+
+          Delete all hosted clusters before uninstalling the operator!
     cmds:
-      - |
-        CLUSTERS=$(kubectl get hostedclusters --all-namespaces -o name 2>/dev/null | wc -l)
-        if [ "$CLUSTERS" -gt 0 ]; then
-          echo "❌ WARNING{{":"}} Found $CLUSTERS HostedCluster resource(s)"
-          echo ""
-          kubectl get hostedclusters --all-namespaces
-          echo ""
-          echo "Delete all hosted clusters before uninstalling the operator!"
-          exit 1
-        fi
-        echo "✓ No HostedCluster resources found - safe to uninstall"
+      - echo "✓ No HostedCluster resources found - safe to uninstall"
 
   uninstall:
-    desc: Uninstall HyperShift operator (WARNING - ensure clusters deleted first!)
+    internal: true
+    desc: Uninstall HyperShift operator (for installations WITHOUT External DNS)
     deps: [check-hosted-clusters]
+    vars:
+      IMAGE_FLAG: '{{if .HYPERSHIFT_IMAGE}}--hypershift-image={{.HYPERSHIFT_IMAGE}}{{end}}'
+      NS_FLAG: '{{if ne .HYPERSHIFT_NAMESPACE "hypershift"}}--namespace={{.HYPERSHIFT_NAMESPACE}}{{end}}'
+    preconditions:
+      - sh: test -f {{.PULL_SECRET}}
+        msg: "Pull secret not found at {{.PULL_SECRET}}"
+      - sh: '! oc get deployment external-dns -n {{.HYPERSHIFT_NAMESPACE}} 2>/dev/null'
+        msg: |
+          ❌ External DNS deployment detected!
+
+          This installation includes External DNS.
+          Use: task mgmt-cluster:cleanup-with-dns
     cmds:
       - echo "⚠ Uninstalling HyperShift operator from namespace {{.HYPERSHIFT_NAMESPACE}}..."
-      - |
-        if kubectl get namespace {{.HYPERSHIFT_NAMESPACE}} 2>/dev/null; then
-          kubectl delete namespace {{.HYPERSHIFT_NAMESPACE}}
-          echo "✓ Deleted namespace {{.HYPERSHIFT_NAMESPACE}}"
-        else
-          echo "Namespace {{.HYPERSHIFT_NAMESPACE}} not found - already deleted"
-        fi
+      - hypershift install render --pull-secret {{.PULL_SECRET}} --limit-crd-install azure {{.IMAGE_FLAG}} {{.NS_FLAG}} | oc delete --ignore-not-found -f -
+      - echo "✓ HyperShift operator uninstalled"
+      - echo "Note{{":"}} CRDs remain installed (to prevent accidental data loss)"
+
+  uninstall-with-external-dns:
+    internal: true
+    desc: Uninstall HyperShift operator WITH External DNS
+    deps: [check-hosted-clusters]
+    vars:
+      IMAGE_FLAG: '{{if .HYPERSHIFT_IMAGE}}--hypershift-image={{.HYPERSHIFT_IMAGE}}{{end}}'
+      NS_FLAG: '{{if ne .HYPERSHIFT_NAMESPACE "hypershift"}}--namespace={{.HYPERSHIFT_NAMESPACE}}{{end}}'
+    preconditions:
+      - sh: test -f {{.PULL_SECRET}}
+        msg: "Pull secret not found at {{.PULL_SECRET}}"
+      - sh: test -f {{.DNS_CREDS_FILE}}
+        msg: |
+          ❌ DNS credentials file not found at {{.DNS_CREDS_FILE}}
+
+          This file is required to properly uninstall External DNS.
+
+          Options if you've lost this file{{":"}}
+          1. Recreate it from the service principal (if credentials available)
+          2. Manual cleanup{{":"}} oc delete namespace {{.HYPERSHIFT_NAMESPACE}}
+    cmds:
+      - echo "⚠ Uninstalling HyperShift operator with External DNS from namespace {{.HYPERSHIFT_NAMESPACE}}..."
+      - hypershift install render --external-dns-provider=azure --external-dns-credentials {{.DNS_CREDS_FILE}} --pull-secret {{.PULL_SECRET}} --external-dns-domain-filter {{.EXTRN_DNS_ZONE_NAME}} --limit-crd-install azure {{.IMAGE_FLAG}} {{.NS_FLAG}} | oc delete --ignore-not-found -f -
+      - echo "✓ HyperShift operator and External DNS uninstalled"
+      - echo "Note{{":"}} CRDs remain installed (to prevent accidental data loss)"
 
   delete-dns-resources:
     desc: Delete External DNS resources
     cmds:
       - echo "Cleaning up External DNS resources..."
-      - kubectl delete secret azure-config-file -n default --ignore-not-found
+      - oc delete secret azure-config-file -n default --ignore-not-found
       - echo "✓ Deleted Kubernetes secret"
       - cmd: rm -f {{.DNS_CREDS_FILE}}
         ignore_error: true
@@ -247,7 +264,15 @@ tasks:
       - task: verify-external-dns
 
   cleanup:
-    desc: Complete cleanup (uninstall operator + delete DNS resources)
+    desc: Complete cleanup for installations WITHOUT External DNS
     cmds:
       - task: uninstall
       - task: delete-dns-resources
+      - echo "✓ Cleanup complete"
+
+  cleanup-with-dns:
+    desc: Complete cleanup for installations WITH External DNS
+    cmds:
+      - task: uninstall-with-external-dns
+      - task: delete-dns-resources
+      - echo "✓ Cleanup complete"

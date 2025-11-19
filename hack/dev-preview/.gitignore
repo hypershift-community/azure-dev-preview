@@ -14,3 +14,6 @@ jwks
 manifests/**
 openid-configuration
 tls/**
+
+# Temporary files
+.sp-output.json

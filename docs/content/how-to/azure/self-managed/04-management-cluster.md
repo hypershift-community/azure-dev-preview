@@ -28,9 +28,11 @@ Before beginning, ensure you have:
 - HyperShift CLI binary ([installation covered by `task prereq:validate`](03-azure-foundation.md#step-1-validate-prerequisites))
 
 Required Taskfile variables:
+
 ```yaml
 PULL_SECRET: 'pull-secret.json'
-PARENT_DNS_ZONE: 'example.com'  # For External DNS option
+HYPERSHIFT_NAMESPACE: 'hypershift'  # Optional, defaults to 'hypershift'
+PARENT_DNS_ZONE: 'example.com'      # Required for External DNS option
 ```
 
 ## Installing the HyperShift Operator
@@ -40,12 +42,12 @@ PARENT_DNS_ZONE: 'example.com'  # For External DNS option
 Verify you have the required access to the management cluster:
 
 ```bash
-task mgmt:verify-access
+task mgmt-cluster:verify-access
 ```
 
 **What this does**:
-- Tests kubectl connectivity to the cluster
-- Verifies cluster-admin permissions (`kubectl auth can-i '*' '*'`)
+- Tests oc connectivity to the cluster
+- Verifies cluster-admin permissions (`oc auth can-i '*' '*'`)
 - Confirms you can deploy resources
 
 **Expected output**:
@@ -57,8 +59,8 @@ Kubernetes control plane is running at https://api.management-cluster.example.co
 
 **Under the hood** (see `tasks/mgmt-cluster.yml`):
 ```bash
-kubectl cluster-info
-kubectl auth can-i '*' '*'
+oc cluster-info
+oc auth can-i '*' '*'
 ```
 
 ### Step 2: Choose Your DNS Strategy
@@ -104,7 +106,7 @@ Select one of two installation paths based on your DNS requirements:
 Install the HyperShift operator with External DNS for automatic DNS management:
 
 ```bash
-task mgmt:setup-with-dns
+task mgmt-cluster:setup-with-dns
 ```
 
 **What this does**:
@@ -124,7 +126,7 @@ az ad sp create-for-rbac \
   --scopes "/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${PERSISTENT_RG_NAME}"
 
 # Create Kubernetes secret
-kubectl create secret generic azure-config-file \
+oc create secret generic azure-config-file \
   -n default \
   --from-file=azure_mgmt.json
 
@@ -161,11 +163,12 @@ operator-xxxxx-xxxxx           1/1     Running   0          30s
 
 **Advanced configuration**:
 
-To use a custom operator image:
+To use a custom operator image or namespace:
 ```yaml
 # In Taskfile.yml
 vars:
   HYPERSHIFT_IMAGE: 'quay.io/hypershift/hypershift:custom-tag'
+  HYPERSHIFT_NAMESPACE: 'custom-namespace'  # Optional, defaults to 'hypershift'
 ```
 
 ### Step 3B: Install without External DNS (Simple Mode)
@@ -173,7 +176,7 @@ vars:
 Install the HyperShift operator for simpler dev/test deployments:
 
 ```bash
-task mgmt:setup
+task mgmt-cluster:setup
 ```
 
 **What this does**:
@@ -225,7 +228,7 @@ vars:
 Verify the operator is running correctly:
 
 ```bash
-task mgmt:verify
+task mgmt-cluster:verify
 ```
 
 **What this shows**:
@@ -266,7 +269,7 @@ Operator logs (last 20 lines):
 For installations with External DNS:
 
 ```bash
-task mgmt:verify-external-dns
+task mgmt-cluster:verify-external-dns
 ```
 
 **What this shows**:
@@ -279,7 +282,7 @@ task mgmt:verify-external-dns
 Verify the management cluster has sufficient resources:
 
 ```bash
-task mgmt:check-capacity
+task mgmt-cluster:check-capacity
 ```
 
 **What this shows**:
@@ -351,7 +354,7 @@ External DNS:
 
 **Check**:
 ```bash
-kubectl describe pod -n hypershift -l name=operator
+oc describe pod -n hypershift -l name=operator
 ```
 
 **Common causes**:
@@ -370,7 +373,7 @@ kubectl describe pod -n hypershift -l name=operator
 
 **Check**:
 ```bash
-task mgmt:verify-external-dns
+task mgmt-cluster:verify-external-dns
 ```
 
 **Common causes**:
@@ -381,7 +384,7 @@ task mgmt:verify-external-dns
 **Solutions**:
 ```bash
 # Verify secret exists
-kubectl get secret azure-config-file -n default
+oc get secret azure-config-file -n default
 
 # Check service principal permissions
 az role assignment list \
@@ -389,8 +392,8 @@ az role assignment list \
   --output table
 
 # Recreate DNS resources if needed
-task mgmt:delete-dns-resources
-task mgmt:setup-with-dns
+task mgmt-cluster:delete-dns-resources
+task mgmt-cluster:setup-with-dns
 ```
 
 ### CRD Installation Issues
@@ -399,14 +402,14 @@ task mgmt:setup-with-dns
 
 **Check**:
 ```bash
-kubectl get crd | grep hypershift
+oc get crd | grep hypershift
 ```
 
 **Solution**:
 Reinstall the operator:
 ```bash
-task mgmt:cleanup
-task mgmt:setup
+task mgmt-cluster:cleanup
+task mgmt-cluster:setup
 ```
 
 ## Uninstalling the Operator
@@ -424,7 +427,7 @@ task mgmt:setup
 The uninstall task automatically checks for existing clusters:
 
 ```bash
-task mgmt:cleanup
+task mgmt-cluster:cleanup
 ```
 
 If hosted clusters exist, you'll see:
@@ -439,22 +442,23 @@ Delete all hosted clusters before uninstalling the operator!
 
 ### Complete Cleanup
 
-To uninstall the operator and remove DNS resources:
+To uninstall the operator and remove DNS resources, use the cleanup task that matches your installation:
 
+**For basic installations (without External DNS):**
 ```bash
-# This will:
-# 1. Check for existing HostedClusters (fails if any exist)
-# 2. Delete the hypershift namespace
-# 3. Remove External DNS Kubernetes secret
-# 4. Delete local azure_mgmt.json file
-task mgmt:cleanup
+task mgmt-cluster:cleanup
 ```
 
-**What gets removed**:
-- HyperShift operator deployment
+**For installations with External DNS:**
+```bash
+task mgmt-cluster:cleanup-with-dns
+```
+
+**What gets removed** (via `hypershift install render | oc delete -f -`):
+- HyperShift operator deployment and all related resources
 - External DNS deployment (if installed)
-- All pods in hypershift namespace
-- CRDs remain (to prevent accidental data loss)
+- ServiceAccounts, Roles, RoleBindings, and Services
+- All Kubernetes resources created by the install command
 - Kubernetes secret `azure-config-file`
 - Local `azure_mgmt.json` file
 
@@ -483,30 +487,32 @@ With the HyperShift operator installed and verified, you're ready to:
 
 ```bash
 # Simple installation (dev/test)
-task mgmt:setup
+task mgmt-cluster:setup
 
 # Production installation with External DNS
-task mgmt:setup-with-dns
+task mgmt-cluster:setup-with-dns
 
 # Verify installation
-task mgmt:verify
-task mgmt:verify-external-dns  # If using External DNS
+task mgmt-cluster:verify
+task mgmt-cluster:verify-external-dns  # If using External DNS
 
 # Check capacity
-task mgmt:check-capacity
+task mgmt-cluster:check-capacity
 
-# Cleanup (requires no hosted clusters exist)
-task mgmt:cleanup
+# Cleanup (choose based on how you installed)
+task mgmt-cluster:cleanup              # For simple installations
+task mgmt-cluster:cleanup-with-dns     # For External DNS installations
 ```
 
 ### Task Summary
 
 | Task | Purpose | When to Use |
 |------|---------|-------------|
-| `task mgmt:verify-access` | Verify cluster access and permissions | Before installation |
-| `task mgmt:setup` | Install operator without External DNS | Dev/test environments |
-| `task mgmt:setup-with-dns` | Install operator with External DNS | Production environments |
-| `task mgmt:verify` | Verify operator installation | After installation |
-| `task mgmt:verify-external-dns` | Verify External DNS installation | After installation with DNS |
-| `task mgmt:check-capacity` | Check management cluster capacity | Before creating clusters |
-| `task mgmt:cleanup` | Uninstall operator (safety checks) | Environment teardown |
+| `task mgmt-cluster:verify-access` | Verify cluster access and permissions | Before installation |
+| `task mgmt-cluster:setup` | Install operator without External DNS | Dev/test environments |
+| `task mgmt-cluster:setup-with-dns` | Install operator with External DNS | Production environments |
+| `task mgmt-cluster:verify` | Verify operator installation | After installation |
+| `task mgmt-cluster:verify-external-dns` | Verify External DNS installation | After installation with DNS |
+| `task mgmt-cluster:check-capacity` | Check management cluster capacity | Before creating clusters |
+| `task mgmt-cluster:cleanup` | Uninstall operator WITHOUT External DNS | Teardown simple installations |
+| `task mgmt-cluster:cleanup-with-dns` | Uninstall operator WITH External DNS | Teardown External DNS installations |

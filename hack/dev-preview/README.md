@@ -16,7 +16,7 @@ Install these CLIs before starting:
 - **Azure CLI** (`az`) - Azure command-line interface
 - **ccoctl** - Cloud Credential Operator CLI
 - **hypershift** - HyperShift CLI (installation instructions below)
-- **kubectl** - Kubernetes CLI
+- **oc** - OpenShift CLI
 
 ### Installing HyperShift CLI
 

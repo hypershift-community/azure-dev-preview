@@ -9,7 +9,7 @@ This guide covers common operational tasks for managing HyperShift hosted cluste
 ## Prerequisites
 
 - At least one HostedCluster successfully deployed
-- kubectl/oc access to the management cluster
+- oc/oc access to the management cluster
 - HyperShift CLI binary available
 
 ## Managing NodePools
@@ -62,11 +62,11 @@ See [Azure VM sizes](https://learn.microsoft.com/en-us/azure/virtual-machines/si
 **Verify NodePool creation**:
 ```bash
 # Check NodePool status
-kubectl get nodepool -n ${CLUSTER_NAMESPACE}
+oc get nodepool -n ${CLUSTER_NAMESPACE}
 
 # Watch nodes join the cluster (switch to hosted cluster context)
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
-kubectl get nodes -w
+oc get nodes -w
 ```
 
 ### Configuring NodePool Marketplace Images
@@ -102,21 +102,21 @@ hypershift create nodepool azure \
 
 Adjust the number of worker nodes in a NodePool:
 
-**Scale using kubectl**:
+**Scale using oc**:
 ```bash
 # Scale to 5 replicas
-kubectl scale nodepool/${CLUSTER_NAME} \
+oc scale nodepool/${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     --replicas=5
 
 # Verify scaling
-kubectl get nodepool -n ${CLUSTER_NAMESPACE}
+oc get nodepool -n ${CLUSTER_NAMESPACE}
 ```
 
 **Scale using patch**:
 ```bash
 # Scale specific NodePool
-kubectl patch nodepool/${CLUSTER_NAME}-large-workers \
+oc patch nodepool/${CLUSTER_NAME}-large-workers \
     -n ${CLUSTER_NAMESPACE} \
     --type merge \
     --patch '{"spec":{"replicas":10}}'
@@ -125,7 +125,7 @@ kubectl patch nodepool/${CLUSTER_NAME}-large-workers \
 **Scale using edit**:
 ```bash
 # Edit NodePool interactively
-kubectl edit nodepool/${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
+oc edit nodepool/${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
 
 # Modify spec.replicas field and save
 ```
@@ -133,14 +133,14 @@ kubectl edit nodepool/${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
 **Monitor scaling progress**:
 ```bash
 # Watch NodePool status
-kubectl get nodepool -n ${CLUSTER_NAMESPACE} -w
+oc get nodepool -n ${CLUSTER_NAMESPACE} -w
 
 # Watch machines being created
-kubectl get machines -n clusters-${CLUSTER_NAME} -w
+oc get machines -n clusters-${CLUSTER_NAME} -w
 
 # In hosted cluster context, watch nodes joining
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
-kubectl get nodes -w
+oc get nodes -w
 ```
 
 !!! tip "Scaling Best Practices"
@@ -156,11 +156,11 @@ Remove a NodePool when no longer needed:
 
 ```bash
 # Delete a specific NodePool
-kubectl delete nodepool/${CLUSTER_NAME}-large-workers \
+oc delete nodepool/${CLUSTER_NAME}-large-workers \
     -n ${CLUSTER_NAMESPACE}
 
 # Verify deletion
-kubectl get nodepool -n ${CLUSTER_NAMESPACE}
+oc get nodepool -n ${CLUSTER_NAMESPACE}
 ```
 
 !!! warning "NodePool Deletion"
@@ -206,7 +206,7 @@ CLUSTER_NAMESPACE="clusters"
 NEW_RELEASE_IMAGE="quay.io/openshift-release-dev/ocp-release:4.21.1-x86_64"
 
 # Patch the HostedCluster
-kubectl patch hostedcluster/${CLUSTER_NAME} \
+oc patch hostedcluster/${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     --type merge \
     --patch "{\"spec\":{\"release\":{\"image\":\"${NEW_RELEASE_IMAGE}\"}}}"
@@ -215,16 +215,16 @@ kubectl patch hostedcluster/${CLUSTER_NAME} \
 **Monitor control plane upgrade**:
 ```bash
 # Watch HostedCluster status
-kubectl get hostedcluster ${CLUSTER_NAME} \
+oc get hostedcluster ${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     -w
 
 # Check control plane pod rollouts
-kubectl get pods -n clusters-${CLUSTER_NAME} -w
+oc get pods -n clusters-${CLUSTER_NAME} -w
 
 # In hosted cluster context, check cluster version
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
-kubectl get clusterversion
+oc get clusterversion
 ```
 
 **Expected progression**:
@@ -244,27 +244,27 @@ Upgrade worker nodes to match the control plane version:
 
 ```bash
 # Option 1: Patch the NodePool release
-kubectl patch nodepool/${CLUSTER_NAME} \
+oc patch nodepool/${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     --type merge \
     --patch "{\"spec\":{\"release\":{\"image\":\"${NEW_RELEASE_IMAGE}\"}}}"
 
 # Option 2: Edit NodePool interactively
-kubectl edit nodepool/${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
+oc edit nodepool/${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
 # Update spec.release.image and save
 ```
 
 **Monitor NodePool upgrade**:
 ```bash
 # Watch NodePool status
-kubectl get nodepool -n ${CLUSTER_NAMESPACE} -w
+oc get nodepool -n ${CLUSTER_NAMESPACE} -w
 
 # Watch machines being replaced
-kubectl get machines -n clusters-${CLUSTER_NAME} -w
+oc get machines -n clusters-${CLUSTER_NAME} -w
 
 # In hosted cluster context, watch node versions
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
-kubectl get nodes -w
+oc get nodes -w
 ```
 
 **Upgrade strategies**:
@@ -288,7 +288,7 @@ kubectl get nodes -w
 
     - [ ] Review release notes for breaking changes
     - [ ] Test upgrade in non-production cluster first
-    - [ ] Ensure cluster operators are healthy: `kubectl get co`
+    - [ ] Ensure cluster operators are healthy: `oc get co`
     - [ ] Verify sufficient capacity in management cluster
     - [ ] Back up critical data and configurations
     - [ ] Notify users of potential disruption
@@ -313,16 +313,16 @@ Downgrades are not supported. If issues occur:
 **From management cluster**:
 ```bash
 # HostedCluster health
-kubectl get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
+oc get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
 
 # NodePool health
-kubectl get nodepool -n ${CLUSTER_NAMESPACE}
+oc get nodepool -n ${CLUSTER_NAMESPACE}
 
 # Control plane pods
-kubectl get pods -n clusters-${CLUSTER_NAME}
+oc get pods -n clusters-${CLUSTER_NAME}
 
 # Control plane resource usage
-kubectl top pods -n clusters-${CLUSTER_NAME}
+oc top pods -n clusters-${CLUSTER_NAME}
 ```
 
 **From hosted cluster**:
@@ -331,16 +331,16 @@ kubectl top pods -n clusters-${CLUSTER_NAME}
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
 
 # Cluster version and available updates
-kubectl get clusterversion
+oc get clusterversion
 
 # Cluster operators
-kubectl get co
+oc get co
 
 # Node health
-kubectl get nodes
+oc get nodes
 
 # Node resource usage
-kubectl top nodes
+oc top nodes
 ```
 
 ### Key Health Indicators
@@ -370,7 +370,7 @@ status:
 **Healthy Cluster Operators**:
 ```bash
 # All operators should show AVAILABLE=True, DEGRADED=False
-kubectl get co
+oc get co
 
 NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED
 authentication                             4.21.0    True        False         False
@@ -384,10 +384,10 @@ cluster-autoscaler                         4.21.0    True        False         F
 **View control plane metrics** (from management cluster):
 ```bash
 # CPU and memory usage
-kubectl top pods -n clusters-${CLUSTER_NAME}
+oc top pods -n clusters-${CLUSTER_NAME}
 
 # Node resource allocation on management cluster
-kubectl top nodes
+oc top nodes
 ```
 
 **View hosted cluster metrics**:
@@ -396,18 +396,18 @@ kubectl top nodes
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
 
 # Worker node metrics
-kubectl top nodes
+oc top nodes
 
 # Pod metrics across cluster
-kubectl top pods --all-namespaces
+oc top pods --all-namespaces
 ```
 
 **Access control plane logs**:
 ```bash
 # From management cluster
-kubectl logs -n clusters-${CLUSTER_NAME} deployment/kube-apiserver
-kubectl logs -n clusters-${CLUSTER_NAME} deployment/kube-controller-manager
-kubectl logs -n clusters-${CLUSTER_NAME} statefulset/etcd
+oc logs -n clusters-${CLUSTER_NAME} deployment/kube-apiserver
+oc logs -n clusters-${CLUSTER_NAME} deployment/kube-controller-manager
+oc logs -n clusters-${CLUSTER_NAME} statefulset/etcd
 ```
 
 ## Modifying Cluster Configuration
@@ -418,7 +418,7 @@ Update cluster network settings:
 
 ```bash
 # Edit HostedCluster
-kubectl edit hostedcluster/${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
+oc edit hostedcluster/${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
 
 # Modify spec.networking fields
 # Note: Some changes require cluster recreation
@@ -441,11 +441,11 @@ kubectl edit hostedcluster/${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
 **Rotate kubeadmin password**:
 ```bash
 # From management cluster
-kubectl delete secret kubeadmin -n clusters-${CLUSTER_NAME}
+oc delete secret kubeadmin -n clusters-${CLUSTER_NAME}
 
 # Controller will regenerate with new password
 # Retrieve new password
-kubectl get secret kubeadmin \
+oc get secret kubeadmin \
     -n clusters-${CLUSTER_NAME} \
     -o jsonpath='{.data.password}' | base64 -d
 ```
@@ -456,7 +456,7 @@ kubectl get secret kubeadmin \
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
 
 # Grant cluster-admin to user
-kubectl create clusterrolebinding admin-user \
+oc create clusterrolebinding admin-user \
     --clusterrole=cluster-admin \
     --user=admin@example.com
 ```
@@ -467,7 +467,7 @@ kubectl create clusterrolebinding admin-user \
 
 **Add labels to NodePool**:
 ```bash
-kubectl patch nodepool/${CLUSTER_NAME} \
+oc patch nodepool/${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     --type merge \
     --patch '{"spec":{"nodeLabels":{"workload-type":"database"}}}'
@@ -475,7 +475,7 @@ kubectl patch nodepool/${CLUSTER_NAME} \
 
 **Add taints to NodePool**:
 ```bash
-kubectl edit nodepool/${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
+oc edit nodepool/${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
 
 # Add to spec:
 spec:
@@ -489,8 +489,8 @@ spec:
 ```bash
 # From hosted cluster
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
-kubectl get nodes --show-labels
-kubectl describe node <node-name> | grep Taints
+oc get nodes --show-labels
+oc describe node <node-name> | grep Taints
 ```
 
 ### Configuring Root Volume Size
@@ -498,7 +498,7 @@ kubectl describe node <node-name> | grep Taints
 Increase root volume size for NodePool VMs:
 
 ```bash
-kubectl patch nodepool/${CLUSTER_NAME} \
+oc patch nodepool/${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     --type merge \
     --patch '{"spec":{"platform":{"azure":{"diskSizeGB":256}}}}'
@@ -530,22 +530,22 @@ hypershift create nodepool azure \
     --azure-creds ${AZURE_CREDS}
 
 # Scale NodePool
-kubectl scale nodepool/${CLUSTER_NAME} \
+oc scale nodepool/${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     --replicas=5
 
 # Upgrade cluster
 NEW_VERSION="quay.io/openshift-release-dev/ocp-release:4.21.1-x86_64"
-kubectl patch hostedcluster/${CLUSTER_NAME} \
+oc patch hostedcluster/${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     --type merge \
     --patch "{\"spec\":{\"release\":{\"image\":\"${NEW_VERSION}\"}}}"
 
 # Delete NodePool
-kubectl delete nodepool/${CLUSTER_NAME}-new-pool \
+oc delete nodepool/${CLUSTER_NAME}-new-pool \
     -n ${CLUSTER_NAMESPACE}
 
 # Check cluster health
-kubectl get hostedcluster,nodepool -n ${CLUSTER_NAMESPACE}
-kubectl get co  # From hosted cluster context
+oc get hostedcluster,nodepool -n ${CLUSTER_NAMESPACE}
+oc get co  # From hosted cluster context
 ```

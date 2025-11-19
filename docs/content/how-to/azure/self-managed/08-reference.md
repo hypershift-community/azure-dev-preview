@@ -245,22 +245,26 @@ az vm boot-diagnostics get-boot-log \
     --name <vm-name>
 ```
 
-## kubectl/oc Quick Reference
+## oc (OpenShift CLI) Quick Reference
+
+The `oc` CLI is the recommended tool for OpenShift environments. While `oc` works for basic Kubernetes operations, `oc` provides additional OpenShift-specific features like project management, build operations, and route handling.
+
+All examples in this guide use `oc` commands.
 
 ### Cluster Resources
 
 ```bash
 # List HostedClusters
-kubectl get hostedclusters -n <namespace>
+oc get hostedclusters -n <namespace>
 
 # Get HostedCluster details
-kubectl get hostedcluster <name> -n <namespace> -o yaml
+oc get hostedcluster <name> -n <namespace> -o yaml
 
 # Describe HostedCluster (shows events)
-kubectl describe hostedcluster <name> -n <namespace>
+oc describe hostedcluster <name> -n <namespace>
 
 # Patch HostedCluster (upgrade)
-kubectl patch hostedcluster/<name> -n <namespace> \
+oc patch hostedcluster/<name> -n <namespace> \
     --type merge \
     --patch '{"spec":{"release":{"image":"<new-image>"}}}'
 ```
@@ -269,50 +273,50 @@ kubectl patch hostedcluster/<name> -n <namespace> \
 
 ```bash
 # List NodePools
-kubectl get nodepools -n <namespace>
+oc get nodepools -n <namespace>
 
 # Get NodePool details
-kubectl get nodepool <name> -n <namespace> -o yaml
+oc get nodepool <name> -n <namespace> -o yaml
 
 # Scale NodePool
-kubectl scale nodepool/<name> -n <namespace> --replicas=<count>
+oc scale nodepool/<name> -n <namespace> --replicas=<count>
 
 # Patch NodePool
-kubectl patch nodepool/<name> -n <namespace> \
+oc patch nodepool/<name> -n <namespace> \
     --type merge \
     --patch '{"spec":{"replicas":<count>}}'
 
 # Delete NodePool
-kubectl delete nodepool/<name> -n <namespace>
+oc delete nodepool/<name> -n <namespace>
 ```
 
 ### Control Plane Pods
 
 ```bash
 # List control plane pods
-kubectl get pods -n clusters-<cluster-name>
+oc get pods -n clusters-<cluster-name>
 
 # Get pod logs
-kubectl logs -n clusters-<cluster-name> <pod-name> [-f]
+oc logs -n clusters-<cluster-name> <pod-name> [-f]
 
 # Describe pod
-kubectl describe pod -n clusters-<cluster-name> <pod-name>
+oc describe pod -n clusters-<cluster-name> <pod-name>
 
 # Get pod resource usage
-kubectl top pods -n clusters-<cluster-name>
+oc top pods -n clusters-<cluster-name>
 ```
 
 ### Machines
 
 ```bash
 # List machines
-kubectl get machines -n clusters-<cluster-name>
+oc get machines -n clusters-<cluster-name>
 
 # Describe machine
-kubectl describe machine -n clusters-<cluster-name> <machine-name>
+oc describe machine -n clusters-<cluster-name> <machine-name>
 
 # Delete machine (triggers replacement)
-kubectl delete machine -n clusters-<cluster-name> <machine-name>
+oc delete machine -n clusters-<cluster-name> <machine-name>
 ```
 
 ## Appendices
@@ -524,7 +528,7 @@ See [Azure VM sizes documentation](https://learn.microsoft.com/en-us/azure/virtu
 
 - [Azure CLI Installation](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 - [OpenShift CLI (oc) Downloads](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/)
-- [kubectl Installation](https://kubernetes.io/docs/tasks/tools/)
+- [oc Installation](https://kubernetes.io/docs/tasks/tools/)
 - [jq - Command-line JSON processor](https://jqlang.github.io/jq/)
 - [go-task/task - Task runner](https://taskfile.dev)
 
@@ -553,7 +557,7 @@ task azure:infra
 task cluster:create
 
 # 4. Wait for cluster
-kubectl wait --for=condition=Available \
+oc wait --for=condition=Available \
     hostedcluster/${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     --timeout=30m
@@ -564,8 +568,8 @@ hypershift create kubeconfig \
     --namespace ${CLUSTER_NAMESPACE} \
     > kubeconfig
 export KUBECONFIG=kubeconfig
-kubectl get nodes
-kubectl get co
+oc get nodes
+oc get co
 
 # 6. Cleanup (when done)
 task cluster:destroy

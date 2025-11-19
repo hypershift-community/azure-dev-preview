@@ -42,7 +42,7 @@ az identity federated-credential list \
 curl -s "${OIDC_ISSUER_URL}/.well-known/openid-configuration" | jq .
 
 # 4. Verify OIDC issuer URL matches
-kubectl get hostedcluster ${CLUSTER_NAME} \
+oc get hostedcluster ${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     -o jsonpath='{.spec.issuerURL}'
 ```
@@ -140,16 +140,16 @@ NODE_POOL_REPLICAS=1  # Reduce from 2+
 **Diagnostic steps**:
 ```bash
 # Check pod status
-kubectl get pods -n clusters-${CLUSTER_NAME}
+oc get pods -n clusters-${CLUSTER_NAME}
 
 # Describe problematic pod
-kubectl describe pod <pod-name> -n clusters-${CLUSTER_NAME}
+oc describe pod <pod-name> -n clusters-${CLUSTER_NAME}
 
 # Check pod logs
-kubectl logs <pod-name> -n clusters-${CLUSTER_NAME}
+oc logs <pod-name> -n clusters-${CLUSTER_NAME}
 
 # Check events
-kubectl get events -n clusters-${CLUSTER_NAME} --sort-by='.lastTimestamp'
+oc get events -n clusters-${CLUSTER_NAME} --sort-by='.lastTimestamp'
 ```
 
 **Common causes and solutions**:
@@ -157,10 +157,10 @@ kubectl get events -n clusters-${CLUSTER_NAME} --sort-by='.lastTimestamp'
 **Insufficient Resources on Management Cluster**:
 ```bash
 # Check node resources
-kubectl top nodes
+oc top nodes
 
 # Check pod resource requests
-kubectl describe pod <pod-name> -n clusters-${CLUSTER_NAME} | grep -A 5 Requests
+oc describe pod <pod-name> -n clusters-${CLUSTER_NAME} | grep -A 5 Requests
 
 # Each hosted cluster needs approximately:
 # - 4 vCPU
@@ -175,7 +175,7 @@ kubectl describe pod <pod-name> -n clusters-${CLUSTER_NAME} | grep -A 5 Requests
 **Image Pull Errors**:
 ```bash
 # Check pull secret
-kubectl get secret ${CLUSTER_NAME}-pull-secret \
+oc get secret ${CLUSTER_NAME}-pull-secret \
     -n clusters-${CLUSTER_NAME} \
     -o jsonpath='{.data.\.dockerconfigjson}' | base64 -d | jq .
 
@@ -186,13 +186,13 @@ kubectl get secret ${CLUSTER_NAME}-pull-secret \
 **etcd Issues**:
 ```bash
 # Check etcd pods
-kubectl get pods -n clusters-${CLUSTER_NAME} -l app=etcd
+oc get pods -n clusters-${CLUSTER_NAME} -l app=etcd
 
 # Check etcd logs
-kubectl logs -n clusters-${CLUSTER_NAME} statefulset/etcd
+oc logs -n clusters-${CLUSTER_NAME} statefulset/etcd
 
 # Check etcd persistent volumes
-kubectl get pvc -n clusters-${CLUSTER_NAME}
+oc get pvc -n clusters-${CLUSTER_NAME}
 ```
 
 #### Control Plane Performance Issues
@@ -202,13 +202,13 @@ kubectl get pvc -n clusters-${CLUSTER_NAME}
 **Diagnostic steps**:
 ```bash
 # Check control plane pod CPU/memory usage
-kubectl top pods -n clusters-${CLUSTER_NAME}
+oc top pods -n clusters-${CLUSTER_NAME}
 
 # Check API server logs for slow requests
-kubectl logs -n clusters-${CLUSTER_NAME} deployment/kube-apiserver | grep -i "slow\|timeout"
+oc logs -n clusters-${CLUSTER_NAME} deployment/kube-apiserver | grep -i "slow\|timeout"
 
 # Check etcd performance
-kubectl logs -n clusters-${CLUSTER_NAME} statefulset/etcd | grep -i "slow"
+oc logs -n clusters-${CLUSTER_NAME} statefulset/etcd | grep -i "slow"
 ```
 
 **Solutions**:
@@ -220,15 +220,15 @@ kubectl logs -n clusters-${CLUSTER_NAME} statefulset/etcd | grep -i "slow"
 
 #### Worker Nodes Not Joining Cluster
 
-**Symptom**: Azure VMs are created but don't appear in `kubectl get nodes` (from hosted cluster context).
+**Symptom**: Azure VMs are created but don't appear in `oc get nodes` (from hosted cluster context).
 
 **Diagnostic steps**:
 ```bash
 # 1. Check NodePool status
-kubectl get nodepool -n ${CLUSTER_NAMESPACE} -o yaml
+oc get nodepool -n ${CLUSTER_NAMESPACE} -o yaml
 
 # 2. Check Machine resources
-kubectl get machines -n clusters-${CLUSTER_NAME}
+oc get machines -n clusters-${CLUSTER_NAME}
 
 # 3. Check Azure VMs
 az vm list \
@@ -236,7 +236,7 @@ az vm list \
     --output table
 
 # 4. Check ignition server logs
-kubectl logs -n clusters-${CLUSTER_NAME} deployment/ignition-server
+oc logs -n clusters-${CLUSTER_NAME} deployment/ignition-server
 
 # 5. Get VM boot diagnostics (if enabled)
 VM_NAME=$(az vm list --resource-group ${MANAGED_RG_NAME} --query "[0].name" -o tsv)
@@ -275,7 +275,7 @@ az network nsg rule create \
 **Ignition Server Not Reachable**:
 ```bash
 # Check ignition server service
-kubectl get svc -n clusters-${CLUSTER_NAME} ignition-server
+oc get svc -n clusters-${CLUSTER_NAME} ignition-server
 
 # From a node, test connectivity (requires VM access)
 # curl -k https://ignition-server.clusters-${CLUSTER_NAME}.svc:443/config/worker
@@ -294,7 +294,7 @@ az role assignment list \
 
 #### Node Status Shows NotReady
 
-**Symptom**: Nodes appear in `kubectl get nodes` but show status `NotReady`.
+**Symptom**: Nodes appear in `oc get nodes` but show status `NotReady`.
 
 **Diagnostic steps**:
 ```bash
@@ -302,13 +302,13 @@ az role assignment list \
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
 
 # Check node status
-kubectl get nodes -o wide
+oc get nodes -o wide
 
 # Describe the NotReady node
-kubectl describe node <node-name>
+oc describe node <node-name>
 
 # Check node conditions
-kubectl get node <node-name> -o jsonpath='{.status.conditions}'  | jq .
+oc get node <node-name> -o jsonpath='{.status.conditions}'  | jq .
 ```
 
 **Common causes**:
@@ -324,7 +324,7 @@ kubectl get node <node-name> -o jsonpath='{.status.conditions}'  | jq .
 # sudo journalctl -u kubelet -f
 
 # Delete and recreate the node
-kubectl delete node <node-name>
+oc delete node <node-name>
 # NodePool controller will create replacement VM
 ```
 
@@ -337,13 +337,13 @@ kubectl delete node <node-name>
 **Diagnostic steps**:
 ```bash
 # Check External DNS pod
-kubectl get pods -n hypershift -l app=external-dns
+oc get pods -n hypershift -l app=external-dns
 
 # Check External DNS logs
-kubectl logs -n hypershift deployment/external-dns
+oc logs -n hypershift deployment/external-dns
 
 # Check Route resources
-kubectl get routes -n clusters-${CLUSTER_NAME}
+oc get routes -n clusters-${CLUSTER_NAME}
 
 # Verify DNS zone exists
 az network dns zone show \
@@ -362,7 +362,7 @@ az network dns record-set list \
 **External DNS Authentication Failures**:
 ```bash
 # Check External DNS secret
-kubectl get secret azure-config-file -n default
+oc get secret azure-config-file -n default
 
 # Verify service principal permissions
 az role assignment list \
@@ -375,7 +375,7 @@ az role assignment list \
 **External DNS Not Watching Correct Namespace**:
 ```bash
 # Check External DNS configuration
-kubectl get deployment external-dns -n hypershift -o yaml | grep -A 10 args
+oc get deployment external-dns -n hypershift -o yaml | grep -A 10 args
 
 # Ensure it's watching routes in hosted cluster namespaces
 ```
@@ -389,7 +389,7 @@ hypershift install \
     --pull-secret ${PULL_SECRET} \
     --external-dns-domain-filter ${EXTRN_DNS_ZONE_NAME} \
     --limit-crd-install Azure \
-    --render | kubectl apply -f -
+    --render | oc apply -f -
 ```
 
 #### LoadBalancer Service Stuck Pending (Without External DNS)
@@ -399,10 +399,10 @@ hypershift install \
 **Diagnostic steps**:
 ```bash
 # Check service
-kubectl get svc -n clusters-${CLUSTER_NAME} kube-apiserver
+oc get svc -n clusters-${CLUSTER_NAME} kube-apiserver
 
 # Check cloud-controller-manager logs
-kubectl logs -n clusters-${CLUSTER_NAME} deployment/cloud-controller-manager
+oc logs -n clusters-${CLUSTER_NAME} deployment/cloud-controller-manager
 
 # Check Azure load balancer
 az network lb list \
@@ -424,19 +424,19 @@ az network lb list \
 **Diagnostic steps**:
 ```bash
 # Check HostedCluster upgrade status
-kubectl get hostedcluster ${CLUSTER_NAME} \
+oc get hostedcluster ${CLUSTER_NAME} \
     -n ${CLUSTER_NAMESPACE} \
     -o jsonpath='{.status.version}'
 
 # Check cluster version operator
-kubectl logs -n clusters-${CLUSTER_NAME} deployment/cluster-version-operator
+oc logs -n clusters-${CLUSTER_NAME} deployment/cluster-version-operator
 
 # Check control plane pod status
-kubectl get pods -n clusters-${CLUSTER_NAME}
+oc get pods -n clusters-${CLUSTER_NAME}
 
 # From hosted cluster, check cluster operators
 export KUBECONFIG=${CLUSTER_NAME}-kubeconfig
-kubectl get co
+oc get co
 ```
 
 **Solutions**:
@@ -455,67 +455,67 @@ kubectl get co
 
 ```bash
 # Overall cluster status
-kubectl get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
+oc get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
 
 # Detailed status with conditions
-kubectl get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE} -o yaml
+oc get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE} -o yaml
 
 # Check HostedControlPlane
-kubectl get hostedcontrolplane -n clusters-${CLUSTER_NAME}
+oc get hostedcontrolplane -n clusters-${CLUSTER_NAME}
 
 # Describe for events
-kubectl describe hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
+oc describe hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE}
 ```
 
 ### NodePool Health
 
 ```bash
 # NodePool status
-kubectl get nodepool -n ${CLUSTER_NAMESPACE}
+oc get nodepool -n ${CLUSTER_NAMESPACE}
 
 # Detailed NodePool information
-kubectl get nodepool ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE} -o yaml
+oc get nodepool ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE} -o yaml
 
 # Check Machine resources
-kubectl get machines -n clusters-${CLUSTER_NAME}
+oc get machines -n clusters-${CLUSTER_NAME}
 
 # Machine details
-kubectl describe machine <machine-name> -n clusters-${CLUSTER_NAME}
+oc describe machine <machine-name> -n clusters-${CLUSTER_NAME}
 ```
 
 ### Control Plane Diagnostics
 
 ```bash
 # All control plane pods
-kubectl get pods -n clusters-${CLUSTER_NAME}
+oc get pods -n clusters-${CLUSTER_NAME}
 
 # Pod resource usage
-kubectl top pods -n clusters-${CLUSTER_NAME}
+oc top pods -n clusters-${CLUSTER_NAME}
 
 # Specific component logs
-kubectl logs -n clusters-${CLUSTER_NAME} deployment/kube-apiserver -f
-kubectl logs -n clusters-${CLUSTER_NAME} deployment/kube-controller-manager -f
-kubectl logs -n clusters-${CLUSTER_NAME} deployment/kube-scheduler -f
-kubectl logs -n clusters-${CLUSTER_NAME} statefulset/etcd -f
+oc logs -n clusters-${CLUSTER_NAME} deployment/kube-apiserver -f
+oc logs -n clusters-${CLUSTER_NAME} deployment/kube-controller-manager -f
+oc logs -n clusters-${CLUSTER_NAME} deployment/kube-scheduler -f
+oc logs -n clusters-${CLUSTER_NAME} statefulset/etcd -f
 
 # Check all resources in control plane namespace
-kubectl get all -n clusters-${CLUSTER_NAME}
+oc get all -n clusters-${CLUSTER_NAME}
 
 # Events in control plane namespace
-kubectl get events -n clusters-${CLUSTER_NAME} --sort-by='.lastTimestamp'
+oc get events -n clusters-${CLUSTER_NAME} --sort-by='.lastTimestamp'
 ```
 
 ### HyperShift Operator Diagnostics
 
 ```bash
 # Operator pod status
-kubectl get pods -n hypershift
+oc get pods -n hypershift
 
 # Operator logs
-kubectl logs -n hypershift deployment/operator -f
+oc logs -n hypershift deployment/operator -f
 
 # Check operator reconciliation
-kubectl logs -n hypershift deployment/operator | grep ${CLUSTER_NAME}
+oc logs -n hypershift deployment/operator | grep ${CLUSTER_NAME}
 ```
 
 ### Azure Resource Diagnostics
@@ -596,28 +596,28 @@ mkdir -p ${OUTPUT_DIR}
 echo "Collecting debug information for ${CLUSTER_NAME}..."
 
 # HostedCluster
-kubectl get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE} -o yaml > ${OUTPUT_DIR}/hostedcluster.yaml
+oc get hostedcluster ${CLUSTER_NAME} -n ${CLUSTER_NAMESPACE} -o yaml > ${OUTPUT_DIR}/hostedcluster.yaml
 
 # NodePools
-kubectl get nodepool -n ${CLUSTER_NAMESPACE} -o yaml > ${OUTPUT_DIR}/nodepools.yaml
+oc get nodepool -n ${CLUSTER_NAMESPACE} -o yaml > ${OUTPUT_DIR}/nodepools.yaml
 
 # Control plane pods
-kubectl get pods -n clusters-${CLUSTER_NAME} -o wide > ${OUTPUT_DIR}/control-plane-pods.txt
-kubectl get pods -n clusters-${CLUSTER_NAME} -o yaml > ${OUTPUT_DIR}/control-plane-pods.yaml
+oc get pods -n clusters-${CLUSTER_NAME} -o wide > ${OUTPUT_DIR}/control-plane-pods.txt
+oc get pods -n clusters-${CLUSTER_NAME} -o yaml > ${OUTPUT_DIR}/control-plane-pods.yaml
 
 # Control plane events
-kubectl get events -n clusters-${CLUSTER_NAME} --sort-by='.lastTimestamp' > ${OUTPUT_DIR}/control-plane-events.txt
+oc get events -n clusters-${CLUSTER_NAME} --sort-by='.lastTimestamp' > ${OUTPUT_DIR}/control-plane-events.txt
 
 # Operator logs
-kubectl logs -n hypershift deployment/operator --tail=1000 > ${OUTPUT_DIR}/operator-logs.txt
+oc logs -n hypershift deployment/operator --tail=1000 > ${OUTPUT_DIR}/operator-logs.txt
 
 # Control plane logs
 for deployment in kube-apiserver kube-controller-manager kube-scheduler; do
-    kubectl logs -n clusters-${CLUSTER_NAME} deployment/${deployment} --tail=500 > ${OUTPUT_DIR}/${deployment}-logs.txt
+    oc logs -n clusters-${CLUSTER_NAME} deployment/${deployment} --tail=500 > ${OUTPUT_DIR}/${deployment}-logs.txt
 done
 
 # Machines
-kubectl get machines -n clusters-${CLUSTER_NAME} -o yaml > ${OUTPUT_DIR}/machines.yaml
+oc get machines -n clusters-${CLUSTER_NAME} -o yaml > ${OUTPUT_DIR}/machines.yaml
 
 echo "Debug information collected in ${OUTPUT_DIR}/"
 tar -czf ${OUTPUT_DIR}.tar.gz ${OUTPUT_DIR}/
